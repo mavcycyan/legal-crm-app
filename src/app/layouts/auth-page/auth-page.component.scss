@@ -1,0 +1,15 @@
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: auto;
+  &-logo {
+    margin: 0 auto 40px;
+    max-width: 100px;
+  }
+  &-wrap {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,33 @@
+<div class="main-page">
+  <div class="container">
+    <div class="main-page-top">
+      <div class="main-page-name">Вітаю, {{login}}</div>
+    </div>
+    <div class="main-page-wrap">
+      <div class="main-page-tbl">
+        <div class="main-page-tbl-head">
+          <div class="main-page-tbl-row">
+            <div class="main-page-tbl-col">№</div>
+            <div class="main-page-tbl-col">Підрозділ</div>
+            <div class="main-page-tbl-col">Відповідальний</div>
+            <div class="main-page-tbl-col">Справа</div>
+            <div class="main-page-tbl-col">Дата відкриття</div>
+            <div class="main-page-tbl-col">Дата закриття</div>
+            <div class="main-page-tbl-col"></div>
+          </div>
+        </div>
+        <div class="main-page-tbl-body">
+          <div class="main-page-tbl-row" *ngFor="let item of list; index as i">
+            <div class="main-page-tbl-col">{{i}}</div>
+            <div class="main-page-tbl-col">{{item.type}}</div>
+            <div class="main-page-tbl-col">{{item.responsible}}</div>
+            <div class="main-page-tbl-col">{{item.title}}</div>
+            <div class="main-page-tbl-col">{{item.dateStart}}</div>
+            <div class="main-page-tbl-col">{{item.dateEnd}}</div>
+            <div class="main-page-tbl-col">Детальніше</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

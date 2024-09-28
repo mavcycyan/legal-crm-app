@@ -1,0 +1,13 @@
+<form [formGroup]="form" class="login-form" (ngSubmit)="onSubmit()">
+  <div class="login-form-bl">
+    <label for="login" class="login-form-bl-label">Логін</label>
+    <input id="login" type="text" class="login-form-bl-input" formControlName="login">
+  </div>
+  <div class="login-form-bl">
+    <label for="password" class="login-form-bl-label">Пароль</label>
+    <input id="password" type="password" class="login-form-bl-input" formControlName="password">
+  </div>
+  <div class="login-form-btn">
+    <button type="submit">Авторизуватися</button>
+  </div>
+</form>
