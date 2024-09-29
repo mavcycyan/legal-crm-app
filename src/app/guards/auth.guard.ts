@@ -23,7 +23,6 @@ export class AuthGuard implements CanActivate {
 
   checkAccess(): Boolean {
     return this.authService.checkUser();
-
   }
 
   redirectTo(): void {
