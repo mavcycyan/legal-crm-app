@@ -1,0 +1,24 @@
+<div class="home-page-tbl">
+  <div class="home-page-tbl-head">
+    <div class="home-page-tbl-row">
+      <div class="home-page-tbl-col">№</div>
+      <div class="home-page-tbl-col">Підрозділ</div>
+      <div class="home-page-tbl-col">Відповідальний</div>
+      <div class="home-page-tbl-col">Справа</div>
+      <div class="home-page-tbl-col">Дата відкриття</div>
+      <div class="home-page-tbl-col">Дата закриття</div>
+      <div class="home-page-tbl-col"></div>
+    </div>
+  </div>
+  <div class="home-page-tbl-body">
+    <div class="home-page-tbl-row" *ngFor="let item of list; index as i">
+      <div class="home-page-tbl-col">{{i}}</div>
+      <div class="home-page-tbl-col">{{item.type}}</div>
+      <div class="home-page-tbl-col">{{item.responsible}}</div>
+      <div class="home-page-tbl-col">{{item.title}}</div>
+      <div class="home-page-tbl-col">{{item.dateStart}}</div>
+      <div class="home-page-tbl-col">{{item.dateEnd}}</div>
+      <div class="home-page-tbl-col">Детальніше</div>
+    </div>
+  </div>
+</div>

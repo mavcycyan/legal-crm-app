@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {MainPageComponent} from "./layouts/main-page/main-page.component";
-import {AuthGuard} from "./guards/auth.guard";
+import {AuthGuard} from "./guards/auth/auth.guard";
 import {AuthPageComponent} from "./layouts/auth-page/auth-page.component";
+import {LawyerPageComponent} from "./layouts/main-page/lawyer-page/lawyer-page.component";
+import {HomePageComponent} from "./layouts/main-page/home-page/home-page.component";
+import {PermissionsGuard} from "./guards/permissions/permissions.guard";
 
 const routes: Routes = [
   {
-    path: '', component: MainPageComponent, canActivate: [AuthGuard]
+    path: '', component: MainPageComponent, canActivate: [AuthGuard], children: [
+      {path: '', component: HomePageComponent, canActivate: [PermissionsGuard]},
+      {path: 'lawyer', component: LawyerPageComponent, canActivate: [PermissionsGuard]},
+    ]
   },
   {
     path: 'login', component: AuthPageComponent
