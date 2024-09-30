@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {UrlSegment} from "@angular/router";
+import {Router, UrlSegment} from "@angular/router";
 
 export interface UserInterface {
   email: string,
@@ -42,41 +42,30 @@ export class AuthService {
       user_type: 2
     }
   ];
-  constructor() { }
+  constructor(private router: Router) { }
 
   checkUser(): Boolean {
-    return this.checked;
+    const checked = localStorage.getItem('checked')
+    const name = localStorage.getItem('name')
+    const userType = localStorage.getItem('user_type')
+    return (checked !== null && checked !== '0' && name !== null && name !== '' && userType !== null && userType !== '');
   }
 
-  checkPermission(urlSegment: UrlSegment[]): {permission: boolean, redirect?: String[]} {
-    if (this.user === false) {
-      return {permission: false, redirect: ['login']};
+  getName(): String {
+    const name = localStorage.getItem('name');
+    if (name !== null) {
+      return name;
     }
-    if (this.user.user_type === 0) {
-      return {permission: true};
-    } else if (this.user.user_type === 1) {
-      if (urlSegment.length > 0 && urlSegment[0].path === 'lawyer') {
-        return {permission: true};
-      }
-      return {permission: false, redirect: ['lawyer']};
-    } else if (this.user.user_type === 2) {
-      if (urlSegment.length > 0 && urlSegment[0].path === 'advocate') {
-        return {permission: true};
-      }
-      return {permission: false, redirect: ['advocate']};
-    }
-    return {permission: false, redirect: ['login']};
-  }
-
-  getLogin(): String {
-    return this.login;
+    return '';
   }
   loginUser(login: String = '', password: String = ''): void {
     const user: false|UserInterface = this.findUser(login, password);
-    this.checked = user !== false;
-    if (this.checked && user !== false) {
+    if (user !== false) {
       this.login = login;
       this.user = user;
+      localStorage.setItem('checked', '1');
+      localStorage.setItem('name', user.name);
+      localStorage.setItem('user_type', user.user_type.toString());
     }
   }
 
@@ -87,7 +76,33 @@ export class AuthService {
     }
     return false;
   }
+
+
+  checkPermission(urlSegment: UrlSegment[]): {permission: boolean, redirect?: String[]} {
+    const userType = localStorage.getItem('user_type')
+    if (userType !== null && userType !== '') {
+      if (userType === '0') {
+        return {permission: true};
+      } else if (userType === '1') {
+        if (urlSegment.length > 0 && urlSegment[0].path === 'lawyer') {
+          return {permission: true};
+        }
+        return {permission: false, redirect: ['lawyer']};
+      } else if (userType === '2') {
+        return {permission: false, redirect: ['login']};
+        if (urlSegment.length > 0 && urlSegment[0].path === 'advocate') {
+          return {permission: true};
+        }
+        return {permission: false, redirect: ['advocate']};
+      }
+    }
+    return {permission: false, redirect: ['login']};
+  }
+
   logoutUser(): void {
-    this.checked = false;
+    localStorage.removeItem('checked');
+    localStorage.removeItem('name');
+    localStorage.removeItem('user_type');
+    this.router.navigate(['login'])
   }
 }

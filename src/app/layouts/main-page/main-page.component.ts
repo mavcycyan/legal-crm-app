@@ -16,12 +16,16 @@ export interface List {
 
 
 export class MainPageComponent implements OnInit{
-  login: String = '';
+  name: String = '';
 
   constructor(private authService: AuthService) {
   }
 
   ngOnInit(): void {
-    this.login = this.authService.getLogin();
+    this.name = this.authService.getName();
+  }
+
+  logout(): void {
+    this.authService.logoutUser();
   }
 }
