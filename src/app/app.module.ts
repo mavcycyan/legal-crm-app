@@ -7,9 +7,12 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { AuthPageComponent } from './layouts/auth-page/auth-page.component';
 import { MainPageComponent } from './layouts/main-page/main-page.component';
 import { LoginComponent } from './components/auth-page/login/login.component';
-import { LawyerPageComponent } from './layouts/main-page/lawyer-page/lawyer-page.component';
 import { TableComponent } from './components/global/table/table.component';
 import { HomePageComponent } from './layouts/main-page/home-page/home-page.component';
+import { AdvocatePageComponent } from './layouts/main-page/advocate-page/advocate-page.component';
+import { ClientsPageComponent } from './layouts/main-page/lawyer-page/clients-page/clients-page.component';
+import { SubscribersPageComponent } from './layouts/main-page/lawyer-page/subscribers-page/subscribers-page.component';
+import { ClientsCardPageComponent } from './layouts/main-page/lawyer-page/clients-page/clients-card-page/clients-card-page.component';
 
 @NgModule({
   declarations: [
@@ -17,9 +20,12 @@ import { HomePageComponent } from './layouts/main-page/home-page/home-page.compo
     AuthPageComponent,
     MainPageComponent,
     LoginComponent,
-    LawyerPageComponent,
     TableComponent,
-    HomePageComponent
+    HomePageComponent,
+    AdvocatePageComponent,
+    ClientsPageComponent,
+    SubscribersPageComponent,
+    ClientsCardPageComponent
   ],
   imports: [
     BrowserModule,

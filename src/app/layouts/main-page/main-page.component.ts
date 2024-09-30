@@ -1,13 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth/auth.service";
 
-export interface List {
-  type: String,
-  responsible: String,
-  title: String,
-  dateStart: String,
-  dateEnd: String
-}
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',

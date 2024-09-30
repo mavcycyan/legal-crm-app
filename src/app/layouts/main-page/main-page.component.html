@@ -3,9 +3,11 @@
     <div class="main-page-top">
       <div class="main-page-name">Вітаю, {{name}}</div>
       <div class="main-page-url">
-        <a [routerLink]="['']">Main</a>&nbsp;
-        <a [routerLink]="['lawyer']">Lawyer</a>&nbsp;
-        <button type="button" (click)="logout()">Logout</button>
+        <a [routerLink]="['']">Головна</a>&nbsp;
+        <a [routerLink]="['lawyer', 'clients']">Клієнти</a>&nbsp;
+        <a [routerLink]="['lawyer', 'subscribers']">Абоненти</a>&nbsp;
+        <a [routerLink]="['advocate']">Адвокат</a>&nbsp;
+        <button type="button" (click)="logout()">Вийти з системи</button>
       </div>
     </div>
     <div class="main-page-wrap">

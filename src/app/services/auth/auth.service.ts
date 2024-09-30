@@ -12,10 +12,6 @@ export interface UserInterface {
 })
 export class AuthService {
 
-  private checked: Boolean = false;
-  private login: String = '';
-  private user: UserInterface|false = {} as UserInterface;
-
   private users: UserInterface[] = [
     {
       email: 'admin@example.com',
@@ -61,8 +57,6 @@ export class AuthService {
   loginUser(login: String = '', password: String = ''): void {
     const user: false|UserInterface = this.findUser(login, password);
     if (user !== false) {
-      this.login = login;
-      this.user = user;
       localStorage.setItem('checked', '1');
       localStorage.setItem('name', user.name);
       localStorage.setItem('user_type', user.user_type.toString());
@@ -89,7 +83,6 @@ export class AuthService {
         }
         return {permission: false, redirect: ['lawyer']};
       } else if (userType === '2') {
-        return {permission: false, redirect: ['login']};
         if (urlSegment.length > 0 && urlSegment[0].path === 'advocate') {
           return {permission: true};
         }
