@@ -7,44 +7,57 @@
   </div>
   <div class="tableincom-tbl-body">
     <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Дата звернення</div>
-      <div class="tableincom-tbl-col">{{item.visit_date}}</div>
-    </div>
-    <div class="tableincom-tbl-row">
       <div class="tableincom-tbl-col">Звідки дізнались</div>
-      <div class="tableincom-tbl-col">{{item.where_knows}}</div>
+      <div class="tableincom-tbl-col">{{client.where_knows}}</div>
     </div>
     <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Ф.І.Б.</div>
-      <div class="tableincom-tbl-col">{{item.full_name}}</div>
+      <div class="tableincom-tbl-col">П.І.Б.</div>
+      <div class="tableincom-tbl-col">{{client.full_name}}</div>
     </div>
     <div class="tableincom-tbl-row">
       <div class="tableincom-tbl-col">Рік народження</div>
-      <div class="tableincom-tbl-col">{{item.birth_year}}</div>
+      <div class="tableincom-tbl-col">{{client.birthday}}</div>
     </div>
     <div class="tableincom-tbl-row">
       <div class="tableincom-tbl-col">Адреса</div>
-      <div class="tableincom-tbl-col">{{item.address}}</div>
+      <div class="tableincom-tbl-col">{{client.address}}</div>
     </div>
     <div class="tableincom-tbl-row">
       <div class="tableincom-tbl-col">Телефон</div>
-      <div class="tableincom-tbl-col">{{item.phone}}</div>
+      <div class="tableincom-tbl-col">{{client.phone}}</div>
+    </div>
+  </div>
+</div>
+
+<div class="tableincom-tbl" *ngFor="let work of works">
+  <div class="tableincom-tbl-head">
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Назва</div>
+      <div class="tableincom-tbl-col">Інформація</div>
+    </div>
+  </div>
+  <div class="tableincom-tbl-body">
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Дата звернення</div>
+      <div class="tableincom-tbl-col">{{work.visit_date}}</div>
     </div>
     <div class="tableincom-tbl-row">
       <div class="tableincom-tbl-col">Причина звернення</div>
-      <div class="tableincom-tbl-col">{{item.visit_purpose}}</div>
+      <div class="tableincom-tbl-col">{{work.visit_purpose}}</div>
     </div>
     <div class="tableincom-tbl-row">
       <div class="tableincom-tbl-col">Що зроблено</div>
-      <div class="tableincom-tbl-col">{{item.what_done}}</div>
+      <div class="tableincom-tbl-col">
+        <span *ngFor="let item of work.what_done; index as i;">{{i}}. {{item}}</span>
+      </div>
     </div>
     <div class="tableincom-tbl-row">
       <div class="tableincom-tbl-col">Результат</div>
-      <div class="tableincom-tbl-col">{{item.result}}</div>
+      <div class="tableincom-tbl-col">{{work.result}}</div>
     </div>
     <div class="tableincom-tbl-row">
       <div class="tableincom-tbl-col">Гонорар</div>
-      <div class="tableincom-tbl-col">{{item.fee}}</div>
+      <div class="tableincom-tbl-col">{{work.fee}}</div>
     </div>
   </div>
 </div>
