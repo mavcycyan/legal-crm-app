@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {ClientsListInterface, ClientsListWorkInterface} from "../../models/clients/clients-list.interface";
-import {ClientsCardInterface} from "../../models/clients/clients-card.interface";
+import {ClientsCardInterface, ClientsCardWorkListInterface} from "../../models/clients/clients-card.interface";
 import {ClientWorksListInterface} from "../../models/clients/client-works-list.interface";
 import {ClientWorksCardInterface} from "../../models/clients/client-works-card.interface";
+import {ClientsListInterface} from "../../models/clients/clients-list.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -31,12 +31,12 @@ export class ClientsService {
     {client_id: 6, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі', fee: '0/2300'},
     {client_id: 0, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі', fee: '5000/9000'},
   ];
-  list: ClientsListWorkInterface[] = [];
+  list: ClientsCardWorkListInterface[] = [];
   constructor() { }
 
-  getList(): ClientsListWorkInterface[] {
+  getList(): ClientsCardWorkListInterface[] {
     this.works.forEach((work: ClientWorksListInterface, index: number) => {
-      const item: ClientsListWorkInterface = {...work, ...this.clients[work.client_id]};
+      const item: ClientsCardWorkListInterface = {...work, ...this.clients[work.client_id]};
       // item
       this.list[index] = item;
     })

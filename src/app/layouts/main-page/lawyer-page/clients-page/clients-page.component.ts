@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ClientsListInterface, ClientsListWorkInterface} from "../../../../models/clients/clients-list.interface";
-import {ClientsCardInterface} from "../../../../models/clients/clients-card.interface";
+import {ClientsCardInterface, ClientsCardWorkListInterface} from "../../../../models/clients/clients-card.interface";
 import {ClientsService} from "../../../../services/clients/clients.service";
 
 
@@ -10,7 +9,7 @@ import {ClientsService} from "../../../../services/clients/clients.service";
   styleUrls: ['./clients-page.component.scss']
 })
 export class ClientsPageComponent implements OnInit{
-  list: ClientsListWorkInterface[] = [];
+  list: ClientsCardWorkListInterface[] = [];
 
   constructor(private clientsService: ClientsService) {
   }

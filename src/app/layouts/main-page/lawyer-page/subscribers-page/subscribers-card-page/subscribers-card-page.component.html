@@ -1,0 +1,79 @@
+<div class="tableincom-tbl">
+  <div class="tableincom-tbl-head">
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Назва</div>
+      <div class="tableincom-tbl-col">Інформація</div>
+    </div>
+  </div>
+  <div class="tableincom-tbl-body">
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Назва підприємства</div>
+      <div class="tableincom-tbl-col">{{subscriber.name}}</div>
+    </div>
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">ЄРДПОУ</div>
+      <div class="tableincom-tbl-col">{{subscriber.edrpou}}</div>
+    </div>
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Дата підписання контракту</div>
+      <div class="tableincom-tbl-col">{{subscriber.contract_date}}</div>
+    </div>
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Відповідальна особа</div>
+      <div class="tableincom-tbl-col">{{subscriber.responsible_person_id}}</div>
+    </div>
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Контактна особа</div>
+      <div class="tableincom-tbl-col">{{subscriber.contact_person_name}} {{subscriber.contact_person_phone}}</div>
+    </div>
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Директор</div>
+      <div class="tableincom-tbl-col">{{subscriber.director_person_name}} {{subscriber.director_person_phone}}</div>
+    </div>
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Юридична адреса</div>
+      <div class="tableincom-tbl-col">{{subscriber.legal_address}}</div>
+    </div>
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Фізична адреса</div>
+      <div class="tableincom-tbl-col">{{subscriber.actual_address}}</div>
+    </div>
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Дата останнього платежу</div>
+      <div class="tableincom-tbl-col">{{subscriber.last_pay_date}}</div>
+    </div>
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Гонорар</div>
+      <div class="tableincom-tbl-col">{{subscriber.fee}}</div>
+    </div>
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Інфо</div>
+      <div class="tableincom-tbl-col">{{subscriber.info}}</div>
+    </div>
+  </div>
+</div>
+
+<div class="tableincom-tbl" *ngFor="let work of works">
+  <div class="tableincom-tbl-head">
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Назва</div>
+      <div class="tableincom-tbl-col">Інформація</div>
+    </div>
+  </div>
+  <div class="tableincom-tbl-body">
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Дата звернення</div>
+      <div class="tableincom-tbl-col">{{work.date}}</div>
+    </div>
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Що зроблено</div>
+      <div class="tableincom-tbl-col">
+        <span *ngFor="let item of work.what_done; index as i;">{{i}}. {{item}}</span>
+      </div>
+    </div>
+    <div class="tableincom-tbl-row">
+      <div class="tableincom-tbl-col">Результат</div>
+      <div class="tableincom-tbl-col">{{work.result}}</div>
+    </div>
+  </div>
+</div>

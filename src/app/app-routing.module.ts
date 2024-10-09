@@ -11,6 +11,9 @@ import {SubscribersPageComponent} from "./layouts/main-page/lawyer-page/subscrib
 import {
   ClientsCardPageComponent
 } from "./layouts/main-page/lawyer-page/clients-page/clients-card-page/clients-card-page.component";
+import {
+  SubscribersCardPageComponent
+} from "./layouts/main-page/lawyer-page/subscribers-page/subscribers-card-page/subscribers-card-page.component";
 
 const routes: Routes = [
   {
@@ -19,6 +22,7 @@ const routes: Routes = [
       {path: 'lawyer/clients', component: ClientsPageComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer/clients/:id', component: ClientsCardPageComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer/subscribers', component: SubscribersPageComponent, canActivate: [PermissionsGuard]},
+      {path: 'lawyer/subscribers/:id', component: SubscribersCardPageComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer', redirectTo: 'lawyer/clients'},
       {path: 'advocate', component: AdvocatePageComponent, canActivate: [PermissionsGuard]},
     ]
