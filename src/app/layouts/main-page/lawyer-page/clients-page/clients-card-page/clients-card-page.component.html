@@ -48,7 +48,9 @@
     <div class="tableincom-tbl-row">
       <div class="tableincom-tbl-col">Що зроблено</div>
       <div class="tableincom-tbl-col">
-        <span *ngFor="let item of work.what_done; index as i;">{{i}}. {{item}}</span>
+        <div *ngFor="let item of work.what_done; index as i;">
+          <div [ngClass]="{'text-red': item.pending === true}">{{i + 1}}. {{item.data}}</div>
+        </div>
       </div>
     </div>
     <div class="tableincom-tbl-row">

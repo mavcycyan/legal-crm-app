@@ -15,7 +15,10 @@ export interface ClientsCardWorkListInterface {
   phone: String,
   visit_date: String,
   visit_purpose: String,
-  what_done: String[],
+  what_done: {
+    data: String,
+    pending: Boolean
+  }[],
   result: String,
   fee: String
 }

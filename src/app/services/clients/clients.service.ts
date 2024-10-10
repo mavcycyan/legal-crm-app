@@ -20,16 +20,16 @@ export class ClientsService {
   ];
 
   works: Array<ClientWorksListInterface|ClientWorksCardInterface> = [
-    {client_id: 0, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі', fee: '5000/5000'},
-    {client_id: 1, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі', fee: '0/2000'},
-    {client_id: 2, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі', fee: '1500/3000'},
-    {client_id: 1, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі', fee: '250/250'},
-    {client_id: 3, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі', fee: '5500/8000'},
-    {client_id: 4, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі', fee: '2500/3000'},
-    {client_id: 5, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі', fee: '1000/4500'},
-    {client_id: 2, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі', fee: '6000/6000'},
-    {client_id: 6, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі', fee: '0/2300'},
-    {client_id: 0, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі', fee: '5000/9000'},
+    {client_id: 0, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: false}, {data: 'очікування документів', pending: false}], result: 'У процессі', fee: '5000/5000'},
+    {client_id: 1, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: false}, {data: 'очікування документів', pending: false}], result: 'У процессі', fee: '0/2000'},
+    {client_id: 2, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: false}, {data: 'очікування документів', pending: false}], result: 'У процессі', fee: '1500/3000'},
+    {client_id: 1, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: false}, {data: 'очікування документів', pending: true}], result: 'У процессі', fee: '250/250'},
+    {client_id: 3, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: false}, {data: 'очікування документів', pending: false}], result: 'У процессі', fee: '5500/8000'},
+    {client_id: 4, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: false}, {data: 'очікування документів', pending: false}], result: 'У процессі', fee: '2500/3000'},
+    {client_id: 5, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: false}, {data: 'очікування документів', pending: false}], result: 'У процессі', fee: '1000/4500'},
+    {client_id: 2, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: true}, {data: 'очікування документів', pending: false}], result: 'У процессі', fee: '6000/6000'},
+    {client_id: 6, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: false}, {data: 'очікування документів', pending: false}], result: 'У процессі', fee: '0/2300'},
+    {client_id: 0, visit_date: '2024-02-20', visit_purpose: 'Причина відвідування', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: false}, {data: 'очікування документів', pending: false}], result: 'У процессі', fee: '5000/9000'},
   ];
   list: ClientsCardWorkListInterface[] = [];
   constructor() { }

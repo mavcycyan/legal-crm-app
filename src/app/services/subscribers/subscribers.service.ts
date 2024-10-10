@@ -15,11 +15,11 @@ export class SubscribersService {
   ];
 
   works: Array<SubscribersWorksListInterface|SubscribersWorksCardInterface> = [
-    {subscriber_id: 0, date: '20.01.2023', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі'},
-    {subscriber_id: 1, date: '20.01.2023', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі'},
-    {subscriber_id: 1, date: '20.01.2023', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі'},
-    {subscriber_id: 1, date: '20.01.2023', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі'},
-    {subscriber_id: 0, date: '20.01.2023', what_done: ['Уточнення інформації у клієнта', 'направлено запит', 'очікування документів'], result: 'У процессі'},
+    {subscriber_id: 0, date: '20.01.2023', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: false}, {data: 'очікування документів', pending: false}], result: 'У процессі'},
+    {subscriber_id: 1, date: '20.01.2023', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: false}, {data: 'очікування документів', pending: true}], result: 'У процессі'},
+    {subscriber_id: 1, date: '20.01.2023', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: false}, {data: 'очікування документів', pending: false}], result: 'У процессі'},
+    {subscriber_id: 1, date: '20.01.2023', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: false}, {data: 'очікування документів', pending: false}], result: 'У процессі'},
+    {subscriber_id: 0, date: '20.01.2023', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: true}, {data: 'очікування документів', pending: false}], result: 'У процессі'},
   ]
   constructor() { }
 
