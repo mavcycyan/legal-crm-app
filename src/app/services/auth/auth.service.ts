@@ -83,10 +83,10 @@ export class AuthService {
         }
         return {permission: false, redirect: ['lawyer']};
       } else if (userType === '2') {
-        if (urlSegment.length > 0 && urlSegment[0].path === 'advocate') {
+        if (urlSegment.length > 1 && urlSegment[0].path === 'advocate' && urlSegment[1].path === 'personal') {
           return {permission: true};
         }
-        return {permission: false, redirect: ['advocate']};
+        return {permission: false, redirect: ['advocate', 'personal']};
       }
     }
     return {permission: false, redirect: ['login']};

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ClientsCardInterface, ClientsCardWorkListInterface} from "../../../../models/clients/clients-card.interface";
+import {ClientsCardWorkListInterface} from "../../../../models/clients/clients-card.interface";
 import {ClientsService} from "../../../../services/clients/clients.service";
 
 

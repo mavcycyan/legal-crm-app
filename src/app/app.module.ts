@@ -14,6 +14,9 @@ import { ClientsPageComponent } from './layouts/main-page/lawyer-page/clients-pa
 import { SubscribersPageComponent } from './layouts/main-page/lawyer-page/subscribers-page/subscribers-page.component';
 import { ClientsCardPageComponent } from './layouts/main-page/lawyer-page/clients-page/clients-card-page/clients-card-page.component';
 import { SubscribersCardPageComponent } from './layouts/main-page/lawyer-page/subscribers-page/subscribers-card-page/subscribers-card-page.component';
+import { AdvocateCategoriesComponent } from './layouts/main-page/advocate-page/advocate-categories/advocate-categories.component';
+import { AdvocateCardComponent } from './layouts/main-page/advocate-page/advocate-card/advocate-card.component';
+import { AdvocateCaseCardComponent } from './layouts/main-page/advocate-page/advocate-case-card/advocate-case-card.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { SubscribersCardPageComponent } from './layouts/main-page/lawyer-page/su
     ClientsPageComponent,
     SubscribersPageComponent,
     ClientsCardPageComponent,
-    SubscribersCardPageComponent
+    SubscribersCardPageComponent,
+    AdvocateCategoriesComponent,
+    AdvocateCardComponent,
+    AdvocateCaseCardComponent
   ],
   imports: [
     BrowserModule,

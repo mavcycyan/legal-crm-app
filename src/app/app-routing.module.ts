@@ -14,6 +14,13 @@ import {
 import {
   SubscribersCardPageComponent
 } from "./layouts/main-page/lawyer-page/subscribers-page/subscribers-card-page/subscribers-card-page.component";
+import {
+  AdvocateCategoriesComponent
+} from "./layouts/main-page/advocate-page/advocate-categories/advocate-categories.component";
+import {
+  AdvocateCaseCardComponent
+} from "./layouts/main-page/advocate-page/advocate-case-card/advocate-case-card.component";
+import {AdvocateCardComponent} from "./layouts/main-page/advocate-page/advocate-card/advocate-card.component";
 
 const routes: Routes = [
   {
@@ -25,6 +32,9 @@ const routes: Routes = [
       {path: 'lawyer/subscribers/:id', component: SubscribersCardPageComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer', redirectTo: 'lawyer/clients'},
       {path: 'advocate', component: AdvocatePageComponent, canActivate: [PermissionsGuard]},
+      {path: 'advocate/:id', component: AdvocateCategoriesComponent, canActivate: [PermissionsGuard]},
+      {path: 'advocate/:id/:category', component: AdvocateCardComponent, canActivate: [PermissionsGuard]},
+      {path: 'advocate/:id/:category/:case_id', component: AdvocateCaseCardComponent, canActivate: [PermissionsGuard]},
     ]
   },
   {

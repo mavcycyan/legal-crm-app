@@ -1,0 +1,7 @@
+<div>
+  <div *ngFor="let category of categories; index as i">
+    <div>
+      <a [routerLink]="[category.slug]">{{category.name}}</a>
+    </div>
+  </div>
+</div>
