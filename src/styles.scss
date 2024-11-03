@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-
 html, body {
+  height: 100vh;
+  overflow: hidden;
   margin: 0;
   font-size: 14px;
+  font-family: 'Nunito', sans-serif;
 }
 * {
   box-sizing: border-box;
@@ -19,75 +21,6 @@ img {
   margin: 0 auto;
 }
 
-
-/*to table component*/
-.tablecom-tbl-row {
-  display: flex;
-  flex-wrap: wrap;
-}
-.tablecom-tbl-row:nth-child(2n) .tablecom-tbl-col {
-  background: #eee;
-}
-.tablecom-tbl {
-  overflow: hidden;
-  border-radius: 4px;
-}
-
-.tablecom-tbl-col {
-  padding: 5px 5px;
-}
-
-.tablecom-tbl-col:nth-child(1) {
-  width: 20px;
-  text-align: center;
-}
-
-.tablecom-tbl-col:nth-child(2) {
-  width: 110px;
-  text-align: center;
-}
-
-.tablecom-tbl-col:nth-child(3) {
-  width: 130px;
-}
-
-.tablecom-tbl-col:nth-child(4) {
-  flex: 1;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.tablecom-tbl-col:nth-child(5) {
-  width: 120px;
-  text-align: center;
-}
-.tablecom-tbl-col:nth-child(6) {
-  width: 145px;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.tablecom-tbl-col:nth-child(7) {
-  width: 110px;
-  text-align: center;
-}
-.tablecom-tbl-col:nth-child(8) {
-  width: 110px;
-  text-align: center;
-}
-.tablecom-tbl-col:nth-child(9) {
-  width: 34px;
-  text-align: center;
-}
-.tablecom-tbl-head .tablecom-tbl-col {
-  background: #36433b;
-  color: #fff;
-}
-
 .see_more-btn {
   width: 24px;
   display: block;
@@ -100,38 +33,6 @@ img {
 .see_more-btn svg {
   max-width: 100%;
   height: auto;
-}
-
-
-.tableincom-tbl-row {
-  display: flex;
-  flex-wrap: wrap;
-}
-.tableincom-tbl-row:nth-child(2n) .tableincom-tbl-col {
-  background: #eee;
-}
-.tableincom-tbl {
-  overflow: hidden;
-  border-radius: 4px;
-}
-
-.tableincom-tbl-col {
-  padding: 15px 15px;
-}
-
-.tableincom-tbl-col:nth-child(1) {
-  width: 200px;
-  text-align: left;
-}
-
-.tableincom-tbl-col:nth-child(2) {
-  width: 400px;
-  text-align: left;
-}
-
-.tableincom-tbl-head .tableincom-tbl-col {
-  background: #36433b;
-  color: #fff;
 }
 
 .text-red {

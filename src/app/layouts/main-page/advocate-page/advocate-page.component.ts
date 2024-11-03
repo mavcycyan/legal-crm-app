@@ -9,6 +9,10 @@ import {AdvocateService} from "../../../services/advocate/advocate.service";
 })
 export class AdvocatePageComponent implements OnInit{
   list: AdvocatesListInterface[] = [];
+  tblColumns: Array<{name: string, slug: string}> = [
+    {slug: 'full_name', name: 'П.І.Б.'},
+    {slug: 'email', name: 'E-mail'}
+  ];
 
   constructor(private advocateService: AdvocateService) {
   }

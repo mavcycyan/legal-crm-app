@@ -3,7 +3,7 @@ export interface SubscribersCardInterface {
   name: String,
   edrpou: Number,
   contract_date: String,
-  responsible_person_id: Number,
+  responsible_person: String,
   contact_person_name: String,
   contact_person_phone: String,
   director_person_name: String,

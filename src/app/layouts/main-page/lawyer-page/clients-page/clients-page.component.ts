@@ -10,6 +10,15 @@ import {ClientsService} from "../../../../services/clients/clients.service";
 })
 export class ClientsPageComponent implements OnInit{
   list: ClientsCardWorkListInterface[] = [];
+  tblColumns: Array<{name: string, slug: string}> = [
+    {slug: 'visit_date', name: 'Дата звернення'},
+    {slug: 'where_knows', name: 'Звідки дізнались'},
+    {slug: 'full_name', name: 'П.І.Б.'},
+    {slug: 'phone', name: 'Телефон'},
+    {slug: 'visit_purpose', name: 'Причина звернення'},
+    {slug: 'result', name: 'Результат'},
+    {slug: 'fee', name: 'Гонорар'}
+  ];
 
   constructor(private clientsService: ClientsService) {
   }

@@ -29,25 +29,4 @@
   </div>
 </div>
 
-<div class="tableincom-tbl" *ngFor="let work of works">
-  <div class="tableincom-tbl-head">
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Назва</div>
-      <div class="tableincom-tbl-col">Інформація</div>
-    </div>
-  </div>
-  <div class="tableincom-tbl-body">
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Що зроблено</div>
-      <div class="tableincom-tbl-col">
-        <div *ngFor="let item of work.what_done; index as i;">
-          <div [ngClass]="{'text-red': item.pending === true}">{{i + 1}}. {{item.data}}</div>
-        </div>
-      </div>
-    </div>
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Результат</div>
-      <div class="tableincom-tbl-col">{{work.result}}</div>
-    </div>
-  </div>
-</div>
+<app-table-card [data]="works" [columns]="tblColumns"></app-table-card>

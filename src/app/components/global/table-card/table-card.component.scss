@@ -1,0 +1,26 @@
+.tableincom-tbl-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.tableincom-tbl-row:nth-child(2n) .tableincom-tbl-col {
+  background: #eee;
+}
+.tableincom-tbl {
+  overflow: hidden;
+  border-radius: 4px;
+}
+.tableincom-tbl-col {
+  padding: 15px 15px;
+}
+.tableincom-tbl-col:nth-child(1) {
+  width: 200px;
+  text-align: left;
+}
+.tableincom-tbl-col:nth-child(2) {
+  width: 400px;
+  text-align: left;
+}
+.tableincom-tbl-head .tableincom-tbl-col {
+  background: #36433b;
+  color: #fff;
+}

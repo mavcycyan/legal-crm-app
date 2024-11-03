@@ -15,6 +15,10 @@ export class AdvocateCaseCardComponent  implements OnInit, OnDestroy {
   subAdvocate$: Subscription = {} as Subscription;
   case: AdvocateCasesInterface = {} as AdvocateCasesInterface;
   works: AdvocateWorksInterface[] = [];
+  tblColumns: Array<{name: string, slug: string}> = [
+    {slug: 'what_done', name: 'Що зроблено'},
+    {slug: 'result', name: 'Результат'}
+  ];
 
   constructor(private route: ActivatedRoute,
               private advocateService: AdvocateService) {

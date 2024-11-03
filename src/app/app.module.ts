@@ -17,6 +17,7 @@ import { SubscribersCardPageComponent } from './layouts/main-page/lawyer-page/su
 import { AdvocateCategoriesComponent } from './layouts/main-page/advocate-page/advocate-categories/advocate-categories.component';
 import { AdvocateCardComponent } from './layouts/main-page/advocate-page/advocate-card/advocate-card.component';
 import { AdvocateCaseCardComponent } from './layouts/main-page/advocate-page/advocate-case-card/advocate-case-card.component';
+import { TableCardComponent } from './components/global/table-card/table-card.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AdvocateCaseCardComponent } from './layouts/main-page/advocate-page/adv
     SubscribersCardPageComponent,
     AdvocateCategoriesComponent,
     AdvocateCardComponent,
-    AdvocateCaseCardComponent
+    AdvocateCaseCardComponent,
+    TableCardComponent
   ],
   imports: [
     BrowserModule,

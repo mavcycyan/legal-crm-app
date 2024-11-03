@@ -13,7 +13,16 @@ import {AdvocateCasesInterface} from "../../../../models/advocates/advocate-case
 export class AdvocateCardComponent implements OnInit, OnDestroy {
   subAdvocate$: Subscription = {} as Subscription;
   advocate: AdvocatesCardInterface = {} as AdvocatesCardInterface;
+
   cases: AdvocateCasesInterface[] = [];
+  tblColumns: Array<{name: string, slug: string}> = [
+    {slug: 'visit_date', name: 'Дата звернення'},
+    {slug: 'proc_num', name: 'Номер справи'},
+    {slug: 'plot', name: 'Фабула'},
+    {slug: 'fee', name: 'Гонорар'},
+    {slug: 'pays', name: 'Виплати'},
+    {slug: 'result', name: 'Статус'}
+  ];
 
   constructor(private route: ActivatedRoute,
               private advocateService: AdvocateService) {

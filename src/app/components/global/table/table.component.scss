@@ -1,0 +1,110 @@
+.tablecom-tbl-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.tablecom-tbl-row:nth-child(2n) .tablecom-tbl-col {
+  background: #eee;
+}
+.tablecom-tbl {
+  overflow: hidden;
+}
+.tablecom-tbl-col {
+  padding: 15px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tablecom-tbl-col.num {
+  width: 54px;
+  text-align: center;
+}
+.tablecom-tbl-col.more {
+  width: 54px;
+  text-align: center;
+}
+.tablecom-tbl-head .tablecom-tbl-col {
+  background: #4c5d52;
+  color: #fff;
+}
+
+
+// clients page
+.clients-page {
+  .tablecom-tbl-col.visit_date {
+    width: 110px;
+    text-align: center;
+  }
+  .tablecom-tbl-col.where_knows {
+    width: 175px;
+  }
+  .tablecom-tbl-col.full_name {
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tablecom-tbl-col.phone {
+    width: 150px;
+    text-align: center;
+  }
+  .tablecom-tbl-col.visit_purpose {
+    width: 190px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tablecom-tbl-col.result {
+    width: 110px;
+    text-align: center;
+  }
+  .tablecom-tbl-col.fee {
+    width: 110px;
+    text-align: center;
+  }
+}
+
+// subscribers-page
+.subscribers-page {
+  .tablecom-tbl-col {
+    &.name {
+      width: 170px;
+    }
+    &.edrpou {
+      width: 120px;
+    }
+    &.contract_date {
+      width: 150px;
+      text-align: center;
+    }
+    &.responsible_person {
+      width: 170px;
+      text-align: center;
+    }
+    &.contact_person_name {
+      flex: 1;
+      text-align: center;
+    }
+    &.fee {
+      width: 110px;
+      text-align: center;
+    }
+    &.last_pay_date {
+      width: 150px;
+      text-align: center;
+    }
+  }
+}
+
+// advocates-list-page
+.advocates-list-page {
+  .tablecom-tbl-col {
+    &.email {
+      width: 230px;
+    }
+    &.full_name {
+      flex: 1;
+    }
+  }
+}
