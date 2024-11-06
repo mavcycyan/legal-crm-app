@@ -1,32 +1,10 @@
-<div class="tableincom-tbl">
-  <div class="tableincom-tbl-head">
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Назва</div>
-      <div class="tableincom-tbl-col">Інформація</div>
+<div class="advocate-wrap">
+  <div class="advocate-row">
+    <div class="advocate-main">
+      <router-outlet></router-outlet>
     </div>
-  </div>
-  <div class="tableincom-tbl-body">
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">E-mail</div>
-      <div class="tableincom-tbl-col">{{advocate.email}}</div>
-    </div>
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">П.І.Б.</div>
-      <div class="tableincom-tbl-col">{{advocate.full_name}}</div>
-    </div>
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Рік народження</div>
-      <div class="tableincom-tbl-col">{{advocate.birthday}}</div>
-    </div>
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Адреса</div>
-      <div class="tableincom-tbl-col">{{advocate.address}}</div>
-    </div>
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Телефон</div>
-      <div class="tableincom-tbl-col">{{advocate.phone}}</div>
+    <div class="advocate-sidebar">
+      <app-infocard [data]="advocate" [rows]="advocateRows"></app-infocard>
     </div>
   </div>
 </div>
-
-<app-table-card [data]="cases" [columns]="tblColumns" [hasMore]="true"></app-table-card>

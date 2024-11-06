@@ -21,6 +21,9 @@ import {
   AdvocateCaseCardComponent
 } from "./layouts/main-page/advocate-page/advocate-case-card/advocate-case-card.component";
 import {AdvocateCardComponent} from "./layouts/main-page/advocate-page/advocate-card/advocate-card.component";
+import {
+  AdvocateCasePageComponent
+} from "./layouts/main-page/advocate-page/advocate-case-page/advocate-case-page.component";
 
 const routes: Routes = [
   {
@@ -32,9 +35,11 @@ const routes: Routes = [
       {path: 'lawyer/subscribers/:id', component: SubscribersCardPageComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer', redirectTo: 'lawyer/clients'},
       {path: 'advocate', component: AdvocatePageComponent, canActivate: [PermissionsGuard]},
-      {path: 'advocate/:id', component: AdvocateCategoriesComponent, canActivate: [PermissionsGuard]},
-      {path: 'advocate/:id/:category', component: AdvocateCardComponent, canActivate: [PermissionsGuard]},
-      {path: 'advocate/:id/:category/:case_id', component: AdvocateCaseCardComponent, canActivate: [PermissionsGuard]},
+      {path: 'advocate/:id', component: AdvocateCardComponent, canActivate: [PermissionsGuard], children: [
+        {path: '', component: AdvocateCategoriesComponent, canActivate: [PermissionsGuard]},
+        {path: ':category', component: AdvocateCasePageComponent, canActivate: [PermissionsGuard]},
+        {path: ':category/:case_id', component: AdvocateCaseCardComponent, canActivate: [PermissionsGuard]},
+      ]},
     ]
   },
   {

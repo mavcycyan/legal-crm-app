@@ -22,3 +22,28 @@
   height: 100vh;
   overflow: auto;
 }
+
+.main-page-url {
+  padding: 20px 0;
+  a, button {
+    font-family: "Nunito", sans-serif;
+    text-align: left;
+    display: block;
+    padding: 10px;
+    border: 0;
+    color: #fff;
+    text-decoration: none;
+    background: none;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+      background: #fff;
+      color: #4c5d52;
+      transition: 0.3s;
+    }
+  }
+  a {
+    border-bottom: 1px solid #fff;
+  }
+}

@@ -1,0 +1,14 @@
+<div class="infocard">
+  <div class="infocard-top">
+    <div class="infocard-img">
+      <img src="{{ (data.photo) ? data.photo : '' }}" alt="">
+    </div>
+    <div class="infocard-ttl">{{data.full_name}}</div>
+  </div>
+  <div class="infocard-wrap">
+    <div class="infocard-row" *ngFor="let row of rows">
+      <div class="infocard-col">{{row.name}}</div>
+      <div class="infocard-col">{{data[row.slug]}}</div>
+    </div>
+  </div>
+</div>

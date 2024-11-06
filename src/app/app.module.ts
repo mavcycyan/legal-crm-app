@@ -18,6 +18,8 @@ import { AdvocateCategoriesComponent } from './layouts/main-page/advocate-page/a
 import { AdvocateCardComponent } from './layouts/main-page/advocate-page/advocate-card/advocate-card.component';
 import { AdvocateCaseCardComponent } from './layouts/main-page/advocate-page/advocate-case-card/advocate-case-card.component';
 import { TableCardComponent } from './components/global/table-card/table-card.component';
+import { AdvocateCasePageComponent } from './layouts/main-page/advocate-page/advocate-case-page/advocate-case-page.component';
+import { InfocardComponent } from './components/global/infocard/infocard.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { TableCardComponent } from './components/global/table-card/table-card.co
     AdvocateCategoriesComponent,
     AdvocateCardComponent,
     AdvocateCaseCardComponent,
-    TableCardComponent
+    TableCardComponent,
+    AdvocateCasePageComponent,
+    InfocardComponent
   ],
   imports: [
     BrowserModule,

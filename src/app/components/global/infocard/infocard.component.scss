@@ -1,0 +1,36 @@
+.infocard {
+  border: 1px solid #4c5d52;
+  border-radius: 7px;
+  padding: 20px;
+  .advocate-sidebar & {
+    position: sticky;
+    top: 0;
+  }
+  &-img {
+    width: 80px;
+    height: 80px;
+    background: #eee;
+    border-radius: 50%;
+    margin: 0 auto 30px;
+  }
+  &-ttl {
+    color: #36433b;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  &-row {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #eeeeee;
+    padding: 12px 0px;
+    justify-content: space-between;
+    font-size: 13px;
+  }
+  &-col {
+    &:first-child {
+      color: #36433b;
+    }
+  }
+}
+
