@@ -1,0 +1,30 @@
+.adv_categs-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -12px;
+}
+
+.adv_categs-bl {
+  padding: 0 12px;
+  width: calc(100% / 3);
+}
+
+.adv_categs-bl a {
+  border: 1px solid #4c5d52;
+  border-radius: 7px;
+  padding: 20px;
+  display: block;
+  margin-bottom: 24px;
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.adv_categs-bl a:hover {
+  color: #4c5d52;
+  background: #c8ead45e;
+  transition: 0.3s;
+}

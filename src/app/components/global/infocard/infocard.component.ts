@@ -8,4 +8,5 @@ import {Component, Input} from '@angular/core';
 export class InfocardComponent {
   @Input() rows: Array<{name: string, slug: string}> = [];
   @Input() data: any = [];
+  @Input() title: String = '';
 }

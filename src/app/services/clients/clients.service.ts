@@ -10,13 +10,13 @@ import {ClientsListInterface} from "../../models/clients/clients-list.interface"
 export class ClientsService {
 
   clients: Array<ClientsListInterface|ClientsCardInterface> = [
-    {id: 0, where_knows: 'Реклама Facebook', full_name: 'Адвокатенко Петро Петрович', birthday: '1987-02-10', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380981234567'},
-    {id: 1, where_knows: 'Реклама Facebook', full_name: 'Захистенко Олег Олегович', birthday: '1987-03-10', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380982345678'},
-    {id: 2, where_knows: 'Реклама Facebook', full_name: 'Клієнтенко Ольга Іванівна', birthday: '1987-02-20', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380983456789'},
-    {id: 3, where_knows: 'Реклама Facebook', full_name: 'Тестенко Андрій Андрійович', birthday: '1987-05-30', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380989876543'},
-    {id: 4, where_knows: 'Реклама Facebook', full_name: 'Літак Віолета Казимирівна', birthday: '1987-10-14', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380988765432'},
-    {id: 5, where_knows: 'Реклама Facebook', full_name: 'Прикладенко Сергій Сергійович', birthday: '1987-01-10', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380987654321'},
-    {id: 6, where_knows: 'Реклама Facebook', full_name: 'Абоненко Денис Денисович', birthday: '1987-02-10', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380980001122'},
+    {id: 0, where_knows: 'Реклама Facebook', full_name: 'Адвокатенко Петро Петрович', birthday: '1987-02-10', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380981234567', email: 'test@test.client.sam'},
+    {id: 1, where_knows: 'Реклама Facebook', full_name: 'Захистенко Олег Олегович', birthday: '1987-03-10', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380982345678', email: 'test@test.client.sam'},
+    {id: 2, where_knows: 'Реклама Facebook', full_name: 'Клієнтенко Ольга Іванівна', birthday: '1987-02-20', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380983456789', email: 'test@test.client.sam'},
+    {id: 3, where_knows: 'Реклама Facebook', full_name: 'Тестенко Андрій Андрійович', birthday: '1987-05-30', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380989876543', email: 'test@test.client.sam'},
+    {id: 4, where_knows: 'Реклама Facebook', full_name: 'Літак Віолета Казимирівна', birthday: '1987-10-14', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380988765432', email: 'test@test.client.sam'},
+    {id: 5, where_knows: 'Реклама Facebook', full_name: 'Прикладенко Сергій Сергійович', birthday: '1987-01-10', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380987654321', email: 'test@test.client.sam'},
+    {id: 6, where_knows: 'Реклама Facebook', full_name: 'Абоненко Денис Денисович', birthday: '1987-02-10', address: 'м. Тестове, вул. Тестова, буд. 55, кв. 10', phone: '+380980001122', email: 'test@test.client.sam'},
   ];
 
   works: Array<ClientWorksListInterface|ClientWorksCardInterface> = [

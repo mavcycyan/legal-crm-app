@@ -1,65 +1,10 @@
-<div class="tableincom-tbl">
-  <div class="tableincom-tbl-head">
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Назва</div>
-      <div class="tableincom-tbl-col">Інформація</div>
+<div class="client-wrap">
+  <div class="client-row">
+    <div class="client-main">
+      <app-table-card [data]="works" [columns]="tblColumns"></app-table-card>
     </div>
-  </div>
-  <div class="tableincom-tbl-body">
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Звідки дізнались</div>
-      <div class="tableincom-tbl-col">{{client.where_knows}}</div>
-    </div>
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">П.І.Б.</div>
-      <div class="tableincom-tbl-col">{{client.full_name}}</div>
-    </div>
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Рік народження</div>
-      <div class="tableincom-tbl-col">{{client.birthday}}</div>
-    </div>
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Адреса</div>
-      <div class="tableincom-tbl-col">{{client.address}}</div>
-    </div>
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Телефон</div>
-      <div class="tableincom-tbl-col">{{client.phone}}</div>
-    </div>
-  </div>
-</div>
-
-<div class="tableincom-tbl" *ngFor="let work of works">
-  <div class="tableincom-tbl-head">
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Назва</div>
-      <div class="tableincom-tbl-col">Інформація</div>
-    </div>
-  </div>
-  <div class="tableincom-tbl-body">
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Дата звернення</div>
-      <div class="tableincom-tbl-col">{{work.visit_date}}</div>
-    </div>
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Причина звернення</div>
-      <div class="tableincom-tbl-col">{{work.visit_purpose}}</div>
-    </div>
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Що зроблено</div>
-      <div class="tableincom-tbl-col">
-        <div *ngFor="let item of work.what_done; index as i;">
-          <div [ngClass]="{'text-red': item.pending === true}">{{i + 1}}. {{item.data}}</div>
-        </div>
-      </div>
-    </div>
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Результат</div>
-      <div class="tableincom-tbl-col">{{work.result}}</div>
-    </div>
-    <div class="tableincom-tbl-row">
-      <div class="tableincom-tbl-col">Гонорар</div>
-      <div class="tableincom-tbl-col">{{work.fee}}</div>
+    <div class="client-sidebar">
+      <app-infocard [data]="client" [rows]="clientRows" [title]="client.full_name"></app-infocard>
     </div>
   </div>
 </div>

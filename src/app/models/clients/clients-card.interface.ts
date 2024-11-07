@@ -5,6 +5,7 @@ export interface ClientsCardInterface{
   birthday: String,
   address: String,
   phone: String,
+  email: String,
 }
 export interface ClientsCardWorkListInterface {
   id: Number,

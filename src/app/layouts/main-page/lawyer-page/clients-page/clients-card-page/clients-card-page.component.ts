@@ -14,7 +14,21 @@ export class ClientsCardPageComponent implements OnInit, OnDestroy{
 
   subClient$: Subscription = {} as Subscription;
   client: ClientsCardInterface = {} as ClientsCardInterface;
+  clientRows: Array<{name: string, slug: string}> = [
+    {slug: 'where_knows', name: 'Звідки дізнались'},
+    {slug: 'email', name: 'E-mail'},
+    {slug: 'birthday', name: 'Рік народження'},
+    {slug: 'address', name: 'Адреса'},
+    {slug: 'phone', name: 'Телефон'}
+  ];
   works: ClientWorksCardInterface[] = [];
+  tblColumns: Array<{name: string, slug: string}> = [
+    {slug: 'visit_date', name: 'Дата звернення'},
+    {slug: 'visit_purpose', name: 'Причина звернення'},
+    {slug: 'what_done', name: 'Що зроблено'},
+    {slug: 'result', name: 'Результат'},
+    {slug: 'fee', name: 'Гонорар'}
+  ];
 
   constructor(private route: ActivatedRoute,
               private clientsService: ClientsService) {

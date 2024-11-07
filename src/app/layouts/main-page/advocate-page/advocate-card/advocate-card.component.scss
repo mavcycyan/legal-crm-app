@@ -5,11 +5,11 @@
   }
   &-main {
     width: calc(100% - 400px);
-    padding-top: 60px;
+    padding: 60px 20px 30px;
   }
   &-sidebar {
     width: 400px;
-    padding: 60px 20px 0;
+    padding: 60px 20px 30px;
     ::ng-deep .infocard {
       position: sticky;
       top: 0;

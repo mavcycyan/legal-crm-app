@@ -5,5 +5,6 @@ export interface ClientsListInterface {
   birthday: String,
   address: String,
   phone: String,
+  email: String,
 }
 
