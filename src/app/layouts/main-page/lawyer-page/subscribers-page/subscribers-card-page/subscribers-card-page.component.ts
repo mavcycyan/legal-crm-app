@@ -1,9 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
-import {SubscribersCardInterface} from "../../../../../models/subscribers/subscribers-card.interface";
+import {
+  SubscribersCardInterface,
+  SubscribersCardInterfaceRequest
+} from "../../../../../models/subscribers/subscribers-card.interface";
 import {SubscribersWorksCardInterface} from "../../../../../models/subscribers/subscribers-works-card.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {SubscribersService} from "../../../../../services/subscribers/subscribers.service";
+import {ClientsCardInterfaceRequest} from "../../../../../models/clients/clients-card.interface";
 
 @Component({
   selector: 'app-subscribers-card-page',
@@ -43,8 +47,10 @@ export class SubscribersCardPageComponent implements OnInit, OnDestroy{
     this.subSubscr$ = this.route.params
       .subscribe(
         (params: Params) => {
-          this.subscriber = this.subscribersService.getOne(params['id']);
-          this.works = this.subscribersService.getSubscriberWorks(params['id']);
+          this.subscribersService.getOne(params['id']).subscribe((list: SubscribersCardInterfaceRequest) => {
+            this.subscriber = list.data;
+            this.works = (list.data.subscriber_works !== undefined) ? list.data.subscriber_works : [];
+          });
         }
       )
   }

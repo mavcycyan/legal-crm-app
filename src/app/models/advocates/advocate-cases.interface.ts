@@ -13,3 +13,9 @@ export interface AdvocateCasesInterface {
   category: String,
   advocate_id: Number
 }
+
+export interface AdvocateCasesInterfaceRequest {
+  success: Boolean,
+  message: String,
+  data: AdvocateCasesInterface[]
+}

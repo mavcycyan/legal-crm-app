@@ -3,3 +3,9 @@ export interface AdvocateCategoriesInterface {
   name: String,
   slug: String
 }
+
+export interface AdvocateCategoriesInterfaceRequest {
+  success: Boolean,
+  message: String,
+  data: AdvocateCategoriesInterface[]
+}

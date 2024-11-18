@@ -20,6 +20,7 @@ import { AdvocateCaseCardComponent } from './layouts/main-page/advocate-page/adv
 import { TableCardComponent } from './components/global/table-card/table-card.component';
 import { AdvocateCasePageComponent } from './layouts/main-page/advocate-page/advocate-case-page/advocate-case-page.component';
 import { InfocardComponent } from './components/global/infocard/infocard.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { InfocardComponent } from './components/global/infocard/infocard.compone
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

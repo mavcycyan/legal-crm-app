@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, ActivatedRouteSnapshot, Params} from "@angular/router";
 import {map, Observable, Subscription, switchMap} from "rxjs";
-import {ClientsCardInterface} from "../../../../../models/clients/clients-card.interface";
+import {ClientsCardInterface, ClientsCardInterfaceRequest} from "../../../../../models/clients/clients-card.interface";
 import {ClientsService} from "../../../../../services/clients/clients.service";
 import {ClientWorksCardInterface} from "../../../../../models/clients/client-works-card.interface";
+import {ClientsListInterfaceRequest} from "../../../../../models/clients/clients-list.interface";
 
 @Component({
   selector: 'app-clients-card-page',
@@ -38,8 +39,10 @@ export class ClientsCardPageComponent implements OnInit, OnDestroy{
     this.subClient$ = this.route.params
       .subscribe(
         (params: Params) => {
-          this.client = this.clientsService.getOne(params['id']);
-          this.works = this.clientsService.getClientWorks(params['id']);
+          this.clientsService.getOne(params['id']).subscribe((list: ClientsCardInterfaceRequest) => {
+            this.client = list.data;
+            this.works = (list.data.client_works !== undefined) ? list.data.client_works : [];
+          });
         }
       )
   }

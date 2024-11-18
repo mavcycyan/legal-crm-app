@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "http://api.crm.local",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

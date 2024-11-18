@@ -14,3 +14,9 @@ export interface SubscribersListInterface {
   fee: Number,
   info: String
 }
+
+export interface SubscribersListInterfaceRequest {
+  success: Boolean,
+  message: String,
+  data: SubscribersListInterface[]
+}

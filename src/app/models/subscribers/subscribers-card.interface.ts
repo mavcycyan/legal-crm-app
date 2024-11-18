@@ -1,3 +1,5 @@
+import {SubscribersWorksCardInterface} from "./subscribers-works-card.interface";
+
 export interface SubscribersCardInterface {
   id: Number,
   name: String,
@@ -12,5 +14,11 @@ export interface SubscribersCardInterface {
   actual_address: String,
   last_pay_date: String,
   fee: Number,
-  info: String
+  info: String,
+  subscriber_works: SubscribersWorksCardInterface[]
+}
+export interface SubscribersCardInterfaceRequest{
+  success: Boolean,
+  message: String,
+  data: SubscribersCardInterface
 }

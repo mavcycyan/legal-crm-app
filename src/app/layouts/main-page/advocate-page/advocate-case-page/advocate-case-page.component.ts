@@ -1,9 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {AdvocatesCardInterface} from "../../../../models/advocates/advocates-card.interface";
-import {AdvocateCasesInterface} from "../../../../models/advocates/advocate-cases.interface";
+import {
+  AdvocateCasesInterface,
+  AdvocateCasesInterfaceRequest
+} from "../../../../models/advocates/advocate-cases.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {AdvocateService} from "../../../../services/advocate/advocate.service";
+import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../../models/clients/clients-list.interface";
 
 @Component({
   selector: 'app-advocate-case-page',
@@ -12,7 +16,6 @@ import {AdvocateService} from "../../../../services/advocate/advocate.service";
 })
 export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
   subAdvocate$: Subscription = {} as Subscription;
-  advocate: AdvocatesCardInterface = {} as AdvocatesCardInterface;
 
   cases: AdvocateCasesInterface[] = [];
   tblColumns: Array<{name: string, slug: string}> = [
@@ -34,8 +37,9 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
       .subscribe(
         (params: Params) => {
           const advocateId: number = (params['id'] !== 'personal') ? params['id'] : 0;
-          this.advocate = this.advocateService.getOne(advocateId);
-          this.cases = this.advocateService.getAdvocateCases(0, params['category'])
+          this.advocateService.getAdvocateCases(1, params['category']).subscribe((list: AdvocateCasesInterfaceRequest) => {
+            this.cases = list.data;
+          });
         }
       )
   }

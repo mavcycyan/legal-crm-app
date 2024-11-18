@@ -1,10 +1,20 @@
 import { Injectable } from '@angular/core';
 import {AdvocatesListInterface} from "../../models/advocates/advocates-list.interface";
-import {AdvocateCategoriesInterface} from "../../models/advocates/advocate-categories.interface";
-import {AdvocateCasesInterface} from "../../models/advocates/advocate-cases.interface";
+import {
+  AdvocateCategoriesInterface,
+  AdvocateCategoriesInterfaceRequest
+} from "../../models/advocates/advocate-categories.interface";
+import {
+  AdvocateCasesInterface,
+  AdvocateCasesInterfaceRequest
+} from "../../models/advocates/advocate-cases.interface";
 import {AdvocateWorksInterface} from "../../models/advocates/advocate-works.interface";
 import {AdvocateCardComponent} from "../../layouts/main-page/advocate-page/advocate-card/advocate-card.component";
 import {AdvocatesCardInterface} from "../../models/advocates/advocates-card.interface";
+import {ClientsListInterfaceRequest} from "../../models/clients/clients-list.interface";
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {AdvocateCaseCardInterfaceRequest} from "../../models/advocates/advocate-cases-card.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +50,7 @@ export class AdvocateService {
     {case_id: 0, date: '20.01.2023', what_done: [{data: 'Уточнення інформації у клієнта', pending: false}, {data: 'направлено запит', pending: true}, {data: 'очікування документів', pending: false}], result: 'У процессі'},
   ]
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   getList(): AdvocatesListInterface[] {
     return this.advocates;
@@ -50,24 +60,16 @@ export class AdvocateService {
     return this.advocates[id];
   }
 
-  getCategories(): AdvocateCategoriesInterface[] {
-    return this.categories;
+  getCategories(): Observable<AdvocateCategoriesInterfaceRequest> {
+    return this.httpClient.get<AdvocateCategoriesInterfaceRequest>('http://api.crm.local/api/advocates_categories');
   }
 
-  getAdvocateCases(advocate_id: number, category_slug: string): AdvocateCasesInterface[] {
-    const cases: AdvocateCasesInterface[] = [];
-    let i = 0;
-    this.cases.forEach((_case: AdvocateCasesInterface) => {
-      if (_case.advocate_id == advocate_id && _case.category == category_slug) {
-        cases[i] = _case;
-        i++;
-      }
-    });
-    return cases;
+  getAdvocateCases(advocate_id: number, category_slug: string): Observable<AdvocateCasesInterfaceRequest> {
+    return this.httpClient.get<AdvocateCasesInterfaceRequest>(`http://api.crm.local/api/advocates_cases?advocate_id=${advocate_id}&advocate_category_slug=${category_slug}`);
   }
 
-  getAdvocateCase(case_id: number): AdvocateCasesInterface {
-    return this.cases[case_id];
+  getAdvocateCase(case_id: number): Observable<AdvocateCaseCardInterfaceRequest> {
+    return this.httpClient.get<AdvocateCaseCardInterfaceRequest>(`http://api.crm.local/api/advocates_cases/${case_id}`);
   }
 
   getAdvocateWorks(case_id: number): AdvocateWorksInterface[] {
