@@ -1,0 +1,60 @@
+@import 'src/variables.scss';
+
+.edit-form {
+  max-width: 600px;
+  width: 100%;
+  &-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+  }
+  &-col {
+    padding: 0 15px;
+    width: 50%;
+    margin-bottom: 15px;
+    &.w-50 {
+      width: 50%;
+    }
+    &.w-100 {
+      width: 100%;
+    }
+  }
+}
+.form-label {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: $color_main;
+  margin-bottom: 5px;
+}
+.form-control {
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 4px;
+  border: 1px solid $color_main;
+}
+.btn {
+  border: 0;
+  padding: 14px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 1;
+  transition: 0.3s;
+  &:hover {
+    opacity: 0.7;
+    transition: 0.3s;
+  }
+  & + .btn {
+    margin-left: 30px;
+  }
+  &.btn-primary {
+    background: $color_main;
+    color: $color_white;
+  }
+  &.btn-danger {
+    background: $color_danger;
+    color: $color_white;
+  }
+}
+

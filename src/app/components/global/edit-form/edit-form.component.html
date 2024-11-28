@@ -1,0 +1,39 @@
+<div class="edit-form">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="edit-form-row">
+      <div *ngFor="let field of fields" [class]="['edit-form-col', field.class]">
+        <label [for]="field.slug" class="form-label">{{field.name}}</label>
+        <!--    <input id="{{field.slug}}" type="text" [ngClass]="{'form-control' : true, 'is-invalid' : isSubmitted && form.controls['domain']['status'] === 'INVALID', 'is-valid' : isSubmitted && form.controls['domain']['status'] === 'VALID'}" [formControlName]="field.slug">-->
+        <ng-container [ngSwitch]="field.type">
+          <input
+            *ngSwitchCase="'text'"
+            [id]="field.slug"
+            [formControlName]="field.slug"
+            [type]="field.type"
+            class="form-control"
+          />
+          <select
+            *ngSwitchCase="'select'"
+            [id]="field.slug"
+            [formControlName]="field.slug"
+            class="form-control"
+          >
+            <option *ngFor="let option of field.choises" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+          <textarea
+            *ngSwitchCase="'textarea'"
+            [id]="field.name"
+            [formControlName]="field.name"
+            class="form-control"
+          ></textarea>
+        </ng-container>
+      </div>
+      <div class="edit-form-col w-100">
+        <button type="submit" class="btn btn-primary">{{(isEdit) ? 'Зберегти' : 'Створити'}}</button>
+        <button *ngIf="isEdit" type="button" class="btn btn-danger">Видалити</button>
+      </div>
+    </div>
+  </form>
+</div>
