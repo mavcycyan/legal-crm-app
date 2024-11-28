@@ -4,7 +4,6 @@ import {
   SubscribersListInterfaceRequest
 } from "../../../../models/subscribers/subscribers-list.interface";
 import {SubscribersService} from "../../../../services/subscribers/subscribers.service";
-import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../../models/clients/clients-list.interface";
 import {Subscription} from "rxjs";
 
 @Component({

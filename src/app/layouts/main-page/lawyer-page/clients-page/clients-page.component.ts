@@ -1,7 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ClientsService} from "../../../../services/clients/clients.service";
 import {Subscription} from "rxjs";
-import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../../models/clients/clients-list.interface";
+import {
+  ClientWorksListInterface,
+  ClientWorksListInterfaceRequest
+} from "../../../../models/clients/client-works-list.interface";
 
 
 @Component({
@@ -10,7 +13,7 @@ import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../../mod
   styleUrls: ['./clients-page.component.scss']
 })
 export class ClientsPageComponent implements OnInit, OnDestroy{
-  list: ClientsListInterface[] = [];
+  list: ClientWorksListInterface[] = [];
   tblColumns: Array<{name: string, slug: string}> = [
     {slug: 'visit_date', name: 'Дата звернення'},
     {slug: 'where_knows', name: 'Звідки дізнались'},
@@ -25,8 +28,8 @@ export class ClientsPageComponent implements OnInit, OnDestroy{
   constructor(private clientsService: ClientsService) {
   }
   ngOnInit(): void {
-    this.listSub$ = this.clientsService.getList().subscribe((list: ClientsListInterfaceRequest) => {
-      this.list = list.data.map((item: ClientsListInterface) => ({
+    this.listSub$ = this.clientsService.getList().subscribe((list: ClientWorksListInterfaceRequest) => {
+      this.list = list.data.map((item: ClientWorksListInterface) => ({
         ...item,
         custom_path: `${item.client_id}#work-${item.id}`
       }));

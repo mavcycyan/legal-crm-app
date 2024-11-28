@@ -1,3 +1,5 @@
+@import 'src/variables.scss';
+
 .tableincom-tbl-row {
   display: flex;
   flex-wrap: wrap;
@@ -20,7 +22,7 @@
   text-align: left;
 }
 .tableincom-tbl-head .tableincom-tbl-col {
-  background: #4c5d52;
+  background: $color_main;
   color: #fff;
 }
 

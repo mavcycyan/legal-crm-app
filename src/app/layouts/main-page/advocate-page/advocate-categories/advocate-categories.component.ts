@@ -7,7 +7,6 @@ import {
   AdvocateCategoriesInterface,
   AdvocateCategoriesInterfaceRequest
 } from "../../../../models/advocates/advocate-categories.interface";
-import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../../models/clients/clients-list.interface";
 
 @Component({
   selector: 'app-advocate-categories',

@@ -24,6 +24,8 @@ import {AdvocateCardComponent} from "./layouts/main-page/advocate-page/advocate-
 import {
   AdvocateCasePageComponent
 } from "./layouts/main-page/advocate-page/advocate-case-page/advocate-case-page.component";
+import {EditClientPageComponent} from "./layouts/edit-page/edit-client-page/edit-client-page.component";
+import {EditClientWorkPageComponent} from "./layouts/edit-page/edit-client-work-page/edit-client-work-page.component";
 
 const routes: Routes = [
   {
@@ -40,6 +42,23 @@ const routes: Routes = [
         {path: ':category', component: AdvocateCasePageComponent, canActivate: [PermissionsGuard]},
         {path: ':category/:case_id', component: AdvocateCaseCardComponent, canActivate: [PermissionsGuard]},
       ]},
+      {
+        path: 'edit', canActivate: [AuthGuard], children: [
+          {path: 'lawyer/clients', component: EditClientPageComponent, canActivate: [PermissionsGuard]},
+          {path: 'lawyer/clients/:id', component: EditClientPageComponent, canActivate: [PermissionsGuard]},
+          {path: 'lawyer/client_work', component: EditClientWorkPageComponent, canActivate: [PermissionsGuard]},
+          {path: 'lawyer/client_work/:id', component: EditClientWorkPageComponent, canActivate: [PermissionsGuard]},
+          //     {path: 'lawyer/subscribers', component: SubscribersPageComponent, canActivate: [PermissionsGuard]},
+          //     {path: 'lawyer/subscribers/:id', component: SubscribersCardPageComponent, canActivate: [PermissionsGuard]},
+          {path: 'lawyer', redirectTo: 'lawyer/clients'},
+          //     {path: 'advocate', component: AdvocatePageComponent, canActivate: [PermissionsGuard]},
+          //     {path: 'advocate/:id', component: AdvocateCardComponent, canActivate: [PermissionsGuard], children: [
+          //       {path: '', component: AdvocateCategoriesComponent, canActivate: [PermissionsGuard]},
+          //       {path: ':category', component: AdvocateCasePageComponent, canActivate: [PermissionsGuard]},
+          //       {path: ':category/:case_id', component: AdvocateCaseCardComponent, canActivate: [PermissionsGuard]},
+          //     ]},
+        ]
+      },
     ]
   },
   {

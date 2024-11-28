@@ -21,6 +21,9 @@ import { TableCardComponent } from './components/global/table-card/table-card.co
 import { AdvocateCasePageComponent } from './layouts/main-page/advocate-page/advocate-case-page/advocate-case-page.component';
 import { InfocardComponent } from './components/global/infocard/infocard.component';
 import {HttpClientModule} from "@angular/common/http";
+import { EditFormComponent } from './components/global/edit-form/edit-form.component';
+import { EditClientPageComponent } from './layouts/edit-page/edit-client-page/edit-client-page.component';
+import { EditClientWorkPageComponent } from './layouts/edit-page/edit-client-work-page/edit-client-work-page.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import {HttpClientModule} from "@angular/common/http";
     AdvocateCaseCardComponent,
     TableCardComponent,
     AdvocateCasePageComponent,
-    InfocardComponent
+    InfocardComponent,
+    EditFormComponent,
+    EditClientPageComponent,
+    EditClientWorkPageComponent
   ],
   imports: [
     BrowserModule,

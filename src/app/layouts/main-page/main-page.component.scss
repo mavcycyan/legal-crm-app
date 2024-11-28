@@ -1,3 +1,5 @@
+@import 'src/variables.scss';
+
 .main-page {
   height: 100vh;
   overflow: hidden;
@@ -10,7 +12,7 @@
   height: 100vh;
 }
 .main-page-menu {
-  background: #4c5d52;
+  background: $color_main;
   color: #fff;
   width: 250px;
   padding: 20px;
@@ -39,7 +41,7 @@
     transition: 0.3s;
     &:hover {
       background: #fff;
-      color: #4c5d52;
+      color: $color_main;
       transition: 0.3s;
     }
   }

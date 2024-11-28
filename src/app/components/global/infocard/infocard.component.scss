@@ -1,5 +1,7 @@
+@import 'src/variables.scss';
+
 .infocard {
-  border: 1px solid #4c5d52;
+  border: 1px solid $color_main;
   border-radius: 7px;
   padding: 20px;
   .advocate-sidebar & {

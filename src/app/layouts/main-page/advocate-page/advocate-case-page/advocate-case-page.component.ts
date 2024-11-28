@@ -7,7 +7,6 @@ import {
 } from "../../../../models/advocates/advocate-cases.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {AdvocateService} from "../../../../services/advocate/advocate.service";
-import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../../models/clients/clients-list.interface";
 
 @Component({
   selector: 'app-advocate-case-page',

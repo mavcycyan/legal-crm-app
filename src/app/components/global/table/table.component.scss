@@ -1,3 +1,5 @@
+@import 'src/variables.scss';
+
 .tablecom-tbl-row {
   display: flex;
   flex-wrap: wrap;
@@ -23,7 +25,7 @@
   text-align: center;
 }
 .tablecom-tbl-head .tablecom-tbl-col {
-  background: #4c5d52;
+  background: $color_main;
   color: #fff;
 }
 
