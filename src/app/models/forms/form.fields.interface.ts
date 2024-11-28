@@ -3,6 +3,7 @@ export interface FormFieldsInterface {
   name: string,
   class?: string,
   type: string,
+  required: boolean,
   choises?: {
     label: string,
     value: string

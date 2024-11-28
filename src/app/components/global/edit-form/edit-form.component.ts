@@ -16,7 +16,11 @@ export class EditFormComponent implements OnInit{
   ngOnInit(): void {
     let newFields: any = {};
     this.fields.forEach((field: any) => {
-      newFields[field.slug] = new FormControl('', Validators.required);
+      if (field.required) {
+        newFields[field.slug] = new FormControl('', Validators.required);
+      } else {
+        newFields[field.slug] = new FormControl('');
+      }
     });
     this.form = new FormGroup(newFields);
   }
@@ -24,7 +28,11 @@ export class EditFormComponent implements OnInit{
   ngOnChanges() {
     let newFields: any = {};
     this.fields.forEach((field: any) => {
-      newFields[field.slug] = new FormControl('', Validators.required);
+      if (field.required) {
+        newFields[field.slug] = new FormControl('', Validators.required);
+      } else {
+        newFields[field.slug] = new FormControl('');
+      }
     });
     this.form = new FormGroup(newFields);
   }

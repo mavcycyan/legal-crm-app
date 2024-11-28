@@ -9,3 +9,9 @@ export interface ClientWorksCardInterface {
   result: String,
   fee: String
 }
+
+export interface ClientWorksCardInterfaceRequest {
+  success: Boolean,
+  message: String,
+  data: ClientWorksCardInterface[]
+}
