@@ -7,5 +7,9 @@ export interface FormFieldsInterface {
   choises?: {
     label: string,
     value: string
+  }[],
+  repdata?: {
+    data: string,
+    pending: boolean
   }[]
 }

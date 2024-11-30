@@ -28,6 +28,30 @@
             [formControlName]="field.name"
             class="form-control"
           ></textarea>
+          <div
+            *ngSwitchCase="'repeater'"
+            [id]="field.name"
+            [formArrayName]="field.name+'s'"
+            class="form-repeater"
+          >
+            <div *ngFor="let rep of field.repdata; let i = index" [formGroupName]="i" class="form-repeater-row">
+              <div class="form-repeater-bl txt">
+                <div class="form-repeater-bl-lbl">Етап:</div>
+                <input type="text" formControlName="data" />
+              </div>
+              <div class="form-repeater-bl pending">
+                <div class="form-repeater-bl-lbl">Триває з затримкою ?:</div>
+                <select formControlName="pending">
+                  <option [value]="true">Так</option>
+                  <option [value]="false" selected>Ні</option>
+                </select>
+              </div>
+              <div class="form-repeater-bl remove">
+                <button type="button" (click)="removeRepData(i)">Видалити</button>
+              </div>
+            </div>
+            <button type="button" (click)="addRepData()" class="btn btn-primary">Додати новий пунки</button>
+          </div>
         </ng-container>
       </div>
       <div class="edit-form-col w-100">

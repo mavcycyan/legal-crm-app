@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-edit-form',
@@ -8,10 +8,22 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class EditFormComponent implements OnInit{
   @Input() fields: any;
+  @Input() data: any;
   @Input() formService: any;
   form: FormGroup = {} as FormGroup;
   isEdit: boolean = false;
   id: number|null = null;
+
+  constructor(private fb: FormBuilder) {
+    this.fields.forEach((field: any) => {
+      if (field.type === 'repeater') {
+        let control: any;
+        const slug = field.slug;
+        control[slug] = this.fb.array([]);
+        this.form = this.fb.group(control);
+      }
+    });
+  }
 
   ngOnInit(): void {
     let newFields: any = {};
@@ -37,6 +49,20 @@ export class EditFormComponent implements OnInit{
     this.form = new FormGroup(newFields);
   }
 
+  get todos(): FormArray {
+    return this.form.get('todos') as FormArray;
+  }
+  addRepData(): void {
+    const todoGroup = this.fb.group({
+      data: ['', [Validators.required]], // Поле тексту
+      pending: [false], // Поле select
+    });
+    this.todos.push(todoGroup);
+  }
+  removeRepData(id: number): void {
+    this.todos.removeAt(id);
+  }
+
   submit():void {
     if (this.form.status === 'VALID') {
       const valueObj: any = this.form.value;
@@ -45,6 +71,7 @@ export class EditFormComponent implements OnInit{
       })
     }
   }
+
 
   delete():void {
     this.formService.delete(this.id).subscribe((response: any) => {
