@@ -15,14 +15,6 @@ export class EditFormComponent implements OnInit{
   id: number|null = null;
 
   constructor(private fb: FormBuilder) {
-    this.fields.forEach((field: any) => {
-      if (field.type === 'repeater') {
-        let control: any;
-        const slug = field.slug;
-        control[slug] = this.fb.array([]);
-        this.form = this.fb.group(control);
-      }
-    });
   }
 
   ngOnInit(): void {
@@ -30,6 +22,8 @@ export class EditFormComponent implements OnInit{
     this.fields.forEach((field: any) => {
       if (field.required) {
         newFields[field.slug] = new FormControl('', Validators.required);
+      } else if (field.type === 'what_done') {
+        newFields[field.slug] = this.fb.array([]);
       } else {
         newFields[field.slug] = new FormControl('');
       }
@@ -49,18 +43,18 @@ export class EditFormComponent implements OnInit{
     this.form = new FormGroup(newFields);
   }
 
-  get todos(): FormArray {
-    return this.form.get('todos') as FormArray;
+  get whatDone(): FormArray {
+    return this.form.get('what_done') as FormArray;
   }
   addRepData(): void {
-    const todoGroup = this.fb.group({
-      data: ['', [Validators.required]], // Поле тексту
-      pending: [false], // Поле select
+    const workListGroup = this.fb.group({
+      data: ['', [Validators.required]],
+      pending: [false],
     });
-    this.todos.push(todoGroup);
+    this.whatDone.push(workListGroup);
   }
   removeRepData(id: number): void {
-    this.todos.removeAt(id);
+    this.whatDone.removeAt(id);
   }
 
   submit():void {

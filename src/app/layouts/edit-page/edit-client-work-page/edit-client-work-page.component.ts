@@ -18,7 +18,7 @@ export class EditClientWorkPageComponent  implements OnInit{
     {slug: 'visit_purpose', name: 'Мета звернення', required: true, class: 'w-50', type: 'text'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'text'},
     {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'text'},
-    {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'repeater', repdata: []},
+    {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
   ];
 
   constructor(public clientWorksService: ClientWorksService,

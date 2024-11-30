@@ -58,3 +58,22 @@
   }
 }
 
+.form-repeater {
+  &-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px 15px;
+  }
+  &-bl {
+    padding: 0 15px;
+    &.txt {
+      width: 50%;
+    }
+    &.pending {
+      width: 40%;
+    }
+    &.remove {
+      width: 10%;
+    }
+  }
+}
