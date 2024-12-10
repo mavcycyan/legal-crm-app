@@ -17,7 +17,6 @@ export class ClientsCardPageComponent implements OnInit, OnDestroy{
   client: ClientsCardInterface = {} as ClientsCardInterface;
   clientRows: Array<{name: string, slug: string}> = [
     {slug: 'where_knows', name: 'Звідки дізнались'},
-    {slug: 'email', name: 'E-mail'},
     {slug: 'birthday', name: 'Рік народження'},
     {slug: 'address', name: 'Адреса'},
     {slug: 'phone', name: 'Телефон'}

@@ -1,14 +1,5 @@
-<!--<form [formGroup]="form" (ngSubmit)="submit()">-->
-<!--  <div *ngFor="let field of fields" [class]="field.class">-->
-<!--    <label for="{{field.slug}}" class="form-label">{{field.name}}</label>-->
-<!--    &lt;!&ndash;    <input id="{{field.slug}}" type="text" [ngClass]="{'form-control' : true, 'is-invalid' : isSubmitted && form.controls['domain']['status'] === 'INVALID', 'is-valid' : isSubmitted && form.controls['domain']['status'] === 'VALID'}" [formControlName]="field.slug">&ndash;&gt;-->
-<!--    <input id="{{field.slug}}" type="text" [formControlName]="field.slug">-->
-<!--  </div>-->
-
-<!--  <button type="submit" class="btn btn-primary me-2">{{(1 === 1) ? 'Зберегти' : 'Створити'}}</button>-->
-<!--</form>-->
 <div class="edit-page">
   <div class="edit-page-wrap">
-    <app-edit-form [fields]="fields" [formService]="clientService"></app-edit-form>
+    <app-edit-form [fields]="fields" [formService]="clientService" [data]="data"></app-edit-form>
   </div>
 </div>
