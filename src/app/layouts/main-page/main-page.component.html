@@ -3,10 +3,11 @@
     <div class="main-page-menu">
       <div class="main-page-name">Вітаю, {{name}}</div>
       <div class="main-page-url">
-        <a [routerLink]="['']">Головна</a>&nbsp;
-        <a [routerLink]="['lawyer', 'clients']">Клієнти</a>&nbsp;
-        <a [routerLink]="['lawyer', 'subscribers']">Абоненти</a>&nbsp;
-        <a [routerLink]="['advocate']">Адвокат</a>&nbsp;
+        <a [routerLink]="['']">Головна</a>
+        <a [routerLink]="['lawyer', 'client_works']">Роботи з клієнтами</a>
+        <a [routerLink]="['lawyer', 'clients']">Клієнти</a>
+        <a [routerLink]="['lawyer', 'subscribers']">Абоненти</a>
+        <a [routerLink]="['advocate']">Адвокат</a>
         <button type="button" (click)="logout()">Вийти з системи</button>
       </div>
     </div>

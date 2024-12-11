@@ -67,6 +67,37 @@
   }
 }
 
+
+// clients all page
+.clients-all-page {
+  .tablecom-tbl-col.visit_date {
+    width: 175px;
+    text-align: center;
+  }
+  .tablecom-tbl-col.where_knows {
+    width: 175px;
+  }
+  .tablecom-tbl-col.address {
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tablecom-tbl-col.phone {
+    width: 150px;
+    text-align: center;
+  }
+  .tablecom-tbl-col.visit_purpose {
+    width: 175px;
+    text-align: center;
+  }
+  .tablecom-tbl-col.full_name {
+    width: 300px;
+    text-align: center;
+  }
+}
+
 // subscribers-page
 .subscribers-page {
   .tablecom-tbl-col {

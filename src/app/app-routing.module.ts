@@ -26,12 +26,14 @@ import {
 } from "./layouts/main-page/advocate-page/advocate-case-page/advocate-case-page.component";
 import {EditClientPageComponent} from "./layouts/edit-page/edit-client-page/edit-client-page.component";
 import {EditClientWorkPageComponent} from "./layouts/edit-page/edit-client-work-page/edit-client-work-page.component";
+import {ClientsAllComponent} from "./layouts/main-page/lawyer-page/clients-page/clients-all/clients-all.component";
 
 const routes: Routes = [
   {
     path: '', component: MainPageComponent, canActivate: [AuthGuard], children: [
       {path: '', component: HomePageComponent, canActivate: [PermissionsGuard]},
-      {path: 'lawyer/clients', component: ClientsPageComponent, canActivate: [PermissionsGuard]},
+      {path: 'lawyer/client_works', component: ClientsPageComponent, canActivate: [PermissionsGuard]},
+      {path: 'lawyer/clients', component: ClientsAllComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer/clients/:id', component: ClientsCardPageComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer/subscribers', component: SubscribersPageComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer/subscribers/:id', component: SubscribersCardPageComponent, canActivate: [PermissionsGuard]},

@@ -24,6 +24,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { EditFormComponent } from './components/global/edit-form/edit-form.component';
 import { EditClientPageComponent } from './layouts/edit-page/edit-client-page/edit-client-page.component';
 import { EditClientWorkPageComponent } from './layouts/edit-page/edit-client-work-page/edit-client-work-page.component';
+import { ClientsAllComponent } from './layouts/main-page/lawyer-page/clients-page/clients-all/clients-all.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { EditClientWorkPageComponent } from './layouts/edit-page/edit-client-wor
     InfocardComponent,
     EditFormComponent,
     EditClientPageComponent,
-    EditClientWorkPageComponent
+    EditClientWorkPageComponent,
+    ClientsAllComponent
   ],
   imports: [
     BrowserModule,
