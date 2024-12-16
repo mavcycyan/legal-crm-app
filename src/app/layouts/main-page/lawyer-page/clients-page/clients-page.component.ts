@@ -31,7 +31,7 @@ export class ClientsPageComponent implements OnInit, OnDestroy{
     this.listSub$ = this.clientsService.getList().subscribe((list: ClientWorksListInterfaceRequest) => {
       this.list = list.data.map((item: ClientWorksListInterface) => ({
         ...item,
-        custom_path: `${item.client_id}#work-${item.id}`
+        custom_path: `/lawyer/clients/${item.client_id}#work-${item.id}`
       }));
     });
   }

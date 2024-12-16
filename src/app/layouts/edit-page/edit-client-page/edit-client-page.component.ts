@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormGroup} from "@angular/forms";
 import {ClientsService} from "../../../services/clients/clients.service";
 import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {ClientsCardInterface, ClientsCardInterfaceRequest} from "../../../models/clients/clients-card.interface";
+import {ActivatedRoute, Params} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-edit-client-page',
@@ -10,8 +12,10 @@ import {ClientsCardInterface, ClientsCardInterfaceRequest} from "../../../models
   styleUrls: ['./edit-client-page.component.scss']
 })
 export class EditClientPageComponent implements OnInit{
+  subClient$: Subscription = {} as Subscription;
   form: FormGroup = {} as FormGroup;
   data: ClientsCardInterface = {} as ClientsCardInterface;
+  isEdit: boolean = false;
   fields: FormFieldsInterface[] = [
     {slug: 'full_name', name: 'П.І.Б.', required: true, class: 'w-100', type: 'text'},
     {slug: 'phone', name: 'Телефон', required: false, class: 'w-50', type: 'text'},
@@ -20,13 +24,23 @@ export class EditClientPageComponent implements OnInit{
     {slug: 'birthday', name: 'Дата народження', required: false, class: 'w-50', type: 'text'},
   ];
 
-  constructor(public clientService: ClientsService) {
+  constructor(private route: ActivatedRoute,
+              public clientService: ClientsService) {
   }
 
   ngOnInit(): void {
-    this.clientService.getOne(2).subscribe((client: ClientsCardInterfaceRequest) => {
-      this.data = client.data
-    });
+    this.subClient$ = this.route.params
+      .subscribe(
+        (params: Params) => {
+          if (params['id'] !== undefined) {
+            this.clientService.getOne(params['id']).subscribe((client: ClientsCardInterfaceRequest) => {
+              this.data = client.data;
+              this.isEdit = true;
+
+            });
+          }
+        }
+      )
   }
 
 }

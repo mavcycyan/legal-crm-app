@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -6,12 +6,12 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angul
   templateUrl: './edit-form.component.html',
   styleUrls: ['./edit-form.component.scss']
 })
-export class EditFormComponent implements OnInit{
+export class EditFormComponent implements OnInit, OnChanges{
   @Input() fields: any;
   @Input() data: any;
   @Input() formService: any;
+  @Input() isEdit: boolean = false;
   form: FormGroup = {} as FormGroup;
-  isEdit: boolean = false;
   id: number|null = null;
 
   constructor(private fb: FormBuilder) {
@@ -32,15 +32,15 @@ export class EditFormComponent implements OnInit{
   }
 
   ngOnChanges() {
-    let newFields: any = {};
-    this.fields.forEach((field: any) => {
-      if (field.required) {
-        newFields[field.slug] = new FormControl('', Validators.required);
-      } else {
-        newFields[field.slug] = new FormControl('');
-      }
-    });
-    this.form = new FormGroup(newFields);
+    if(this.isEdit) {
+      this.fields.forEach((item: any) => {
+        let forPatching: any = {};
+        forPatching[item.slug] = this.data[item.slug];
+        this.form.patchValue(forPatching);
+      });
+      this.form.updateValueAndValidity();
+      this.id = this.data.id;
+    }
   }
 
   get whatDone(): FormArray {
@@ -60,15 +60,21 @@ export class EditFormComponent implements OnInit{
   submit():void {
     if (this.form.status === 'VALID') {
       const valueObj: any = this.form.value;
-      this.formService.save(valueObj).subscribe((response: any) => {
-        console.log(response);
-      })
+      if(this.isEdit) {
+        this.formService.update(this.id, valueObj).subscribe((response: any) => {
+          console.log(response);
+        })
+      } else {
+        this.formService.save(valueObj).subscribe((response: any) => {
+          console.log(response);
+        })
+      }
     }
   }
 
 
   delete():void {
-    this.formService.delete(this.id).subscribe((response: any) => {
+    this.formService.remove(this.id).subscribe((response: any) => {
       console.log(response);
     })
   }

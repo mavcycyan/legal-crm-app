@@ -1,9 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormGroup} from "@angular/forms";
 import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {ClientsService} from "../../../services/clients/clients.service";
 import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../models/clients/clients-list.interface";
 import {ClientWorksService} from "../../../services/clients/client-works.service";
+import {ActivatedRoute, Params} from "@angular/router";
+import {
+  ClientWorksCardInterface,
+  ClientWorksCardInterfaceRequest
+} from "../../../models/clients/client-works-card.interface";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-edit-client-work-page',
@@ -11,7 +17,10 @@ import {ClientWorksService} from "../../../services/clients/client-works.service
   styleUrls: ['./edit-client-work-page.component.scss']
 })
 export class EditClientWorkPageComponent  implements OnInit{
+  subClient$: Subscription = {} as Subscription;
   form: FormGroup = {} as FormGroup;
+  data: ClientWorksCardInterface = {} as ClientWorksCardInterface;
+  isEdit: boolean = false;
   fields: FormFieldsInterface[] = [
     {slug: 'client_id', name: 'Клієнт', required: true, class: 'w-100', type: 'select', choises: []},
     {slug: 'visit_date', name: 'Дата відвідування', required: true, class: 'w-50', type: 'text'},
@@ -21,11 +30,23 @@ export class EditClientWorkPageComponent  implements OnInit{
     {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
   ];
 
-  constructor(public clientWorksService: ClientWorksService,
+  constructor(private route: ActivatedRoute,
+              public clientWorksService: ClientWorksService,
               public clientService: ClientsService) {
   }
 
   ngOnInit(): void {
+    this.subClient$ = this.route.params
+      .subscribe(
+        (params: Params) => {
+          if (params['id'] !== undefined) {
+            this.clientWorksService.getOne(params['id']).subscribe((work: ClientWorksCardInterfaceRequest) => {
+              this.data = work.data;
+              this.isEdit = true;
+            });
+          }
+        }
+      )
     this.clientService.getClientsList().subscribe((data: ClientsListInterfaceRequest) => {
       const clients = data.data;
       this.fields.map((field: FormFieldsInterface) => {

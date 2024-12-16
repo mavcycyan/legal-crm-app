@@ -5,7 +5,7 @@ import {
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ClientWorksListInterfaceRequest} from "../../models/clients/client-works-list.interface";
-import {ClientsListInterface, ClientsListInterfaceRequest} from "../../models/clients/clients-list.interface";
+import {ClientsListInterfaceRequest} from "../../models/clients/clients-list.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,10 @@ export class ClientsService {
 
   save(data: any): Observable<any> {
     return this.httpClient.post(`http://api.crm.local/api/clients`, data);
+  }
+
+  update(id: number, data: any): Observable<any> {
+    return this.httpClient.put(`http://api.crm.local/api/clients/${id}`, data);
   }
 
   remove(id: number): Observable<any> {

@@ -13,5 +13,5 @@ export interface ClientWorksCardInterface {
 export interface ClientWorksCardInterfaceRequest {
   success: Boolean,
   message: String,
-  data: ClientWorksCardInterface[]
+  data: ClientWorksCardInterface
 }
