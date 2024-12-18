@@ -25,6 +25,8 @@ import { EditFormComponent } from './components/global/edit-form/edit-form.compo
 import { EditClientPageComponent } from './layouts/edit-page/edit-client-page/edit-client-page.component';
 import { EditClientWorkPageComponent } from './layouts/edit-page/edit-client-work-page/edit-client-work-page.component';
 import { ClientsAllComponent } from './layouts/main-page/lawyer-page/clients-page/clients-all/clients-all.component';
+import { EditSubscriberPageComponent } from './layouts/edit-page/edit-subscriber-page/edit-subscriber-page.component';
+import { EditSubscriberWorkPageComponent } from './layouts/edit-page/edit-subscriber-work-page/edit-subscriber-work-page.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { ClientsAllComponent } from './layouts/main-page/lawyer-page/clients-pag
     EditFormComponent,
     EditClientPageComponent,
     EditClientWorkPageComponent,
-    ClientsAllComponent
+    ClientsAllComponent,
+    EditSubscriberPageComponent,
+    EditSubscriberWorkPageComponent
   ],
   imports: [
     BrowserModule,

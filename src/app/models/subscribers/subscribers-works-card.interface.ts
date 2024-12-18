@@ -1,4 +1,5 @@
 export interface SubscribersWorksCardInterface {
+  id: number,
   subscriber_id: number,
   date: String,
   what_done: {
@@ -7,4 +8,10 @@ export interface SubscribersWorksCardInterface {
   }[],
   responsible_advocate?: Number
   result: String
+}
+
+export interface SubscribersWorksCardInterfaceRequest {
+  success: Boolean,
+  message: String,
+  data: SubscribersWorksCardInterface
 }

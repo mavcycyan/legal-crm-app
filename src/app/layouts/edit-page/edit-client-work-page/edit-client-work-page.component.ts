@@ -16,7 +16,7 @@ import {Subscription} from "rxjs";
   templateUrl: './edit-client-work-page.component.html',
   styleUrls: ['./edit-client-work-page.component.scss']
 })
-export class EditClientWorkPageComponent  implements OnInit{
+export class EditClientWorkPageComponent implements OnInit{
   subClient$: Subscription = {} as Subscription;
   form: FormGroup = {} as FormGroup;
   data: ClientWorksCardInterface = {} as ClientWorksCardInterface;

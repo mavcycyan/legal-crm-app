@@ -27,6 +27,10 @@ import {
 import {EditClientPageComponent} from "./layouts/edit-page/edit-client-page/edit-client-page.component";
 import {EditClientWorkPageComponent} from "./layouts/edit-page/edit-client-work-page/edit-client-work-page.component";
 import {ClientsAllComponent} from "./layouts/main-page/lawyer-page/clients-page/clients-all/clients-all.component";
+import {EditSubscriberPageComponent} from "./layouts/edit-page/edit-subscriber-page/edit-subscriber-page.component";
+import {
+  EditSubscriberWorkPageComponent
+} from "./layouts/edit-page/edit-subscriber-work-page/edit-subscriber-work-page.component";
 
 const routes: Routes = [
   {
@@ -50,8 +54,10 @@ const routes: Routes = [
           {path: 'lawyer/clients/:id', component: EditClientPageComponent, canActivate: [PermissionsGuard]},
           {path: 'lawyer/client_work', component: EditClientWorkPageComponent, canActivate: [PermissionsGuard]},
           {path: 'lawyer/client_work/:id', component: EditClientWorkPageComponent, canActivate: [PermissionsGuard]},
-          //     {path: 'lawyer/subscribers', component: SubscribersPageComponent, canActivate: [PermissionsGuard]},
-          //     {path: 'lawyer/subscribers/:id', component: SubscribersCardPageComponent, canActivate: [PermissionsGuard]},
+          {path: 'lawyer/subscribers', component: EditSubscriberPageComponent, canActivate: [PermissionsGuard]},
+          {path: 'lawyer/subscribers/:id', component: EditSubscriberPageComponent, canActivate: [PermissionsGuard]},
+          {path: 'lawyer/subscriber_works', component: EditSubscriberWorkPageComponent, canActivate: [PermissionsGuard]},
+          {path: 'lawyer/subscriber_works/:id', component: EditSubscriberWorkPageComponent, canActivate: [PermissionsGuard]},
           {path: 'lawyer', redirectTo: 'lawyer/clients'},
           //     {path: 'advocate', component: AdvocatePageComponent, canActivate: [PermissionsGuard]},
           //     {path: 'advocate/:id', component: AdvocateCardComponent, canActivate: [PermissionsGuard], children: [

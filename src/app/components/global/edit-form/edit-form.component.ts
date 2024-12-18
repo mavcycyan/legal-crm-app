@@ -34,9 +34,21 @@ export class EditFormComponent implements OnInit, OnChanges{
   ngOnChanges() {
     if(this.isEdit) {
       this.fields.forEach((item: any) => {
-        let forPatching: any = {};
-        forPatching[item.slug] = this.data[item.slug];
-        this.form.patchValue(forPatching);
+        if (item.type === 'what_done' && this.data[item.slug]) {
+          const formArray = this.fb.array(
+            this.data[item.slug].map((obj: any) =>
+              this.fb.group({
+                data: [obj.data || '', Validators.required],
+                pending: [obj.pending || false]
+              })
+            )
+          );
+          this.form.setControl(item.slug, formArray);
+        } else {
+          let forPatching: any = {};
+          forPatching[item.slug] = this.data[item.slug];
+          this.form.patchValue(forPatching);
+        }
       });
       this.form.updateValueAndValidity();
       this.id = this.data.id;
@@ -44,7 +56,7 @@ export class EditFormComponent implements OnInit, OnChanges{
   }
 
   get whatDone(): FormArray {
-    return this.form.get('what_done') as FormArray;
+    return (this.form.get('what_done') as FormArray) || this.fb.array([]);
   }
   addRepData(): void {
     const workListGroup = this.fb.group({

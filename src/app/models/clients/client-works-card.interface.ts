@@ -1,4 +1,5 @@
 export interface ClientWorksCardInterface {
+  id: number,
   client_id: number,
   visit_date: String,
   visit_purpose: String,
