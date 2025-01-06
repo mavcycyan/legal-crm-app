@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-main-page',
@@ -10,15 +11,19 @@ import {AuthService} from "../../services/auth/auth.service";
 
 export class MainPageComponent implements OnInit{
   name: String = '';
+  userType: string|null = '';
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
     this.name = this.authService.getName();
+    this.userType = sessionStorage.getItem('userType')
   }
 
   logout(): void {
-    this.authService.logoutUser();
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

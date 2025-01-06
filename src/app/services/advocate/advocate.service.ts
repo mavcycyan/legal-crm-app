@@ -10,11 +10,12 @@ import {
 } from "../../models/advocates/advocate-cases.interface";
 import {AdvocateWorksInterface} from "../../models/advocates/advocate-works.interface";
 import {AdvocateCardComponent} from "../../layouts/main-page/advocate-page/advocate-card/advocate-card.component";
-import {AdvocatesCardInterface} from "../../models/advocates/advocates-card.interface";
+import {AdvocatesCardInterface, AdvocatesCardInterfaceRequest} from "../../models/advocates/advocates-card.interface";
 import {ClientsListInterfaceRequest} from "../../models/clients/clients-list.interface";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {AdvocateCaseCardInterfaceRequest} from "../../models/advocates/advocate-cases-card.interface";
+import {globals} from "../../../globals/globals";
 
 @Injectable({
   providedIn: 'root'
@@ -56,20 +57,20 @@ export class AdvocateService {
     return this.advocates;
   }
 
-  getOne(id: number): AdvocatesCardInterface {
-    return this.advocates[id];
+  getOne(id: number): Observable<AdvocatesCardInterfaceRequest> {
+    return this.httpClient.get<AdvocatesCardInterfaceRequest>(`${globals.api_url}/api/advocates/${id}`);
   }
 
   getCategories(): Observable<AdvocateCategoriesInterfaceRequest> {
-    return this.httpClient.get<AdvocateCategoriesInterfaceRequest>('http://api.crm.local/api/advocates_categories');
+    return this.httpClient.get<AdvocateCategoriesInterfaceRequest>(`${globals.api_url}/api/advocates_categories`);
   }
 
   getAdvocateCases(advocate_id: number, category_slug: string): Observable<AdvocateCasesInterfaceRequest> {
-    return this.httpClient.get<AdvocateCasesInterfaceRequest>(`http://api.crm.local/api/advocates_cases?advocate_id=${advocate_id}&advocate_category_slug=${category_slug}`);
+    return this.httpClient.get<AdvocateCasesInterfaceRequest>(`${globals.api_url}/api/advocates_cases?advocate_id=${advocate_id}&advocate_category_slug=${category_slug}`);
   }
 
   getAdvocateCase(case_id: number): Observable<AdvocateCaseCardInterfaceRequest> {
-    return this.httpClient.get<AdvocateCaseCardInterfaceRequest>(`http://api.crm.local/api/advocates_cases/${case_id}`);
+    return this.httpClient.get<AdvocateCaseCardInterfaceRequest>(`${globals.api_url}/api/advocates_cases/${case_id}`);
   }
 
   getAdvocateWorks(case_id: number): AdvocateWorksInterface[] {

@@ -20,13 +20,14 @@ import { AdvocateCaseCardComponent } from './layouts/main-page/advocate-page/adv
 import { TableCardComponent } from './components/global/table-card/table-card.component';
 import { AdvocateCasePageComponent } from './layouts/main-page/advocate-page/advocate-case-page/advocate-case-page.component';
 import { InfocardComponent } from './components/global/infocard/infocard.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { EditFormComponent } from './components/global/edit-form/edit-form.component';
 import { EditClientPageComponent } from './layouts/edit-page/edit-client-page/edit-client-page.component';
 import { EditClientWorkPageComponent } from './layouts/edit-page/edit-client-work-page/edit-client-work-page.component';
 import { ClientsAllComponent } from './layouts/main-page/lawyer-page/clients-page/clients-all/clients-all.component';
 import { EditSubscriberPageComponent } from './layouts/edit-page/edit-subscriber-page/edit-subscriber-page.component';
 import { EditSubscriberWorkPageComponent } from './layouts/edit-page/edit-subscriber-work-page/edit-subscriber-work-page.component';
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -60,7 +61,13 @@ import { EditSubscriberWorkPageComponent } from './layouts/edit-page/edit-subscr
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

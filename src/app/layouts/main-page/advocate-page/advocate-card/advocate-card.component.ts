@@ -1,6 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
-import {AdvocatesCardInterface} from "../../../../models/advocates/advocates-card.interface";
+import {
+  AdvocatesCardInterface,
+  AdvocatesCardInterfaceRequest
+} from "../../../../models/advocates/advocates-card.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {AdvocateService} from "../../../../services/advocate/advocate.service";
 
@@ -28,8 +31,16 @@ export class AdvocateCardComponent implements OnInit, OnDestroy {
     this.subAdvocate$ = this.route.params
       .subscribe(
         (params: Params) => {
-          const advocateId: number = (params['id'] !== 'personal') ? params['id'] : 0;
-          this.advocate = this.advocateService.getOne(advocateId);
+          let advocateId = 99999999;
+          if (params['id'] !== 'personal') {
+            advocateId = params['id'];
+          } else {
+            const userId = sessionStorage.getItem('userId');
+            advocateId = (userId !== null) ? parseInt(userId) : 99999999;
+          }
+          this.advocateService.getOne(advocateId).subscribe((data: AdvocatesCardInterfaceRequest) => {
+            this.advocate = data.data;
+          });
         }
       )
   }
