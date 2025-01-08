@@ -7,3 +7,9 @@ export interface AdvocatesListInterface {
   address: String,
   phone: String,
 }
+
+export interface AdvocatesListInterfaceRequest {
+  success: Boolean,
+  message: String,
+  data: AdvocatesListInterface[]
+}

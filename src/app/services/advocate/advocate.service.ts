@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AdvocatesListInterface} from "../../models/advocates/advocates-list.interface";
+import {AdvocatesListInterface, AdvocatesListInterfaceRequest} from "../../models/advocates/advocates-list.interface";
 import {
   AdvocateCategoriesInterface,
   AdvocateCategoriesInterfaceRequest
@@ -53,8 +53,8 @@ export class AdvocateService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getList(): AdvocatesListInterface[] {
-    return this.advocates;
+  getList(): Observable<AdvocatesListInterfaceRequest> {
+    return this.httpClient.get<AdvocatesListInterfaceRequest>(`${globals.api_url}/api/advocates`);
   }
 
   getOne(id: number): Observable<AdvocatesCardInterfaceRequest> {

@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AdvocatesListInterface} from "../../../models/advocates/advocates-list.interface";
+import {
+  AdvocatesListInterface,
+  AdvocatesListInterfaceRequest
+} from "../../../models/advocates/advocates-list.interface";
 import {AdvocateService} from "../../../services/advocate/advocate.service";
 
 @Component({
@@ -10,7 +13,7 @@ import {AdvocateService} from "../../../services/advocate/advocate.service";
 export class AdvocatePageComponent implements OnInit{
   list: AdvocatesListInterface[] = [];
   tblColumns: Array<{name: string, slug: string}> = [
-    {slug: 'full_name', name: 'П.І.Б.'},
+    {slug: 'name', name: 'П.І.Б.'},
     {slug: 'email', name: 'E-mail'}
   ];
 
@@ -18,6 +21,8 @@ export class AdvocatePageComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.list = this.advocateService.getList();
+    this.advocateService.getList().subscribe((data: AdvocatesListInterfaceRequest) => {
+      this.list = data.data
+    });
   }
 }

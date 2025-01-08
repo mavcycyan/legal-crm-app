@@ -44,9 +44,9 @@ const routes: Routes = [
       {path: 'lawyer', redirectTo: 'lawyer/clients'},
       {path: 'advocate', component: AdvocatePageComponent, canActivate: [PermissionsGuard]},
       {path: 'advocate/:id', component: AdvocateCardComponent, canActivate: [PermissionsGuard], children: [
-        {path: '', component: AdvocateCategoriesComponent, canActivate: [PermissionsGuard]},
-        {path: ':category', component: AdvocateCasePageComponent, canActivate: [PermissionsGuard]},
-        {path: ':category/:case_id', component: AdvocateCaseCardComponent, canActivate: [PermissionsGuard]},
+        {path: '', component: AdvocateCategoriesComponent},
+        {path: ':category', component: AdvocateCasePageComponent},
+        {path: ':category/:case_id', component: AdvocateCaseCardComponent},
       ]},
       {
         path: 'edit', canActivate: [AuthGuard], children: [
