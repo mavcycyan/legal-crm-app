@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {ClientsService} from "../../../../../services/clients/clients.service";
 import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../../../models/clients/clients-list.interface";
+import {MainService} from "../../../../../services/main/main.service";
 
 @Component({
   selector: 'app-clients-all',
@@ -19,9 +20,11 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
   ];
   private listSub$: Subscription = new Subscription();
 
-  constructor(private clientsService: ClientsService) {
+  constructor(private clientsService: ClientsService,
+              private mainService: MainService) {
   }
   ngOnInit(): void {
+    this.mainService.setEditBtnData({type: 'lawyer_clients', id: null});
     this.listSub$ = this.clientsService.getClientsList().subscribe((list: ClientsListInterfaceRequest) => {
       this.list = list.data.map((item: ClientsListInterface) => ({
         ...item,

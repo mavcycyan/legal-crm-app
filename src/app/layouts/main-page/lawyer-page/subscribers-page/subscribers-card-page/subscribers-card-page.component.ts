@@ -8,6 +8,7 @@ import {SubscribersWorksCardInterface} from "../../../../../models/subscribers/s
 import {ActivatedRoute, Params} from "@angular/router";
 import {SubscribersService} from "../../../../../services/subscribers/subscribers.service";
 import {ClientsCardInterfaceRequest} from "../../../../../models/clients/clients-card.interface";
+import {MainService} from "../../../../../services/main/main.service";
 
 @Component({
   selector: 'app-subscribers-card-page',
@@ -40,13 +41,15 @@ export class SubscribersCardPageComponent implements OnInit, OnDestroy{
   ];
 
   constructor(private route: ActivatedRoute,
-              private subscribersService: SubscribersService) {
+              private subscribersService: SubscribersService,
+              private mainService: MainService) {
   }
 
   ngOnInit() {
     this.subSubscr$ = this.route.params
       .subscribe(
         (params: Params) => {
+          this.mainService.setEditBtnData({type: 'lawyer_subscribers', id: params['id']});
           this.subscribersService.getOne(params['id']).subscribe((list: SubscribersCardInterfaceRequest) => {
             this.subscriber = list.data;
             this.works = (list.data.subscriber_works !== undefined) ? list.data.subscriber_works : [];

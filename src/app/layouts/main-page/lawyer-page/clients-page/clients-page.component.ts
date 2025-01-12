@@ -5,6 +5,7 @@ import {
   ClientWorksListInterface,
   ClientWorksListInterfaceRequest
 } from "../../../../models/clients/client-works-list.interface";
+import {MainService} from "../../../../services/main/main.service";
 
 
 @Component({
@@ -25,9 +26,11 @@ export class ClientsPageComponent implements OnInit, OnDestroy{
   ];
   private listSub$: Subscription = new Subscription();
 
-  constructor(private clientsService: ClientsService) {
+  constructor(private clientsService: ClientsService,
+              private mainService: MainService) {
   }
   ngOnInit(): void {
+    this.mainService.setEditBtnData({type: 'lawyer_client_work', id: null});
     this.listSub$ = this.clientsService.getList().subscribe((list: ClientWorksListInterfaceRequest) => {
       this.list = list.data.map((item: ClientWorksListInterface) => ({
         ...item,

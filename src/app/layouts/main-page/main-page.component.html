@@ -15,5 +15,8 @@
     <div class="main-page-wrap">
       <router-outlet></router-outlet>
     </div>
+    <div class="main-page-btn" *ngIf="btn">
+      <a [routerLink]="btnLink.link">{{btnLink.text}}</a>
+    </div>
   </div>
 </div>

@@ -1,6 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth/auth.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, ActivatedRouteSnapshot, Params, Router} from "@angular/router";
+import {MainService} from "../../services/main/main.service";
+import {Subscription} from "rxjs";
+
+interface EditBtnLink {
+  link: string,
+  text: string
+}
 
 @Component({
   selector: 'app-main-page',
@@ -9,21 +16,72 @@ import {Router} from "@angular/router";
 })
 
 
-export class MainPageComponent implements OnInit{
+export class MainPageComponent implements OnInit, OnDestroy{
   name: String = '';
   userType: string|null = '';
+  btn: boolean = false;
+  btnLink: EditBtnLink = {link: '', text: ''};
+  editBtnLinks: {[key: string]: EditBtnLink} = {
+    lawyer_clients: {
+      link: '/edit/lawyer/clients',
+      text: 'Додати клієнта'
+    },
+    lawyer_client_work: {
+      link: '/edit/lawyer/client_work',
+      text: 'Додати роботу'
+    },
+    lawyer_subscribers: {
+      link: '/edit/lawyer/subscribers',
+      text: 'Додати абонента'
+    },
+    lawyer_subscriber_work: {
+      link: '/edit/lawyer/subscriber_work',
+      text: 'Додати роботу'
+    },
+  };
+  private subscription!: Subscription;
 
   constructor(private authService: AuthService,
-              private router: Router) {
+              private router: Router,
+              private mainService: MainService,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
     this.name = this.authService.getName();
     this.userType = sessionStorage.getItem('userType')
+    this.buttonCheck();
+  }
+
+  buttonCheck(): void {
+    this.subscription = this.mainService.getEditDataObservable().subscribe(
+      (data: {type: string, id: number|null}) => {
+        const btnType: string = data.type;
+        if (btnType !== '') {
+          this.btn = true;
+          this.btnLink.link = this.editBtnLinks[btnType].link;
+          this.btnLink.text = this.editBtnLinks[btnType].text;
+          if (data.id !== null) {
+            this.btnLink.link += '/' + data.id;
+            this.btnLink.text = this.btnLink.text.replace('Додати ', 'Редагувати ');
+          }
+        } else {
+          this.btn = false;
+          this.btnLink = {link: '', text: ''};
+        }
+        this.cdr.detectChanges();
+      }
+    );
   }
 
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

@@ -5,6 +5,7 @@ import {
 } from "../../../../models/subscribers/subscribers-list.interface";
 import {SubscribersService} from "../../../../services/subscribers/subscribers.service";
 import {Subscription} from "rxjs";
+import {MainService} from "../../../../services/main/main.service";
 
 @Component({
   selector: 'app-subscribers-page',
@@ -24,9 +25,11 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
   ];
   private listSub$: Subscription = new Subscription();
 
-  constructor(private subscribersService: SubscribersService) {
+  constructor(private subscribersService: SubscribersService,
+              private mainService: MainService) {
   }
   ngOnInit() {
+    this.mainService.setEditBtnData({type: 'lawyer_subscribers', id: null});
     this.listSub$ = this.subscribersService.getList().subscribe((list: SubscribersListInterfaceRequest) => {
       this.list = list.data;
     });

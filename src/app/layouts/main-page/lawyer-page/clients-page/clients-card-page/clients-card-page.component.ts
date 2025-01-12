@@ -5,6 +5,7 @@ import {ClientsCardInterface, ClientsCardInterfaceRequest} from "../../../../../
 import {ClientsService} from "../../../../../services/clients/clients.service";
 import {ClientWorksCardInterface} from "../../../../../models/clients/client-works-card.interface";
 import {ClientsListInterfaceRequest} from "../../../../../models/clients/clients-list.interface";
+import {MainService} from "../../../../../services/main/main.service";
 
 @Component({
   selector: 'app-clients-card-page',
@@ -31,13 +32,15 @@ export class ClientsCardPageComponent implements OnInit, OnDestroy{
   ];
 
   constructor(private route: ActivatedRoute,
-              private clientsService: ClientsService) {
+              private clientsService: ClientsService,
+              private mainService: MainService) {
   }
 
   ngOnInit() {
     this.subClient$ = this.route.params
       .subscribe(
         (params: Params) => {
+          this.mainService.setEditBtnData({type: 'lawyer_clients', id: params['id']});
           this.clientsService.getOne(params['id']).subscribe((list: ClientsCardInterfaceRequest) => {
             this.client = list.data;
             this.works = (list.data.client_works !== undefined) ? list.data.client_works : [];
