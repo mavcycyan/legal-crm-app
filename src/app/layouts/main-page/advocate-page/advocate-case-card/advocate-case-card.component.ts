@@ -7,6 +7,7 @@ import {
   AdvocateCaseCardInterface,
   AdvocateCaseCardInterfaceRequest
 } from "../../../../models/advocates/advocate-cases-card.interface";
+import {MainService} from "../../../../services/main/main.service";
 
 @Component({
   selector: 'app-advocate-case-card',
@@ -23,7 +24,8 @@ export class AdvocateCaseCardComponent  implements OnInit, OnDestroy {
   ];
 
   constructor(private route: ActivatedRoute,
-              private advocateService: AdvocateService) {
+              private advocateService: AdvocateService,
+              private mainService: MainService) {
   }
 
 
@@ -32,6 +34,8 @@ export class AdvocateCaseCardComponent  implements OnInit, OnDestroy {
       .subscribe(
         (params: Params) => {
           this.advocateService.getAdvocateCase(params['case_id']).subscribe((advcase: AdvocateCaseCardInterfaceRequest) => {
+            this.mainService.setEditBtnData({type: 'advocate_case', id: params['case_id']});
+            this.mainService.setEditBtnSecondaryData({type: 'advocate_work', id: null});
             this.case = advcase.data;
             this.works = (advcase.data.advocate_works !== undefined) ? advcase.data.advocate_works : [];
           });

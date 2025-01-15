@@ -21,6 +21,8 @@ export class MainPageComponent implements OnInit, OnDestroy{
   userType: string|null = '';
   btn: boolean = false;
   btnLink: EditBtnLink = {link: '', text: ''};
+  btnSecond: boolean = false;
+  btnSecondLink: EditBtnLink = {link: '', text: ''};
   editBtnLinks: {[key: string]: EditBtnLink} = {
     lawyer_clients: {
       link: '/edit/lawyer/clients',
@@ -38,6 +40,18 @@ export class MainPageComponent implements OnInit, OnDestroy{
       link: '/edit/lawyer/subscriber_work',
       text: 'Додати роботу'
     },
+    advocate_category: {
+      link: '/edit/advocate_category',
+      text: 'Додати категорію'
+    },
+    advocate_case: {
+      link: '/edit/advocate_case',
+      text: 'Додати справу'
+    },
+    advocate_work: {
+      link: '/edit/advocate_work',
+      text: 'Додати роботу'
+    },
   };
   private subscription!: Subscription;
 
@@ -50,10 +64,11 @@ export class MainPageComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.name = this.authService.getName();
     this.userType = sessionStorage.getItem('userType')
-    this.buttonCheck();
+    this.buttonMainCheck();
+    this.buttonSecondaryCheck();
   }
 
-  buttonCheck(): void {
+  buttonMainCheck(): void {
     this.subscription = this.mainService.getEditDataObservable().subscribe(
       (data: {type: string, id: number|null}) => {
         const btnType: string = data.type;
@@ -73,6 +88,28 @@ export class MainPageComponent implements OnInit, OnDestroy{
       }
     );
   }
+
+  buttonSecondaryCheck(): void {
+    this.subscription = this.mainService.getEditSecondaryDataObservable().subscribe(
+      (data: {type: string, id: number|null}) => {
+        const btnType: string = data.type;
+        if (btnType !== '') {
+          this.btnSecond = true;
+          this.btnSecondLink.link = this.editBtnLinks[btnType].link;
+          this.btnSecondLink.text = this.editBtnLinks[btnType].text;
+          if (data.id !== null) {
+            this.btnSecondLink.link += '/' + data.id;
+            this.btnSecondLink.text = this.btnSecondLink.text.replace('Додати ', 'Редагувати ');
+          }
+        } else {
+          this.btnSecond = false;
+          this.btnSecondLink = {link: '', text: ''};
+        }
+        this.cdr.detectChanges();
+      }
+    );
+  }
+
 
   logout(): void {
     this.authService.logout();

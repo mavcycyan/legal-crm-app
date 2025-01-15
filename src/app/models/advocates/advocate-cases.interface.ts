@@ -19,3 +19,9 @@ export interface AdvocateCasesInterfaceRequest {
   message: String,
   data: AdvocateCasesInterface[]
 }
+
+export interface AdvocateCaseInterfaceRequest {
+  success: Boolean,
+  message: String,
+  data: AdvocateCasesInterface
+}

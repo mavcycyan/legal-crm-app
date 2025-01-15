@@ -50,6 +50,7 @@ export class SubscribersCardPageComponent implements OnInit, OnDestroy{
       .subscribe(
         (params: Params) => {
           this.mainService.setEditBtnData({type: 'lawyer_subscribers', id: params['id']});
+          this.mainService.setEditBtnSecondaryData({type: 'lawyer_subscriber_work', id: null});
           this.subscribersService.getOne(params['id']).subscribe((list: SubscribersCardInterfaceRequest) => {
             this.subscriber = list.data;
             this.works = (list.data.subscriber_works !== undefined) ? list.data.subscriber_works : [];

@@ -13,6 +13,9 @@ export class MainService {
   private editBtnData: EditBtnData = {type: '', id: null};
   private subjectData = new BehaviorSubject<EditBtnData>(this.editBtnData)
 
+  private editBtnSecondaryData: EditBtnData = {type: '', id: null};
+  private subjectSecondaryData = new BehaviorSubject<EditBtnData>(this.editBtnSecondaryData)
+
   constructor() { }
   setEditBtnData(data: EditBtnData = {type: '', id: null}): void {
     this.editBtnData = data;
@@ -20,5 +23,12 @@ export class MainService {
   }
   getEditDataObservable() {
     return this.subjectData.asObservable();
+  }
+  setEditBtnSecondaryData(data: EditBtnData = {type: '', id: null}): void {
+    this.editBtnSecondaryData = data;
+    this.subjectSecondaryData.next(this.editBtnSecondaryData);
+  }
+  getEditSecondaryDataObservable() {
+    return this.subjectSecondaryData.asObservable();
   }
 }

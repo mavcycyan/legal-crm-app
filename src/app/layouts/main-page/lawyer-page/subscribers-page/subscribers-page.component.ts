@@ -30,6 +30,7 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
   }
   ngOnInit() {
     this.mainService.setEditBtnData({type: 'lawyer_subscribers', id: null});
+    this.mainService.setEditBtnSecondaryData({type: '', id: null});
     this.listSub$ = this.subscribersService.getList().subscribe((list: SubscribersListInterfaceRequest) => {
       this.list = list.data;
     });

@@ -31,6 +31,12 @@ import {EditSubscriberPageComponent} from "./layouts/edit-page/edit-subscriber-p
 import {
   EditSubscriberWorkPageComponent
 } from "./layouts/edit-page/edit-subscriber-work-page/edit-subscriber-work-page.component";
+import {EditAdvocatePageComponent} from "./layouts/edit-page/edit-advocate-page/edit-advocate-page.component";
+import {
+  EditAdvocateCategoryComponent
+} from "./layouts/edit-page/edit-advocate-category/edit-advocate-category.component";
+import {EditAdvocateCaseComponent} from "./layouts/edit-page/edit-advocate-case/edit-advocate-case.component";
+import {EditAdvocateWorkComponent} from "./layouts/edit-page/edit-advocate-work/edit-advocate-work.component";
 
 const routes: Routes = [
   {
@@ -56,15 +62,18 @@ const routes: Routes = [
           {path: 'lawyer/client_work/:id', component: EditClientWorkPageComponent, canActivate: [PermissionsGuard]},
           {path: 'lawyer/subscribers', component: EditSubscriberPageComponent, canActivate: [PermissionsGuard]},
           {path: 'lawyer/subscribers/:id', component: EditSubscriberPageComponent, canActivate: [PermissionsGuard]},
-          {path: 'lawyer/subscriber_works', component: EditSubscriberWorkPageComponent, canActivate: [PermissionsGuard]},
-          {path: 'lawyer/subscriber_works/:id', component: EditSubscriberWorkPageComponent, canActivate: [PermissionsGuard]},
+          {path: 'lawyer/subscriber_work', component: EditSubscriberWorkPageComponent, canActivate: [PermissionsGuard]},
+          {path: 'lawyer/subscriber_work/:id', component: EditSubscriberWorkPageComponent, canActivate: [PermissionsGuard]},
           {path: 'lawyer', redirectTo: 'lawyer/clients'},
-          //     {path: 'advocate', component: AdvocatePageComponent, canActivate: [PermissionsGuard]},
-          //     {path: 'advocate/:id', component: AdvocateCardComponent, canActivate: [PermissionsGuard], children: [
-          //       {path: '', component: AdvocateCategoriesComponent, canActivate: [PermissionsGuard]},
-          //       {path: ':category', component: AdvocateCasePageComponent, canActivate: [PermissionsGuard]},
-          //       {path: ':category/:case_id', component: AdvocateCaseCardComponent, canActivate: [PermissionsGuard]},
-          //     ]},
+
+          {path: 'advocate', component: EditAdvocatePageComponent, canActivate: [PermissionsGuard]},
+          {path: 'advocate/:id', component: EditAdvocatePageComponent, canActivate: [PermissionsGuard]},
+          {path: 'advocate_category', component: EditAdvocateCategoryComponent, canActivate: [PermissionsGuard]},
+          {path: 'advocate_category/:id', component: EditAdvocateCategoryComponent, canActivate: [PermissionsGuard]},
+          {path: 'advocate_case', component: EditAdvocateCaseComponent, canActivate: [PermissionsGuard]},
+          {path: 'advocate_case/:id', component: EditAdvocateCaseComponent, canActivate: [PermissionsGuard]},
+          {path: 'advocate_work', component: EditAdvocateWorkComponent, canActivate: [PermissionsGuard]},
+          {path: 'advocate_work/:id', component: EditAdvocateWorkComponent, canActivate: [PermissionsGuard]},
         ]
       },
     ]

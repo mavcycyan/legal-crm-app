@@ -28,6 +28,10 @@ import { ClientsAllComponent } from './layouts/main-page/lawyer-page/clients-pag
 import { EditSubscriberPageComponent } from './layouts/edit-page/edit-subscriber-page/edit-subscriber-page.component';
 import { EditSubscriberWorkPageComponent } from './layouts/edit-page/edit-subscriber-work-page/edit-subscriber-work-page.component';
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
+import { EditAdvocatePageComponent } from './layouts/edit-page/edit-advocate-page/edit-advocate-page.component';
+import { EditAdvocateCategoryComponent } from './layouts/edit-page/edit-advocate-category/edit-advocate-category.component';
+import { EditAdvocateCaseComponent } from './layouts/edit-page/edit-advocate-case/edit-advocate-case.component';
+import { EditAdvocateWorkComponent } from './layouts/edit-page/edit-advocate-work/edit-advocate-work.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +57,11 @@ import {AuthInterceptor} from "./interceptors/auth.interceptor";
     EditClientWorkPageComponent,
     ClientsAllComponent,
     EditSubscriberPageComponent,
-    EditSubscriberWorkPageComponent
+    EditSubscriberWorkPageComponent,
+    EditAdvocatePageComponent,
+    EditAdvocateCategoryComponent,
+    EditAdvocateCaseComponent,
+    EditAdvocateWorkComponent
   ],
   imports: [
     BrowserModule,

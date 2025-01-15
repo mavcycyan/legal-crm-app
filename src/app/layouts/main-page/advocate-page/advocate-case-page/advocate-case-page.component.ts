@@ -7,6 +7,8 @@ import {
 } from "../../../../models/advocates/advocate-cases.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {AdvocateService} from "../../../../services/advocate/advocate.service";
+import {MainService} from "../../../../services/main/main.service";
+import {AdvocateCategoryInterfaceRequest} from "../../../../models/advocates/advocate-categories.interface";
 
 @Component({
   selector: 'app-advocate-case-page',
@@ -27,7 +29,8 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
   ];
 
   constructor(private route: ActivatedRoute,
-              private advocateService: AdvocateService) {
+              private advocateService: AdvocateService,
+              private mainService: MainService) {
   }
 
 
@@ -35,8 +38,14 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
     this.subAdvocate$ = this.route.params
       .subscribe(
         (params: Params) => {
-          const advocateId: number = (params['id'] !== 'personal') ? params['id'] : 0;
-          this.advocateService.getAdvocateCases(1, params['category']).subscribe((list: AdvocateCasesInterfaceRequest) => {
+          const id = this.route.parent?.snapshot.params['id'];
+          const advocateId: number = (id !== 'personal') ? id : 1;
+          this.advocateService.getAdvocateCases(advocateId, params['category']).subscribe((list: AdvocateCasesInterfaceRequest) => {
+            this.advocateService.getCategoryBySlug(params['category']).subscribe((data: AdvocateCategoryInterfaceRequest) => {
+              let data_id: number|null = (data.data.id !== undefined) ? data.data.id.valueOf() : null;
+              this.mainService.setEditBtnData({type: 'advocate_category', id: data_id});
+              this.mainService.setEditBtnSecondaryData({type: 'advocate_case', id: null});
+            });
             this.cases = list.data;
           });
         }

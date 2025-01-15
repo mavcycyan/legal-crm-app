@@ -7,6 +7,7 @@ import {
   AdvocateCategoriesInterface,
   AdvocateCategoriesInterfaceRequest
 } from "../../../../models/advocates/advocate-categories.interface";
+import {MainService} from "../../../../services/main/main.service";
 
 @Component({
   selector: 'app-advocate-categories',
@@ -18,10 +19,13 @@ export class AdvocateCategoriesComponent  implements OnInit, OnDestroy {
 
   private categoriesSub$: Subscription = new Subscription();
 
-  constructor(private advocateService: AdvocateService) {
+  constructor(private advocateService: AdvocateService,
+              private mainService: MainService) {
   }
 
   ngOnInit(): void {
+    this.mainService.setEditBtnData({type: 'advocate_category', id: null});
+    this.mainService.setEditBtnSecondaryData({type: '', id: null});
     this.categoriesSub$ = this.advocateService.getCategories().subscribe((categories: AdvocateCategoriesInterfaceRequest) => {
       this.categories = categories.data;
     });

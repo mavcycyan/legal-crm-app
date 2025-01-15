@@ -25,6 +25,7 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
   }
   ngOnInit(): void {
     this.mainService.setEditBtnData({type: 'lawyer_clients', id: null});
+    this.mainService.setEditBtnSecondaryData({type: '', id: null});
     this.listSub$ = this.clientsService.getClientsList().subscribe((list: ClientsListInterfaceRequest) => {
       this.list = list.data.map((item: ClientsListInterface) => ({
         ...item,

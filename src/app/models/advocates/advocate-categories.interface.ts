@@ -9,3 +9,9 @@ export interface AdvocateCategoriesInterfaceRequest {
   message: String,
   data: AdvocateCategoriesInterface[]
 }
+
+export interface AdvocateCategoryInterfaceRequest {
+  success: Boolean,
+  message: String,
+  data: AdvocateCategoriesInterface
+}

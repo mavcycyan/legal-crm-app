@@ -15,8 +15,9 @@
     <div class="main-page-wrap">
       <router-outlet></router-outlet>
     </div>
-    <div class="main-page-btn" *ngIf="btn">
-      <a [routerLink]="btnLink.link">{{btnLink.text}}</a>
+    <div class="main-page-btn" *ngIf="btn || btnSecond">
+      <a [routerLink]="btnLink.link" *ngIf="btn">{{btnLink.text}}</a>
+      <a [routerLink]="btnSecondLink.link" *ngIf="btnSecond" class="second">{{btnSecondLink.text}}</a>
     </div>
   </div>
 </div>

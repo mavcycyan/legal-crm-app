@@ -1,10 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, ActivatedRouteSnapshot, Params} from "@angular/router";
-import {map, Observable, Subscription, switchMap} from "rxjs";
+import {ActivatedRoute, Params} from "@angular/router";
+import {Subscription} from "rxjs";
 import {ClientsCardInterface, ClientsCardInterfaceRequest} from "../../../../../models/clients/clients-card.interface";
 import {ClientsService} from "../../../../../services/clients/clients.service";
 import {ClientWorksCardInterface} from "../../../../../models/clients/client-works-card.interface";
-import {ClientsListInterfaceRequest} from "../../../../../models/clients/clients-list.interface";
 import {MainService} from "../../../../../services/main/main.service";
 
 @Component({
@@ -41,6 +40,7 @@ export class ClientsCardPageComponent implements OnInit, OnDestroy{
       .subscribe(
         (params: Params) => {
           this.mainService.setEditBtnData({type: 'lawyer_clients', id: params['id']});
+          this.mainService.setEditBtnSecondaryData({type: 'lawyer_client_work', id: null});
           this.clientsService.getOne(params['id']).subscribe((list: ClientsCardInterfaceRequest) => {
             this.client = list.data;
             this.works = (list.data.client_works !== undefined) ? list.data.client_works : [];

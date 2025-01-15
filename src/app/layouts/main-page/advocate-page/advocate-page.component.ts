@@ -4,6 +4,7 @@ import {
   AdvocatesListInterfaceRequest
 } from "../../../models/advocates/advocates-list.interface";
 import {AdvocateService} from "../../../services/advocate/advocate.service";
+import {MainService} from "../../../services/main/main.service";
 
 @Component({
   selector: 'app-advocate-page',
@@ -17,10 +18,13 @@ export class AdvocatePageComponent implements OnInit{
     {slug: 'email', name: 'E-mail'}
   ];
 
-  constructor(private advocateService: AdvocateService) {
+  constructor(private advocateService: AdvocateService,
+              private mainService: MainService) {
   }
 
   ngOnInit(): void {
+    this.mainService.setEditBtnData({type: '', id: null});
+    this.mainService.setEditBtnSecondaryData({type: '', id: null});
     this.advocateService.getList().subscribe((data: AdvocatesListInterfaceRequest) => {
       this.list = data.data
     });

@@ -6,6 +6,7 @@ import {
 } from "../../../../models/advocates/advocates-card.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {AdvocateService} from "../../../../services/advocate/advocate.service";
+import {MainService} from "../../../../services/main/main.service";
 
 @Component({
   selector: 'app-advocate-card',
@@ -23,7 +24,8 @@ export class AdvocateCardComponent implements OnInit, OnDestroy {
   ];
 
   constructor(private route: ActivatedRoute,
-              private advocateService: AdvocateService) {
+              private advocateService: AdvocateService,
+              private mainService: MainService) {
   }
 
 
@@ -38,6 +40,8 @@ export class AdvocateCardComponent implements OnInit, OnDestroy {
             const userId = sessionStorage.getItem('userId');
             advocateId = (userId !== null) ? parseInt(userId) : 99999999;
           }
+          this.mainService.setEditBtnData({type: '', id: null});
+          this.mainService.setEditBtnSecondaryData({type: '', id: null});
           this.advocateService.getOne(advocateId).subscribe((data: AdvocatesCardInterfaceRequest) => {
             this.advocate = data.data;
           });
