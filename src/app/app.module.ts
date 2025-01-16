@@ -32,6 +32,7 @@ import { EditAdvocatePageComponent } from './layouts/edit-page/edit-advocate-pag
 import { EditAdvocateCategoryComponent } from './layouts/edit-page/edit-advocate-category/edit-advocate-category.component';
 import { EditAdvocateCaseComponent } from './layouts/edit-page/edit-advocate-case/edit-advocate-case.component';
 import { EditAdvocateWorkComponent } from './layouts/edit-page/edit-advocate-work/edit-advocate-work.component';
+import { StatusworkPipe } from './pipes/statuswork/statuswork.pipe';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { EditAdvocateWorkComponent } from './layouts/edit-page/edit-advocate-wor
     EditAdvocatePageComponent,
     EditAdvocateCategoryComponent,
     EditAdvocateCaseComponent,
-    EditAdvocateWorkComponent
+    EditAdvocateWorkComponent,
+    StatusworkPipe
   ],
   imports: [
     BrowserModule,

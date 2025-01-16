@@ -21,6 +21,16 @@
               {{ option.label }}
             </option>
           </select>
+          <select
+            *ngSwitchCase="'select_status'"
+            [id]="field.slug"
+            [formControlName]="field.slug"
+            class="form-control"
+          >
+            <option [value]="'pending'">У процесі</option>
+            <option [value]="'canceled'">Завершена погано</option>
+            <option [value]="'done'">Завершена</option>
+          </select>
           <textarea
             *ngSwitchCase="'textarea'"
             [id]="field.name"

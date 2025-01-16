@@ -3,10 +3,38 @@
 .tablecom-tbl-row {
   display: flex;
   flex-wrap: wrap;
+  &:nth-child(2n) .tablecom-tbl-col {
+    background: #eee;
+  }
+
+  &.canceled {
+    .tablecom-tbl-col {
+      background: #fff2b7;
+    }
+    &:nth-child(2n) .tablecom-tbl-col {
+      background: #fff393;
+    }
+  }
+
+  &.pending {
+    .tablecom-tbl-col {
+      background: #ffb5b5;
+    }
+    &:nth-child(2n) .tablecom-tbl-col {
+      background: #ff9494;
+    }
+  }
+
+  &.done {
+    .tablecom-tbl-col {
+      background: #d0ffb6;
+    }
+    &:nth-child(2n) .tablecom-tbl-col {
+      background: #a9fa96;
+    }
+  }
 }
-.tablecom-tbl-row:nth-child(2n) .tablecom-tbl-col {
-  background: #eee;
-}
+
 .tablecom-tbl {
   overflow: hidden;
 }

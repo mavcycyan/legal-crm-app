@@ -12,6 +12,9 @@
 }
 .tableincom-tbl-col {
   padding: 15px 15px;
+  .pending {
+    color: #f00;
+  }
 }
 .tableincom-tbl-col:nth-child(1) {
   width: 200px;
@@ -26,6 +29,4 @@
   color: #fff;
 }
 
-.pending {
-  color: #f00;
-}
+

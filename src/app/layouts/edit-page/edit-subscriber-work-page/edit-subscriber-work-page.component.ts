@@ -27,7 +27,7 @@ export class EditSubscriberWorkPageComponent implements OnInit{
   fields: FormFieldsInterface[] = [
     {slug: 'subscriber_id', name: 'Абонент', required: true, class: 'w-100', type: 'select', choises: []},
     {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'text'},
-    {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'text'},
+    {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
     {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
   ];
 

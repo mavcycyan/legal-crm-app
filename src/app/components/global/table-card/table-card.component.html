@@ -1,4 +1,9 @@
-<div class="tableincom-tbl" *ngFor="let item of data" [id]="['work-'+item.id]">
+<div [ngClass]="{
+      'tableincom-tbl' : true,
+      'done' : (item.result !== undefined && item.result === 'done'),
+      'pending' : (item.result !== undefined && item.result === 'pending'),
+      'canceled' : (item.result !== undefined && item.result === 'canceled')
+    }" *ngFor="let item of data" [id]="['work-'+item.id]">
   <div class="tableincom-tbl-head">
     <div class="tableincom-tbl-row">
       <div class="tableincom-tbl-col">Назва</div>
@@ -13,7 +18,8 @@
           <div *ngFor="let what of item[column.slug]; index as y" [ngClass]="{'pending' : what.pending}">{{y+1}}. {{what.data}}</div>
         </div>
         <div *ngIf="column.slug !== 'what_done'">
-          {{item[column.slug]}}
+          <span *ngIf="column.slug === 'result'">{{item[column.slug] | statuswork}}</span>
+          <span *ngIf="column.slug !== 'result'">{{item[column.slug]}}</span>
         </div>
       </div>
     </div>

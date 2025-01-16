@@ -28,7 +28,7 @@ export class EditAdvocateCaseComponent {
     {slug: 'proc_num', name: 'Номер справи', required: true, class: 'w-50', type: 'text'},
     {slug: 'plot', name: 'Фабула', required: true, class: 'w-50', type: 'text'},
     {slug: 'fee', name: 'Гонорар', required: true, class: 'w-50', type: 'text'},
-    {slug: 'result', name: 'Результат', required: true, class: 'w-50', type: 'text'},
+    {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
   ];
 
   constructor(private route: ActivatedRoute,
