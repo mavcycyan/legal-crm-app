@@ -7,7 +7,8 @@ export interface SubscribersWorksCardInterface {
     pending: Boolean
   }[],
   responsible_advocate?: Number
-  result: String
+  result: String,
+  edit_path: String
 }
 
 export interface SubscribersWorksCardInterfaceRequest {

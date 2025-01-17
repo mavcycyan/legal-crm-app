@@ -8,6 +8,7 @@ import {
   AdvocateCaseCardInterfaceRequest
 } from "../../../../models/advocates/advocate-cases-card.interface";
 import {MainService} from "../../../../services/main/main.service";
+import {SubscribersWorksCardInterface} from "../../../../models/subscribers/subscribers-works-card.interface";
 
 @Component({
   selector: 'app-advocate-case-card',
@@ -38,6 +39,12 @@ export class AdvocateCaseCardComponent  implements OnInit, OnDestroy {
             this.mainService.setEditBtnSecondaryData({type: 'advocate_work', id: null});
             this.case = advcase.data;
             this.works = (advcase.data.advocate_works !== undefined) ? advcase.data.advocate_works : [];
+            if (advcase.data.advocate_works !== undefined) {
+              this.works = advcase.data.advocate_works.map((item: AdvocateWorksInterface) => ({
+                ...item,
+                edit_path: `/edit/lawyer/advocate_work/${item.id}`
+              }));
+            }
           });
         }
       )

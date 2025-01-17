@@ -30,3 +30,29 @@
 }
 
 
+.tableincom-tbl-col.prel {
+  position: relative;
+}
+.tableincom-tbl-edit {
+ position: absolute;
+ top: 14px;
+ right: 12px;
+ width: 22px;
+ height: 22px;
+ opacity: 0;
+}
+.tableincom-tbl:hover .tableincom-tbl-edit {
+ opacity: 1;
+}
+.tableincom-tbl-edit a {
+  display: block;
+  background: #fff;
+  border-radius: 4px;
+  height: 100%;
+  padding: 3px;
+}
+.tableincom-tbl-edit svg {
+  width: 100%;
+  height: auto;
+}
+

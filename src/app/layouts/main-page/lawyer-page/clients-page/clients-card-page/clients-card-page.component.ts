@@ -5,6 +5,7 @@ import {ClientsCardInterface, ClientsCardInterfaceRequest} from "../../../../../
 import {ClientsService} from "../../../../../services/clients/clients.service";
 import {ClientWorksCardInterface} from "../../../../../models/clients/client-works-card.interface";
 import {MainService} from "../../../../../services/main/main.service";
+import {ClientWorksListInterface} from "../../../../../models/clients/client-works-list.interface";
 
 @Component({
   selector: 'app-clients-card-page',
@@ -43,7 +44,12 @@ export class ClientsCardPageComponent implements OnInit, OnDestroy{
           this.mainService.setEditBtnSecondaryData({type: 'lawyer_client_work', id: null});
           this.clientsService.getOne(params['id']).subscribe((list: ClientsCardInterfaceRequest) => {
             this.client = list.data;
-            this.works = (list.data.client_works !== undefined) ? list.data.client_works : [];
+            if (list.data.client_works !== undefined) {
+              this.works = list.data.client_works.map((item: ClientWorksCardInterface) => ({
+                ...item,
+                edit_path: `/edit/lawyer/client_work/${item.id}`
+              }));
+            }
           });
         }
       )

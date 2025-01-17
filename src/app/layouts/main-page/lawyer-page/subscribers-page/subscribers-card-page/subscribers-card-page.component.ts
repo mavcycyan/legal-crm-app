@@ -9,6 +9,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {SubscribersService} from "../../../../../services/subscribers/subscribers.service";
 import {ClientsCardInterfaceRequest} from "../../../../../models/clients/clients-card.interface";
 import {MainService} from "../../../../../services/main/main.service";
+import {ClientWorksCardInterface} from "../../../../../models/clients/client-works-card.interface";
 
 @Component({
   selector: 'app-subscribers-card-page',
@@ -53,7 +54,12 @@ export class SubscribersCardPageComponent implements OnInit, OnDestroy{
           this.mainService.setEditBtnSecondaryData({type: 'lawyer_subscriber_work', id: null});
           this.subscribersService.getOne(params['id']).subscribe((list: SubscribersCardInterfaceRequest) => {
             this.subscriber = list.data;
-            this.works = (list.data.subscriber_works !== undefined) ? list.data.subscriber_works : [];
+            if (list.data.subscriber_works !== undefined) {
+              this.works = list.data.subscriber_works.map((item: SubscribersWorksCardInterface) => ({
+                ...item,
+                edit_path: `/edit/lawyer/subscriber_work/${item.id}`
+              }));
+            }
           });
         }
       )

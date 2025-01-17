@@ -8,7 +8,8 @@ export interface ClientWorksCardInterface {
     pending: Boolean
   }[],
   result: String,
-  fee: String
+  fee: String,
+  edit_path?: String
 }
 
 export interface ClientWorksCardInterfaceRequest {
