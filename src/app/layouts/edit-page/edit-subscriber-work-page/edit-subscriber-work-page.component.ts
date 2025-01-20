@@ -13,6 +13,7 @@ import {
 } from "../../../models/subscribers/subscribers-list.interface";
 import {SubscribersService} from "../../../services/subscribers/subscribers.service";
 import {SubscriberWorksService} from "../../../services/subscribers/subscriber-works.service";
+import {MainService} from "../../../services/main/main.service";
 
 @Component({
   selector: 'app-edit-subscriber-work-page',
@@ -33,7 +34,8 @@ export class EditSubscriberWorkPageComponent implements OnInit{
 
   constructor(private route: ActivatedRoute,
               public subscriberWorksService: SubscriberWorksService,
-              public subscribersService: SubscribersService) {
+              public subscribersService: SubscribersService,
+              public mainService: MainService) {
   }
 
   ngOnInit(): void {
@@ -41,9 +43,11 @@ export class EditSubscriberWorkPageComponent implements OnInit{
       .subscribe(
         (params: Params) => {
           if (params['id'] !== undefined) {
+            this.mainService.setPreloaderState(true);
             this.subscriberWorksService.getOne(params['id']).subscribe((work: SubscribersWorksCardInterfaceRequest) => {
               this.data = work.data;
               this.isEdit = true;
+              this.mainService.setPreloaderState(false);
             });
           }
         }

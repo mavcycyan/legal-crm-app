@@ -17,6 +17,7 @@ interface EditBtnLink {
 
 
 export class MainPageComponent implements OnInit, OnDestroy{
+  preloader: boolean = false;
   name: String = '';
   userType: string|null = '';
   btn: boolean = false;
@@ -54,6 +55,7 @@ export class MainPageComponent implements OnInit, OnDestroy{
     },
   };
   private subscription!: Subscription;
+  private subPreloader!: Subscription;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -64,6 +66,8 @@ export class MainPageComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.name = this.authService.getName();
     this.userType = sessionStorage.getItem('userType')
+    this.preloader = true;
+    this.preloaderCheck();
     this.buttonMainCheck();
     this.buttonSecondaryCheck();
   }
@@ -105,6 +109,15 @@ export class MainPageComponent implements OnInit, OnDestroy{
           this.btnSecond = false;
           this.btnSecondLink = {link: '', text: ''};
         }
+        this.cdr.detectChanges();
+      }
+    );
+  }
+
+  preloaderCheck(): void {
+    this.subPreloader = this.mainService.getPreloaderStateObservable().subscribe(
+      (state: boolean) => {
+        this.preloader = state;
         this.cdr.detectChanges();
       }
     );

@@ -30,6 +30,7 @@ export class ClientsPageComponent implements OnInit, OnDestroy{
               private mainService: MainService) {
   }
   ngOnInit(): void {
+    this.mainService.setPreloaderState(true);
     this.mainService.setEditBtnData({type: 'lawyer_client_work', id: null});
     this.mainService.setEditBtnSecondaryData({type: '', id: null});
     this.listSub$ = this.clientsService.getList().subscribe((list: ClientWorksListInterfaceRequest) => {
@@ -37,6 +38,7 @@ export class ClientsPageComponent implements OnInit, OnDestroy{
         ...item,
         custom_path: `/lawyer/clients/${item.client_id}#work-${item.id}`
       }));
+      this.mainService.setPreloaderState(false);
     });
   }
   ngOnDestroy(): void {

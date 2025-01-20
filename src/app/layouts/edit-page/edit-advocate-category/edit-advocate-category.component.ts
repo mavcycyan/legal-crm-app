@@ -11,6 +11,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {ClientsService} from "../../../services/clients/clients.service";
 import {AdvocateService} from "../../../services/advocate/advocate.service";
 import {AdvocateCategoryService} from "../../../services/advocate/advocate-category.service";
+import {MainService} from "../../../services/main/main.service";
 
 @Component({
   selector: 'app-edit-advocate-category',
@@ -29,7 +30,8 @@ export class EditAdvocateCategoryComponent {
 
   constructor(private route: ActivatedRoute,
               public advocateService: AdvocateService,
-              public advocateCategoryService: AdvocateCategoryService) {
+              public advocateCategoryService: AdvocateCategoryService,
+              public mainService: MainService) {
   }
 
   ngOnInit(): void {
@@ -37,9 +39,11 @@ export class EditAdvocateCategoryComponent {
       .subscribe(
         (params: Params) => {
           if (params['id'] !== undefined) {
+            this.mainService.setPreloaderState(true);
             this.advocateService.getCategory(params['id']).subscribe((advocate: AdvocateCategoryInterfaceRequest) => {
               this.data = advocate.data;
               this.isEdit = true;
+              this.mainService.setPreloaderState(false);
             });
           }
         }

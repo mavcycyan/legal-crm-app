@@ -11,6 +11,13 @@
             [type]="field.type"
             class="form-control"
           />
+          <input
+            *ngSwitchCase="'date'"
+            [id]="field.slug"
+            [formControlName]="field.slug"
+            [type]="field.type"
+            class="form-control"
+          />
           <select
             *ngSwitchCase="'select'"
             [id]="field.slug"

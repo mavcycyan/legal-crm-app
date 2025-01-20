@@ -30,6 +30,7 @@ export class AdvocateCardComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    this.mainService.setPreloaderState(true);
     this.subAdvocate$ = this.route.params
       .subscribe(
         (params: Params) => {
@@ -44,6 +45,7 @@ export class AdvocateCardComponent implements OnInit, OnDestroy {
           this.mainService.setEditBtnSecondaryData({type: '', id: null});
           this.advocateService.getOne(advocateId).subscribe((data: AdvocatesCardInterfaceRequest) => {
             this.advocate = data.data;
+            this.mainService.setPreloaderState(false);
           });
         }
       )

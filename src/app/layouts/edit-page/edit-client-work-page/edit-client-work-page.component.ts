@@ -10,6 +10,7 @@ import {
   ClientWorksCardInterfaceRequest
 } from "../../../models/clients/client-works-card.interface";
 import {Subscription} from "rxjs";
+import {MainService} from "../../../services/main/main.service";
 
 @Component({
   selector: 'app-edit-client-work-page',
@@ -32,7 +33,8 @@ export class EditClientWorkPageComponent implements OnInit{
 
   constructor(private route: ActivatedRoute,
               public clientWorksService: ClientWorksService,
-              public clientService: ClientsService) {
+              public clientService: ClientsService,
+              public mainService: MainService) {
   }
 
   ngOnInit(): void {
@@ -40,9 +42,11 @@ export class EditClientWorkPageComponent implements OnInit{
       .subscribe(
         (params: Params) => {
           if (params['id'] !== undefined) {
+            this.mainService.setPreloaderState(true);
             this.clientWorksService.getOne(params['id']).subscribe((work: ClientWorksCardInterfaceRequest) => {
               this.data = work.data;
               this.isEdit = true;
+              this.mainService.setPreloaderState(false);
             });
           }
         }

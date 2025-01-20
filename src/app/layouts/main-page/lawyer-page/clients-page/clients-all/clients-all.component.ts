@@ -24,6 +24,7 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
               private mainService: MainService) {
   }
   ngOnInit(): void {
+    this.mainService.setPreloaderState(true);
     this.mainService.setEditBtnData({type: 'lawyer_clients', id: null});
     this.mainService.setEditBtnSecondaryData({type: '', id: null});
     this.listSub$ = this.clientsService.getClientsList().subscribe((list: ClientsListInterfaceRequest) => {
@@ -31,6 +32,7 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
         ...item,
         custom_path: `${item.id}`
       }));
+      this.mainService.setPreloaderState(false);
     });
   }
   ngOnDestroy(): void {

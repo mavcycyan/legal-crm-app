@@ -37,6 +37,7 @@ export class ClientsCardPageComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
+    this.mainService.setPreloaderState(true);
     this.subClient$ = this.route.params
       .subscribe(
         (params: Params) => {
@@ -50,6 +51,7 @@ export class ClientsCardPageComponent implements OnInit, OnDestroy{
                 edit_path: `/edit/lawyer/client_work/${item.id}`
               }));
             }
+            this.mainService.setPreloaderState(false);
           });
         }
       )

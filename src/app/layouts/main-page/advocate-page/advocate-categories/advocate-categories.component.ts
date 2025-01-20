@@ -24,10 +24,12 @@ export class AdvocateCategoriesComponent  implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.mainService.setPreloaderState(true);
     this.mainService.setEditBtnData({type: 'advocate_category', id: null});
     this.mainService.setEditBtnSecondaryData({type: '', id: null});
     this.categoriesSub$ = this.advocateService.getCategories().subscribe((categories: AdvocateCategoriesInterfaceRequest) => {
       this.categories = categories.data;
+      this.mainService.setPreloaderState(false);
     });
   }
   ngOnDestroy(): void {

@@ -31,6 +31,7 @@ export class AdvocateCaseCardComponent  implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    this.mainService.setPreloaderState(true);
     this.subAdvocate$ = this.route.params
       .subscribe(
         (params: Params) => {
@@ -45,6 +46,7 @@ export class AdvocateCaseCardComponent  implements OnInit, OnDestroy {
                 edit_path: `/edit/lawyer/advocate_work/${item.id}`
               }));
             }
+            this.mainService.setPreloaderState(false);
           });
         }
       )

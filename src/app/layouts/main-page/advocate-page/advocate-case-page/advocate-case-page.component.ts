@@ -35,6 +35,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    this.mainService.setPreloaderState(true);
     this.subAdvocate$ = this.route.params
       .subscribe(
         (params: Params) => {
@@ -48,6 +49,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
             });
             this.cases = list.data;
           });
+          this.mainService.setPreloaderState(false);
         }
       )
   }

@@ -16,6 +16,9 @@ export class MainService {
   private editBtnSecondaryData: EditBtnData = {type: '', id: null};
   private subjectSecondaryData = new BehaviorSubject<EditBtnData>(this.editBtnSecondaryData)
 
+  private preloader: boolean = false;
+  private subjectPreloader = new BehaviorSubject<boolean>(this.preloader)
+
   constructor() { }
   setEditBtnData(data: EditBtnData = {type: '', id: null}): void {
     this.editBtnData = data;
@@ -30,5 +33,14 @@ export class MainService {
   }
   getEditSecondaryDataObservable() {
     return this.subjectSecondaryData.asObservable();
+  }
+
+
+  getPreloaderStateObservable() {
+    return this.subjectPreloader.asObservable();
+  }
+  setPreloaderState(state: boolean = false): void {
+    this.preloader = state;
+    this.subjectPreloader.next(this.preloader);
   }
 }

@@ -23,10 +23,12 @@ export class AdvocatePageComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.mainService.setPreloaderState(true);
     this.mainService.setEditBtnData({type: '', id: null});
     this.mainService.setEditBtnSecondaryData({type: '', id: null});
     this.advocateService.getList().subscribe((data: AdvocatesListInterfaceRequest) => {
       this.list = data.data
+      this.mainService.setPreloaderState(false);
     });
   }
 }

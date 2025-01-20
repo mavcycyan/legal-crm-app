@@ -47,6 +47,7 @@ export class SubscribersCardPageComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
+    this.mainService.setPreloaderState(true);
     this.subSubscr$ = this.route.params
       .subscribe(
         (params: Params) => {
@@ -60,6 +61,7 @@ export class SubscribersCardPageComponent implements OnInit, OnDestroy{
                 edit_path: `/edit/lawyer/subscriber_work/${item.id}`
               }));
             }
+            this.mainService.setPreloaderState(false);
           });
         }
       )

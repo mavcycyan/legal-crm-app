@@ -28,6 +28,7 @@ import {
   AdvocateCasesInterface,
   AdvocateCasesInterfaceRequest
 } from "../../../models/advocates/advocate-cases.interface";
+import {MainService} from "../../../services/main/main.service";
 
 @Component({
   selector: 'app-edit-advocate-work',
@@ -48,7 +49,8 @@ export class EditAdvocateWorkComponent {
 
   constructor(private route: ActivatedRoute,
               public advocateWorksService: AdvocateWorkService,
-              public advocateCaseService: AdvocateCaseService) {
+              public advocateCaseService: AdvocateCaseService,
+              public mainService: MainService) {
   }
 
   ngOnInit(): void {
@@ -56,9 +58,11 @@ export class EditAdvocateWorkComponent {
       .subscribe(
         (params: Params) => {
           if (params['id'] !== undefined) {
+            this.mainService.setPreloaderState(true);
             this.advocateWorksService.getOne(params['id']).subscribe((work: AdvocateWorksInterfaceRequest) => {
               this.data = work.data;
               this.isEdit = true;
+              this.mainService.setPreloaderState(false);
             });
           }
         }

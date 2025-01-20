@@ -5,6 +5,7 @@ import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {ClientsCardInterface, ClientsCardInterfaceRequest} from "../../../models/clients/clients-card.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs";
+import {MainService} from "../../../services/main/main.service";
 
 @Component({
   selector: 'app-edit-client-page',
@@ -21,11 +22,12 @@ export class EditClientPageComponent implements OnInit{
     {slug: 'phone', name: 'Телефон', required: false, class: 'w-50', type: 'text'},
     {slug: 'address', name: 'Адреса', required: false, class: 'w-100', type: 'text'},
     {slug: 'where_knows', name: 'Звідки дізналися', required: false, class: 'w-50', type: 'text'},
-    {slug: 'birthday', name: 'Дата народження', required: false, class: 'w-50', type: 'text'},
+    {slug: 'birthday', name: 'Дата народження', required: false, class: 'w-50', type: 'date'},
   ];
 
   constructor(private route: ActivatedRoute,
-              public clientService: ClientsService) {
+              public clientService: ClientsService,
+              public mainService: MainService) {
   }
 
   ngOnInit(): void {
@@ -33,9 +35,11 @@ export class EditClientPageComponent implements OnInit{
       .subscribe(
         (params: Params) => {
           if (params['id'] !== undefined) {
+            this.mainService.setPreloaderState(true);
             this.clientService.getOne(params['id']).subscribe((client: ClientsCardInterfaceRequest) => {
               this.data = client.data;
               this.isEdit = true;
+              this.mainService.setPreloaderState(false);
 
             });
           }
