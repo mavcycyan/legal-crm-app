@@ -10,6 +10,14 @@ import {
   AdvocateCasesInterface
 } from "../../../models/advocates/advocate-cases.interface";
 import {MainService} from "../../../services/main/main.service";
+import {
+  AdvocatesListInterface,
+  AdvocatesListInterfaceRequest
+} from "../../../models/advocates/advocates-list.interface";
+import {
+  AdvocateCategoriesInterface,
+  AdvocateCategoriesInterfaceRequest
+} from "../../../models/advocates/advocate-categories.interface";
 
 @Component({
   selector: 'app-edit-advocate-case',
@@ -22,12 +30,12 @@ export class EditAdvocateCaseComponent {
   data: AdvocateCasesInterface = {} as AdvocateCasesInterface;
   isEdit: boolean = false;
   fields: FormFieldsInterface[] = [
-    {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'text'},
-    {slug: 'advocate_category_id', name: 'Категорія', required: true, class: 'w-50', type: 'text'},
-    {slug: 'visit_date', name: 'Дата заведення', required: true, class: 'w-50', type: 'text'},
+    {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'select', choises: []},
+    {slug: 'advocate_category_id', name: 'Категорія', required: true, class: 'w-50', type: 'select', choises: []},
+    {slug: 'visit_date', name: 'Дата заведення', required: true, class: 'w-50', type: 'date'},
     {slug: 'advocates', name: 'Адвокати у справі', required: false, class: 'w-50', type: 'text'},
-    {slug: 'proc_num', name: 'Номер справи', required: true, class: 'w-50', type: 'text'},
-    {slug: 'plot', name: 'Фабула', required: true, class: 'w-50', type: 'text'},
+    {slug: 'proc_num', name: 'Номер справи', required: true, class: 'w-100', type: 'text'},
+    {slug: 'plot', name: 'Фабула', required: true, class: 'w-100', type: 'text'},
     {slug: 'fee', name: 'Гонорар', required: true, class: 'w-50', type: 'text'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
   ];
@@ -52,5 +60,29 @@ export class EditAdvocateCaseComponent {
           }
         }
       )
+    this.advocateService.getList().subscribe((data: AdvocatesListInterfaceRequest) => {
+      const advocates = data.data;
+      this.fields.map((field: FormFieldsInterface) => {
+        if (field.slug === 'advocate_id') {
+          advocates.forEach((advocate: AdvocatesListInterface, index: number) => {
+            if (field.choises !== undefined) {
+              field.choises[index] = {label: advocate.name.toString(), value: advocate.id.toString()};
+            }
+          });
+        }
+      });
+    });
+    this.advocateService.getCategories().subscribe((data: AdvocateCategoriesInterfaceRequest) => {
+      const categories = data.data;
+      this.fields.map((field: FormFieldsInterface) => {
+        if (field.slug === 'advocate_category_id') {
+          categories.forEach((category: AdvocateCategoriesInterface, index: number) => {
+            if (field.choises !== undefined) {
+              field.choises[index] = {label: category.name.toString(), value: category.id.toString()};
+            }
+          });
+        }
+      });
+    });
   }
 }

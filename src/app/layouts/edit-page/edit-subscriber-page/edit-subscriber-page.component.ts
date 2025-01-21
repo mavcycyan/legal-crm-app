@@ -9,6 +9,15 @@ import {
   SubscribersCardInterfaceRequest
 } from "../../../models/subscribers/subscribers-card.interface";
 import {MainService} from "../../../services/main/main.service";
+import {
+  SubscribersListInterface,
+  SubscribersListInterfaceRequest
+} from "../../../models/subscribers/subscribers-list.interface";
+import {AdvocateService} from "../../../services/advocate/advocate.service";
+import {
+  AdvocatesListInterface,
+  AdvocatesListInterfaceRequest
+} from "../../../models/advocates/advocates-list.interface";
 
 @Component({
   selector: 'app-edit-subscriber-page',
@@ -22,9 +31,9 @@ export class EditSubscriberPageComponent implements OnInit{
   isEdit: boolean = false;
   fields: FormFieldsInterface[] = [
     {slug: 'name', name: 'Назва', required: true, class: 'w-100', type: 'text'},
-    {slug: 'responsible_person_id', name: 'Відповідальний адвокат', required: false, class: 'w-100', type: 'text'},
+    {slug: 'responsible_person_id', name: 'Відповідальний адвокат', required: false, class: 'w-100', type: 'select', choises: []},
     {slug: 'edrpou', name: 'ЄДРПОУ', required: false, class: 'w-50', type: 'text'},
-    {slug: 'contract_date', name: 'Дата укладення угоди', required: false, class: 'w-100', type: 'date'},
+    {slug: 'contract_date', name: 'Дата укладення угоди', required: false, class: 'w-50', type: 'date'},
     {slug: 'contact_person_name', name: 'Ім\'я контактної особи', required: false, class: 'w-50', type: 'text'},
     {slug: 'contact_person_phone', name: 'Телефон контактної особи', required: false, class: 'w-50', type: 'text'},
     {slug: 'director_person_name', name: 'Ім\'я директор', required: false, class: 'w-50', type: 'text'},
@@ -36,7 +45,8 @@ export class EditSubscriberPageComponent implements OnInit{
 
   constructor(private route: ActivatedRoute,
               public mainService: MainService,
-              public subscribersService: SubscribersService) {
+              public subscribersService: SubscribersService,
+              public advocatesService: AdvocateService) {
   }
 
   ngOnInit(): void {
@@ -54,5 +64,17 @@ export class EditSubscriberPageComponent implements OnInit{
           }
         }
       )
+    this.advocatesService.getList().subscribe((data: AdvocatesListInterfaceRequest) => {
+      const advocates = data.data;
+      this.fields.map((field: FormFieldsInterface) => {
+        if (field.slug === 'responsible_person_id') {
+          advocates.forEach((advocate: AdvocatesListInterface, index: number) => {
+            if (field.choises !== undefined) {
+              field.choises[index] = {label: advocate.name.toString(), value: advocate.id.toString()};
+            }
+          });
+        }
+      });
+    });
   }
 }
