@@ -41,7 +41,7 @@ export class AdvocateCardComponent implements OnInit, OnDestroy {
             const userId = sessionStorage.getItem('userId');
             advocateId = (userId !== null) ? parseInt(userId) : 99999999;
           }
-          this.mainService.setEditBtnData({type: '', id: null});
+          this.mainService.setEditBtnData({type: 'advocate_category', id: null});
           this.mainService.setEditBtnSecondaryData({type: '', id: null});
           this.advocateService.getOne(advocateId).subscribe((data: AdvocatesCardInterfaceRequest) => {
             this.advocate = data.data;

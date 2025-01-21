@@ -46,10 +46,10 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
               let data_id: number|null = (data.data.id !== undefined) ? data.data.id.valueOf() : null;
               this.mainService.setEditBtnData({type: 'advocate_category', id: data_id});
               this.mainService.setEditBtnSecondaryData({type: 'advocate_case', id: null});
+              this.mainService.setPreloaderState(false);
             });
             this.cases = list.data;
           });
-          this.mainService.setPreloaderState(false);
         }
       )
   }

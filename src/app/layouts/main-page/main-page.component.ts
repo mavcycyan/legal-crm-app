@@ -55,6 +55,7 @@ export class MainPageComponent implements OnInit, OnDestroy{
     },
   };
   private subscription!: Subscription;
+  private subscription2!: Subscription;
   private subPreloader!: Subscription;
 
   constructor(private authService: AuthService,
@@ -94,7 +95,7 @@ export class MainPageComponent implements OnInit, OnDestroy{
   }
 
   buttonSecondaryCheck(): void {
-    this.subscription = this.mainService.getEditSecondaryDataObservable().subscribe(
+    this.subscription2 = this.mainService.getEditSecondaryDataObservable().subscribe(
       (data: {type: string, id: number|null}) => {
         const btnType: string = data.type;
         if (btnType !== '') {
@@ -132,6 +133,12 @@ export class MainPageComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+    if (this.subscription2) {
+      this.subscription2.unsubscribe();
+    }
+    if (this.subPreloader) {
+      this.subPreloader.unsubscribe();
     }
   }
 }
