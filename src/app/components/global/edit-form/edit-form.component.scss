@@ -77,3 +77,28 @@
     }
   }
 }
+
+
+.form-checkbox {
+  padding: 0 4px 8px;
+  &-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -4px;
+  }
+  label {
+    border: 1px solid $color_main;
+    color: $color_main;
+    padding: 4px 10px;
+    display: block;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  input {
+    display: none;
+    &:checked + label {
+      background: $color_main;
+      color: $color_white;
+    }
+  }
+}

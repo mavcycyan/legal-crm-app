@@ -28,6 +28,19 @@
               {{ option.label }}
             </option>
           </select>
+          <div
+            *ngSwitchCase="'checkbox'"
+            [id]="field.slug"
+            [formArrayName]="field.slug"
+            class="form-checkbox-row"
+          >
+            <span *ngIf="field.choises !== undefined && field.choises.length > 0">
+              <span *ngFor="let option of field.choises;let i = index;" class="form-checkbox">
+                <input type="checkbox" [id]="field.slug+i" [value]="option.value" [formControlName]="i" />
+                <label [for]="field.slug+i">{{ option.label }}</label>
+              </span>
+            </span>
+          </div>
           <select
             *ngSwitchCase="'select_status'"
             [id]="field.slug"

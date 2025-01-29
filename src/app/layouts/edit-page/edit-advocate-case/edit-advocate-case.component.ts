@@ -4,7 +4,6 @@ import {FormGroup} from "@angular/forms";
 import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {AdvocateService} from "../../../services/advocate/advocate.service";
-import {AdvocateCategoryService} from "../../../services/advocate/advocate-category.service";
 import {
   AdvocateCaseInterfaceRequest,
   AdvocateCasesInterface
@@ -18,6 +17,7 @@ import {
   AdvocateCategoriesInterface,
   AdvocateCategoriesInterfaceRequest
 } from "../../../models/advocates/advocate-categories.interface";
+import {AdvocateCaseService} from "../../../services/advocate/advocate-case.service";
 
 @Component({
   selector: 'app-edit-advocate-case',
@@ -33,8 +33,8 @@ export class EditAdvocateCaseComponent {
     {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'select', choises: []},
     {slug: 'advocate_category_id', name: 'Категорія', required: true, class: 'w-50', type: 'select', choises: []},
     {slug: 'visit_date', name: 'Дата заведення', required: true, class: 'w-50', type: 'date'},
-    {slug: 'advocates', name: 'Адвокати у справі', required: false, class: 'w-50', type: 'text'},
-    {slug: 'proc_num', name: 'Номер справи', required: true, class: 'w-100', type: 'text'},
+    {slug: 'proc_num', name: 'Номер справи', required: true, class: 'w-50', type: 'text'},
+    {slug: 'advocates', name: 'Адвокати у справі', required: false, class: 'w-100', type: 'checkbox', choises: []},
     {slug: 'plot', name: 'Фабула', required: true, class: 'w-100', type: 'text'},
     {slug: 'fee', name: 'Гонорар', required: true, class: 'w-50', type: 'text'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
@@ -42,28 +42,22 @@ export class EditAdvocateCaseComponent {
 
   constructor(private route: ActivatedRoute,
               public advocateService: AdvocateService,
-              public advocateCaseService: AdvocateCategoryService,
+              public advocateCaseService: AdvocateCaseService,
               public mainService: MainService) {
   }
 
   ngOnInit(): void {
-    this.subClient$ = this.route.params
-      .subscribe(
-        (params: Params) => {
-          if (params['id'] !== undefined) {
-            this.mainService.setPreloaderState(true);
-            this.advocateService.getAdvocateCase(params['id']).subscribe((advocate: AdvocateCaseInterfaceRequest) => {
-              this.data = advocate.data;
-              this.isEdit = true;
-              this.mainService.setPreloaderState(false);
-            });
-          }
-        }
-      )
     this.advocateService.getList().subscribe((data: AdvocatesListInterfaceRequest) => {
       const advocates = data.data;
       this.fields.map((field: FormFieldsInterface) => {
         if (field.slug === 'advocate_id') {
+          advocates.forEach((advocate: AdvocatesListInterface, index: number) => {
+            if (field.choises !== undefined) {
+              field.choises[index] = {label: advocate.name.toString(), value: advocate.id.toString()};
+            }
+          });
+        }
+        if (field.slug === 'advocates') {
           advocates.forEach((advocate: AdvocatesListInterface, index: number) => {
             if (field.choises !== undefined) {
               field.choises[index] = {label: advocate.name.toString(), value: advocate.id.toString()};
@@ -84,5 +78,18 @@ export class EditAdvocateCaseComponent {
         }
       });
     });
+    this.subClient$ = this.route.params
+      .subscribe(
+        (params: Params) => {
+          if (params['id'] !== undefined) {
+            this.mainService.setPreloaderState(true);
+            this.advocateService.getAdvocateCase(params['id']).subscribe((advocate: AdvocateCaseInterfaceRequest) => {
+              this.data = advocate.data;
+              this.isEdit = true;
+              this.mainService.setPreloaderState(false);
+            });
+          }
+        }
+      )
   }
 }

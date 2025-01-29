@@ -24,6 +24,8 @@ export class EditFormComponent implements OnInit, OnChanges{
         newFields[field.slug] = new FormControl('', Validators.required);
       } else if (field.type === 'what_done') {
         newFields[field.slug] = this.fb.array([]);
+      } else if (field.type === 'checkbox') {
+        newFields[field.slug] = this.fb.array([]);
       } else {
         newFields[field.slug] = new FormControl('');
       }
@@ -32,6 +34,12 @@ export class EditFormComponent implements OnInit, OnChanges{
   }
 
   ngOnChanges() {
+    this.fields.forEach((field: any) => {
+      if (field.type === 'checkbox') {
+        const checkboxes = field.choises.map((choise: {label: string, value: string}) => new FormControl(false));
+        this.form.setControl(field.slug, this.fb.array(checkboxes));
+      }
+    });
     if(this.isEdit) {
       this.fields.forEach((item: any) => {
         if (item.type === 'what_done' && this.data[item.slug]) {
@@ -44,6 +52,13 @@ export class EditFormComponent implements OnInit, OnChanges{
             )
           );
           this.form.setControl(item.slug, formArray);
+        } else if (item.type === 'checkbox' && this.data[item.slug]) {
+          // const formArray = this.fb.array(
+          //   this.data[item.slug].map((obj: any) =>
+          //     this.fb.group(obj)
+          //   )
+          // );
+          // this.form.setControl(item.slug, formArray);
         } else {
           let forPatching: any = {};
           forPatching[item.slug] = this.data[item.slug];
@@ -70,6 +85,9 @@ export class EditFormComponent implements OnInit, OnChanges{
   }
 
   submit():void {
+    console.log(this.form.controls);
+    console.log(this.form.value);
+    return
     if (this.form.status === 'VALID') {
       const valueObj: any = this.form.value;
       if(this.isEdit) {
