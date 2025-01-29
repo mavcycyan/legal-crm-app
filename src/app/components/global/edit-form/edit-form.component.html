@@ -28,19 +28,17 @@
               {{ option.label }}
             </option>
           </select>
-          <div
-            *ngSwitchCase="'checkbox'"
+          <select
+            *ngSwitchCase="'select_multy'"
             [id]="field.slug"
-            [formArrayName]="field.slug"
-            class="form-checkbox-row"
+            [formControlName]="field.slug"
+            class="form-control"
+            multiple
           >
-            <span *ngIf="field.choises !== undefined && field.choises.length > 0">
-              <span *ngFor="let option of field.choises;let i = index;" class="form-checkbox">
-                <input type="checkbox" [id]="field.slug+i" [value]="option.value" [formControlName]="i" />
-                <label [for]="field.slug+i">{{ option.label }}</label>
-              </span>
-            </span>
-          </div>
+            <option *ngFor="let option of field.choises" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
           <select
             *ngSwitchCase="'select_status'"
             [id]="field.slug"
