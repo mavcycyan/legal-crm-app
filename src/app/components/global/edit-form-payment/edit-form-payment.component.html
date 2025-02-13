@@ -1,0 +1,46 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="edit-form-payment">
+  <div class="edit-form-payment-head">Гонорари та платежі</div>
+  <div class="edit-form-payment-body">
+    <div *ngIf="!pendingModal && prices.length > 0" class="edit-form-payment-wrap" formArrayName="prices">
+      <div *ngFor="let price of prices.controls; let i = index;" class="edit-form-payment-row" [formGroupName]="i">
+        <div class="edit-form-payment-row-main">
+          <div class="edit-form-payment-row-ttl"><b>Гонорар</b><span *ngIf="priceList.length > 0 && priceList[i] !== undefined && priceList[i].date !== undefined"> - {{priceList[i].date}}<span *ngIf="priceList[i].date_end"> - {{priceList[i].date_end}} (завершений)</span></span></div>
+          <div class="edit-form-payment-row-input">
+            <input type="hidden" formControlName="id">
+            <input type="text" formControlName="price" class="form-control">
+          </div>
+          <div *ngIf="getPayments(i).controls && getPayments(i).controls.length > 0" class="edit-form-payment-sub" formArrayName="payments">
+            <div class="edit-form-payment-sub-row">
+              <div class="edit-form-payment-sub-bl">Сума платежу</div>
+              <div class="edit-form-payment-sub-bl">Дата платежу</div>
+            </div>
+            <div *ngFor="let pay of getPayments(i).controls; let j = index;" class="edit-form-payment-sub-row" [formGroupName]="j">
+              <div class="edit-form-payment-sub-bl">
+                <input type="hidden" formControlName="id">
+                <input type="text" formControlName="amount" class="form-control">
+              </div>
+              <div class="edit-form-payment-sub-bl">
+                <input type="date" formControlName="date" class="form-control">
+              </div>
+              <div class="edit-form-payment-sub-row-del">
+                <button type="button" (click)="removePayment(i, j)">&times;</button>
+              </div>
+            </div>
+          </div>
+          <div class="edit-form-payment-sub-row-add">
+            <button type="button" (click)="addPayment(i)" class="btn btn-add">Додати платіж</button>
+          </div>
+        </div>
+        <div class="edit-form-payment-row-del">
+          <button type="button" (click)="removePrice(i)">&times;</button>
+        </div>
+      </div>
+    </div>
+    <div class="edit-form-payment-row-add">
+      <button type="button" (click)="addPrice()" class="btn btn-add">Додати гонорар</button>
+    </div>
+    <div class="edit-form-payment-submit">
+      <button type="submit" class="btn btn-primary">Зберегти</button>
+    </div>
+  </div>
+</form>

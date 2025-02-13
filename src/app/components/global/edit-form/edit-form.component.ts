@@ -1,10 +1,23 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {animate, style, transition, trigger} from "@angular/animations";
+import {MainService} from "../../../services/main/main.service";
 
 @Component({
   selector: 'app-edit-form',
   templateUrl: './edit-form.component.html',
-  styleUrls: ['./edit-form.component.scss']
+  styleUrls: ['./edit-form.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms ease-out', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class EditFormComponent implements OnInit, OnChanges{
   @Input() fields: any;
@@ -13,11 +26,15 @@ export class EditFormComponent implements OnInit, OnChanges{
   @Input() isEdit: boolean = false;
   form: FormGroup = {} as FormGroup;
   id: number|null = null;
+  paymodal: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private mainService: MainService) {
   }
 
   ngOnInit(): void {
+    this.mainService.setEditBtnData({type: '', id: null});
+    this.mainService.setEditBtnSecondaryData({type: '', id: null});
     let newFields: any = {};
     this.fields.forEach((field: any) => {
       if (field.required) {
@@ -67,6 +84,14 @@ export class EditFormComponent implements OnInit, OnChanges{
   }
   removeRepData(id: number): void {
     this.whatDone.removeAt(id);
+  }
+
+  payModalOpen(): void {
+    const id = this.id;
+    this.paymodal = true;
+  }
+  payModalClose(): void {
+    this.paymodal = false;
   }
 
   submit():void {

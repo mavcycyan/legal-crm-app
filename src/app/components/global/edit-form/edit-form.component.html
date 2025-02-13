@@ -77,7 +77,18 @@
                 <button type="button" (click)="removeRepData(i)">Видалити</button>
               </div>
             </div>
-            <button type="button" (click)="addRepData()" class="btn btn-primary">Додати новий пунки</button>
+            <button type="button" (click)="addRepData()" class="btn btn-primary">Додати новий пункт</button>
+          </div>
+          <div
+            *ngSwitchCase="'paymodal'"
+          >
+            <button type="button" (click)="payModalOpen()" class="btn btn-primary">Редагувати</button>
+            <div class="modal" *ngIf="paymodal" @fadeInOut>
+              <div class="modal-overlay" (click)="payModalClose()"></div>
+              <div class="modal-wrap">
+                <app-edit-form-payment [id]="id"></app-edit-form-payment>
+              </div>
+            </div>
           </div>
         </ng-container>
       </div>

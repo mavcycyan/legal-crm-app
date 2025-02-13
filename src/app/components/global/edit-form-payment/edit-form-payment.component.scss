@@ -1,0 +1,129 @@
+@import 'src/variables.scss';
+
+
+.btn {
+  border: 0;
+  padding: 14px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 1;
+  transition: 0.3s;
+  &:hover {
+    opacity: 0.7;
+    transition: 0.3s;
+  }
+  & + .btn {
+    margin-left: 30px;
+  }
+  &.btn-primary {
+    background: $color_main;
+    color: $color_white;
+  }
+  &.btn-add {
+    background: $color_button_add;
+    color: $color_white;
+    padding: 4px 14px;
+  }
+  &.btn-danger {
+    background: $color_danger;
+    color: $color_white;
+  }
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 4px;
+  border: 1px solid $color_main;
+}
+
+.edit-form-payment {
+  &-head {
+    padding: 12px 15px;
+    font-size: 20px;
+    color: #fff;
+    background: $color_main;
+  }
+  &-body {
+    padding: 10px;
+  }
+  &-wrap {
+    margin-bottom: 20px;
+  }
+  &-row {
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #b8b3b3;
+    &-ttl {
+      margin-bottom: 5px;
+    }
+    &-main {
+      width: calc(100% - 30px);
+      padding-right: 30px;
+    }
+    &-del {
+      display: flex;
+      align-items: center;
+      width: 30px;
+      justify-content: center;
+      button {
+        background: none;
+        border: 0;
+        padding: 0;
+        font-size: 28px;
+        color: #f00;
+        cursor: pointer;
+      }
+    }
+    &-add {
+      margin-bottom: 15px;
+    }
+  }
+  &-sub {
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 6px 6px 0px 0px;
+    border: 1px solid $color_main;
+    &-row {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 1px solid $color_main;
+      &:first-child {
+        background: $color_main;
+        color: #fff;
+      }
+      &:last-child {
+        border-bottom: 0;
+      }
+      &-del {
+        display: flex;
+        align-items: center;
+        width: 30px;
+        justify-content: center;
+        button {
+          background: none;
+          border: 0;
+          padding: 0;
+          font-size: 28px;
+          color: #f00;
+          cursor: pointer;
+        }
+      }
+      &-add {
+        margin-top: 10px;
+        text-align: right;
+      }
+    }
+    &-bl {
+      padding: 10px;
+      width: calc(50% - 15px);
+      input.form-control {
+        padding: 4px;
+      }
+    }
+  }
+}
+

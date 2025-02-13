@@ -33,6 +33,8 @@ import { EditAdvocateCategoryComponent } from './layouts/edit-page/edit-advocate
 import { EditAdvocateCaseComponent } from './layouts/edit-page/edit-advocate-case/edit-advocate-case.component';
 import { EditAdvocateWorkComponent } from './layouts/edit-page/edit-advocate-work/edit-advocate-work.component';
 import { StatusworkPipe } from './pipes/statuswork/statuswork.pipe';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { EditFormPaymentComponent } from './components/global/edit-form-payment/edit-form-payment.component';
 
 @NgModule({
   declarations: [
@@ -63,13 +65,15 @@ import { StatusworkPipe } from './pipes/statuswork/statuswork.pipe';
     EditAdvocateCategoryComponent,
     EditAdvocateCaseComponent,
     EditAdvocateWorkComponent,
-    StatusworkPipe
+    StatusworkPipe,
+    EditFormPaymentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {
