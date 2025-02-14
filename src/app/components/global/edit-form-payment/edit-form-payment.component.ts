@@ -83,7 +83,7 @@ export class EditFormPaymentComponent implements OnInit{
     this.getPayments(priceIndex).push(this.fb.group({
       id: [null],
       amount: [null, [Validators.required, Validators.min(1)]],
-      date: [null]
+      date: [new Date().toISOString().split('T')[0]]
     }));
   }
 
