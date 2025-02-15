@@ -15,12 +15,12 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angul
 export class EditFormPaymentComponent implements OnInit{
 
   @Input() id: number|null = null;
+  @Input() service: any;
 
   priceList: PaymentFormInterface[] = [];
   form: FormGroup = {} as FormGroup;
   pendingModal: boolean = false;
-  constructor(private service: ClientWorkPaymentsService,
-              private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       prices: this.fb.array([])
     });

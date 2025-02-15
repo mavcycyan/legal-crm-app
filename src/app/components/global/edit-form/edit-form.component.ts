@@ -23,6 +23,7 @@ export class EditFormComponent implements OnInit, OnChanges{
   @Input() fields: any;
   @Input() data: any;
   @Input() formService: any;
+  @Input() formPaymentsService: any;
   @Input() isEdit: boolean = false;
   form: FormGroup = {} as FormGroup;
   id: number|null = null;

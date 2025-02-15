@@ -86,7 +86,7 @@
             <div class="modal" *ngIf="paymodal" @fadeInOut>
               <div class="modal-overlay" (click)="payModalClose()"></div>
               <div class="modal-wrap">
-                <app-edit-form-payment [id]="id"></app-edit-form-payment>
+                <app-edit-form-payment [id]="id" [service]="formPaymentsService"></app-edit-form-payment>
               </div>
             </div>
           </div>

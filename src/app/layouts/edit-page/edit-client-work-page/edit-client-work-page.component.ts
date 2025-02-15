@@ -11,6 +11,7 @@ import {
 } from "../../../models/clients/client-works-card.interface";
 import {Subscription} from "rxjs";
 import {MainService} from "../../../services/main/main.service";
+import {ClientWorkPaymentsService} from "../../../services/clients/client-work-payments.service";
 
 @Component({
   selector: 'app-edit-client-work-page',
@@ -35,6 +36,7 @@ export class EditClientWorkPageComponent implements OnInit{
   constructor(private route: ActivatedRoute,
               public clientWorksService: ClientWorksService,
               public clientService: ClientsService,
+              public clientWorkPaymentsService: ClientWorkPaymentsService,
               public mainService: MainService) {
   }
 
