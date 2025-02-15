@@ -35,6 +35,10 @@ import { EditAdvocateWorkComponent } from './layouts/edit-page/edit-advocate-wor
 import { StatusworkPipe } from './pipes/statuswork/statuswork.pipe';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { EditFormPaymentComponent } from './components/global/edit-form-payment/edit-form-payment.component';
+import { EditUserPageComponent } from './layouts/edit-page/edit-user-page/edit-user-page.component';
+import { UsersPageComponent } from './layouts/main-page/users-page/users-page.component';
+import { UsersCardPageComponent } from './layouts/main-page/users-page/users-card-page/users-card-page.component';
+import { RolenamePipe } from './pipes/rolename/rolename.pipe';
 
 @NgModule({
   declarations: [
@@ -66,7 +70,11 @@ import { EditFormPaymentComponent } from './components/global/edit-form-payment/
     EditAdvocateCaseComponent,
     EditAdvocateWorkComponent,
     StatusworkPipe,
-    EditFormPaymentComponent
+    EditFormPaymentComponent,
+    EditUserPageComponent,
+    UsersPageComponent,
+    UsersCardPageComponent,
+    RolenamePipe
   ],
   imports: [
     BrowserModule,

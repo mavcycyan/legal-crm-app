@@ -37,6 +37,9 @@ import {
 } from "./layouts/edit-page/edit-advocate-category/edit-advocate-category.component";
 import {EditAdvocateCaseComponent} from "./layouts/edit-page/edit-advocate-case/edit-advocate-case.component";
 import {EditAdvocateWorkComponent} from "./layouts/edit-page/edit-advocate-work/edit-advocate-work.component";
+import {EditUserPageComponent} from "./layouts/edit-page/edit-user-page/edit-user-page.component";
+import {UsersPageComponent} from "./layouts/main-page/users-page/users-page.component";
+import {UsersCardPageComponent} from "./layouts/main-page/users-page/users-card-page/users-card-page.component";
 
 const routes: Routes = [
   {
@@ -54,6 +57,8 @@ const routes: Routes = [
         {path: ':category', component: AdvocateCasePageComponent},
         {path: ':category/:case_id', component: AdvocateCaseCardComponent},
       ]},
+      {path: 'users', component: UsersPageComponent, canActivate: [PermissionsGuard]},
+      {path: 'users/:id', component: UsersCardPageComponent, canActivate: [PermissionsGuard]},
       {
         path: 'edit', canActivate: [AuthGuard], children: [
           {path: 'lawyer/clients', component: EditClientPageComponent, canActivate: [PermissionsGuard]},
@@ -74,6 +79,9 @@ const routes: Routes = [
           {path: 'advocate_case/:id', component: EditAdvocateCaseComponent, canActivate: [PermissionsGuard]},
           {path: 'advocate_work', component: EditAdvocateWorkComponent, canActivate: [PermissionsGuard]},
           {path: 'advocate_work/:id', component: EditAdvocateWorkComponent, canActivate: [PermissionsGuard]},
+
+          {path: 'user', component: EditUserPageComponent, canActivate: [PermissionsGuard]},
+          {path: 'user/:id', component: EditUserPageComponent, canActivate: [PermissionsGuard]},
         ]
       },
     ]

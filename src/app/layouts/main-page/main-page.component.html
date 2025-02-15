@@ -4,6 +4,7 @@
       <div class="main-page-name">Вітаю, {{name}}</div>
       <div class="main-page-url">
         <a *ngIf="userType === '1' || userType === '2'" [routerLink]="['']">Головна</a>
+        <a *ngIf="userType === '1' || userType === '2'" [routerLink]="['users']">Усі користувачі</a>
         <a *ngIf="userType === '1' || userType === '2' || userType === '3'" [routerLink]="['lawyer', 'client_works']">Роботи з клієнтами</a>
         <a *ngIf="userType === '1' || userType === '2' || userType === '3'" [routerLink]="['lawyer', 'clients']">Клієнти</a>
         <a *ngIf="userType === '1' || userType === '2' || userType === '3'" [routerLink]="['lawyer', 'subscribers']">Абоненти</a>

@@ -53,6 +53,10 @@ export class MainPageComponent implements OnInit, OnDestroy{
       link: '/edit/advocate_work',
       text: 'Додати роботу'
     },
+    user: {
+      link: '/edit/user',
+      text: 'Додати користувача'
+    },
   };
   private subscription!: Subscription;
   private subscription2!: Subscription;

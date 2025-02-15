@@ -1,0 +1,25 @@
+@import 'src/variables.scss';
+
+.user_case_wrap {
+  padding: 60px 20px 30px;
+}
+.user_case_card {
+  border: 1px solid $color_main;
+  border-radius: 7px;
+  padding: 20px;
+  margin-bottom: 60px;
+  &-row {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #eeeeee;
+    padding: 12px 0px;
+    justify-content: space-between;
+    font-size: 13px;
+  }
+  &-col {
+    &:first-child {
+      color: #36433b;
+    }
+  }
+}
+

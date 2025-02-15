@@ -16,7 +16,8 @@
       <div class="tablecom-tbl-col num">{{(i + 1)}}</div>
       <div [class]="['tablecom-tbl-col', col.slug]" *ngFor="let col of columns">
         <span *ngIf="col.slug === 'result'">{{item[col.slug] | statuswork}}</span>
-        <span *ngIf="col.slug !== 'result'">{{item[col.slug]}}</span>
+        <span *ngIf="col.slug === 'role_id'">{{item[col.slug] | rolename}}</span>
+        <span *ngIf="col.slug !== 'result' && col.slug !== 'role_id'">{{item[col.slug]}}</span>
       </div>
       <div class="tablecom-tbl-col more">
         <a [routerLink]="[((item.custom_path !== undefined && item.custom_path !== '') ? item.custom_path : item.id)]" class="see_more-btn">

@@ -169,3 +169,18 @@
     }
   }
 }
+
+// users-list-page
+.users-list-page {
+  .tablecom-tbl-col {
+    &.email {
+      width: 230px;
+    }
+    &.name {
+      flex: 1;
+    }
+    &.role_id {
+      width: 200px;
+    }
+  }
+}
