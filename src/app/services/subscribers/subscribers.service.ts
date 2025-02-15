@@ -8,6 +8,7 @@ import {
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {globals} from "../../../globals/globals";
+import {AdvocatesListInterfaceRequest} from "../../models/advocates/advocates-list.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,9 @@ export class SubscribersService {
     return this.httpClient.delete(`${globals.api_url}/api/subscribers/${id}`);
   }
 
+
+  getAdvocates(): Observable<AdvocatesListInterfaceRequest> {
+    return this.httpClient.get<AdvocatesListInterfaceRequest>(`${globals.api_url}/api/lawyer_advocates`);
+  }
 
 }

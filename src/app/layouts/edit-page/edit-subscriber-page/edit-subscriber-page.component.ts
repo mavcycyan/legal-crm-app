@@ -45,8 +45,7 @@ export class EditSubscriberPageComponent implements OnInit{
   constructor(private route: ActivatedRoute,
               public mainService: MainService,
               public subscribersService: SubscribersService,
-              public subscriberPaymentsService: SubscriberPaymentsService,
-              public advocatesService: AdvocateService) {
+              public subscriberPaymentsService: SubscriberPaymentsService) {
   }
 
   ngOnInit(): void {
@@ -78,7 +77,7 @@ export class EditSubscriberPageComponent implements OnInit{
           }
         }
       )
-    this.advocatesService.getList().subscribe((data: AdvocatesListInterfaceRequest) => {
+    this.subscribersService.getAdvocates().subscribe((data: AdvocatesListInterfaceRequest) => {
       const advocates = data.data;
       this.fields.map((field: FormFieldsInterface) => {
         if (field.slug === 'responsible_person_id') {
