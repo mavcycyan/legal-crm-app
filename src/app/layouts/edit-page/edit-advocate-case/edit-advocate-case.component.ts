@@ -18,6 +18,9 @@ import {
   AdvocateCategoriesInterfaceRequest
 } from "../../../models/advocates/advocate-categories.interface";
 import {AdvocateCaseService} from "../../../services/advocate/advocate-case.service";
+import {
+  AdvocateCasePaymentsService
+} from "../../../services/advocate/advocate-case-payments.service";
 
 @Component({
   selector: 'app-edit-advocate-case',
@@ -36,13 +39,15 @@ export class EditAdvocateCaseComponent {
     {slug: 'proc_num', name: 'Номер справи', required: true, class: 'w-50', type: 'text'},
     {slug: 'advocates', name: 'Адвокати у справі (для вибору декількох затисніть Ctrl)', required: false, class: 'w-100', type: 'select_multy', choises: []},
     {slug: 'plot', name: 'Фабула', required: true, class: 'w-100', type: 'text'},
-    {slug: 'fee', name: 'Гонорар', required: true, class: 'w-50', type: 'text'},
+    {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'text'},
+    {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'text'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
   ];
 
   constructor(private route: ActivatedRoute,
               public advocateService: AdvocateService,
               public advocateCaseService: AdvocateCaseService,
+              public advocateCasePaymentsService: AdvocateCasePaymentsService,
               public mainService: MainService) {
   }
 
@@ -86,6 +91,16 @@ export class EditAdvocateCaseComponent {
             this.advocateService.getAdvocateCase(params['id']).subscribe((advocate: AdvocateCaseInterfaceRequest) => {
               this.data = advocate.data;
               this.isEdit = true;
+              this.fields = [
+                {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'select', choises: []},
+                {slug: 'advocate_category_id', name: 'Категорія', required: true, class: 'w-50', type: 'select', choises: []},
+                {slug: 'visit_date', name: 'Дата заведення', required: true, class: 'w-50', type: 'date'},
+                {slug: 'proc_num', name: 'Номер справи', required: true, class: 'w-50', type: 'text'},
+                {slug: 'advocates', name: 'Адвокати у справі (для вибору декількох затисніть Ctrl)', required: false, class: 'w-100', type: 'select_multy', choises: []},
+                {slug: 'plot', name: 'Фабула', required: true, class: 'w-100', type: 'text'},
+                {slug: 'payments_edit', name: 'Виплати', required: true, class: 'w-50', type: 'paymodal'},
+                {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
+              ];
               this.mainService.setPreloaderState(false);
             });
           }

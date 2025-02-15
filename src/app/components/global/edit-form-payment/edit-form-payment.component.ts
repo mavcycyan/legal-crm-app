@@ -94,7 +94,7 @@ export class EditFormPaymentComponent implements OnInit{
   submit():void {
     if (this.form.status === 'VALID') {
       const valueObj: any = this.form.value;
-      valueObj.client_work_id = this.id;
+      valueObj.parent_id = this.id;
       this.service.update(valueObj).subscribe((data: PaymentFormInterfaceRequest) => {
         console.log(data);
       });

@@ -11,7 +11,7 @@ export class ClientWorkPaymentsService {
   constructor(private httpClient: HttpClient) { }
 
   getList(id: number): Observable<PaymentFormInterfaceRequest> {
-    return this.httpClient.get<PaymentFormInterfaceRequest>(`${globals.api_url}/api/fin/clientworks/prices?client_work_id=${id}`);
+    return this.httpClient.get<PaymentFormInterfaceRequest>(`${globals.api_url}/api/fin/clientworks/prices?parent_id=${id}`);
   }
 
   update(data: any): Observable<any> {
