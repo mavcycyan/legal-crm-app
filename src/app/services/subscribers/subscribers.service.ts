@@ -17,8 +17,18 @@ export class SubscribersService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getList(): Observable<SubscribersListInterfaceRequest> {
-    return this.httpClient.get<SubscribersListInterfaceRequest>(`${globals.api_url}/api/subscribers`);
+  getList(params: {} = {}): Observable<SubscribersListInterfaceRequest> {
+    let params_str: string = '';
+    if (Object.keys(params).length > 0) {
+      params_str += '?';
+      Object.keys(params).forEach((item: string, index: number) => {
+        if (index > 0) {
+          params_str += '&';
+        }
+        params_str += item+'='+Object.values(params)[index];
+      });
+    }
+    return this.httpClient.get<SubscribersListInterfaceRequest>(`${globals.api_url}/api/subscribers${params_str}`);
   }
 
   getOne(id: number): Observable<SubscribersCardInterfaceRequest> {

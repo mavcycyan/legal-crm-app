@@ -29,6 +29,11 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
   ];
   id: number|null = null;
 
+  //pagination
+  allItems: number = 0;
+  pageSize: number = 10;
+  pageOffset: number = 0;
+
   constructor(private route: ActivatedRoute,
               private advocateService: AdvocateService,
               private mainService: MainService) {
@@ -42,13 +47,16 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
         (params: Params) => {
           const id = this.route.parent?.snapshot.params['id'];
           const advocateId: number = (id !== 'personal') ? id : 1;
-          this.advocateService.getAdvocateCases(advocateId, params['category']).subscribe((list: AdvocateCasesInterfaceRequest) => {
+          this.advocateService.getAdvocateCases(advocateId, params['category'], {pag_size: this.pageSize}).subscribe((list: AdvocateCasesInterfaceRequest) => {
             this.advocateService.getCategoryBySlug(params['category']).subscribe((data: AdvocateCategoryInterfaceRequest) => {
               let data_id: number|null = (data.data.id !== undefined) ? data.data.id.valueOf() : null;
               this.id = data_id;
               this.mainService.setPreloaderState(false);
             });
             this.cases = list.data;
+            if (list.all_items !== undefined) {
+              this.allItems = list.all_items;
+            }
           });
         }
       )
@@ -56,5 +64,28 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subAdvocate$.unsubscribe();
+  }
+
+  getList(event: number | null = null): void {
+    this.mainService.setPreloaderState(true);
+    this.subAdvocate$ = this.route.params
+      .subscribe(
+        (params: Params) => {
+          const id = this.route.parent?.snapshot.params['id'];
+          const advocateId: number = (id !== 'personal') ? id : 1;
+          this.pageOffset = (event !== null) ? this.pageSize * (event-1) : 0;
+          this.advocateService.getAdvocateCases(advocateId, params['category'], {pag_size: this.pageSize, pag_offset: this.pageOffset}).subscribe((list: AdvocateCasesInterfaceRequest) => {
+            this.advocateService.getCategoryBySlug(params['category']).subscribe((data: AdvocateCategoryInterfaceRequest) => {
+              let data_id: number|null = (data.data.id !== undefined) ? data.data.id.valueOf() : null;
+              this.id = data_id;
+              this.mainService.setPreloaderState(false);
+            });
+            this.cases = list.data;
+            if (list.all_items !== undefined) {
+              this.allItems = list.all_items;
+            }
+          });
+        }
+      )
   }
 }

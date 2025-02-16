@@ -18,5 +18,6 @@ export interface SubscribersListInterface {
 export interface SubscribersListInterfaceRequest {
   success: Boolean,
   message: String,
-  data: SubscribersListInterface[]
+  data: SubscribersListInterface[],
+  all_items?: number
 }

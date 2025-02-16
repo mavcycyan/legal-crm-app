@@ -10,8 +10,18 @@ import {UserInterfaceRequest, UsersInterfaceRequest} from "../../models/auth/use
 export class UserService {
   constructor(private httpClient: HttpClient) { }
 
-  getList(): Observable<UsersInterfaceRequest> {
-    return this.httpClient.get<UsersInterfaceRequest>(`${globals.api_url}/api/users`);
+  getList(params: {} = {}): Observable<UsersInterfaceRequest> {
+    let params_str: string = '';
+    if (Object.keys(params).length > 0) {
+      params_str += '?';
+      Object.keys(params).forEach((item: string, index: number) => {
+        if (index > 0) {
+          params_str += '&';
+        }
+        params_str += item+'='+Object.values(params)[index];
+      });
+    }
+    return this.httpClient.get<UsersInterfaceRequest>(`${globals.api_url}/api/users${params_str}`);
   }
 
   getOne(id: number): Observable<UserInterfaceRequest> {

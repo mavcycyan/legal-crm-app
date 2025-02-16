@@ -25,17 +25,37 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
   ];
   private listSub$: Subscription = new Subscription();
 
+  //pagination
+  allItems: number = 0;
+  pageSize: number = 10;
+  pageOffset: number = 0;
+
   constructor(private subscribersService: SubscribersService,
               private mainService: MainService) {
   }
   ngOnInit() {
     this.mainService.setPreloaderState(true);
-    this.listSub$ = this.subscribersService.getList().subscribe((list: SubscribersListInterfaceRequest) => {
+    this.listSub$ = this.subscribersService.getList({pag_size: this.pageSize}).subscribe((list: SubscribersListInterfaceRequest) => {
       this.list = list.data;
+      if (list.all_items !== undefined) {
+        this.allItems = list.all_items;
+      }
       this.mainService.setPreloaderState(false);
     });
   }
   ngOnDestroy(): void {
     this.listSub$.unsubscribe();
+  }
+
+  getList(event: number | null = null): void {
+    this.mainService.setPreloaderState(true);
+    this.pageOffset = (event !== null) ? this.pageSize * (event-1) : 0;
+    this.listSub$ = this.subscribersService.getList({pag_size: this.pageSize, pag_offset: this.pageOffset}).subscribe((list: SubscribersListInterfaceRequest) => {
+      this.list = list.data;
+      if (list.all_items !== undefined) {
+        this.allItems = list.all_items;
+      }
+      this.mainService.setPreloaderState(false);
+    });
   }
 }

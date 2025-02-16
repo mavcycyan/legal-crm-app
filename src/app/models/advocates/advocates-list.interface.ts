@@ -11,5 +11,6 @@ export interface AdvocatesListInterface {
 export interface AdvocatesListInterfaceRequest {
   success: Boolean,
   message: String,
-  data: AdvocatesListInterface[]
+  data: AdvocatesListInterface[],
+  all_items?: number
 }

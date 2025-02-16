@@ -26,20 +26,43 @@ export class ClientsPageComponent implements OnInit, OnDestroy{
   ];
   private listSub$: Subscription = new Subscription();
 
+  //pagination
+  allItems: number = 0;
+  pageSize: number = 10;
+  pageOffset: number = 0;
+
   constructor(private clientsService: ClientsService,
               private mainService: MainService) {
   }
   ngOnInit(): void {
     this.mainService.setPreloaderState(true);
-    this.listSub$ = this.clientsService.getList().subscribe((list: ClientWorksListInterfaceRequest) => {
+    this.listSub$ = this.clientsService.getList({pag_size: this.pageSize}).subscribe((list: ClientWorksListInterfaceRequest) => {
       this.list = list.data.map((item: ClientWorksListInterface) => ({
         ...item,
         custom_path: `/lawyer/clients/${item.client_id}#work-${item.id}`
       }));
+      if (list.all_items !== undefined) {
+        this.allItems = list.all_items;
+      }
       this.mainService.setPreloaderState(false);
     });
   }
   ngOnDestroy(): void {
     this.listSub$.unsubscribe();
+  }
+
+  getList(event: number | null = null): void {
+    this.mainService.setPreloaderState(true);
+    this.pageOffset = (event !== null) ? this.pageSize * (event-1) : 0;
+    this.listSub$ = this.clientsService.getList({pag_size: this.pageSize, pag_offset: this.pageOffset}).subscribe((list: ClientWorksListInterfaceRequest) => {
+      this.list = list.data.map((item: ClientWorksListInterface) => ({
+        ...item,
+        custom_path: `/lawyer/clients/${item.client_id}#work-${item.id}`
+      }));
+      if (list.all_items !== undefined) {
+        this.allItems = list.all_items;
+      }
+      this.mainService.setPreloaderState(false);
+    });
   }
 }

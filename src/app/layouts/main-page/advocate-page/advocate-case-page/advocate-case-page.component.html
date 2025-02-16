@@ -1,4 +1,5 @@
 <app-table-card [data]="cases" [columns]="tblColumns" [hasMore]="true"></app-table-card>
+<app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
 
 <div class="main-page-btn">
   <a [routerLink]="['/', 'edit', 'advocate_category', id]">Редагувати категорію</a>

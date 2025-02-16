@@ -10,6 +10,7 @@ export interface ClientsListInterface {
 export interface ClientsListInterfaceRequest {
   success: Boolean,
   message: String,
-  data: ClientsListInterface[]
+  data: ClientsListInterface[],
+  all_items?: number
 }
 

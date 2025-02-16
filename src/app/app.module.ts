@@ -39,6 +39,7 @@ import { EditUserPageComponent } from './layouts/edit-page/edit-user-page/edit-u
 import { UsersPageComponent } from './layouts/main-page/users-page/users-page.component';
 import { UsersCardPageComponent } from './layouts/main-page/users-page/users-card-page/users-card-page.component';
 import { RolenamePipe } from './pipes/rolename/rolename.pipe';
+import { PaginationComponent } from './components/global/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { RolenamePipe } from './pipes/rolename/rolename.pipe';
     EditUserPageComponent,
     UsersPageComponent,
     UsersCardPageComponent,
-    RolenamePipe
+    RolenamePipe,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

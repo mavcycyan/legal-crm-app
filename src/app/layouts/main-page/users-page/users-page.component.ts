@@ -16,14 +16,34 @@ export class UsersPageComponent implements OnInit {
     {slug: 'role_id', name: 'Роль'}
   ];
 
+  //pagination
+  allItems: number = 0;
+  pageSize: number = 10;
+  pageOffset: number = 0;
+
   constructor(private usersService: UserService,
               private mainService: MainService) {
   }
 
   ngOnInit(): void {
     this.mainService.setPreloaderState(true);
-    this.usersService.getList().subscribe((data: UsersInterfaceRequest) => {
+    this.usersService.getList({pag_size: this.pageSize}).subscribe((data: UsersInterfaceRequest) => {
       this.list = data.data
+      if (data.all_items !== undefined) {
+        this.allItems = data.all_items;
+      }
+      this.mainService.setPreloaderState(false);
+    });
+  }
+
+  getList(event: number | null = null): void {
+    this.mainService.setPreloaderState(true);
+    this.pageOffset = (event !== null) ? this.pageSize * (event-1) : 0;
+    this.usersService.getList({pag_size: this.pageSize, pag_offset: this.pageOffset}).subscribe((data: UsersInterfaceRequest) => {
+      this.list = data.data
+      if (data.all_items !== undefined) {
+        this.allItems = data.all_items;
+      }
       this.mainService.setPreloaderState(false);
     });
   }

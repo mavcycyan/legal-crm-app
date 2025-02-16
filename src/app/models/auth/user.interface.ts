@@ -18,5 +18,6 @@ export interface UserInterfaceRequest {
 export interface UsersInterfaceRequest {
   success: Boolean,
   message: String,
-  data: UserInterface[]
+  data: UserInterface[],
+  all_items?: number
 }

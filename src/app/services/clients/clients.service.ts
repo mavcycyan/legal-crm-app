@@ -14,12 +14,32 @@ import {globals} from "../../../globals/globals";
 export class ClientsService {
   constructor(private httpClient: HttpClient) { }
 
-  getList(): Observable<ClientWorksListInterfaceRequest> {
-    return this.httpClient.get<ClientWorksListInterfaceRequest>(`${globals.api_url}/api/client_works`);
+  getList(params: {} = {}): Observable<ClientWorksListInterfaceRequest> {
+    let params_str: string = '';
+    if (Object.keys(params).length > 0) {
+      params_str += '?';
+      Object.keys(params).forEach((item: string, index: number) => {
+        if (index > 0) {
+          params_str += '&';
+        }
+        params_str += item+'='+Object.values(params)[index];
+      });
+    }
+    return this.httpClient.get<ClientWorksListInterfaceRequest>(`${globals.api_url}/api/client_works${params_str}`);
   }
 
-  getClientsList(): Observable<ClientsListInterfaceRequest> {
-    return this.httpClient.get<ClientsListInterfaceRequest>(`${globals.api_url}/api/clients`);
+  getClientsList(params: {} = {}): Observable<ClientsListInterfaceRequest> {
+    let params_str: string = '';
+    if (Object.keys(params).length > 0) {
+      params_str += '?';
+      Object.keys(params).forEach((item: string, index: number) => {
+        if (index > 0) {
+          params_str += '&';
+        }
+        params_str += item+'='+Object.values(params)[index];
+      });
+    }
+    return this.httpClient.get<ClientsListInterfaceRequest>(`${globals.api_url}/api/clients${params_str}`);
   }
   getOne(id: number): Observable<ClientsCardInterfaceRequest> {
     return this.httpClient.get<ClientsCardInterfaceRequest>(`${globals.api_url}/api/clients/${id}`);

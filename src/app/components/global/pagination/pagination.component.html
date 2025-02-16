@@ -1,0 +1,7 @@
+<div class="pagination" *ngIf="pages > 1">
+  <ul>
+    <li *ngFor="let p of Array.from({ length: pages }); let i = index">
+      <button (click)="refreshData(i+1)" [ngClass]="{active: page === (i+1)}">{{i+1}}</button>
+    </li>
+  </ul>
+</div>

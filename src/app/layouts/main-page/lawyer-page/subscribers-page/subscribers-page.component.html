@@ -1,5 +1,6 @@
 <div class="main-page-wrap-in">
   <app-table [data]="list" [columns]="tblColumns" [tableClass]="'subscribers-page'"></app-table>
+  <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
 
   <div class="main-page-btn">
     <a [routerLink]="['/', 'edit', 'lawyer', 'subscribers']">Додати абонента</a>

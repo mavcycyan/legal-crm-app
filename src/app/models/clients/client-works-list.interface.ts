@@ -15,6 +15,7 @@ export interface ClientWorksListInterface {
 export interface ClientWorksListInterfaceRequest {
   success: Boolean,
   message: String,
-  data: ClientWorksListInterface[]
+  data: ClientWorksListInterface[],
+  all_items?: number
 }
 
