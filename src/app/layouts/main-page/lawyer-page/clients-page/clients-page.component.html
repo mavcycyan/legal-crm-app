@@ -1,1 +1,7 @@
-<app-table [data]="list" [columns]="tblColumns" [tableClass]="'clients-page'"></app-table>
+<div class="main-page-wrap-in">
+  <app-table [data]="list" [columns]="tblColumns" [tableClass]="'clients-page'"></app-table>
+
+  <div class="main-page-btn">
+    <a [routerLink]="['/', 'edit', 'lawyer', 'client_work']">Додати роботу</a>
+  </div>
+</div>

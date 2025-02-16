@@ -18,9 +18,14 @@
     </div>
     <div class="advocate_case_card-row">
       <div class="advocate_case_card-col">Статус</div>
-      <div class="advocate_case_card-col">{{case.result}}</div>
+      <div class="advocate_case_card-col">{{case.result | statuswork}}</div>
     </div>
   </div>
 </div>
 
 <app-table-card [data]="works" [columns]="tblColumns"></app-table-card>
+
+<div class="main-page-btn">
+  <a [routerLink]="['/', 'edit', 'advocate_case', id]">Редагувати категорію</a>
+  <a [routerLink]="['/', 'edit', 'advocate_work']" class="second">Додати справу</a>
+</div>

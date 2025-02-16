@@ -14,6 +14,7 @@ export class UsersCardPageComponent implements OnInit, OnDestroy {
   subUser$: Subscription = {} as Subscription;
 
   user: UserInterface = {} as UserInterface;
+  id: number|null = null;
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
@@ -27,8 +28,7 @@ export class UsersCardPageComponent implements OnInit, OnDestroy {
       .subscribe(
         (params: Params) => {
           this.userService.getOne(params['id']).subscribe((user: UserInterfaceRequest) => {
-            this.mainService.setEditBtnData({type: 'user', id: params['id']});
-            this.mainService.setEditBtnSecondaryData({type: '', id: null});
+            this.id = params['id'];
             this.user = user.data;
             this.mainService.setPreloaderState(false);
           });

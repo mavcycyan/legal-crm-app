@@ -51,37 +51,6 @@
 }
 
 .main-page {
-  &-btn {
-    position: fixed;
-    bottom: 15px;
-    right: 15px;
-    display: flex;
-    flex-direction: column;
-    a {
-      background: #5fce5f;
-      color: #fff;
-      text-decoration: none;
-      display: inline-block;
-      padding: 7px 14px;
-      border-radius: 20px;
-      transition: 0.3s;
-      margin-bottom: 10px;
-      text-align: center;
-      &:last-child {
-        margin-bottom: 0;
-      }
-      &:hover {
-        background: #47a147;
-        transition: 0.3s;
-      }
-      &.second {
-        background: #cebf5f;
-        &:hover {
-          background: #a19d47;
-        }
-      }
-    }
-  }
   &-wrap {
     position: relative;
   }

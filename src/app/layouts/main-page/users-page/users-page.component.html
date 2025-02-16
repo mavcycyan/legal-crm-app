@@ -1,1 +1,7 @@
-<app-table [data]="list" [columns]="tblColumns" [tableClass]="'users-list-page'"></app-table>
+<div class="main-page-wrap-in">
+  <app-table [data]="list" [columns]="tblColumns" [tableClass]="'users-list-page'"></app-table>
+
+  <div class="main-page-btn">
+    <a [routerLink]="['/', 'edit', 'user']">Додати користувача</a>
+  </div>
+</div>

@@ -5,7 +5,6 @@ import {ClientsCardInterface, ClientsCardInterfaceRequest} from "../../../../../
 import {ClientsService} from "../../../../../services/clients/clients.service";
 import {ClientWorksCardInterface} from "../../../../../models/clients/client-works-card.interface";
 import {MainService} from "../../../../../services/main/main.service";
-import {ClientWorksListInterface} from "../../../../../models/clients/client-works-list.interface";
 
 @Component({
   selector: 'app-clients-card-page',
@@ -30,6 +29,7 @@ export class ClientsCardPageComponent implements OnInit, OnDestroy{
     {slug: 'result', name: 'Результат'},
     {slug: 'fee', name: 'Гонорар'}
   ];
+  id: number|null = null;
 
   constructor(private route: ActivatedRoute,
               private clientsService: ClientsService,
@@ -41,8 +41,7 @@ export class ClientsCardPageComponent implements OnInit, OnDestroy{
     this.subClient$ = this.route.params
       .subscribe(
         (params: Params) => {
-          this.mainService.setEditBtnData({type: 'lawyer_clients', id: params['id']});
-          this.mainService.setEditBtnSecondaryData({type: 'lawyer_client_work', id: null});
+          this.id = params['id'];
           this.clientsService.getOne(params['id']).subscribe((list: ClientsCardInterfaceRequest) => {
             this.client = list.data;
             if (list.data.client_works !== undefined) {

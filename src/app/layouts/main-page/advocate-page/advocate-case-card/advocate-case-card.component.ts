@@ -23,6 +23,7 @@ export class AdvocateCaseCardComponent  implements OnInit, OnDestroy {
     {slug: 'what_done', name: 'Що зроблено'},
     {slug: 'result', name: 'Результат'}
   ];
+  id: number|null = null;
 
   constructor(private route: ActivatedRoute,
               private advocateService: AdvocateService,
@@ -36,14 +37,13 @@ export class AdvocateCaseCardComponent  implements OnInit, OnDestroy {
       .subscribe(
         (params: Params) => {
           this.advocateService.getAdvocateCase(params['case_id']).subscribe((advcase: AdvocateCaseCardInterfaceRequest) => {
-            this.mainService.setEditBtnData({type: 'advocate_case', id: params['case_id']});
-            this.mainService.setEditBtnSecondaryData({type: 'advocate_work', id: null});
+            this.id = params['case_id'];
             this.case = advcase.data;
             this.works = (advcase.data.advocate_works !== undefined) ? advcase.data.advocate_works : [];
             if (advcase.data.advocate_works !== undefined) {
               this.works = advcase.data.advocate_works.map((item: AdvocateWorksInterface) => ({
                 ...item,
-                edit_path: `/edit/lawyer/advocate_work/${item.id}`
+                edit_path: `/edit/advocate_work/${item.id}`
               }));
             }
             this.mainService.setPreloaderState(false);

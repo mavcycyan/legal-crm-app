@@ -27,6 +27,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
     {slug: 'pays', name: 'Виплати'},
     {slug: 'result', name: 'Статус'}
   ];
+  id: number|null = null;
 
   constructor(private route: ActivatedRoute,
               private advocateService: AdvocateService,
@@ -44,8 +45,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
           this.advocateService.getAdvocateCases(advocateId, params['category']).subscribe((list: AdvocateCasesInterfaceRequest) => {
             this.advocateService.getCategoryBySlug(params['category']).subscribe((data: AdvocateCategoryInterfaceRequest) => {
               let data_id: number|null = (data.data.id !== undefined) ? data.data.id.valueOf() : null;
-              this.mainService.setEditBtnData({type: 'advocate_category', id: data_id});
-              this.mainService.setEditBtnSecondaryData({type: 'advocate_case', id: null});
+              this.id = data_id;
               this.mainService.setPreloaderState(false);
             });
             this.cases = list.data;

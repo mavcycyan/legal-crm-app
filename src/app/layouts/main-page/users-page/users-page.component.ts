@@ -22,8 +22,6 @@ export class UsersPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.mainService.setPreloaderState(true);
-    this.mainService.setEditBtnData({type: 'user', id: null});
-    this.mainService.setEditBtnSecondaryData({type: '', id: null});
     this.usersService.getList().subscribe((data: UsersInterfaceRequest) => {
       this.list = data.data
       this.mainService.setPreloaderState(false);

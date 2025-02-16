@@ -1,1 +1,6 @@
 <app-table-card [data]="cases" [columns]="tblColumns" [hasMore]="true"></app-table-card>
+
+<div class="main-page-btn">
+  <a [routerLink]="['/', 'edit', 'advocate_category', id]">Редагувати категорію</a>
+  <a [routerLink]="['/', 'edit', 'advocate_case']" class="second">Додати справу</a>
+</div>

@@ -1,1 +1,7 @@
-<app-table [data]="list" [columns]="tblColumns" [tableClass]="'clients-all-page'"></app-table>
+<div class="main-page-wrap-in">
+  <app-table [data]="list" [columns]="tblColumns" [tableClass]="'clients-all-page'"></app-table>
+
+  <div class="main-page-btn">
+    <a [routerLink]="['/', 'edit', 'lawyer', 'clients']">Додати клієнта</a>
+  </div>
+</div>

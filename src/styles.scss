@@ -39,3 +39,46 @@ img {
   color: #f00;
   text-decoration: underline;
 }
+
+
+.main-page {
+  &-wrap {
+    position: relative;
+    &-in {
+      height: calc(100vh - 54px);
+      overflow: auto;
+    }
+  }
+  &-btn {
+    position: fixed;
+    bottom: 15px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    a {
+      background: #5fce5f;
+      color: #fff;
+      text-decoration: none;
+      display: inline-block;
+      padding: 7px 14px;
+      border-radius: 20px;
+      transition: 0.3s;
+      margin-bottom: 10px;
+      text-align: center;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      &:hover {
+        background: #47a147;
+        transition: 0.3s;
+      }
+      &.second {
+        background: #cebf5f;
+        &:hover {
+          background: #a19d47;
+        }
+      }
+    }
+  }
+}

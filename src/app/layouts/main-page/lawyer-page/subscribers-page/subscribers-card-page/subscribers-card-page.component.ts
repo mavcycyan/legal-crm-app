@@ -40,6 +40,7 @@ export class SubscribersCardPageComponent implements OnInit, OnDestroy{
     {slug: 'what_done', name: 'Що зроблено'},
     {slug: 'result', name: 'Результат'}
   ];
+  id: number|null = null;
 
   constructor(private route: ActivatedRoute,
               private subscribersService: SubscribersService,
@@ -51,8 +52,7 @@ export class SubscribersCardPageComponent implements OnInit, OnDestroy{
     this.subSubscr$ = this.route.params
       .subscribe(
         (params: Params) => {
-          this.mainService.setEditBtnData({type: 'lawyer_subscribers', id: params['id']});
-          this.mainService.setEditBtnSecondaryData({type: 'lawyer_subscriber_work', id: null});
+          this.id = params['id'];
           this.subscribersService.getOne(params['id']).subscribe((list: SubscribersCardInterfaceRequest) => {
             this.subscriber = list.data;
             if (list.data.subscriber_works !== undefined) {

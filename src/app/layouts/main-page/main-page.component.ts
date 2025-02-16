@@ -73,50 +73,6 @@ export class MainPageComponent implements OnInit, OnDestroy{
     this.userType = sessionStorage.getItem('userType')
     this.preloader = true;
     this.preloaderCheck();
-    this.buttonMainCheck();
-    this.buttonSecondaryCheck();
-  }
-
-  buttonMainCheck(): void {
-    this.subscription = this.mainService.getEditDataObservable().subscribe(
-      (data: {type: string, id: number|null}) => {
-        const btnType: string = data.type;
-        if (btnType !== '') {
-          this.btn = true;
-          this.btnLink.link = this.editBtnLinks[btnType].link;
-          this.btnLink.text = this.editBtnLinks[btnType].text;
-          if (data.id !== null) {
-            this.btnLink.link += '/' + data.id;
-            this.btnLink.text = this.btnLink.text.replace('Додати ', 'Редагувати ');
-          }
-        } else {
-          this.btn = false;
-          this.btnLink = {link: '', text: ''};
-        }
-        this.cdr.detectChanges();
-      }
-    );
-  }
-
-  buttonSecondaryCheck(): void {
-    this.subscription2 = this.mainService.getEditSecondaryDataObservable().subscribe(
-      (data: {type: string, id: number|null}) => {
-        const btnType: string = data.type;
-        if (btnType !== '') {
-          this.btnSecond = true;
-          this.btnSecondLink.link = this.editBtnLinks[btnType].link;
-          this.btnSecondLink.text = this.editBtnLinks[btnType].text;
-          if (data.id !== null) {
-            this.btnSecondLink.link += '/' + data.id;
-            this.btnSecondLink.text = this.btnSecondLink.text.replace('Додати ', 'Редагувати ');
-          }
-        } else {
-          this.btnSecond = false;
-          this.btnSecondLink = {link: '', text: ''};
-        }
-        this.cdr.detectChanges();
-      }
-    );
   }
 
   preloaderCheck(): void {

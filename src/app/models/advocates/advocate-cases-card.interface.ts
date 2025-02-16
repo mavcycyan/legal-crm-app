@@ -11,7 +11,7 @@ export interface AdvocateCaseCardInterface {
       date: String,
       summ: Number
   }[],
-  result: String,
+  result: string,
   category: String,
   advocate_id: Number,
   advocate_works: AdvocateWorksInterface[]
