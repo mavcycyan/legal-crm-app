@@ -1,0 +1,19 @@
+<div class="filter">
+  <div class="filter-btn">
+    <button (click)="filterModalOpen()">Фільтр</button>
+  </div>
+  <div class="filter-modal" *ngIf="modal">
+    <div *ngIf="modal" class="filter-modal-overlay" (click)="filterModalClose()" @fadeInOut></div>
+    <div *ngIf="modal" class="filter-modal-wrap" @slideRight>
+      <h2 class="filter-modal-ttl">Сортування</h2>
+      <div class="filter-modal-sort">
+        <div class="filter-modal-sort-item">
+          <select (change)="refreshData('sort', sortHtml.value)" #sortHtml>
+            <option value="" disabled selected>Сортування</option>
+            <option *ngFor="let item of sort;" [value]="item.value">{{item.name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

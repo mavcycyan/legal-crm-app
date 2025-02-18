@@ -5,4 +5,5 @@
   <div class="main-page-btn">
     <a [routerLink]="['/', 'edit', 'lawyer', 'client_work']">Додати роботу</a>
   </div>
+  <app-filter (updatePage)="getList($event)" [sort]="sortVars"></app-filter>
 </div>

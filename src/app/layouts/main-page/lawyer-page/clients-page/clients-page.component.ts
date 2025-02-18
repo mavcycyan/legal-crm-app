@@ -31,12 +31,29 @@ export class ClientsPageComponent implements OnInit, OnDestroy{
   pageSize: number = 10;
   pageOffset: number = 0;
 
+  // sorting
+  sortDirection: string = 'desc';
+  sortBy: string = 'visit_date';
+  sortVars: {name: string, value: string}[] = [
+    {name: 'Дата звернення ↓', value: 'visit_date__desc'},
+    {name: 'Дата звернення ↑', value: 'visit_date__asc'},
+    {name: 'Ім\'я клієнта А-Я', value: 'clients.full_name__asc'},
+    {name: 'Ім\'я клієнта Я-А', value: 'clients.full_name__desc'},
+  ]
+
+  //filtering
+
   constructor(private clientsService: ClientsService,
               private mainService: MainService) {
   }
   ngOnInit(): void {
     this.mainService.setPreloaderState(true);
-    this.listSub$ = this.clientsService.getList({pag_size: this.pageSize}).subscribe((list: ClientWorksListInterfaceRequest) => {
+    let params = {
+      pag_size: this.pageSize,
+      sort_dir: this.sortDirection,
+      sort_field: this.sortBy
+    };
+    this.listSub$ = this.clientsService.getList(params).subscribe((list: ClientWorksListInterfaceRequest) => {
       this.list = list.data.map((item: ClientWorksListInterface) => ({
         ...item,
         custom_path: `/lawyer/clients/${item.client_id}#work-${item.id}`
@@ -51,10 +68,26 @@ export class ClientsPageComponent implements OnInit, OnDestroy{
     this.listSub$.unsubscribe();
   }
 
-  getList(event: number | null = null): void {
+  getList(event: {name: string, value: string} | null = null): void {
     this.mainService.setPreloaderState(true);
-    this.pageOffset = (event !== null) ? this.pageSize * (event-1) : 0;
-    this.listSub$ = this.clientsService.getList({pag_size: this.pageSize, pag_offset: this.pageOffset}).subscribe((list: ClientWorksListInterfaceRequest) => {
+    if (event !== null) {
+      if (event.name === 'pageOffset') {
+        this.pageOffset = this.pageSize * (parseInt(event.value)-1);
+      }
+      if (event.name === 'sort') {
+        const sort = event.value.split('__');
+        this.sortBy = sort[0];
+        this.sortDirection = sort[1];
+        this.pageOffset = 0;
+      }
+    }
+    let params = {
+      pag_size: this.pageSize,
+      pag_offset: this.pageOffset,
+      sort_dir: this.sortDirection,
+      sort_field: this.sortBy
+    };
+    this.listSub$ = this.clientsService.getList(params).subscribe((list: ClientWorksListInterfaceRequest) => {
       this.list = list.data.map((item: ClientWorksListInterface) => ({
         ...item,
         custom_path: `/lawyer/clients/${item.client_id}#work-${item.id}`

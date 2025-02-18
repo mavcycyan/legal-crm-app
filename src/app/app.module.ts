@@ -40,6 +40,7 @@ import { UsersPageComponent } from './layouts/main-page/users-page/users-page.co
 import { UsersCardPageComponent } from './layouts/main-page/users-page/users-card-page/users-card-page.component';
 import { RolenamePipe } from './pipes/rolename/rolename.pipe';
 import { PaginationComponent } from './components/global/pagination/pagination.component';
+import { FilterComponent } from './components/global/filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { PaginationComponent } from './components/global/pagination/pagination.c
     UsersPageComponent,
     UsersCardPageComponent,
     RolenamePipe,
-    PaginationComponent
+    PaginationComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,

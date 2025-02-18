@@ -22,7 +22,7 @@ export class PaginationComponent implements OnInit, OnChanges{
 
   refreshData(num: number) {
     this.page = num;
-    this.updatePage.emit(this.page);
+    this.updatePage.emit({name: 'pageOffset', value: this.page});
   }
 
   protected readonly Array = Array;

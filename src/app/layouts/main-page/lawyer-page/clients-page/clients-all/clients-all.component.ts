@@ -25,12 +25,22 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
   pageSize: number = 10;
   pageOffset: number = 0;
 
+  // sorting
+  sortDirection: string = 'asc';
+  sortBy: string = 'full_name';
+
   constructor(private clientsService: ClientsService,
               private mainService: MainService) {
   }
   ngOnInit(): void {
     this.mainService.setPreloaderState(true);
-    this.listSub$ = this.clientsService.getClientsList({pag_size: this.pageSize}).subscribe((list: ClientsListInterfaceRequest) => {
+    let params = {
+      pag_size: this.pageSize,
+      sort_dir: this.sortDirection,
+      sort_field: this.sortBy
+    };
+
+    this.listSub$ = this.clientsService.getClientsList(params).subscribe((list: ClientsListInterfaceRequest) => {
       this.list = list.data.map((item: ClientsListInterface) => ({
         ...item,
         custom_path: `${item.id}`
@@ -45,10 +55,20 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
     this.listSub$.unsubscribe();
   }
 
-  getList(event: number | null = null): void {
+  getList(event: {name: string, value: string} | null = null): void {
     this.mainService.setPreloaderState(true);
-    this.pageOffset = (event !== null) ? this.pageSize * (event-1) : 0;
-    this.listSub$ = this.clientsService.getClientsList({pag_size: this.pageSize, pag_offset: this.pageOffset}).subscribe((list: ClientsListInterfaceRequest) => {
+    if (event !== null) {
+      if (event.name === 'pageOffset') {
+        this.pageOffset = this.pageSize * (parseInt(event.value)-1);
+      }
+    }
+    let params = {
+      pag_size: this.pageSize,
+      pag_offset: this.pageOffset,
+      sort_dir: this.sortDirection,
+      sort_field: this.sortBy
+    };
+    this.listSub$ = this.clientsService.getClientsList(params).subscribe((list: ClientsListInterfaceRequest) => {
       this.list = list.data.map((item: ClientsListInterface) => ({
         ...item,
         custom_path: `${item.id}`

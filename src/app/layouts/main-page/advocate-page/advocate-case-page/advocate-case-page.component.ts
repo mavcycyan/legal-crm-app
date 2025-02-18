@@ -34,6 +34,10 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
   pageSize: number = 10;
   pageOffset: number = 0;
 
+  // sorting
+  sortDirection: string = 'desc';
+  sortBy: string = 'visit_date';
+
   constructor(private route: ActivatedRoute,
               private advocateService: AdvocateService,
               private mainService: MainService) {
@@ -47,7 +51,12 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
         (params: Params) => {
           const id = this.route.parent?.snapshot.params['id'];
           const advocateId: number = (id !== 'personal') ? id : 1;
-          this.advocateService.getAdvocateCases(advocateId, params['category'], {pag_size: this.pageSize}).subscribe((list: AdvocateCasesInterfaceRequest) => {
+          let params_case = {
+            pag_size: this.pageSize,
+            sort_dir: this.sortDirection,
+            sort_field: this.sortBy
+          };
+          this.advocateService.getAdvocateCases(advocateId, params['category'], params_case).subscribe((list: AdvocateCasesInterfaceRequest) => {
             this.advocateService.getCategoryBySlug(params['category']).subscribe((data: AdvocateCategoryInterfaceRequest) => {
               let data_id: number|null = (data.data.id !== undefined) ? data.data.id.valueOf() : null;
               this.id = data_id;
@@ -66,15 +75,25 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
     this.subAdvocate$.unsubscribe();
   }
 
-  getList(event: number | null = null): void {
+  getList(event: {name: string, value: string} | null = null): void {
     this.mainService.setPreloaderState(true);
     this.subAdvocate$ = this.route.params
       .subscribe(
         (params: Params) => {
           const id = this.route.parent?.snapshot.params['id'];
           const advocateId: number = (id !== 'personal') ? id : 1;
-          this.pageOffset = (event !== null) ? this.pageSize * (event-1) : 0;
-          this.advocateService.getAdvocateCases(advocateId, params['category'], {pag_size: this.pageSize, pag_offset: this.pageOffset}).subscribe((list: AdvocateCasesInterfaceRequest) => {
+          if (event !== null) {
+            if (event.name === 'pageOffset') {
+              this.pageOffset = this.pageSize * (parseInt(event.value)-1);
+            }
+          }
+          let params_case = {
+            pag_size: this.pageSize,
+            pag_offset: this.pageOffset,
+            sort_dir: this.sortDirection,
+            sort_field: this.sortBy
+          };
+          this.advocateService.getAdvocateCases(advocateId, params['category'], params_case).subscribe((list: AdvocateCasesInterfaceRequest) => {
             this.advocateService.getCategoryBySlug(params['category']).subscribe((data: AdvocateCategoryInterfaceRequest) => {
               let data_id: number|null = (data.data.id !== undefined) ? data.data.id.valueOf() : null;
               this.id = data_id;

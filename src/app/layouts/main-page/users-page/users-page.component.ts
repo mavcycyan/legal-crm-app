@@ -21,13 +21,22 @@ export class UsersPageComponent implements OnInit {
   pageSize: number = 10;
   pageOffset: number = 0;
 
+  // sorting
+  sortDirection: string = 'asc';
+  sortBy: string = 'name';
+
   constructor(private usersService: UserService,
               private mainService: MainService) {
   }
 
   ngOnInit(): void {
     this.mainService.setPreloaderState(true);
-    this.usersService.getList({pag_size: this.pageSize}).subscribe((data: UsersInterfaceRequest) => {
+    let params = {
+      pag_size: this.pageSize,
+      sort_dir: this.sortDirection,
+      sort_field: this.sortBy
+    };
+    this.usersService.getList(params).subscribe((data: UsersInterfaceRequest) => {
       this.list = data.data
       if (data.all_items !== undefined) {
         this.allItems = data.all_items;
@@ -36,10 +45,20 @@ export class UsersPageComponent implements OnInit {
     });
   }
 
-  getList(event: number | null = null): void {
+  getList(event: {name: string, value: string} | null = null): void {
     this.mainService.setPreloaderState(true);
-    this.pageOffset = (event !== null) ? this.pageSize * (event-1) : 0;
-    this.usersService.getList({pag_size: this.pageSize, pag_offset: this.pageOffset}).subscribe((data: UsersInterfaceRequest) => {
+    if (event !== null) {
+      if (event.name === 'pageOffset') {
+        this.pageOffset = this.pageSize * (parseInt(event.value)-1);
+      }
+    }
+    let params = {
+      pag_size: this.pageSize,
+      pag_offset: this.pageOffset,
+      sort_dir: this.sortDirection,
+      sort_field: this.sortBy
+    };
+    this.usersService.getList(params).subscribe((data: UsersInterfaceRequest) => {
       this.list = data.data
       if (data.all_items !== undefined) {
         this.allItems = data.all_items;
