@@ -42,6 +42,10 @@ export class ClientsPageComponent implements OnInit, OnDestroy{
   ]
 
   //filtering
+  filterVars: {name: string, value: string}[] = [
+    {name: 'Статус', value: 'filt_result'}
+  ];
+  filter: string = '';
 
   constructor(private clientsService: ClientsService,
               private mainService: MainService) {
@@ -80,13 +84,26 @@ export class ClientsPageComponent implements OnInit, OnDestroy{
         this.sortDirection = sort[1];
         this.pageOffset = 0;
       }
+      if (event.name.indexOf('filt_') !== -1) {
+        this.filter = event.value;
+        this.pageOffset = 0;
+      }
     }
-    let params = {
+    let params: {
+      pag_size?: number,
+      pag_offset?: number,
+      sort_dir?: string,
+      sort_field?: string,
+      filt_result?: string,
+    } = {
       pag_size: this.pageSize,
       pag_offset: this.pageOffset,
       sort_dir: this.sortDirection,
       sort_field: this.sortBy
     };
+    if (this.filter !== '') {
+      params.filt_result = this.filter;
+    }
     this.listSub$ = this.clientsService.getList(params).subscribe((list: ClientWorksListInterfaceRequest) => {
       this.list = list.data.map((item: ClientWorksListInterface) => ({
         ...item,

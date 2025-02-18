@@ -28,6 +28,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
 })
 export class FilterComponent {
   @Input() sort: {name: string, value: string}[] = [];
+  @Input() filter: {name: string, value: string}[] = [];
   @Output() updatePage: EventEmitter<any> = new EventEmitter();
   modal: boolean = false;
 
