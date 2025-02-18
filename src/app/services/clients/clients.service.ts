@@ -7,12 +7,14 @@ import {Observable} from "rxjs";
 import {ClientWorksListInterfaceRequest} from "../../models/clients/client-works-list.interface";
 import {ClientsListInterfaceRequest} from "../../models/clients/clients-list.interface";
 import {globals} from "../../../globals/globals";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientsService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private router: Router) { }
 
   getList(params: {} = {}): Observable<ClientWorksListInterfaceRequest> {
     let params_str: string = '';
@@ -55,6 +57,11 @@ export class ClientsService {
 
   remove(id: number): Observable<any> {
     return this.httpClient.delete(`${globals.api_url}/api/clients/${id}`);
+  }
+
+
+  redirectSuccess(id: number|null = null) {
+    this.router.navigate(['/', 'edit', 'lawyer', 'clients', id]);
   }
 
 }

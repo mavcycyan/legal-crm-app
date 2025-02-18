@@ -100,10 +100,28 @@ export class EditFormComponent implements OnInit, OnChanges{
       const valueObj: any = this.form.value;
       if(this.isEdit) {
         this.formService.update(this.id, valueObj).subscribe((response: any) => {
+          if (response.success !== undefined) {
+            if (response.success == true) {
+              if (response.data !== undefined && response.data.id !== undefined) {
+                this.formService.redirectSuccess(response.data.id);
+              }
+            } else {
+              alert('Помилка');
+            }
+          }
           console.log(response);
         })
       } else {
         this.formService.save(valueObj).subscribe((response: any) => {
+          if (response.success !== undefined) {
+            if (response.success == true) {
+              if (response.data !== undefined && response.data.id !== undefined) {
+                this.formService.redirectSuccess(response.data.id);
+              }
+            } else {
+              alert('Помилка');
+            }
+          }
           console.log(response);
         })
       }

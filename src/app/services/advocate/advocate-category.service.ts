@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {globals} from "../../../globals/globals";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdvocateCategoryService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private router: Router) { }
 
 
   save(data: any): Observable<any> {
@@ -21,5 +23,9 @@ export class AdvocateCategoryService {
 
   remove(id: number): Observable<any> {
     return this.httpClient.delete(`${globals.api_url}/api/advocates_categories/${id}`);
+  }
+
+  redirectSuccess(id: number|null = null) {
+    this.router.navigate(['/', 'edit', 'advocate_category', id]);
   }
 }

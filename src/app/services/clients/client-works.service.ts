@@ -5,12 +5,14 @@ import {
   ClientWorksCardInterfaceRequest
 } from "../../models/clients/client-works-card.interface";
 import {globals} from "../../../globals/globals";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientWorksService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private router: Router) { }
 
   getOne(id: number): Observable<ClientWorksCardInterfaceRequest> {
     return this.httpClient.get<ClientWorksCardInterfaceRequest>(`${globals.api_url}/api/client_works/${id}`);
@@ -26,5 +28,9 @@ export class ClientWorksService {
 
   remove(id: number): Observable<any> {
     return this.httpClient.delete(`${globals.api_url}/api/client_works/${id}`);
+  }
+
+  redirectSuccess(id: number|null = null) {
+    this.router.navigate(['/', 'edit', 'lawyer', 'client_work', id]);
   }
 }

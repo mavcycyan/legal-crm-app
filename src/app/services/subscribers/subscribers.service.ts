@@ -9,13 +9,15 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {globals} from "../../../globals/globals";
 import {AdvocatesListInterfaceRequest} from "../../models/advocates/advocates-list.interface";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubscribersService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private router: Router) { }
 
   getList(params: {} = {}): Observable<SubscribersListInterfaceRequest> {
     let params_str: string = '';
@@ -50,6 +52,10 @@ export class SubscribersService {
 
   getAdvocates(): Observable<AdvocatesListInterfaceRequest> {
     return this.httpClient.get<AdvocatesListInterfaceRequest>(`${globals.api_url}/api/lawyer_advocates`);
+  }
+
+  redirectSuccess(id: number|null = null) {
+    this.router.navigate(['/', 'edit', 'lawyer', 'subscribers', id]);
   }
 
 }
