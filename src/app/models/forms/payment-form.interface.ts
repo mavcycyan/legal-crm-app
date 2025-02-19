@@ -3,6 +3,11 @@ export interface PaymentFormInterface {
   date: string,
   date_end: string|null,
   price: string,
+  name?: string,
+  deadlines?: {
+    date: string,
+    fee: string
+  }[],
   client_work_id: number,
   payments?: PaymentFormPayInterface[]
 }

@@ -4,10 +4,38 @@
     <div *ngIf="!pendingModal && prices.length > 0" class="edit-form-payment-wrap" formArrayName="prices">
       <div *ngFor="let price of prices.controls; let i = index;" class="edit-form-payment-row" [formGroupName]="i">
         <div class="edit-form-payment-row-main">
-          <div class="edit-form-payment-row-ttl"><b>Гонорар</b><span *ngIf="priceList.length > 0 && priceList[i] !== undefined && priceList[i].date !== undefined"> - {{priceList[i].date}}<span *ngIf="priceList[i].date_end"> - {{priceList[i].date_end}} (завершений)</span></span></div>
-          <div class="edit-form-payment-row-input">
+          <div class="edit-form-payment-row-ttl">
+            <b>Гонорар</b>
+            <span *ngIf="priceList.length > 0 && priceList[i] !== undefined && priceList[i].date !== undefined"> - {{priceList[i].date}}<span *ngIf="priceList[i].date_end"> - {{priceList[i].date_end}} (завершений)</span>
+            </span>
+          </div>
+          <div [ngClass]="{'edit-form-payment-row-input': true, 'edit-form-payment-row-input-2col': (type === 'modified')}">
             <input type="hidden" formControlName="id">
-            <input type="text" formControlName="price" class="form-control">
+            <input type="text" formControlName="price" class="form-control" placeholder="сума">
+            <input type="text" formControlName="name" class="form-control" placeholder="назва гонорара" *ngIf="type === 'modified'">
+          </div>
+          <div *ngIf="type === 'modified'" class="edit-form-payment-deadlines">
+            <div class="edit-form-payment-deadlines-ttl">Терміни виплат</div>
+            <div *ngIf="getDeadlines(i).controls && getDeadlines(i).controls.length > 0" class="edit-form-payment-deadlines-list" formArrayName="deadlines">
+              <div class="edit-form-payment-deadlines-list-row">
+                <div class="edit-form-payment-deadlines-list-bl">Сума платежу</div>
+                <div class="edit-form-payment-deadlines-list-bl">Крайній термін платежу</div>
+              </div>
+              <div *ngFor="let deadline of getDeadlines(i).controls; let d = index;" class="edit-form-payment-deadlines-list-row" [formGroupName]="d">
+                <div class="edit-form-payment-deadlines-list-bl">
+                  <input type="text" formControlName="fee" class="form-control">
+                </div>
+                <div class="edit-form-payment-deadlines-list-bl">
+                  <input type="date" formControlName="date" class="form-control">
+                </div>
+                <div class="edit-form-payment-deadlines-list-row-del">
+                  <button type="button" (click)="removeDeadline(i, d)">&times;</button>
+                </div>
+              </div>
+            </div>
+            <div class="edit-form-payment-deadlines-list-row-add">
+              <button type="button" (click)="addDeadline(i)" class="btn btn-add">Додати термін виплат</button>
+            </div>
           </div>
           <div *ngIf="getPayments(i).controls && getPayments(i).controls.length > 0" class="edit-form-payment-sub" formArrayName="payments">
             <div class="edit-form-payment-sub-row">
@@ -20,7 +48,8 @@
                 <input type="text" formControlName="amount" class="form-control">
               </div>
               <div class="edit-form-payment-sub-bl">
-                <input type="date" formControlName="date" class="form-control">
+                <input *ngIf="type !== 'modified'" type="date" formControlName="date" class="form-control">
+                <input *ngIf="type === 'modified'" type="datetime-local" formControlName="date" class="form-control">
               </div>
               <div class="edit-form-payment-sub-row-del">
                 <button type="button" (click)="removePayment(i, j)">&times;</button>

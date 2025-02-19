@@ -16,6 +16,7 @@ export class EditFormPaymentComponent implements OnInit{
 
   @Input() id: number|null = null;
   @Input() service: any;
+  @Input() type?: string = 'default';
 
   priceList: PaymentFormInterface[] = [];
   form: FormGroup = {} as FormGroup;
@@ -33,8 +34,27 @@ export class EditFormPaymentComponent implements OnInit{
         this.priceList = data.data;
 
         let prices = this.fb.array(this.priceList.map((price: PaymentFormInterface) => {
+          let dlArray: any = this.fb.array([]);
+          if (this.type === 'modified') {
+            if (price.deadlines && price.deadlines.length > 0) {
+              dlArray = this.fb.array(
+                price.deadlines.map((obj: any) =>
+                  this.fb.group({
+                    date: [obj.date || ''],
+                    fee: [obj.fee || '']
+                  })
+                )
+              );
+            }
+          }
           if (price.payments && price.payments.length > 0) {
-            return this.fb.group({
+            let controls: {
+              id: any,
+              price: any,
+              name?: any,
+              deadlines?: any,
+              payments: any
+            } = {
               id: [price.id, Validators.required],
               price: [price.price, [Validators.required]],
               payments: this.fb.array(price.payments.map((payment: PaymentFormPayInterface) => {
@@ -44,13 +64,29 @@ export class EditFormPaymentComponent implements OnInit{
                   date: [payment.date]
                 })
               }))
-            })
+            };
+            if (this.type === 'modified') {
+              controls.name = [price.name];
+              controls.deadlines = dlArray;
+            }
+            return this.fb.group(controls)
           } else {
-            return this.fb.group({
+            let controls: {
+              id: any,
+                price: any,
+                name?: any,
+                deadlines?: any,
+                payments: any
+            } = {
               id: [price.id, Validators.required],
               price: [price.price, [Validators.required]],
               payments: this.fb.array([])
-            })
+            };
+            if (this.type === 'modified') {
+              controls.name = [price.name];
+              controls.deadlines = dlArray;
+            }
+            return this.fb.group(controls)
           }
         }))
         this.form.setControl('prices', prices);
@@ -68,11 +104,22 @@ export class EditFormPaymentComponent implements OnInit{
   }
 
   addPrice() {
-    this.prices.push(this.fb.group({
+    let controls: {
+      id: any,
+      price: any,
+      name?: any,
+      deadlines?: any,
+      payments: any
+    } = {
       id: [null],
       price: [null, [Validators.required, Validators.min(1)]],
       payments: this.fb.array([])
-    }));
+    };
+    if (this.type === 'modified') {
+      controls.name = [null];
+      controls.deadlines = this.fb.array([]);
+    }
+    this.prices.push(this.fb.group(controls));
   }
 
   removePrice(index: number) {
@@ -80,15 +127,32 @@ export class EditFormPaymentComponent implements OnInit{
   }
 
   addPayment(priceIndex: number) {
+    const date = (this.type === 'modified') ? new Date().toISOString().slice(0, 16) : new Date().toISOString().split('T')[0];
     this.getPayments(priceIndex).push(this.fb.group({
       id: [null],
       amount: [null, [Validators.required, Validators.min(1)]],
-      date: [new Date().toISOString().split('T')[0]]
+      date: [date]
     }));
   }
 
   removePayment(priceIndex: number, paymentIndex: number) {
     this.getPayments(priceIndex).removeAt(paymentIndex);
+  }
+
+
+  getDeadlines(priceIndex: number): FormArray {
+    return this.prices.at(priceIndex).get('deadlines') as FormArray;
+  }
+
+  addDeadline(priceIndex: number) {
+    this.getDeadlines(priceIndex).push(this.fb.group({
+      fee: [null, [Validators.required, Validators.min(1)]],
+      date: [null]
+    }));
+  }
+
+  removeDeadline(priceIndex: number, deadlineIndex: number) {
+    this.getDeadlines(priceIndex).removeAt(deadlineIndex);
   }
 
   submit():void {

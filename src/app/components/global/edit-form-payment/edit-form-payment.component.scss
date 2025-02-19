@@ -125,5 +125,66 @@
       }
     }
   }
+  &-deadlines {
+    background: #c6ead3;
+    border: 1px solid $color_main;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 6px;
+    &-list {
+      margin-top: 20px;
+      overflow: hidden;
+      border-radius: 6px 6px 0px 0px;
+      border: 1px solid $color_main;
+      &-row {
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid $color_main;
+        &:first-child {
+          background: $color_main;
+          color: #fff;
+        }
+        &:last-child {
+          border-bottom: 0;
+        }
+        &-del {
+          display: flex;
+          align-items: center;
+          width: 30px;
+          justify-content: center;
+          button {
+            background: none;
+            border: 0;
+            padding: 0;
+            font-size: 28px;
+            color: #f00;
+            cursor: pointer;
+          }
+        }
+        &-add {
+          margin-top: 10px;
+          text-align: right;
+        }
+      }
+      &-bl {
+        padding: 10px;
+        width: calc(50% - 15px);
+        input.form-control {
+          padding: 4px;
+        }
+      }
+    }
+  }
+  &-row {
+    &-input.edit-form-payment-row-input-2col {
+      display: flex;
+      margin: 0 -5px;
+      flex-wrap: wrap;
+      .form-control {
+        margin: 0 5px;
+        width: calc(50% - 10px);
+      }
+    }
+  }
 }
 

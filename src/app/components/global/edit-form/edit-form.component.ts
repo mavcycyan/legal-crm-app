@@ -25,6 +25,7 @@ export class EditFormComponent implements OnInit, OnChanges{
   @Input() formService: any;
   @Input() formPaymentsService: any;
   @Input() isEdit: boolean = false;
+  @Input() type?: string = 'default';
   form: FormGroup = {} as FormGroup;
   id: number|null = null;
   paymodal: boolean = false;
