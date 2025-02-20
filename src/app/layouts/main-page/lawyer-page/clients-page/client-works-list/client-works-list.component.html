@@ -1,4 +1,4 @@
-<app-table [data]="works" [columns]="tblColumns" [tableClass]="'clients-page'"></app-table>
+<app-table [data]="works" [columns]="tblColumns" [tableClass]="'clients-works-list'"></app-table>
 <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
 <div class="main-page-btn">
   <a [routerLink]="['/', 'edit', 'lawyer', 'clients', id]">Редагувати клієнта</a>
