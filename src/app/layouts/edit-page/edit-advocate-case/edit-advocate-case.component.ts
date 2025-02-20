@@ -21,6 +21,8 @@ import {AdvocateCaseService} from "../../../services/advocate/advocate-case.serv
 import {
   AdvocateCasePaymentsService
 } from "../../../services/advocate/advocate-case-payments.service";
+import {ClientsService} from "../../../services/clients/clients.service";
+import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../models/clients/clients-list.interface";
 
 @Component({
   selector: 'app-edit-advocate-case',
@@ -35,6 +37,7 @@ export class EditAdvocateCaseComponent {
   fields: FormFieldsInterface[] = [
     {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'select', choises: []},
     {slug: 'advocate_category_id', name: 'Категорія', required: true, class: 'w-50', type: 'select', choises: []},
+    {slug: 'client_id', name: 'Клієнт', required: true, class: 'w-50', type: 'select', choises: []},
     {slug: 'visit_date', name: 'Дата заведення', required: true, class: 'w-50', type: 'date'},
     {slug: 'proc_num', name: 'Номер справи', required: true, class: 'w-50', type: 'text'},
     {slug: 'advocates', name: 'Адвокати у справі (для вибору декількох затисніть Ctrl)', required: false, class: 'w-100', type: 'select_multy', choises: []},
@@ -48,6 +51,7 @@ export class EditAdvocateCaseComponent {
               public advocateService: AdvocateService,
               public advocateCaseService: AdvocateCaseService,
               public advocateCasePaymentsService: AdvocateCasePaymentsService,
+              public clientsService: ClientsService,
               public mainService: MainService) {
   }
 
@@ -83,6 +87,18 @@ export class EditAdvocateCaseComponent {
         }
       });
     });
+    this.clientsService.getClientsList().subscribe((data: ClientsListInterfaceRequest) => {
+      const clients = data.data;
+      this.fields.map((field: FormFieldsInterface) => {
+        if (field.slug === 'client_id') {
+          clients.forEach((client: ClientsListInterface, index: number) => {
+            if (field.choises !== undefined) {
+              field.choises[index] = {label: client.full_name.toString(), value: client.id.toString()};
+            }
+          });
+        }
+      });
+    });
     this.subClient$ = this.route.params
       .subscribe(
         (params: Params) => {
@@ -94,6 +110,7 @@ export class EditAdvocateCaseComponent {
               this.fields = [
                 {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'select', choises: []},
                 {slug: 'advocate_category_id', name: 'Категорія', required: true, class: 'w-50', type: 'select', choises: []},
+                {slug: 'client_id', name: 'Клієнт', required: true, class: 'w-50', type: 'select', choises: []},
                 {slug: 'visit_date', name: 'Дата заведення', required: true, class: 'w-50', type: 'date'},
                 {slug: 'proc_num', name: 'Номер справи', required: true, class: 'w-50', type: 'text'},
                 {slug: 'advocates', name: 'Адвокати у справі (для вибору декількох затисніть Ctrl)', required: false, class: 'w-100', type: 'select_multy', choises: []},
