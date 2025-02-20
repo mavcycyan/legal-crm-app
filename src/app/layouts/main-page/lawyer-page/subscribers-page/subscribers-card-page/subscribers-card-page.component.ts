@@ -34,13 +34,8 @@ export class SubscribersCardPageComponent implements OnInit, OnDestroy{
     {slug: 'fee', name: 'Гонорар'},
     {slug: 'info', name: 'Інфо'}
   ];
-  works: SubscribersWorksCardInterface[] = [];
-  tblColumns: Array<{name: string, slug: string}> = [
-    {slug: 'date', name: 'Дата звернення'},
-    {slug: 'what_done', name: 'Що зроблено'},
-    {slug: 'result', name: 'Результат'}
-  ];
   id: number|null = null;
+  isLoading: boolean = true;
 
   constructor(private route: ActivatedRoute,
               private subscribersService: SubscribersService,
@@ -55,12 +50,7 @@ export class SubscribersCardPageComponent implements OnInit, OnDestroy{
           this.id = params['id'];
           this.subscribersService.getOne(params['id']).subscribe((list: SubscribersCardInterfaceRequest) => {
             this.subscriber = list.data;
-            if (list.data.subscriber_works !== undefined) {
-              this.works = list.data.subscriber_works.map((item: SubscribersWorksCardInterface) => ({
-                ...item,
-                edit_path: `/edit/lawyer/subscriber_work/${item.id}`
-              }));
-            }
+            this.isLoading = false;
             this.mainService.setPreloaderState(false);
           });
         }

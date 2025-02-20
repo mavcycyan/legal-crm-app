@@ -1,4 +1,5 @@
 export interface SubscribersWorksListInterface {
+  id?: number,
   subscriber_id: number,
   date: String,
   what_done: {
@@ -6,5 +7,13 @@ export interface SubscribersWorksListInterface {
     pending: Boolean
   }[],
   responsible_advocate?: Number
-  result: String
+  result: String,
+  fee: string
+}
+
+export interface SubscribersWorksListInterfaceRequest {
+  success: Boolean,
+  message: String,
+  data: SubscribersWorksListInterface[],
+  all_items?: number
 }

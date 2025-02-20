@@ -43,6 +43,8 @@ import { PaginationComponent } from './components/global/pagination/pagination.c
 import { FilterComponent } from './components/global/filter/filter.component';
 import { ClientWorkCardComponent } from './layouts/main-page/lawyer-page/clients-page/client-work-card/client-work-card.component';
 import { ClientWorksListComponent } from './layouts/main-page/lawyer-page/clients-page/client-works-list/client-works-list.component';
+import { SubscriberWorkCardComponent } from './layouts/main-page/lawyer-page/subscribers-page/subscriber-work-card/subscriber-work-card.component';
+import { SubscriberWorksListComponent } from './layouts/main-page/lawyer-page/subscribers-page/subscriber-works-list/subscriber-works-list.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,9 @@ import { ClientWorksListComponent } from './layouts/main-page/lawyer-page/client
     PaginationComponent,
     FilterComponent,
     ClientWorkCardComponent,
-    ClientWorksListComponent
+    ClientWorksListComponent,
+    SubscriberWorkCardComponent,
+    SubscriberWorksListComponent
   ],
   imports: [
     BrowserModule,

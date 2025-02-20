@@ -46,6 +46,12 @@ import {
 import {
   ClientWorksListComponent
 } from "./layouts/main-page/lawyer-page/clients-page/client-works-list/client-works-list.component";
+import {
+  SubscriberWorksListComponent
+} from "./layouts/main-page/lawyer-page/subscribers-page/subscriber-works-list/subscriber-works-list.component";
+import {
+  SubscriberWorkCardComponent
+} from "./layouts/main-page/lawyer-page/subscribers-page/subscriber-work-card/subscriber-work-card.component";
 
 const routes: Routes = [
   {
@@ -58,7 +64,10 @@ const routes: Routes = [
           {path: ':client_work', component: ClientWorkCardComponent},
       ]},
       {path: 'lawyer/subscribers', component: SubscribersPageComponent, canActivate: [PermissionsGuard]},
-      {path: 'lawyer/subscribers/:id', component: SubscribersCardPageComponent, canActivate: [PermissionsGuard]},
+      {path: 'lawyer/subscribers/:id', component: SubscribersCardPageComponent, canActivate: [PermissionsGuard], children: [
+          {path: '', component: SubscriberWorksListComponent},
+          {path: ':subscriber_work', component: SubscriberWorkCardComponent},
+        ]},
       {path: 'lawyer', redirectTo: 'lawyer/clients'},
       {path: 'advocate', component: AdvocatePageComponent, canActivate: [PermissionsGuard]},
       {path: 'advocate/:id', component: AdvocateCardComponent, canActivate: [PermissionsGuard], children: [

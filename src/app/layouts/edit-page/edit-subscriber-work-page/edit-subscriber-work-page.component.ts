@@ -15,6 +15,7 @@ import {SubscribersService} from "../../../services/subscribers/subscribers.serv
 import {SubscriberWorksService} from "../../../services/subscribers/subscriber-works.service";
 import {MainService} from "../../../services/main/main.service";
 import {SubscriberPaymentsService} from "../../../services/subscribers/subscriber-payments.service";
+import {SubscriberWorkPaymentsService} from "../../../services/subscribers/subscriber-work-payments.service";
 
 @Component({
   selector: 'app-edit-subscriber-work-page',
@@ -29,6 +30,7 @@ export class EditSubscriberWorkPageComponent implements OnInit{
   fields: FormFieldsInterface[] = [
     {slug: 'subscriber_id', name: 'Абонент', required: true, class: 'w-100', type: 'select', choises: []},
     {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
+    {slug: 'name', name: 'Назва роботи', required: true, class: 'w-50', type: 'text'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
     {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'text'},
     {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'text'},
@@ -38,7 +40,7 @@ export class EditSubscriberWorkPageComponent implements OnInit{
   constructor(private route: ActivatedRoute,
               public subscriberWorksService: SubscriberWorksService,
               public subscribersService: SubscribersService,
-              public subscriberWorkPaymentsService: SubscriberPaymentsService,
+              public subscriberWorkPaymentsService: SubscriberWorkPaymentsService,
               public mainService: MainService) {
   }
 
@@ -54,6 +56,7 @@ export class EditSubscriberWorkPageComponent implements OnInit{
               this.fields = [
                 {slug: 'subscriber_id', name: 'Абонент', required: true, class: 'w-100', type: 'select', choises: []},
                 {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
+                {slug: 'name', name: 'Назва роботи', required: true, class: 'w-50', type: 'text'},
                 {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
                 {slug: 'payments_edit', name: 'Виплати', required: true, class: 'w-50', type: 'paymodal'},
                 {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},

@@ -8,7 +8,8 @@ export interface SubscribersWorksCardInterface {
   }[],
   responsible_advocate?: Number
   result: String,
-  edit_path: String
+  fee: String,
+  edit_path?: String
 }
 
 export interface SubscribersWorksCardInterfaceRequest {

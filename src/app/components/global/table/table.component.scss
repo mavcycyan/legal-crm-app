@@ -207,3 +207,26 @@
     text-align: center;
   }
 }
+
+// subscribers works list
+.subscribers-works-list {
+  .tablecom-tbl-col.date {
+    width: 110px;
+    text-align: center;
+  }
+  .tablecom-tbl-col.name {
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tablecom-tbl-col.result {
+    width: 110px;
+    text-align: center;
+  }
+  .tablecom-tbl-col.fee {
+    width: 110px;
+    text-align: center;
+  }
+}
