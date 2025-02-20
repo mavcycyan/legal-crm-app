@@ -21,15 +21,8 @@ export class ClientsCardPageComponent implements OnInit, OnDestroy{
     {slug: 'address', name: 'Адреса'},
     {slug: 'phone', name: 'Телефон'}
   ];
-  works: ClientWorksCardInterface[] = [];
-  tblColumns: Array<{name: string, slug: string}> = [
-    {slug: 'visit_date', name: 'Дата звернення'},
-    {slug: 'visit_purpose', name: 'Причина звернення'},
-    {slug: 'what_done', name: 'Що зроблено'},
-    {slug: 'result', name: 'Результат'},
-    {slug: 'fee', name: 'Гонорар'}
-  ];
   id: number|null = null;
+  isLoading: boolean = true;
 
   constructor(private route: ActivatedRoute,
               private clientsService: ClientsService,
@@ -44,12 +37,7 @@ export class ClientsCardPageComponent implements OnInit, OnDestroy{
           this.id = params['id'];
           this.clientsService.getOne(params['id']).subscribe((list: ClientsCardInterfaceRequest) => {
             this.client = list.data;
-            if (list.data.client_works !== undefined) {
-              this.works = list.data.client_works.map((item: ClientWorksCardInterface) => ({
-                ...item,
-                edit_path: `/edit/lawyer/client_work/${item.id}`
-              }));
-            }
+            this.isLoading = false;
             this.mainService.setPreloaderState(false);
           });
         }

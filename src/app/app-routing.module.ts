@@ -40,6 +40,12 @@ import {EditAdvocateWorkComponent} from "./layouts/edit-page/edit-advocate-work/
 import {EditUserPageComponent} from "./layouts/edit-page/edit-user-page/edit-user-page.component";
 import {UsersPageComponent} from "./layouts/main-page/users-page/users-page.component";
 import {UsersCardPageComponent} from "./layouts/main-page/users-page/users-card-page/users-card-page.component";
+import {
+  ClientWorkCardComponent
+} from "./layouts/main-page/lawyer-page/clients-page/client-work-card/client-work-card.component";
+import {
+  ClientWorksListComponent
+} from "./layouts/main-page/lawyer-page/clients-page/client-works-list/client-works-list.component";
 
 const routes: Routes = [
   {
@@ -47,7 +53,10 @@ const routes: Routes = [
       {path: '', component: HomePageComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer/client_works', component: ClientsPageComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer/clients', component: ClientsAllComponent, canActivate: [PermissionsGuard]},
-      {path: 'lawyer/clients/:id', component: ClientsCardPageComponent, canActivate: [PermissionsGuard]},
+      {path: 'lawyer/clients/:id', component: ClientsCardPageComponent, canActivate: [PermissionsGuard], children: [
+          {path: '', component: ClientWorksListComponent},
+          {path: ':client_work', component: ClientWorkCardComponent},
+      ]},
       {path: 'lawyer/subscribers', component: SubscribersPageComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer/subscribers/:id', component: SubscribersCardPageComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer', redirectTo: 'lawyer/clients'},

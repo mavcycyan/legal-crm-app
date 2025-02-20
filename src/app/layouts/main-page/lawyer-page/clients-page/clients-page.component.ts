@@ -60,7 +60,7 @@ export class ClientsPageComponent implements OnInit, OnDestroy{
     this.listSub$ = this.clientsService.getList(params).subscribe((list: ClientWorksListInterfaceRequest) => {
       this.list = list.data.map((item: ClientWorksListInterface) => ({
         ...item,
-        custom_path: `/lawyer/clients/${item.client_id}#work-${item.id}`
+        custom_path: `/lawyer/clients/${item.client_id}/${item.id}`
       }));
       if (list.all_items !== undefined) {
         this.allItems = list.all_items;
@@ -107,7 +107,7 @@ export class ClientsPageComponent implements OnInit, OnDestroy{
     this.listSub$ = this.clientsService.getList(params).subscribe((list: ClientWorksListInterfaceRequest) => {
       this.list = list.data.map((item: ClientWorksListInterface) => ({
         ...item,
-        custom_path: `/lawyer/clients/${item.client_id}#work-${item.id}`
+        custom_path: `/lawyer/clients/${item.client_id}/${item.id}`
       }));
       if (list.all_items !== undefined) {
         this.allItems = list.all_items;

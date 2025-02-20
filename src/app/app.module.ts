@@ -41,6 +41,8 @@ import { UsersCardPageComponent } from './layouts/main-page/users-page/users-car
 import { RolenamePipe } from './pipes/rolename/rolename.pipe';
 import { PaginationComponent } from './components/global/pagination/pagination.component';
 import { FilterComponent } from './components/global/filter/filter.component';
+import { ClientWorkCardComponent } from './layouts/main-page/lawyer-page/clients-page/client-work-card/client-work-card.component';
+import { ClientWorksListComponent } from './layouts/main-page/lawyer-page/clients-page/client-works-list/client-works-list.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,9 @@ import { FilterComponent } from './components/global/filter/filter.component';
     UsersCardPageComponent,
     RolenamePipe,
     PaginationComponent,
-    FilterComponent
+    FilterComponent,
+    ClientWorkCardComponent,
+    ClientWorksListComponent
   ],
   imports: [
     BrowserModule,

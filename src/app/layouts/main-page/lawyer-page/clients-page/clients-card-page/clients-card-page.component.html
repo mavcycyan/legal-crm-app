@@ -1,7 +1,9 @@
 <div class="client-wrap">
   <div class="client-row">
     <div class="client-main">
-      <app-table-card [data]="works" [columns]="tblColumns"></app-table-card>
+      <div *ngIf="!isLoading">
+        <router-outlet></router-outlet>
+      </div>
     </div>
     <div class="client-sidebar">
       <app-infocard [data]="client" [rows]="clientRows" [title]="client.full_name"></app-infocard>
@@ -9,7 +11,3 @@
   </div>
 </div>
 
-<div class="main-page-btn">
-  <a [routerLink]="['/', 'edit', 'lawyer', 'clients', id]">Редагувати клієнта</a>
-  <a [routerLink]="['/', 'edit', 'lawyer', 'client_work']" class="second">Додати роботу</a>
-</div>
