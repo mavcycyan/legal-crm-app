@@ -45,6 +45,8 @@ import { ClientWorkCardComponent } from './layouts/main-page/lawyer-page/clients
 import { ClientWorksListComponent } from './layouts/main-page/lawyer-page/clients-page/client-works-list/client-works-list.component';
 import { SubscriberWorkCardComponent } from './layouts/main-page/lawyer-page/subscribers-page/subscriber-work-card/subscriber-work-card.component';
 import { SubscriberWorksListComponent } from './layouts/main-page/lawyer-page/subscribers-page/subscriber-works-list/subscriber-works-list.component';
+import { AdvocateWorksListComponent } from './layouts/main-page/advocate-page/advocate-works-list/advocate-works-list.component';
+import { AdvocateWorksCardComponent } from './layouts/main-page/advocate-page/advocate-works-card/advocate-works-card.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,9 @@ import { SubscriberWorksListComponent } from './layouts/main-page/lawyer-page/su
     ClientWorkCardComponent,
     ClientWorksListComponent,
     SubscriberWorkCardComponent,
-    SubscriberWorksListComponent
+    SubscriberWorksListComponent,
+    AdvocateWorksListComponent,
+    AdvocateWorksCardComponent
   ],
   imports: [
     BrowserModule,

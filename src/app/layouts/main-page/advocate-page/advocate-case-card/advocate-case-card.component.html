@@ -23,9 +23,5 @@
   </div>
 </div>
 
-<app-table-card [data]="works" [columns]="tblColumns"></app-table-card>
+<router-outlet></router-outlet>
 
-<div class="main-page-btn">
-  <a [routerLink]="['/', 'edit', 'advocate_case', id]">Редагувати справу</a>
-  <a [routerLink]="['/', 'edit', 'advocate_work']" class="second">Додати роботу</a>
-</div>

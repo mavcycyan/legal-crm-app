@@ -52,6 +52,12 @@ import {
 import {
   SubscriberWorkCardComponent
 } from "./layouts/main-page/lawyer-page/subscribers-page/subscriber-work-card/subscriber-work-card.component";
+import {
+  AdvocateWorksListComponent
+} from "./layouts/main-page/advocate-page/advocate-works-list/advocate-works-list.component";
+import {
+  AdvocateWorksCardComponent
+} from "./layouts/main-page/advocate-page/advocate-works-card/advocate-works-card.component";
 
 const routes: Routes = [
   {
@@ -73,7 +79,10 @@ const routes: Routes = [
       {path: 'advocate/:id', component: AdvocateCardComponent, canActivate: [PermissionsGuard], children: [
         {path: '', component: AdvocateCategoriesComponent},
         {path: ':category', component: AdvocateCasePageComponent},
-        {path: ':category/:case_id', component: AdvocateCaseCardComponent},
+        {path: ':category/:case_id', component: AdvocateCaseCardComponent, children: [
+            {path: '', component: AdvocateWorksListComponent},
+            {path: ':advocate_work', component: AdvocateWorksCardComponent},
+          ]},
       ]},
       {path: 'users', component: UsersPageComponent, canActivate: [PermissionsGuard]},
       {path: 'users/:id', component: UsersCardPageComponent, canActivate: [PermissionsGuard]},

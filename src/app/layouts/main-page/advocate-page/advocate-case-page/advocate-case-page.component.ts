@@ -21,10 +21,9 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
   cases: AdvocateCasesInterface[] = [];
   tblColumns: Array<{name: string, slug: string}> = [
     {slug: 'visit_date', name: 'Дата звернення'},
-    {slug: 'proc_num', name: 'Номер справи'},
-    {slug: 'plot', name: 'Фабула'},
+    {slug: 'client_id', name: 'Відомості про клієнта'},
+    {slug: 'advocate_id', name: 'Виконавець'},
     {slug: 'fee', name: 'Гонорар'},
-    {slug: 'pays', name: 'Виплати'},
     {slug: 'result', name: 'Статус'}
   ];
   id: number|null = null;

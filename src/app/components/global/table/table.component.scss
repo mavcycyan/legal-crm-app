@@ -230,3 +230,54 @@
     text-align: center;
   }
 }
+
+
+// advcase works list
+.advcase-works-list {
+  .tablecom-tbl-col.visit_date {
+    width: 110px;
+    text-align: center;
+  }
+  .tablecom-tbl-col.client_id {
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tablecom-tbl-col.advocate_id {
+    width: 300px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tablecom-tbl-col.result {
+    width: 110px;
+    text-align: center;
+  }
+  .tablecom-tbl-col.fee {
+    width: 110px;
+    text-align: center;
+  }
+}
+
+
+// advcase works list 2
+.advcase-works-list2 {
+  .tablecom-tbl-col.date {
+    width: 110px;
+    text-align: center;
+  }
+  .tablecom-tbl-col.name {
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tablecom-tbl-col.result {
+    width: 110px;
+    text-align: center;
+  }
+}
