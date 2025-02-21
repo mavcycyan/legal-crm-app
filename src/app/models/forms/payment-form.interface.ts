@@ -15,6 +15,8 @@ export interface PaymentFormPayInterface {
   id: number,
   date: string,
   amount: string,
+  amount_currency?: string,
+  amount_currency_val?: string,
   fin_client_work_price_id: number
 }
 export interface PaymentFormInterfaceRequest {

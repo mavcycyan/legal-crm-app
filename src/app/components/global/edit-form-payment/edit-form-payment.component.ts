@@ -58,11 +58,33 @@ export class EditFormPaymentComponent implements OnInit{
               id: [price.id, Validators.required],
               price: [price.price, [Validators.required]],
               payments: this.fb.array(price.payments.map((payment: PaymentFormPayInterface) => {
-                return this.fb.group({
+                let controls: {
+                  id: any,
+                  amount: any,
+                  amount_currency?: any,
+                  amount_currency_val?: any,
+                  date: any
+                } = {
                   id: [payment.id, Validators.required],
                   amount: [payment.amount, [Validators.required]],
                   date: [payment.date]
-                })
+                };
+                if (this.type === 'modified') {
+                  const amount_currency: {value: string, disabled: boolean} = {value: '', disabled: false};
+                  let amount_currency_val: string = '';
+                  if (payment.amount_currency !== undefined && payment.amount_currency !== '') {
+                    if (payment.amount_currency !== '' && payment.amount_currency !== null) {
+                      const vals = payment.amount_currency.split(' ');
+                      amount_currency.value = vals[0];
+                      amount_currency.disabled = false;
+                      amount_currency_val = (vals.length > 1) ? vals[1] : '';
+                      controls.amount = [{value: payment.amount, disabled: false}, [Validators.required]];
+                    }
+                  }
+                  controls.amount_currency = [amount_currency];
+                  controls.amount_currency_val = [amount_currency_val];
+                }
+                return this.fb.group(controls)
               }))
             };
             if (this.type === 'modified') {
@@ -128,11 +150,22 @@ export class EditFormPaymentComponent implements OnInit{
 
   addPayment(priceIndex: number) {
     const date = (this.type === 'modified') ? new Date().toISOString().slice(0, 16) : new Date().toISOString().split('T')[0];
-    this.getPayments(priceIndex).push(this.fb.group({
+    let controls: {
+      id: any,
+      amount: any,
+      amount_currency?: any,
+      amount_currency_val?: any,
+      date: any
+    } = {
       id: [null],
       amount: [null, [Validators.required, Validators.min(1)]],
       date: [date]
-    }));
+    };
+    if (this.type === 'modified') {
+      controls.amount_currency = [null];
+      controls.amount_currency_val = [null];
+    }
+    this.getPayments(priceIndex).push(this.fb.group(controls));
   }
 
   removePayment(priceIndex: number, paymentIndex: number) {
@@ -153,6 +186,32 @@ export class EditFormPaymentComponent implements OnInit{
 
   removeDeadline(priceIndex: number, deadlineIndex: number) {
     this.getDeadlines(priceIndex).removeAt(deadlineIndex);
+  }
+
+  changeAmountCur(priceIndex: number, paymentIndex: number, event: any): void {
+    // if (event.target.value !== '') {
+    //   this.getPayments(priceIndex).at(paymentIndex).get('amount_currency')?.enable();
+    //   this.getPayments(priceIndex).at(paymentIndex).get('amount')?.disable();
+    // } else {
+    //   this.getPayments(priceIndex).at(paymentIndex).get('amount')?.enable();
+    //   this.getPayments(priceIndex).at(paymentIndex).get('amount_currency')?.disable();
+    // }
+    this.getPayments(priceIndex).at(paymentIndex).get('amount')?.setValue('');
+    this.getPayments(priceIndex).at(paymentIndex).get('amount_currency')?.setValue('');
+  }
+
+  inputAmountCur(priceIndex: number, paymentIndex: number, event: any): void {
+    const currency_type = this.getPayments(priceIndex).at(paymentIndex).get('amount_currency_val')?.value;
+    let course = 0;
+    if (currency_type === 'EUR') {
+      course = 43.3;
+    }
+    if (currency_type === 'USD') {
+      course = 41.5;
+    }
+    if (course > 0) {
+      this.getPayments(priceIndex).at(paymentIndex).get('amount')?.setValue((event.target.value * course));
+    }
   }
 
   submit():void {

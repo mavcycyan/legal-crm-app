@@ -124,6 +124,30 @@
         padding: 4px;
       }
     }
+    &-row {
+      &.edit-form-payment-sub-row-3col {
+        .edit-form-payment-sub {
+          &-bl {
+            width: calc((100% / 3) - 10px);
+            .form-control-am_cur {
+              padding: 4px;
+              border-radius: 4px;
+              border: 1px solid $color_main;
+              display: flex;
+              input.form-control {
+                border: 0;
+                padding: 0;
+                width: calc(100% - 30px);
+              }
+              select {
+                border: 0;
+                width: 30px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
   &-deadlines {
     background: #c6ead3;
