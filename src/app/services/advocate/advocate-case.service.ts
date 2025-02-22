@@ -33,4 +33,8 @@ export class AdvocateCaseService {
   redirectSuccess(id: number|null = null) {
     this.router.navigate(['/', 'edit', 'advocate_case', id]);
   }
+
+  redirectRemoveSuccess() {
+    this.router.navigate(['/', 'advocate']);
+  }
 }

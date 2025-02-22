@@ -4,14 +4,7 @@ import {FormGroup} from "@angular/forms";
 import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {UserInterface, UserInterfaceRequest} from "../../../models/auth/user.interface";
 import {ActivatedRoute, Params} from "@angular/router";
-import {AdvocateWorkService} from "../../../services/advocate/advocate-work.service";
-import {AdvocateCaseService} from "../../../services/advocate/advocate-case.service";
 import {MainService} from "../../../services/main/main.service";
-import {AdvocateWorksInterfaceRequest} from "../../../models/advocates/advocate-works.interface";
-import {
-  AdvocateCasesInterface,
-  AdvocateCasesInterfaceRequest
-} from "../../../models/advocates/advocate-cases.interface";
 import {UserService} from "../../../services/auth/user.service";
 
 @Component({

@@ -45,4 +45,8 @@ export class UserService {
   redirectSuccess(id: number|null = null) {
     this.router.navigate(['/', 'edit', 'user', id]);
   }
+
+  redirectRemoveSuccess() {
+    this.router.navigate(['/', 'users']);
+  }
 }

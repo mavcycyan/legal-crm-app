@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ClientWorkPaymentsService} from "../../../services/clients/client-work-payments.service";
 import {
   PaymentFormInterface,
@@ -17,6 +17,7 @@ export class EditFormPaymentComponent implements OnInit{
   @Input() id: number|null = null;
   @Input() service: any;
   @Input() type?: string = 'default';
+  @Output() modalState: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   priceList: PaymentFormInterface[] = [];
   form: FormGroup = {} as FormGroup;
@@ -218,8 +219,20 @@ export class EditFormPaymentComponent implements OnInit{
     if (this.form.status === 'VALID') {
       const valueObj: any = this.form.value;
       valueObj.parent_id = this.id;
+      this.pendingModal = true;
       this.service.update(valueObj).subscribe((data: PaymentFormInterfaceRequest) => {
-        console.log(data);
+        if (data.success !== undefined) {
+          if (data.success == true) {
+            if (data.data !== undefined) {
+              alert('Дані успішно додано');
+              this.pendingModal = false;
+              this.modalState.emit(false);
+            }
+          } else {
+            this.pendingModal = false;
+            alert('Помилка');
+          }
+        }
       });
     }
   }

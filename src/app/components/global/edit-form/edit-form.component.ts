@@ -35,8 +35,6 @@ export class EditFormComponent implements OnInit, OnChanges{
   }
 
   ngOnInit(): void {
-    this.mainService.setEditBtnData({type: '', id: null});
-    this.mainService.setEditBtnSecondaryData({type: '', id: null});
     let newFields: any = {};
     this.fields.forEach((field: any) => {
       if (field.required) {
@@ -52,6 +50,7 @@ export class EditFormComponent implements OnInit, OnChanges{
 
   ngOnChanges() {
     if(this.isEdit) {
+      this.mainService.setPreloaderState(true);
       this.fields.forEach((item: any) => {
         if (item.type === 'what_done' && this.data[item.slug]) {
           const formArray = this.fb.array(
@@ -71,6 +70,7 @@ export class EditFormComponent implements OnInit, OnChanges{
       });
       this.form.updateValueAndValidity();
       this.id = this.data.id;
+      this.mainService.setPreloaderState(false);
     }
   }
 
@@ -95,10 +95,14 @@ export class EditFormComponent implements OnInit, OnChanges{
   payModalClose(): void {
     this.paymodal = false;
   }
+  payModalAction(state: boolean = false) {
+    this.paymodal = state;
+  }
 
   submit():void {
     if (this.form.status === 'VALID') {
       const valueObj: any = this.form.value;
+      this.mainService.setPreloaderState(true);
       if(this.isEdit) {
         this.formService.update(this.id, valueObj).subscribe((response: any) => {
           if (response.success !== undefined) {
@@ -111,12 +115,14 @@ export class EditFormComponent implements OnInit, OnChanges{
             }
           }
           console.log(response);
+          this.mainService.setPreloaderState(false);
         })
       } else {
         this.formService.save(valueObj).subscribe((response: any) => {
           if (response.success !== undefined) {
             if (response.success == true) {
               if (response.data !== undefined && response.data.id !== undefined) {
+                alert('Дані успішно додано');
                 this.formService.redirectSuccess(response.data.id);
               }
             } else {
@@ -124,6 +130,7 @@ export class EditFormComponent implements OnInit, OnChanges{
             }
           }
           console.log(response);
+          this.mainService.setPreloaderState(false);
         })
       }
     }
@@ -131,8 +138,16 @@ export class EditFormComponent implements OnInit, OnChanges{
 
 
   delete():void {
+    this.mainService.setPreloaderState(true);
     this.formService.remove(this.id).subscribe((response: any) => {
       console.log(response);
-    })
+      alert('Дані успішно видалено');
+      this.mainService.setPreloaderState(false);
+      this.formService.redirectRemoveSuccess();
+    },
+      (error: any) => {
+        alert(error);
+        this.mainService.setPreloaderState(false);
+      })
   }
 }

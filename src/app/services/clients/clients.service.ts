@@ -64,4 +64,8 @@ export class ClientsService {
     this.router.navigate(['/', 'edit', 'lawyer', 'clients', id]);
   }
 
+  redirectRemoveSuccess() {
+    this.router.navigate(['/', 'lawyer', 'clients']);
+  }
+
 }

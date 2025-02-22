@@ -28,4 +28,8 @@ export class AdvocateCategoryService {
   redirectSuccess(id: number|null = null) {
     this.router.navigate(['/', 'edit', 'advocate_category', id]);
   }
+
+  redirectRemoveSuccess() {
+    this.router.navigate(['/', 'advocate']);
+  }
 }

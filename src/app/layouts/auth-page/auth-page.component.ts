@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./auth-page.component.scss']
 })
 export class AuthPageComponent {
+  preloader: boolean = false;
 
+  checkPreloader(event: boolean = false): void {
+    this.preloader = event;
+  }
 }

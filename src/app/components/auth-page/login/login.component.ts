@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../services/auth/auth.service";
 import {Router} from "@angular/router";
@@ -11,11 +11,14 @@ import {ResponseHttpLogin} from "../../../models/auth/response.http.login.interf
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnDestroy{
+  @Output() sendLoadingState: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   isSubmitted: boolean = false;
   form: FormGroup = new FormGroup({
     login: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   });
+
 
   aSub: Subscription = new Subscription();
 
@@ -25,6 +28,7 @@ export class LoginComponent implements OnDestroy{
 
   onSubmit(): void {
     this.isSubmitted = true;
+    this.updateLoadingState(true);
     if (this.form.status !== 'INVALID') {
       this.aSub = this.authService.login(this.form.value.login, this.form.value.password)
         .subscribe((data: ResponseHttpLogin | null) => {
@@ -34,11 +38,17 @@ export class LoginComponent implements OnDestroy{
             else {
               this.router.navigate(['']);
             }
+            this.updateLoadingState(false);
           },
           (error: any) => {
             alert(error);
+            this.updateLoadingState(false);
           })
     }
+  }
+
+  updateLoadingState(state: boolean = false): void {
+    this.sendLoadingState.emit(state);
   }
 
   ngOnDestroy() {

@@ -58,4 +58,8 @@ export class SubscribersService {
     this.router.navigate(['/', 'edit', 'lawyer', 'subscribers', id]);
   }
 
+  redirectRemoveSuccess() {
+    this.router.navigate(['/', 'lawyer', 'subscribers']);
+  }
+
 }

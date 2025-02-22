@@ -48,4 +48,8 @@ export class AdvocateWorkService {
   redirectSuccess(id: number|null = null) {
     this.router.navigate(['/', 'edit', 'advocate_work', id]);
   }
+
+  redirectRemoveSuccess() {
+    this.router.navigate(['/', 'advocate']);
+  }
 }
