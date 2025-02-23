@@ -441,5 +441,31 @@
       }
     }
   }
-
+  &-advcase {
+    padding: 10px;
+    &-ttl {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    &_card {
+      border: 1px solid $color_main;
+      border-radius: 7px;
+      padding: 20px;
+      margin-bottom: 30px;
+      &-row {
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #eeeeee;
+        padding: 12px 0px;
+        justify-content: space-between;
+        font-size: 13px;
+      }
+      &-col {
+        &:first-child {
+          color: #36433b;
+        }
+      }
+    }
+  }
 }

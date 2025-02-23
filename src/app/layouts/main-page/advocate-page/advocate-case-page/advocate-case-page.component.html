@@ -1,7 +1,8 @@
-<app-table [data]="cases" [columns]="tblColumns" [tableClass]="'advcase-works-list'" [tablePaymentService]="advocateCasePaymentsService"></app-table>
+<app-table [data]="cases" [columns]="tblColumns" [tableClass]="'advcase-works-list'" [tablePaymentService]="advocateCasePaymentsService" [advCaseService]="advocateCaseTblService"></app-table>
 <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
 
 <div class="main-page-btn">
   <a [routerLink]="['/', 'edit', 'advocate_category', id]">Редагувати категорію</a>
   <a [routerLink]="['/', 'edit', 'advocate_case']" class="second">Додати справу</a>
 </div>
+

@@ -72,7 +72,57 @@
 <div class="modal" *ngIf="advcaseClient" @fadeInOut>
   <div class="modal-overlay" (click)="advcaseClientClose()"></div>
   <div class="modal-wrap">
-    advcase_client
+    <div class="modal-advcase">
+      <div class="modal-advcase-ttl">Відомості про справу</div>
+      <div class="modal-advcase_card" *ngIf="advCaseModalList.client !== undefined">
+        <div>
+          <div class="modal-advcase_card-row">
+            <div class="modal-advcase_card-col">Ім'я клієнта</div>
+            <div class="modal-advcase_card-col">{{advCaseModalList.client.full_name}}</div>
+          </div>
+          <div class="modal-advcase_card-row">
+            <div class="modal-advcase_card-col">Звідки дізнався</div>
+            <div class="modal-advcase_card-col">{{advCaseModalList.client.where_knows}}</div>
+          </div>
+          <div class="modal-advcase_card-row">
+            <div class="modal-advcase_card-col">День народження</div>
+            <div class="modal-advcase_card-col">{{advCaseModalList.client.birthday}}</div>
+          </div>
+          <div class="modal-advcase_card-row">
+            <div class="modal-advcase_card-col">Адреса</div>
+            <div class="modal-advcase_card-col">{{advCaseModalList.client.address}}</div>
+          </div>
+          <div class="modal-advcase_card-row">
+            <div class="modal-advcase_card-col">Телефон</div>
+            <div class="modal-advcase_card-col">{{advCaseModalList.client.phone}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-advcase_card" *ngIf="advCaseModalList.case !== undefined">
+        <div>
+          <div class="modal-advcase_card-row">
+            <div class="modal-advcase_card-col">Дата звернення</div>
+            <div class="modal-advcase_card-col">{{advCaseModalList.case.visit_date}}</div>
+          </div>
+          <div class="modal-advcase_card-row">
+            <div class="modal-advcase_card-col">Номер справи</div>
+            <div class="modal-advcase_card-col">{{advCaseModalList.case.proc_num}}</div>
+          </div>
+          <div class="modal-advcase_card-row">
+            <div class="modal-advcase_card-col">Фабула</div>
+            <div class="modal-advcase_card-col">{{advCaseModalList.case.plot}}</div>
+          </div>
+          <div class="modal-advcase_card-row">
+            <div class="modal-advcase_card-col">Гонорар</div>
+            <div class="modal-advcase_card-col">{{advCaseModalList.case.fee}}</div>
+          </div>
+          <div class="modal-advcase_card-row">
+            <div class="modal-advcase_card-col">Статус</div>
+            <div class="modal-advcase_card-col">{{advCaseModalList.case.result | statuswork}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div *ngIf="pendingModal" class="modal-preloader">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#4C5D52"></stop><stop offset=".3" stop-color="#4C5D52" stop-opacity=".9"></stop><stop offset=".6" stop-color="#4C5D52" stop-opacity=".6"></stop><stop offset=".8" stop-color="#4C5D52" stop-opacity=".3"></stop><stop offset="1" stop-color="#4C5D52" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#4C5D52" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg>
     </div>

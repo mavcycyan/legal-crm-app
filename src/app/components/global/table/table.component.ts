@@ -1,8 +1,11 @@
 import {Component, Input, Output} from '@angular/core';
 import {animate, style, transition, trigger} from "@angular/animations";
-import {TablePaymentService} from "../../../services/table/table-payment.service";
 import {TablePaymentInterface, TablePaymentInterfaceRequest} from "../../../models/table/table-payment.interface";
 import {Subscription} from "rxjs";
+import {
+  TableAdvcaseclientInterface,
+  TableAdvcaseclientInterfaceRequest
+} from "../../../models/table/table-advcaseclient.interface";
 
 @Component({
   selector: 'app-table',
@@ -25,10 +28,12 @@ export class TableComponent {
   @Input() data: any = [];
   @Input() tableClass: string = '';
   @Input() tablePaymentService: any = null;
+  @Input() advCaseService: any = null;
 
   subMdl$: Subscription = new Subscription();
   paymodal: boolean = false;
   payModalList: TablePaymentInterface[] = [];
+  advCaseModalList: TableAdvcaseclientInterface = {} as TableAdvcaseclientInterface;
   advcaseClient: boolean = false;
   pendingModal: boolean = false;
 
@@ -48,8 +53,13 @@ export class TableComponent {
   }
 
   advcaseClientOpen(id: number|null = null) {
-    if (id !== null) {
+    if (id !== null && this.advCaseService !== null && this.advCaseService !== undefined) {
+      this.pendingModal = true;
       this.advcaseClient = true;
+      this.subMdl$ = this.advCaseService.getAdvocateCaseClient(id).subscribe((list: TableAdvcaseclientInterfaceRequest) => {
+        this.advCaseModalList = list.data;
+        this.pendingModal = false;
+      })
     }
   }
   advcaseClientClose(): void {

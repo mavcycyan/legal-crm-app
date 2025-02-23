@@ -11,6 +11,7 @@ import {MainService} from "../../../../services/main/main.service";
 import {AdvocateCategoryInterfaceRequest} from "../../../../models/advocates/advocate-categories.interface";
 import {ClientCardWorksListInterface} from "../../../../models/clients/client-card-works-list.interface";
 import {AdvocateCasePaymentsService} from "../../../../services/advocate/advocate-case-payments.service";
+import {AdvocateCaseTblService} from "../../../../services/advocate/advocate-case-tbl.service";
 
 @Component({
   selector: 'app-advocate-case-page',
@@ -42,7 +43,8 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private advocateService: AdvocateService,
               private mainService: MainService,
-              public advocateCasePaymentsService: AdvocateCasePaymentsService) {
+              public advocateCasePaymentsService: AdvocateCasePaymentsService,
+              public advocateCaseTblService: AdvocateCaseTblService) {
   }
 
 
