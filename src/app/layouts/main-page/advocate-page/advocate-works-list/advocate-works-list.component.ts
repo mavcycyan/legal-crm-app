@@ -18,10 +18,10 @@ import {AdvocateWorkService} from "../../../../services/advocate/advocate-work.s
 export class AdvocateWorksListComponent {
   subAdvocate$: Subscription = {} as Subscription;
   works: AdvocateWorksInterface[] = [];
-  tblColumns: Array<{name: string, slug: string}> = [
+  tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'date', name: 'Дата початку роботи'},
     {slug: 'name', name: 'Назва роботи'},
-    {slug: 'result', name: 'Результат'}
+    {slug: 'result', name: 'Результат', type: 'result'}
   ];
   id: number|null = null;
 

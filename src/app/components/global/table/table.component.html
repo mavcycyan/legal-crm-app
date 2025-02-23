@@ -15,15 +15,66 @@
     }" *ngFor="let item of data; index as i">
       <div class="tablecom-tbl-col num">{{(i + 1)}}</div>
       <div [class]="['tablecom-tbl-col', col.slug]" *ngFor="let col of columns">
-        <span *ngIf="col.slug === 'result'">{{item[col.slug] | statuswork}}</span>
-        <span *ngIf="col.slug === 'role_id'">{{item[col.slug] | rolename}}</span>
-        <span *ngIf="col.slug !== 'result' && col.slug !== 'role_id'">{{item[col.slug]}}</span>
+        <span *ngIf="col.type !== undefined && col.type === 'result'">{{item[col.slug] | statuswork}}</span>
+        <span *ngIf="col.type !== undefined && col.type === 'role_id'">{{item[col.slug] | rolename}}</span>
+        <span *ngIf="col.type !== undefined && col.type === 'payments'"><button class="tablecom-tbl-col-modal_btn" (click)="payModalOpen(item.id)">{{item[col.slug]}}</button></span>
+        <span *ngIf="col.type !== undefined && col.type === 'advcase_client'"><button class="tablecom-tbl-col-modal_btn" (click)="advcaseClientOpen(item.id)">{{item[col.slug]}}</button></span>
+        <span *ngIf="col.type === undefined || col.type === 'default'">{{item[col.slug]}}</span>
       </div>
       <div class="tablecom-tbl-col more">
         <a [routerLink]="[((item.custom_path !== undefined && item.custom_path !== '') ? item.custom_path : item.id)]" class="see_more-btn">
           <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512"><path d="M23.271,9.419C21.72,6.893,18.192,2.655,12,2.655S2.28,6.893.729,9.419a4.908,4.908,0,0,0,0,5.162C2.28,17.107,5.808,21.345,12,21.345s9.72-4.238,11.271-6.764A4.908,4.908,0,0,0,23.271,9.419Zm-1.705,4.115C20.234,15.7,17.219,19.345,12,19.345S3.766,15.7,2.434,13.534a2.918,2.918,0,0,1,0-3.068C3.766,8.3,6.781,4.655,12,4.655s8.234,3.641,9.566,5.811A2.918,2.918,0,0,1,21.566,13.534Z"/><path d="M12,7a5,5,0,1,0,5,5A5.006,5.006,0,0,0,12,7Zm0,8a3,3,0,1,1,3-3A3,3,0,0,1,12,15Z"/></svg>
         </a>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" *ngIf="paymodal" @fadeInOut>
+  <div class="modal-overlay" (click)="payModalClose()"></div>
+  <div class="modal-wrap">
+    <div class="modal-payment">
+      <div class="modal-payment-ttl">Гонорари та платежі</div>
+      <div class="modal-payment-list" *ngIf="payModalList.length > 0">
+        <div class="modal-payment-list-row" *ngFor="let price of payModalList">
+          <div class="modal-payment-list-top">
+            <span>Гонорар</span>
+            <span *ngIf="price.name !== undefined && price.name !== null && price.name !== ''"> ({{ price.name }})</span>
+            <span> {{price.price}} грн</span>
+            <span> ({{price.date}}<span *ngIf="price.date_end !== undefined && price.date_end !== null && price.date !== ''"> - {{price.date_end}} (завершений)</span>)</span>
+          </div>
+          <div class="modal-payment-list-deadlines" *ngIf="price.deadlines !== undefined && price.deadlines !== null && price.deadlines.length > 0">
+            <div class="modal-payment-list-deadlines-ttl">Графік виплат</div>
+            <div class="modal-payment-list-deadlines-row" *ngFor="let deadline of price.deadlines">
+              <div class="modal-payment-list-deadlines-date">{{deadline.date}}</div>
+              <div class="modal-payment-list-deadlines-fee">{{deadline.fee}} грн</div>
+            </div>
+          </div>
+          <div class="modal-payment-list-payment" *ngIf="price.payments !== undefined && price.payments !== null && price.payments.length > 0">
+            <div class="modal-payment-list-payment-ttl">Здійснені платежі</div>
+            <div class="modal-payment-list-payment-wrap">
+              <div class="modal-payment-list-payment-row" *ngFor="let payment of price.payments">
+                <div class="modal-payment-list-payment-amount">{{payment.amount}} грн<span *ngIf="payment.amount_currency !== undefined && payment.amount_currency !== null && payment.amount_currency !== ''" style="padding-left: 4px;"> ({{payment.amount_currency}})</span></div>
+                <div class="modal-payment-list-payment-date">{{payment.date}}</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div *ngIf="pendingModal" class="modal-preloader">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#4C5D52"></stop><stop offset=".3" stop-color="#4C5D52" stop-opacity=".9"></stop><stop offset=".6" stop-color="#4C5D52" stop-opacity=".6"></stop><stop offset=".8" stop-color="#4C5D52" stop-opacity=".3"></stop><stop offset="1" stop-color="#4C5D52" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#4C5D52" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg>
+    </div>
+  </div>
+</div>
+<div class="modal" *ngIf="advcaseClient" @fadeInOut>
+  <div class="modal-overlay" (click)="advcaseClientClose()"></div>
+  <div class="modal-wrap">
+    advcase_client
+    <div *ngIf="pendingModal" class="modal-preloader">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#4C5D52"></stop><stop offset=".3" stop-color="#4C5D52" stop-opacity=".9"></stop><stop offset=".6" stop-color="#4C5D52" stop-opacity=".6"></stop><stop offset=".8" stop-color="#4C5D52" stop-opacity=".3"></stop><stop offset="1" stop-color="#4C5D52" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#4C5D52" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg>
     </div>
   </div>
 </div>

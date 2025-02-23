@@ -7,6 +7,7 @@ import {
   SubscribersWorksListInterfaceRequest
 } from "../../../../../models/subscribers/subscribers-works-list.interface";
 import {SubscriberWorksService} from "../../../../../services/subscribers/subscriber-works.service";
+import {SubscriberPaymentsService} from "../../../../../services/subscribers/subscriber-payments.service";
 
 @Component({
   selector: 'app-subscriber-works-list',
@@ -16,11 +17,11 @@ import {SubscriberWorksService} from "../../../../../services/subscribers/subscr
 export class SubscriberWorksListComponent implements OnInit, OnDestroy {
   subClient$: Subscription = {} as Subscription;
   id: number|null = null;
-  tblColumns: Array<{name: string, slug: string}> = [
+  tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'date', name: 'Дата початку роботи'},
     {slug: 'name', name: 'Назва роботи'},
-    {slug: 'result', name: 'Результат'},
-    {slug: 'fee', name: 'Гонорар'}
+    {slug: 'result', name: 'Результат', type: 'result'},
+    {slug: 'fee', name: 'Гонорар', type: 'payments'}
   ];
   works: SubscribersWorksListInterface[] = [];
 
@@ -32,7 +33,8 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private subscriberWorksService: SubscriberWorksService,
-              private mainService: MainService) {
+              private mainService: MainService,
+              public subscriberPaymentsService: SubscriberPaymentsService) {
   }
 
   ngOnInit() {

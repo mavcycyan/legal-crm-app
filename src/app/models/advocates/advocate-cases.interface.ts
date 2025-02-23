@@ -11,7 +11,9 @@ export interface AdvocateCasesInterface {
   }[],
   result: String,
   category: String,
-  advocate_id: Number
+  advocate_id: Number,
+  advocate_name?: string,
+  client_name?: string
 }
 
 export interface AdvocateCasesInterfaceRequest {

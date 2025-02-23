@@ -1,4 +1,4 @@
-<app-table [data]="cases" [columns]="tblColumns" [tableClass]="'advcase-works-list'"></app-table>
+<app-table [data]="cases" [columns]="tblColumns" [tableClass]="'advcase-works-list'" [tablePaymentService]="advocateCasePaymentsService"></app-table>
 <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
 
 <div class="main-page-btn">

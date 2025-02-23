@@ -16,11 +16,11 @@ import {SubscriberWorksService} from "../../../../../services/subscribers/subscr
 export class SubscriberWorkCardComponent {
   subClient$: Subscription = {} as Subscription;
   id: number|null = null;
-  tblColumns: Array<{name: string, slug: string}> = [
+  tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'date', name: 'Дата початку роботи'},
     {slug: 'name', name: 'Назва роботи'},
     {slug: 'what_done', name: 'Що зроблено'},
-    {slug: 'result', name: 'Результат'},
+    {slug: 'result', name: 'Результат', type: 'result'},
     {slug: 'fee', name: 'Гонорар'}
   ];
   work: SubscribersWorksCardInterface = {} as SubscribersWorksCardInterface;

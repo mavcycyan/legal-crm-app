@@ -10,10 +10,10 @@ import {MainService} from "../../../services/main/main.service";
 })
 export class UsersPageComponent implements OnInit {
   list: UserInterface[] = []
-  tblColumns: Array<{name: string, slug: string}> = [
+  tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'name', name: 'П.І.Б.'},
     {slug: 'email', name: 'E-mail'},
-    {slug: 'role_id', name: 'Роль'}
+    {slug: 'role_id', name: 'Роль', type: 'role_id'}
   ];
 
   //pagination

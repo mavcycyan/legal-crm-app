@@ -9,6 +9,8 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {AdvocateService} from "../../../../services/advocate/advocate.service";
 import {MainService} from "../../../../services/main/main.service";
 import {AdvocateCategoryInterfaceRequest} from "../../../../models/advocates/advocate-categories.interface";
+import {ClientCardWorksListInterface} from "../../../../models/clients/client-card-works-list.interface";
+import {AdvocateCasePaymentsService} from "../../../../services/advocate/advocate-case-payments.service";
 
 @Component({
   selector: 'app-advocate-case-page',
@@ -19,12 +21,12 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
   subAdvocate$: Subscription = {} as Subscription;
 
   cases: AdvocateCasesInterface[] = [];
-  tblColumns: Array<{name: string, slug: string}> = [
+  tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'visit_date', name: 'Дата звернення'},
-    {slug: 'client_id', name: 'Відомості про клієнта'},
-    {slug: 'advocate_id', name: 'Виконавець'},
-    {slug: 'fee', name: 'Гонорар'},
-    {slug: 'result', name: 'Статус'}
+    {slug: 'client_full', name: 'Відомості про клієнта', type: 'advcase_client'},
+    {slug: 'advocate_name', name: 'Виконавець'},
+    {slug: 'fee', name: 'Гонорар', type: 'payments'},
+    {slug: 'result', name: 'Статус', type: 'result'}
   ];
   id: number|null = null;
 
@@ -39,7 +41,8 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private advocateService: AdvocateService,
-              private mainService: MainService) {
+              private mainService: MainService,
+              public advocateCasePaymentsService: AdvocateCasePaymentsService) {
   }
 
 
@@ -61,7 +64,11 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
               this.id = data_id;
               this.mainService.setPreloaderState(false);
             });
-            this.cases = list.data;
+            this.cases = list.data.map((item: AdvocateCasesInterface) => ({
+              ...item,
+              client_full: `${item.client_name}, справа: ${item.proc_num}, фабула: ${item.plot}`
+            }));
+            // this.cases = list.data;
             if (list.all_items !== undefined) {
               this.allItems = list.all_items;
             }

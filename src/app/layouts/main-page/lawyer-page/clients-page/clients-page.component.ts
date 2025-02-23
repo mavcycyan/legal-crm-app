@@ -6,6 +6,7 @@ import {
   ClientWorksListInterfaceRequest
 } from "../../../../models/clients/client-works-list.interface";
 import {MainService} from "../../../../services/main/main.service";
+import {ClientWorkPaymentsService} from "../../../../services/clients/client-work-payments.service";
 
 
 @Component({
@@ -15,14 +16,14 @@ import {MainService} from "../../../../services/main/main.service";
 })
 export class ClientsPageComponent implements OnInit, OnDestroy{
   list: ClientWorksListInterface[] = [];
-  tblColumns: Array<{name: string, slug: string}> = [
+  tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'visit_date', name: 'Дата звернення'},
     {slug: 'where_knows', name: 'Звідки дізнались'},
     {slug: 'full_name', name: 'П.І.Б.'},
     {slug: 'phone', name: 'Телефон'},
     {slug: 'visit_purpose', name: 'Причина звернення'},
-    {slug: 'result', name: 'Результат'},
-    {slug: 'fee', name: 'Гонорар'}
+    {slug: 'result', name: 'Результат', type: 'result'},
+    {slug: 'fee', name: 'Гонорар', type: 'payments'}
   ];
   private listSub$: Subscription = new Subscription();
 
@@ -48,7 +49,8 @@ export class ClientsPageComponent implements OnInit, OnDestroy{
   filter: string = '';
 
   constructor(private clientsService: ClientsService,
-              private mainService: MainService) {
+              private mainService: MainService,
+              public clientWorkPaymentsService: ClientWorkPaymentsService) {
   }
   ngOnInit(): void {
     this.mainService.setPreloaderState(true);

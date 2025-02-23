@@ -16,10 +16,10 @@ import {ClientWorksService} from "../../../../../services/clients/client-works.s
 export class ClientWorksListComponent implements OnInit, OnDestroy {
   subClient$: Subscription = {} as Subscription;
   id: number|null = null;
-  tblColumns: Array<{name: string, slug: string}> = [
+  tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'visit_date', name: 'Дата звернення'},
     {slug: 'visit_purpose', name: 'Причина звернення'},
-    {slug: 'result', name: 'Результат'},
+    {slug: 'result', name: 'Результат', type: 'result'},
     {slug: 'fee', name: 'Гонорар'}
   ];
   works: ClientCardWorksListInterface[] = [];
