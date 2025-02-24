@@ -25,6 +25,7 @@ export class EditClientWorkPageComponent implements OnInit{
   isEdit: boolean = false;
   fields: FormFieldsInterface[] = [
     {slug: 'client_id', name: 'Клієнт', required: true, class: 'w-100', type: 'select', choises: []},
+    {slug: 'name', name: 'Назва роботи', required: false, class: 'w-100', type: 'text'},
     {slug: 'visit_date', name: 'Дата відвідування', required: true, class: 'w-50', type: 'date'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
     {slug: 'visit_purpose', name: 'Мета звернення', required: true, class: 'w-100', type: 'text'},

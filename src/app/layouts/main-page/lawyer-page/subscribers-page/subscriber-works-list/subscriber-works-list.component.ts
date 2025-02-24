@@ -8,6 +8,7 @@ import {
 } from "../../../../../models/subscribers/subscribers-works-list.interface";
 import {SubscriberWorksService} from "../../../../../services/subscribers/subscriber-works.service";
 import {SubscriberPaymentsService} from "../../../../../services/subscribers/subscriber-payments.service";
+import {SubscriberWorkPaymentsService} from "../../../../../services/subscribers/subscriber-work-payments.service";
 
 @Component({
   selector: 'app-subscriber-works-list',
@@ -34,7 +35,7 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private subscriberWorksService: SubscriberWorksService,
               private mainService: MainService,
-              public subscriberPaymentsService: SubscriberPaymentsService) {
+              public subscriberWorkPaymentsService: SubscriberWorkPaymentsService) {
   }
 
   ngOnInit() {

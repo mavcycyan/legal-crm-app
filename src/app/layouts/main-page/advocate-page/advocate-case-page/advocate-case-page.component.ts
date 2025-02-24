@@ -54,7 +54,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
       .subscribe(
         (params: Params) => {
           const id = this.route.parent?.snapshot.params['id'];
-          const advocateId: number = (id !== 'personal') ? id : 1;
+          const advocateId: number = (id !== 'personal') ? id : sessionStorage.getItem('userId');
           let params_case = {
             pag_size: this.pageSize,
             sort_dir: this.sortDirection,

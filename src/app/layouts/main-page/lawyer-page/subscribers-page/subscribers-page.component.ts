@@ -6,6 +6,7 @@ import {
 import {SubscribersService} from "../../../../services/subscribers/subscribers.service";
 import {Subscription} from "rxjs";
 import {MainService} from "../../../../services/main/main.service";
+import {SubscriberPaymentsService} from "../../../../services/subscribers/subscriber-payments.service";
 
 @Component({
   selector: 'app-subscribers-page',
@@ -14,14 +15,14 @@ import {MainService} from "../../../../services/main/main.service";
 })
 export class SubscribersPageComponent implements OnInit, OnDestroy{
   list: SubscribersListInterface[] = []
-  tblColumns: Array<{name: string, slug: string}> = [
+  tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'name', name: 'Назва пдприємства'},
     {slug: 'edrpou', name: 'ЄДРПОУ'},
     {slug: 'contract_date', name: 'Дата укладення контракту'},
     {slug: 'responsible_person', name: 'Відповідальна особа'},
     {slug: 'contact_person_name', name: 'Контактна особа'},
     {slug: 'last_pay_date', name: 'Дата останнього платежу'},
-    {slug: 'fee', name: 'Гонорар'}
+    {slug: 'fee', name: 'Гонорар', type: 'payments'}
   ];
   private listSub$: Subscription = new Subscription();
 
@@ -35,7 +36,8 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
   sortBy: string = 'contract_date';
 
   constructor(private subscribersService: SubscribersService,
-              private mainService: MainService) {
+              private mainService: MainService,
+              public subscriberPaymentsService: SubscriberPaymentsService) {
   }
   ngOnInit() {
     this.mainService.setPreloaderState(true);
