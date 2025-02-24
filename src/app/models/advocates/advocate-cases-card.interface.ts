@@ -6,6 +6,7 @@ export interface AdvocateCaseCardInterface {
   advocates: any,
   proc_num: String,
   plot: String,
+  plot_big: string,
   fee: String,
   pays: {
       date: String,
