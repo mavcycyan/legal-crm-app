@@ -29,8 +29,8 @@ export class EditClientWorkPageComponent implements OnInit{
     {slug: 'visit_date', name: 'Дата відвідування', required: true, class: 'w-50', type: 'date'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
     {slug: 'visit_purpose', name: 'Мета звернення', required: true, class: 'w-100', type: 'text'},
-    {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'text'},
-    {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'text'},
+    {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'number'},
+    {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'number'},
     {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
   ];
 

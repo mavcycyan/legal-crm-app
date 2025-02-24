@@ -42,8 +42,8 @@ export class EditAdvocateCaseComponent {
     {slug: 'proc_num', name: 'Номер справи', required: true, class: 'w-50', type: 'text'},
     {slug: 'advocates', name: 'Адвокати у справі (для вибору декількох затисніть Ctrl)', required: false, class: 'w-100', type: 'select_multy', choises: []},
     {slug: 'plot', name: 'Фабула (короткий опис)', required: true, class: 'w-100', type: 'text'},
-    {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'text'},
-    {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'text'},
+    {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'number'},
+    {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'number'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
     {slug: 'plot_big', name: 'Фабула (повний опис)', required: false, class: 'w-100', type: 'textarea'},
   ];

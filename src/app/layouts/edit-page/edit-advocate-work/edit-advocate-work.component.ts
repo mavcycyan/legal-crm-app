@@ -43,6 +43,7 @@ export class EditAdvocateWorkComponent {
   fields: FormFieldsInterface[] = [
     {slug: 'advocate_case_id', name: 'Справа', required: true, class: 'w-100', type: 'select', choises: []},
     {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
+    {slug: 'name', name: 'Назва роботи', required: false, class: 'w-50', type: 'text'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
     {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
   ];

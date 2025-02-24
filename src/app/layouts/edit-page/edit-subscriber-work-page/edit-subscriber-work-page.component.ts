@@ -32,8 +32,8 @@ export class EditSubscriberWorkPageComponent implements OnInit{
     {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
     {slug: 'name', name: 'Назва роботи', required: true, class: 'w-50', type: 'text'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
-    {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'text'},
-    {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'text'},
+    {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'number'},
+    {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'number'},
     {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
   ];
 

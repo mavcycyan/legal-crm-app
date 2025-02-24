@@ -37,8 +37,8 @@ export class EditSubscriberPageComponent implements OnInit{
     {slug: 'director_person_phone', name: 'Телефон директора', required: false, class: 'w-50', type: 'text'},
     {slug: 'legal_address', name: 'Юр. адреса', required: false, class: 'w-100', type: 'text'},
     {slug: 'actual_address', name: 'Фактична адреса', required: false, class: 'w-100', type: 'text'},
-    {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'text'},
-    {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'text'},
+    {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'number'},
+    {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'number'},
     {slug: 'info', name: 'Інформація про абонента', required: false, class: 'w-100', type: 'textarea'},
   ];
 
