@@ -14,8 +14,18 @@ export class AdvocateCaseService {
   constructor(private httpClient: HttpClient,
               private router: Router) { }
 
-  getList(): Observable<AdvocateCasesInterfaceRequest> {
-    return this.httpClient.get<AdvocateCasesInterfaceRequest>(`${globals.api_url}/api/advocates_cases`);
+  getList(params: {} = {}): Observable<AdvocateCasesInterfaceRequest> {
+    let params_str: string = '';
+    if (Object.keys(params).length > 0) {
+      params_str += '?';
+      Object.keys(params).forEach((item: string, index: number) => {
+        if (index > 0) {
+          params_str += '&';
+        }
+        params_str += item+'='+Object.values(params)[index];
+      });
+    }
+    return this.httpClient.get<AdvocateCasesInterfaceRequest>(`${globals.api_url}/api/advocates_cases${params_str}`);
   }
 
   save(data: any): Observable<any> {

@@ -74,7 +74,12 @@ export class AuthService {
         }
         return {permission: false, redirect: ['lawyer']};
       } else if (userType === 4) {
-        if (urlSegment.length > 1 && urlSegment[0].path === 'advocate' && urlSegment[1].path === 'personal') {
+        if (
+            (urlSegment.length > 1 && urlSegment[0].path === 'advocate' && urlSegment[1].path === 'personal') ||
+            (urlSegment.length > 0 && urlSegment[0].path === 'advocate_category') ||
+            (urlSegment.length > 0 && urlSegment[0].path === 'advocate_case') ||
+            (urlSegment.length > 0 && urlSegment[0].path === 'advocate_work')
+        ) {
           return {permission: true};
         }
         return {permission: false, redirect: ['advocate', 'personal']};

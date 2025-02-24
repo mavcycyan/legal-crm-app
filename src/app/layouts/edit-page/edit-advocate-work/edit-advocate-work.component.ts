@@ -67,7 +67,12 @@ export class EditAdvocateWorkComponent {
           }
         }
       )
-    this.advocateCaseService.getList().subscribe((data: AdvocateCasesInterfaceRequest) => {
+    let params = {};
+    const userType = sessionStorage.getItem('userType');
+    if (userType === '4' && userType !== null) {
+      params = {advocate_id: parseInt(userType)}
+    }
+    this.advocateCaseService.getList(params).subscribe((data: AdvocateCasesInterfaceRequest) => {
       const cases = data.data;
       this.fields.map((field: FormFieldsInterface) => {
         if (field.slug === 'advocate_case_id') {

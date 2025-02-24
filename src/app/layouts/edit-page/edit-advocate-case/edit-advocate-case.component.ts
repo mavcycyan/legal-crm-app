@@ -52,7 +52,6 @@ export class EditAdvocateCaseComponent {
               public advocateService: AdvocateService,
               public advocateCaseService: AdvocateCaseService,
               public advocateCasePaymentsService: AdvocateCasePaymentsService,
-              public clientsService: ClientsService,
               public mainService: MainService) {
   }
 
@@ -88,7 +87,7 @@ export class EditAdvocateCaseComponent {
         }
       });
     });
-    this.clientsService.getClientsList().subscribe((data: ClientsListInterfaceRequest) => {
+    this.advocateService.getClients().subscribe((data: ClientsListInterfaceRequest) => {
       const clients = data.data;
       this.fields.map((field: FormFieldsInterface) => {
         if (field.slug === 'client_id') {

@@ -12,6 +12,8 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {AdvocateCaseCardInterfaceRequest} from "../../models/advocates/advocate-cases-card.interface";
 import {globals} from "../../../globals/globals";
+import {ClientWorksListInterfaceRequest} from "../../models/clients/client-works-list.interface";
+import {ClientsListInterfaceRequest} from "../../models/clients/clients-list.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +66,10 @@ export class AdvocateService {
 
   getAdvocateCase(case_id: number): Observable<AdvocateCaseCardInterfaceRequest> {
     return this.httpClient.get<AdvocateCaseCardInterfaceRequest>(`${globals.api_url}/api/advocates_cases/${case_id}`);
+  }
+
+  getClients(): Observable<ClientsListInterfaceRequest> {
+    return this.httpClient.get<ClientsListInterfaceRequest>(`${globals.api_url}/api/advocate_clients`);
   }
 
 
