@@ -20,7 +20,7 @@ export class ClientWorksListComponent implements OnInit, OnDestroy {
     {slug: 'visit_date', name: 'Дата звернення'},
     {slug: 'visit_purpose', name: 'Причина звернення'},
     {slug: 'result', name: 'Результат', type: 'result'},
-    {slug: 'fee', name: 'Гонорар'}
+    {slug: 'fee', name: 'Гонорар', type: 'payments'}
   ];
   works: ClientCardWorksListInterface[] = [];
 

@@ -30,3 +30,15 @@
   background: #c8ead45e;
   transition: 0.3s;
 }
+
+.adv_categs {
+  padding: 20px;
+  padding-top: 60px;
+}
+
+.adv_categs-bl a {
+  height: calc(100% - 24px);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
