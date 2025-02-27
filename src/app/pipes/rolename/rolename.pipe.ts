@@ -5,15 +5,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class RolenamePipe implements PipeTransform {
 
-  transform(role_id: number|null = null): string {
+  transform(role_id: number|string|null = null): string {
     if (role_id !== null) {
-      if (role_id === 1) {
+      if (role_id == 1) {
         return 'Супер-адміністратор';
-      } else if (role_id === 2) {
+      } else if (role_id == 2) {
         return 'Директор';
-      } else if (role_id === 3) {
+      } else if (role_id == 3) {
         return 'Юрист';
-      } else if (role_id === 4) {
+      } else if (role_id == 4) {
         return 'Адвокат';
       }
     }

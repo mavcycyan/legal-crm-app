@@ -22,8 +22,16 @@
         <div class="user_case_card-col">{{user.address}}</div>
       </div>
       <div class="user_case_card-row">
-        <div class="user_case_card-col">Роль</div>
+        <div class="user_case_card-col">Посада</div>
         <div class="user_case_card-col">{{user.role_id | rolename}}</div>
+      </div>
+      <div class="user_case_card-row">
+        <div class="user_case_card-col">Номер свідоцтва</div>
+        <div class="user_case_card-col">{{user.certificate_num}}</div>
+      </div>
+      <div class="user_case_card-row">
+        <div class="user_case_card-col">Де і ким видано свідоцтво</div>
+        <div class="user_case_card-col">{{user.certificate_place}}</div>
       </div>
     </div>
   </div>

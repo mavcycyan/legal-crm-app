@@ -6,7 +6,9 @@ export interface UserInterface {
   birthday: string,
   address: string,
   phone: string,
-  role_id: number
+  role_id: number,
+  certificate_num?: string,
+  certificate_place?: string
 }
 
 export interface UserInterfaceRequest {

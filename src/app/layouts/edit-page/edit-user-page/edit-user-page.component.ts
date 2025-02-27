@@ -24,11 +24,13 @@ export class EditUserPageComponent {
     {slug: 'birthday', name: 'Дата народження', required: false, class: 'w-50', type: 'date'},
     {slug: 'address', name: 'Адреса', required: false, class: 'w-100', type: 'text'},
     {slug: 'phone', name: 'Телефон', required: false, class: 'w-50', type: 'text'},
-    {slug: 'role_id', name: 'Роль', required: false, class: 'w-50', type: 'select', choises: [
+    {slug: 'role_id', name: 'Посада', required: false, class: 'w-50', type: 'select', choises: [
         {label: 'Директор', value: '2'},
         {label: 'Юрист', value: '3'},
         {label: 'Адвокат', value: '4'},
       ]},
+    {slug: 'certificate_num', name: 'Номер свідоцтва', required: false, class: 'w-100', type: 'text'},
+    {slug: 'certificate_place', name: 'Де і ким видано свідоцтво', required: false, class: 'w-100', type: 'textarea'},
   ];
 
   constructor(private route: ActivatedRoute,
@@ -51,11 +53,13 @@ export class EditUserPageComponent {
                 {slug: 'birthday', name: 'Дата народження', required: true, class: 'w-50', type: 'date'},
                 {slug: 'address', name: 'Адреса', required: true, class: 'w-100', type: 'text'},
                 {slug: 'phone', name: 'Телефон', required: true, class: 'w-50', type: 'text'},
-                {slug: 'role_id', name: 'Роль', required: false, class: 'w-50', type: 'select', choises: [
+                {slug: 'role_id', name: 'Посада', required: false, class: 'w-50', type: 'select', choises: [
                     {label: 'Директор', value: '2'},
                     {label: 'Юрист', value: '3'},
                     {label: 'Адвокат', value: '4'},
                   ]},
+                {slug: 'certificate_num', name: 'Номер свідоцтва', required: false, class: 'w-100', type: 'text'},
+                {slug: 'certificate_place', name: 'Де і ким видано свідоцтво', required: false, class: 'w-100', type: 'textarea'},
               ];
               this.mainService.setPreloaderState(false);
             });
