@@ -8,6 +8,7 @@ export interface ClientWorksListInterface {
   phone: String,
   result: String,
   fee: String,
+  fee_status: string,
   client_id: Number,
   custom_path?: String
 }

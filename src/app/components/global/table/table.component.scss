@@ -66,8 +66,14 @@
   text-align: center;
 }
 .tablecom-tbl-col.more {
-  width: 54px;
-  text-align: center;
+  width: 82px;
+  text-align: right;
+  justify-content: flex-end;
+  a {
+    &:last-child {
+      margin-left: 4px;
+    }
+  }
 }
 .tablecom-tbl-head .tablecom-tbl-col {
   background: $color_main;
@@ -208,12 +214,20 @@
     width: 110px;
     text-align: center;
   }
+  .tablecom-tbl-col.visit_date_end {
+    width: 110px;
+    text-align: center;
+  }
   .tablecom-tbl-col.visit_purpose {
     flex: 1;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .tablecom-tbl-col.worker {
+    width: 150px;
+    text-align: center;
   }
   .tablecom-tbl-col.result {
     width: 110px;

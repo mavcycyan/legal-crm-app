@@ -3,7 +3,6 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs";
 import {ClientsCardInterface, ClientsCardInterfaceRequest} from "../../../../../models/clients/clients-card.interface";
 import {ClientsService} from "../../../../../services/clients/clients.service";
-import {ClientWorksCardInterface} from "../../../../../models/clients/client-works-card.interface";
 import {MainService} from "../../../../../services/main/main.service";
 
 @Component({

@@ -4,7 +4,8 @@ export interface ClientsListInterface {
   where_knows: String,
   birthday: String,
   address: String,
-  phone: String
+  phone: String,
+  pending_works?: number
 }
 
 export interface ClientsListInterfaceRequest {

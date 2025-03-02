@@ -81,6 +81,33 @@
     &-add {
       margin-bottom: 15px;
     }
+    &-dates {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -4px 15px;
+      &-date {
+        width: calc(50% - 50px);
+        padding: 0 4px;
+        .form-control {
+          padding: 4px;
+        }
+        .form-label {
+          margin-bottom: 4px;
+          display: block;
+        }
+      }
+      &-payed {
+        padding: 0 4px;
+        width: 100px;
+        .form-control {
+          padding: 4px;
+        }
+        .form-label {
+          margin-bottom: 4px;
+          display: block;
+        }
+      }
+    }
   }
   &-sub {
     margin-top: 20px;

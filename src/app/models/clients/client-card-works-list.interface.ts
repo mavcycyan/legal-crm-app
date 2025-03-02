@@ -9,6 +9,7 @@ export interface ClientCardWorksListInterface {
   }[],
   result: String,
   fee: String,
+  fee_status: string,
   edit_path?: String
 }
 

@@ -6,13 +6,31 @@
         <div class="edit-form-payment-row-main">
           <div class="edit-form-payment-row-ttl">
             <b>Гонорар</b>
-            <span *ngIf="priceList.length > 0 && priceList[i] !== undefined && priceList[i].date !== undefined"> - {{priceList[i].date}}<span *ngIf="priceList[i].date_end"> - {{priceList[i].date_end}} (завершений)</span>
-            </span>
+            <span *ngIf="priceList[i].status === 'payed'"> (завершений)</span>
+          </div>
+          <div class="edit-form-payment-row-dates">
+            <div class="edit-form-payment-row-dates-date">
+              <label class="form-label">Дата виставлення</label>
+              <input type="date" formControlName="date" class="form-control">
+            </div>
+            <div class="edit-form-payment-row-dates-date">
+              <label class="form-label">Дата закриття</label>
+              <input type="date" formControlName="date_end" class="form-control">
+            </div>
+            <div class="edit-form-payment-row-dates-payed">
+              <label class="form-label">Сплачений</label>
+              <select formControlName="status" class="form-control">
+                <option [ngValue]="''" selected>Ні</option>
+                <option [ngValue]="'payed'">Так</option>
+              </select>
+            </div>
           </div>
           <div [ngClass]="{'edit-form-payment-row-input': true, 'edit-form-payment-row-input-2col': (type === 'modified')}">
             <input type="hidden" formControlName="id">
-            <input type="number" formControlName="price" class="form-control" placeholder="сума">
-            <input type="text" formControlName="name" class="form-control" placeholder="назва гонорара" *ngIf="type === 'modified'">
+            <label class="form-label">Гонорар</label>
+            <input type="number" formControlName="price" class="form-control" placeholder="сума" style="margin-bottom: 15px">
+            <label class="form-label" *ngIf="type === 'modified'">Назва гонорара</label>
+            <input type="text" formControlName="name" class="form-control" *ngIf="type === 'modified'">
           </div>
           <div *ngIf="type === 'modified'" class="edit-form-payment-deadlines">
             <div class="edit-form-payment-deadlines-ttl">Терміни виплат</div>

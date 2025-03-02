@@ -3,6 +3,7 @@ export interface PaymentFormInterface {
   date: string,
   date_end: string|null,
   price: string,
+  status?: string,
   name?: string,
   deadlines?: {
     date: string,

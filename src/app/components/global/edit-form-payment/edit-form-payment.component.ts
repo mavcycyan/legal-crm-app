@@ -1,11 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ClientWorkPaymentsService} from "../../../services/clients/client-work-payments.service";
 import {
   PaymentFormInterface,
   PaymentFormInterfaceRequest,
   PaymentFormPayInterface
 } from "../../../models/forms/payment-form.interface";
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-edit-form-payment',
@@ -52,12 +51,18 @@ export class EditFormPaymentComponent implements OnInit{
             let controls: {
               id: any,
               price: any,
+              date: any,
+              date_end: any,
+              status: any,
               name?: any,
               deadlines?: any,
               payments: any
             } = {
               id: [price.id, Validators.required],
               price: [price.price, [Validators.required]],
+              date: [price.date],
+              date_end: [price.date_end],
+              status: [price.status],
               payments: this.fb.array(price.payments.map((payment: PaymentFormPayInterface) => {
                 let controls: {
                   id: any,
@@ -97,12 +102,18 @@ export class EditFormPaymentComponent implements OnInit{
             let controls: {
               id: any,
                 price: any,
+                date: any,
+                date_end: any,
+                status: any,
                 name?: any,
                 deadlines?: any,
                 payments: any
             } = {
               id: [price.id, Validators.required],
               price: [price.price, [Validators.required]],
+              date: [price.date],
+              date_end: [price.date_end],
+              status: [price.status],
               payments: this.fb.array([])
             };
             if (this.type === 'modified') {
@@ -130,12 +141,16 @@ export class EditFormPaymentComponent implements OnInit{
     let controls: {
       id: any,
       price: any,
+      date: any,
+      date_end: any,
       name?: any,
       deadlines?: any,
       payments: any
     } = {
       id: [null],
       price: [null, [Validators.required, Validators.min(1)]],
+      date: [null],
+      date_end: [null],
       payments: this.fb.array([])
     };
     if (this.type === 'modified') {

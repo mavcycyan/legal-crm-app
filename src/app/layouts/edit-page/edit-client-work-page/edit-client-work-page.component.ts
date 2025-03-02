@@ -26,8 +26,10 @@ export class EditClientWorkPageComponent implements OnInit{
   fields: FormFieldsInterface[] = [
     {slug: 'client_id', name: 'Клієнт', required: true, class: 'w-100', type: 'select', choises: []},
     {slug: 'name', name: 'Назва роботи', required: false, class: 'w-100', type: 'text'},
-    {slug: 'visit_date', name: 'Дата відвідування', required: true, class: 'w-50', type: 'date'},
+    {slug: 'visit_date', name: 'Дата звернення', required: true, class: 'w-50', type: 'date'},
+    {slug: 'visit_date_end', name: 'Дата завершення', required: false, class: 'w-50', type: 'date'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
+    {slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'text'},
     {slug: 'visit_purpose', name: 'Мета звернення', required: true, class: 'w-100', type: 'text'},
     {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'number'},
     {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'number'},
@@ -52,9 +54,11 @@ export class EditClientWorkPageComponent implements OnInit{
               this.isEdit = true;
               this.fields = [
                 {slug: 'client_id', name: 'Клієнт', required: true, class: 'w-100', type: 'select', choises: []},
-                {slug: 'visit_date', name: 'Дата відвідування', required: true, class: 'w-50', type: 'date'},
+                {slug: 'visit_date', name: 'Дата звернення', required: true, class: 'w-50', type: 'date'},
+                {slug: 'visit_date_end', name: 'Дата завершення', required: false, class: 'w-50', type: 'date'},
                 {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
                 {slug: 'payments_edit', name: 'Виплати', required: true, class: 'w-50', type: 'paymodal'},
+                {slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'text'},
                 {slug: 'visit_purpose', name: 'Мета звернення', required: true, class: 'w-100', type: 'text'},
                 {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
               ];
