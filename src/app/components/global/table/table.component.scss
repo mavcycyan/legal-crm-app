@@ -286,6 +286,10 @@
     width: 110px;
     text-align: center;
   }
+  .tablecom-tbl-col.visit_date_end {
+    width: 110px;
+    text-align: center;
+  }
   .tablecom-tbl-col.client_id {
     flex: 1;
     text-align: center;
@@ -300,6 +304,13 @@
     text-overflow: ellipsis;
   }
   .tablecom-tbl-col.advocate_id, .tablecom-tbl-col.advocate_name {
+    width: 200px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tablecom-tbl-col.advocates_names {
     width: 200px;
     text-align: center;
     white-space: nowrap;
@@ -323,6 +334,10 @@
     width: 110px;
     text-align: center;
   }
+  .tablecom-tbl-col.date_end {
+    width: 110px;
+    text-align: center;
+  }
   .tablecom-tbl-col.name {
     flex: 1;
     text-align: center;
@@ -332,6 +347,10 @@
   }
   .tablecom-tbl-col.result {
     width: 110px;
+    text-align: center;
+  }
+  .tablecom-tbl-col.worker {
+    width: 150px;
     text-align: center;
   }
 }

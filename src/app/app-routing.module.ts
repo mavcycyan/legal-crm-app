@@ -78,12 +78,10 @@ const routes: Routes = [
       {path: 'advocate', component: AdvocatePageComponent, canActivate: [PermissionsGuard]},
       {path: 'advocate/:id', component: AdvocateCardComponent, canActivate: [PermissionsGuard], children: [
         {path: '', component: AdvocateCategoriesComponent},
-        {path: ':category', component: AdvocateCasePageComponent},
-        {path: ':category/:case_id', component: AdvocateCaseCardComponent, children: [
-            {path: '', component: AdvocateWorksListComponent},
-            {path: ':advocate_work', component: AdvocateWorksCardComponent},
-          ]},
       ]},
+      {path: 'advocate/:id/:category', component: AdvocateCasePageComponent, canActivate: [PermissionsGuard]},
+      {path: 'advocate/:id/:category/:case_id', component: AdvocateWorksListComponent, canActivate: [PermissionsGuard]},
+      {path: 'advocate/:id/:category/:case_id/:advocate_work', component: AdvocateWorksCardComponent, canActivate: [PermissionsGuard]},
       {path: 'users', component: UsersPageComponent, canActivate: [PermissionsGuard]},
       {path: 'users/:id', component: UsersCardPageComponent, canActivate: [PermissionsGuard]},
       {

@@ -13,6 +13,7 @@ export interface AdvocateCasesInterface {
   category: String,
   advocate_id: Number,
   advocate_name?: string,
+  advocates_names?: string,
   client_name?: string
 }
 

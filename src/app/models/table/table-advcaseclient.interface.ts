@@ -10,6 +10,7 @@ export interface TableAdvcaseclientInterface {
     result: string,
     advocate_id: number,
     advocate_name?: string,
+    advocates_names?: string,
   },
   client: {
     full_name: string,

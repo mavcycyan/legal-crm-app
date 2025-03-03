@@ -1,28 +1,13 @@
 import { Component } from '@angular/core';
 import {Subscription} from "rxjs";
 import {FormGroup} from "@angular/forms";
-import {
-  SubscribersWorksCardInterface,
-  SubscribersWorksCardInterfaceRequest
-} from "../../../models/subscribers/subscribers-works-card.interface";
 import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {ActivatedRoute, Params} from "@angular/router";
-import {SubscriberWorksService} from "../../../services/subscribers/subscriber-works.service";
-import {SubscribersService} from "../../../services/subscribers/subscribers.service";
-import {
-  SubscribersListInterface,
-  SubscribersListInterfaceRequest
-} from "../../../models/subscribers/subscribers-list.interface";
 import {
   AdvocateWorksInterface,
   AdvocateWorksInterfaceRequest
 } from "../../../models/advocates/advocate-works.interface";
 import {AdvocateWorkService} from "../../../services/advocate/advocate-work.service";
-import {AdvocateService} from "../../../services/advocate/advocate.service";
-import {
-  AdvocatesListInterface,
-  AdvocatesListInterfaceRequest
-} from "../../../models/advocates/advocates-list.interface";
 import {AdvocateCaseService} from "../../../services/advocate/advocate-case.service";
 import {
   AdvocateCasesInterface,
@@ -43,7 +28,9 @@ export class EditAdvocateWorkComponent {
   fields: FormFieldsInterface[] = [
     {slug: 'advocate_case_id', name: 'Справа', required: true, class: 'w-100', type: 'select', choises: []},
     {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
+    {slug: 'date_end', name: 'Дата завершення роботи', required: true, class: 'w-50', type: 'date'},
     {slug: 'name', name: 'Назва роботи', required: false, class: 'w-50', type: 'text'},
+    {slug: 'worker', name: 'Виконавець', required: false, class: 'w-50', type: 'text'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
     {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
   ];

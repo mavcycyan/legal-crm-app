@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import {
   AdvocateWorksInterface,
-  AdvocateWorksInterfaceRequest, AdvocateWorksListInterfaceRequest
+  AdvocateWorksListInterfaceRequest
 } from "../../../../models/advocates/advocate-works.interface";
 import {ActivatedRoute, Params} from "@angular/router";
-import {AdvocateService} from "../../../../services/advocate/advocate.service";
 import {MainService} from "../../../../services/main/main.service";
-import {AdvocateCaseCardInterfaceRequest} from "../../../../models/advocates/advocate-cases-card.interface";
 import {Subscription} from "rxjs";
 import {AdvocateWorkService} from "../../../../services/advocate/advocate-work.service";
 
@@ -20,8 +18,9 @@ export class AdvocateWorksListComponent {
   works: AdvocateWorksInterface[] = [];
   tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'date', name: 'Дата початку роботи'},
+    {slug: 'date_end', name: 'Дата завершення роботи'},
     {slug: 'name', name: 'Назва роботи'},
-    {slug: 'result', name: 'Результат', type: 'result'}
+    {slug: 'worker', name: 'Виконавець'}
   ];
   id: number|null = null;
 

@@ -2,13 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params} from "@angular/router";
 import {AdvocateService} from "../../../../services/advocate/advocate.service";
-import {AdvocateWorksInterface} from "../../../../models/advocates/advocate-works.interface";
 import {
   AdvocateCaseCardInterface,
   AdvocateCaseCardInterfaceRequest
 } from "../../../../models/advocates/advocate-cases-card.interface";
 import {MainService} from "../../../../services/main/main.service";
-import {SubscribersWorksCardInterface} from "../../../../models/subscribers/subscribers-works-card.interface";
 
 @Component({
   selector: 'app-advocate-case-card',

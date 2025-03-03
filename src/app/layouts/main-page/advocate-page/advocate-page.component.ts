@@ -14,8 +14,7 @@ import {MainService} from "../../../services/main/main.service";
 export class AdvocatePageComponent implements OnInit{
   list: AdvocatesListInterface[] = [];
   tblColumns: Array<{name: string, slug: string}> = [
-    {slug: 'name', name: 'П.І.Б.'},
-    {slug: 'email', name: 'E-mail'}
+    {slug: 'name', name: 'П.І.Б.'}
   ];
 
   //pagination

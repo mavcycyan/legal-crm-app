@@ -27,10 +27,14 @@
           </div>
           <div [ngClass]="{'edit-form-payment-row-input': true, 'edit-form-payment-row-input-2col': (type === 'modified')}">
             <input type="hidden" formControlName="id">
-            <label class="form-label">Гонорар</label>
-            <input type="number" formControlName="price" class="form-control" placeholder="сума" style="margin-bottom: 15px">
-            <label class="form-label" *ngIf="type === 'modified'">Назва гонорара</label>
-            <input type="text" formControlName="name" class="form-control" *ngIf="type === 'modified'">
+            <div>
+              <label class="form-label">Гонорар</label>
+              <input type="number" formControlName="price" class="form-control" placeholder="сума" style="margin-bottom: 15px">
+            </div>
+            <div *ngIf="type === 'modified'">
+              <label class="form-label" *ngIf="type === 'modified'">Назва гонорара</label>
+              <input type="text" formControlName="name" class="form-control" *ngIf="type === 'modified'">
+            </div>
           </div>
           <div *ngIf="type === 'modified'" class="edit-form-payment-deadlines">
             <div class="edit-form-payment-deadlines-ttl">Терміни виплат</div>
