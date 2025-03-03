@@ -8,7 +8,7 @@
         <a *ngIf="userType === '1' || userType === '2' || userType === '3'" [routerLink]="['lawyer', 'clients']">Клієнти</a>
         <a *ngIf="userType === '1' || userType === '2' || userType === '3'" [routerLink]="['lawyer', 'subscribers']">Абоненти</a>
         <a *ngIf="userType === '1' || userType === '2'" [routerLink]="['advocate']">Адвокат</a>
-        <a *ngIf="userType === '4'" [routerLink]="['advocate', 'personal']">Головна</a>
+        <a *ngIf="userType === '4'" [routerLink]="['advocate', 'personal']">Справи</a>
         <button type="button" (click)="logout()">Вийти з системи</button>
       </div>
     </div>

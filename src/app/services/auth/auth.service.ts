@@ -66,6 +66,9 @@ export class AuthService {
   checkPermission(urlSegment: UrlSegment[]): {permission: boolean, redirect?: String[]} {
     const userType = this.getUserType();
     if (userType !== null) {
+      if (urlSegment.length === 0) {
+        return {permission: true};
+      }
       if (userType === 1 || userType === 2) {
         return {permission: true};
       } else if (userType === 3) {
