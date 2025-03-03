@@ -18,11 +18,11 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
   tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'name', name: 'Назва пдприємства'},
     {slug: 'edrpou', name: 'ЄДРПОУ'},
-    {slug: 'contract_date', name: 'Дата укладення контракту'},
+    {slug: 'contract_date', name: 'Дата укладення договору'},
     {slug: 'responsible_person', name: 'Відповідальна особа'},
-    {slug: 'contact_person_name', name: 'Контактна особа'},
-    {slug: 'last_pay_date', name: 'Дата останнього платежу'},
-    {slug: 'fee', name: 'Гонорар', type: 'payments'}
+    {slug: 'contact_person_full', name: 'Контактна особа'},
+    {slug: 'accountant_person_full', name: 'Бухгалтер'},
+    {slug: 'fee', name: 'Платежі', type: 'payments'}
   ];
   private listSub$: Subscription = new Subscription();
 
@@ -47,7 +47,11 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
       sort_field: this.sortBy
     };
     this.listSub$ = this.subscribersService.getList(params).subscribe((list: SubscribersListInterfaceRequest) => {
-      this.list = list.data;
+      this.list = list.data.map((item: SubscribersListInterface) => ({
+        ...item,
+        contact_person_full: `${item.contact_person_name} (${item.contact_person_phone})`,
+        accountant_person_full: `${item.accountant_person_name} (${item.accountant_person_phone})`
+      }));
       if (list.all_items !== undefined) {
         this.allItems = list.all_items;
       }

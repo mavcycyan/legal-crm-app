@@ -22,15 +22,16 @@ export class SubscribersCardPageComponent implements OnInit, OnDestroy{
   subscriber: SubscribersCardInterface = {} as SubscribersCardInterface;
   subscriberRows: Array<{name: string, slug: string}> = [
     {slug: 'edrpou', name: 'ЄРДПОУ'},
-    {slug: 'contract_date', name: 'Дата підписання контракту'},
-    {slug: 'responsible_person_id', name: 'Відповідальна особа'},
+    {slug: 'contract_date', name: 'Дата підписання договору'},
+    {slug: 'responsible_person', name: 'Відповідальна особа'},
     {slug: 'contact_person_name', name: 'Контактна особа'},
     {slug: 'contact_person_phone', name: 'Телефон контактної особи'},
     {slug: 'director_person_name', name: 'Директор'},
     {slug: 'director_person_phone', name: 'Телефон директора'},
+    {slug: 'accountant_person_name', name: 'Бухгалтер'},
+    {slug: 'accountant_person_phone', name: 'Телефон бухгалтера'},
     {slug: 'legal_address', name: 'Юридична адреса'},
     {slug: 'actual_address', name: 'Фізична адреса'},
-    {slug: 'last_pay_date', name: 'Дата останнього платежу'},
     {slug: 'fee', name: 'Гонорар'},
     {slug: 'info', name: 'Інфо'}
   ];

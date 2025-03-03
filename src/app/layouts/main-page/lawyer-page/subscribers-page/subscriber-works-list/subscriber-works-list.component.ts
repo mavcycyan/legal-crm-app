@@ -20,8 +20,9 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
   id: number|null = null;
   tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'date', name: 'Дата початку роботи'},
+    {slug: 'date_end', name: 'Дата завершення роботи'},
     {slug: 'name', name: 'Назва роботи'},
-    {slug: 'result', name: 'Результат', type: 'result'},
+    {slug: 'worker', name: 'Хто займався'},
     {slug: 'fee', name: 'Гонорар', type: 'payments'}
   ];
   works: SubscribersWorksListInterface[] = [];
@@ -30,6 +31,22 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
   allItems: number = 0;
   pageSize: number = 10;
   pageOffset: number = 0;
+
+  // sorting
+  sortDirection: string = 'desc';
+  sortBy: string = 'date';
+  sortVars: {name: string, value: string}[] = [
+    {name: 'Дата початку ↓', value: 'date__desc'},
+    {name: 'Дата завершення ↑', value: 'date__asc'},
+    {name: 'Ім\'я виконавця А-Я', value: 'worker__asc'},
+    {name: 'Ім\'я виконавця Я-А', value: 'worker__desc'},
+  ]
+
+  //filtering
+  filterVars: {name: string, value: string}[] = [
+    {name: 'Статус', value: 'filt_result'}
+  ];
+  filter: string = '';
 
 
   constructor(private route: ActivatedRoute,
@@ -45,7 +62,9 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
         (params: Params) => {
           this.id = params['id'];
           let params_client = {
-            pag_size: this.pageSize
+            pag_size: this.pageSize,
+            sort_dir: this.sortDirection,
+            sort_field: this.sortBy
           };
           this.subscriberWorksService.getList(params['id'], params_client).subscribe((list: SubscribersWorksListInterfaceRequest) => {
             this.works = list.data.map((item: SubscribersWorksListInterface) => ({
@@ -70,11 +89,32 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
         if (event.name === 'pageOffset') {
           this.pageOffset = this.pageSize * (parseInt(event.value)-1);
         }
+        if (event.name === 'sort') {
+          const sort = event.value.split('__');
+          this.sortBy = sort[0];
+          this.sortDirection = sort[1];
+          this.pageOffset = 0;
+        }
+        if (event.name.indexOf('filt_') !== -1) {
+          this.filter = event.value;
+          this.pageOffset = 0;
+        }
       }
-      let params_client = {
+      let params_client: {
+        pag_size?: number,
+        pag_offset?: number,
+        sort_dir?: string,
+        sort_field?: string,
+        filt_result?: string,
+      } = {
         pag_size: this.pageSize,
         pag_offset: this.pageOffset,
+        sort_dir: this.sortDirection,
+        sort_field: this.sortBy
       };
+      if (this.filter !== '') {
+        params_client.filt_result = this.filter;
+      }
       this.subscriberWorksService.getList(this.id, params_client).subscribe((list: SubscribersWorksListInterfaceRequest) => {
         this.works = list.data.map((item: SubscribersWorksListInterface) => ({
           ...item,

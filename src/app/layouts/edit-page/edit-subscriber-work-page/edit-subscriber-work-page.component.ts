@@ -30,8 +30,10 @@ export class EditSubscriberWorkPageComponent implements OnInit{
   fields: FormFieldsInterface[] = [
     {slug: 'subscriber_id', name: 'Абонент', required: true, class: 'w-100', type: 'select', choises: []},
     {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
+    {slug: 'date_end', name: 'Дата завершення роботи', required: false, class: 'w-50', type: 'date'},
     {slug: 'name', name: 'Назва роботи', required: true, class: 'w-50', type: 'text'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
+    {slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'text'},
     {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'number'},
     {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'number'},
     {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
@@ -56,9 +58,11 @@ export class EditSubscriberWorkPageComponent implements OnInit{
               this.fields = [
                 {slug: 'subscriber_id', name: 'Абонент', required: true, class: 'w-100', type: 'select', choises: []},
                 {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
+                {slug: 'date_end', name: 'Дата завершення роботи', required: false, class: 'w-50', type: 'date'},
                 {slug: 'name', name: 'Назва роботи', required: true, class: 'w-50', type: 'text'},
                 {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
-                {slug: 'payments_edit', name: 'Виплати', required: true, class: 'w-50', type: 'paymodal'},
+                {slug: 'payments_edit', name: 'Виплати', required: false, class: 'w-50', type: 'paymodal'},
+                {slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'text'},
                 {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
               ];
               this.mainService.setPreloaderState(false);

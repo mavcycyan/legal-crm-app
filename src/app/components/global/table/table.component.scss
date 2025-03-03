@@ -163,11 +163,20 @@
       text-align: center;
     }
     &.responsible_person {
-      width: 170px;
+      //width: 170px;
+      flex: 1;
       text-align: center;
     }
-    &.contact_person_name {
-      flex: 1;
+    //&.contact_person_name {
+    //  flex: 1;
+    //  text-align: center;
+    //}
+    &.contact_person_full {
+      width: 200px;
+      text-align: center;
+    }
+    &.accountant_person_full {
+      width: 200px;
       text-align: center;
     }
     &.fee {
@@ -245,6 +254,10 @@
     width: 110px;
     text-align: center;
   }
+  .tablecom-tbl-col.date_end {
+    width: 110px;
+    text-align: center;
+  }
   .tablecom-tbl-col.name {
     flex: 1;
     text-align: center;
@@ -254,6 +267,10 @@
   }
   .tablecom-tbl-col.result {
     width: 110px;
+    text-align: center;
+  }
+  .tablecom-tbl-col.result {
+    width: 200px;
     text-align: center;
   }
   .tablecom-tbl-col.fee {

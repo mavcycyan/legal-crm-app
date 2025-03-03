@@ -18,7 +18,9 @@ export class SubscriberWorkCardComponent {
   id: number|null = null;
   tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'date', name: 'Дата початку роботи'},
+    {slug: 'date_end', name: 'Дата завершення роботи'},
     {slug: 'name', name: 'Назва роботи'},
+    {slug: 'worker', name: 'Хто займався'},
     {slug: 'what_done', name: 'Що зроблено'},
     {slug: 'result', name: 'Результат', type: 'result'},
     {slug: 'fee', name: 'Гонорар'}
