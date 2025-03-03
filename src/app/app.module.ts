@@ -47,6 +47,7 @@ import { SubscriberWorkCardComponent } from './layouts/main-page/lawyer-page/sub
 import { SubscriberWorksListComponent } from './layouts/main-page/lawyer-page/subscribers-page/subscriber-works-list/subscriber-works-list.component';
 import { AdvocateWorksListComponent } from './layouts/main-page/advocate-page/advocate-works-list/advocate-works-list.component';
 import { AdvocateWorksCardComponent } from './layouts/main-page/advocate-page/advocate-works-card/advocate-works-card.component';
+import { EditFormPasswordResetComponent } from './components/global/edit-form-password-reset/edit-form-password-reset.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { AdvocateWorksCardComponent } from './layouts/main-page/advocate-page/ad
     SubscriberWorkCardComponent,
     SubscriberWorksListComponent,
     AdvocateWorksListComponent,
-    AdvocateWorksCardComponent
+    AdvocateWorksCardComponent,
+    EditFormPasswordResetComponent
   ],
   imports: [
     BrowserModule,

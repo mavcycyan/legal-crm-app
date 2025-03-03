@@ -1,3 +1,5 @@
+import {UserInterface} from "./user.interface";
+
 export interface ResponseHttpLogin {
   user: {
     'id': number,
@@ -9,4 +11,10 @@ export interface ResponseHttpLogin {
     'updated_at': string
   },
   token: string
+}
+
+export interface ResponseHttpPasswordReset {
+  success: boolean,
+  message: string,
+  data?: []
 }

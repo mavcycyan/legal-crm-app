@@ -97,6 +97,17 @@
               </div>
             </div>
           </div>
+          <div
+            *ngSwitchCase="'password_reset'"
+          >
+            <button type="button" (click)="passResModalOpen()" class="btn btn-primary">Скинути пароль</button>
+            <div class="modal" *ngIf="passresmodal" @fadeInOut>
+              <div class="modal-overlay" (click)="passResModalClose()"></div>
+              <div class="modal-wrap">
+                <app-edit-form-password-reset [id]="id" [type]="type" (modalState)="passResModalAction($event)"></app-edit-form-password-reset>
+              </div>
+            </div>
+          </div>
         </ng-container>
       </div>
       <div class="edit-form-col w-100">

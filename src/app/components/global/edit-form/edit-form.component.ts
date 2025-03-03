@@ -29,6 +29,7 @@ export class EditFormComponent implements OnInit, OnChanges{
   form: FormGroup = {} as FormGroup;
   id: number|null = null;
   paymodal: boolean = false;
+  passresmodal: boolean = false;
 
   constructor(private fb: FormBuilder,
               private mainService: MainService) {
@@ -97,6 +98,17 @@ export class EditFormComponent implements OnInit, OnChanges{
   }
   payModalAction(state: boolean = false) {
     this.paymodal = state;
+  }
+
+  passResModalOpen(): void {
+    const id = this.id;
+    this.passresmodal = true;
+  }
+  passResModalClose(): void {
+    this.passresmodal = false;
+  }
+  passResModalAction(state: boolean = false) {
+    this.passresmodal = state;
   }
 
   submit():void {

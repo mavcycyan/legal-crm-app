@@ -51,6 +51,7 @@ export class EditUserPageComponent {
                 {slug: 'name', name: 'Ім\'я', required: true, class: 'w-50', type: 'text'},
                 {slug: 'email', name: 'Email', required: true, class: 'w-50', type: 'text'},
                 {slug: 'birthday', name: 'Дата народження', required: true, class: 'w-50', type: 'date'},
+                {slug: 'password_reset', name: 'Скинути пароль', required: false, class: 'w-50', type: 'password_reset'},
                 {slug: 'address', name: 'Адреса', required: true, class: 'w-100', type: 'text'},
                 {slug: 'phone', name: 'Телефон', required: true, class: 'w-50', type: 'text'},
                 {slug: 'role_id', name: 'Посада', required: false, class: 'w-50', type: 'select', choises: [
