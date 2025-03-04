@@ -7,7 +7,7 @@ export class StatusworkPipe implements PipeTransform {
 
   transform(status: string = ''): string {
     if (status === 'done') {
-      return 'Завершена';
+      return 'Завершена успішно';
     } else if (status === 'pending') {
       return 'У процессі';
     } else if (status === 'canceled') {

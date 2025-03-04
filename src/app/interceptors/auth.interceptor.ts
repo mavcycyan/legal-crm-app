@@ -26,7 +26,12 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       // @ts-ignore
       catchError((requestError: HttpErrorResponse) => {
-        if (requestError && requestError.status === 401) {
+        if (requestError.status === 500) {
+          console.error('Server error:', requestError);
+          alert('Помилка на сервері. ' + requestError.message);
+          return throwError(() => new Error(requestError.message));
+        }
+        else if (requestError && requestError.status === 401) {
           alert(requestError.message);
         }
         sessionStorage.removeItem('currentUser');

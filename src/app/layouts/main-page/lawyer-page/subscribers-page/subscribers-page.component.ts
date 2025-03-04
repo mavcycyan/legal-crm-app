@@ -19,9 +19,9 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
     {slug: 'name', name: 'Назва підприємства'},
     {slug: 'edrpou', name: 'ЄДРПОУ'},
     {slug: 'contract_date', name: 'Дата укладення договору'},
-    {slug: 'responsible_person', name: 'Відповідальна особа'},
-    {slug: 'contact_person_full', name: 'Контактна особа'},
-    {slug: 'accountant_person_full', name: 'Бухгалтер'},
+    {slug: 'director_person_full', name: 'Директор (телефон)'},
+    {slug: 'contact_person_full', name: 'Контактна особа (телефон)'},
+    {slug: 'accountant_person_full', name: 'Бухгалтер (телефон)'},
     {slug: 'fee', name: 'Платежі', type: 'payments'}
   ];
   private listSub$: Subscription = new Subscription();
@@ -49,6 +49,7 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
     this.listSub$ = this.subscribersService.getList(params).subscribe((list: SubscribersListInterfaceRequest) => {
       this.list = list.data.map((item: SubscribersListInterface) => ({
         ...item,
+        director_person_full: `${item.director_person_name} (${item.director_person_phone})`,
         contact_person_full: `${item.contact_person_name} (${item.contact_person_phone})`,
         accountant_person_full: `${item.accountant_person_name} (${item.accountant_person_phone})`
       }));
