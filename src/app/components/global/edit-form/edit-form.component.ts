@@ -162,4 +162,6 @@ export class EditFormComponent implements OnInit, OnChanges{
         this.mainService.setPreloaderState(false);
       })
   }
+
+  protected readonly sessionStorage = sessionStorage;
 }

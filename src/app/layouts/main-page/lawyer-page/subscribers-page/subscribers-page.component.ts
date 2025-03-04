@@ -16,7 +16,7 @@ import {SubscriberPaymentsService} from "../../../../services/subscribers/subscr
 export class SubscribersPageComponent implements OnInit, OnDestroy{
   list: SubscribersListInterface[] = []
   tblColumns: Array<{name: string, slug: string, type?: string}> = [
-    {slug: 'name', name: 'Назва пдприємства'},
+    {slug: 'name', name: 'Назва підприємства'},
     {slug: 'edrpou', name: 'ЄДРПОУ'},
     {slug: 'contract_date', name: 'Дата укладення договору'},
     {slug: 'responsible_person', name: 'Відповідальна особа'},
