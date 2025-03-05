@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {Observable, Subscription, switchMap} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {ActivatedRoute, Params} from "@angular/router";
@@ -26,6 +26,7 @@ export class EditSubscriberWorkPageComponent implements OnInit{
   subClient$: Subscription = {} as Subscription;
   form: FormGroup = {} as FormGroup;
   data: SubscribersWorksCardInterface = {} as SubscribersWorksCardInterface;
+  subscribersList: {label: string, value: string}[] = [];
   isEdit: boolean = false;
   fields: FormFieldsInterface[] = [
     {slug: 'subscriber_id', name: 'Абонент', required: true, class: 'w-100', type: 'select', choises: []},
@@ -47,40 +48,49 @@ export class EditSubscriberWorkPageComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.subClient$ = this.route.params
-      .subscribe(
-        (params: Params) => {
-          if (params['id'] !== undefined) {
-            this.mainService.setPreloaderState(true);
-            this.subscriberWorksService.getOne(params['id']).subscribe((work: SubscribersWorksCardInterfaceRequest) => {
-              this.data = work.data;
-              this.isEdit = true;
-              this.fields = [
-                {slug: 'subscriber_id', name: 'Абонент', required: true, class: 'w-100', type: 'select', choises: []},
-                {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
-                {slug: 'date_end', name: 'Дата завершення роботи', required: false, class: 'w-50', type: 'date'},
-                {slug: 'name', name: 'Назва роботи', required: true, class: 'w-50', type: 'text'},
-                {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
-                {slug: 'payments_edit', name: 'Виплати', required: false, class: 'w-50', type: 'paymodal'},
-                {slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'text'},
-                {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
-              ];
-              this.mainService.setPreloaderState(false);
-            });
-          }
+    this.subClient$ = this.subscribersService.getList().pipe(
+      switchMap((subscribersResponse) => {
+        const subscribers = subscribersResponse.data;
+
+        this.subscribersList = subscribers.map(subscriber => ({
+          label: subscriber.name.toString(),
+          value: subscriber.id.toString()
+        }));
+        return this.route.params;
+      }),
+      switchMap((params: Params) => {
+        if (params['id'] !== undefined) {
+          this.mainService.setPreloaderState(true);
+
+          this.fields = [
+            {slug: 'subscriber_id', name: 'Абонент', required: true, class: 'w-100', type: 'select', choises: this.subscribersList},
+            {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
+            {slug: 'date_end', name: 'Дата завершення роботи', required: false, class: 'w-50', type: 'date'},
+            {slug: 'name', name: 'Назва роботи', required: true, class: 'w-50', type: 'text'},
+            {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
+            {slug: 'payments_edit', name: 'Виплати', required: false, class: 'w-50', type: 'paymodal'},
+            {slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'text'},
+            {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
+          ];
+          return this.subscriberWorksService.getOne(params['id']);
         }
-      )
-    this.subscribersService.getList().subscribe((data: SubscribersListInterfaceRequest) => {
-      const subscribers = data.data;
-      this.fields.map((field: FormFieldsInterface) => {
-        if (field.slug === 'subscriber_id') {
-          subscribers.forEach((subscriber: SubscribersListInterface, index: number) => {
-            if (field.choises !== undefined) {
-              field.choises[index] = {label: subscriber.name.toString(), value: subscriber.id.toString()};
-            }
-          });
+
+        const subscriberField = this.fields.find(field => field.slug === 'subscriber_id')
+        if (subscriberField) {
+          subscriberField.choises = this.subscribersList;
         }
-      });
-    });
+        return new Observable();
+      })
+    ).subscribe(
+      (work: any) => {
+        this.data = work.data;
+        this.isEdit = true;
+        this.mainService.setPreloaderState(false);
+      },
+      (error) => {
+        console.error('Error:', error);
+        this.mainService.setPreloaderState(false);
+      }
+    );
   }
 }

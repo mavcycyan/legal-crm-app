@@ -120,6 +120,7 @@ export class EditFormComponent implements OnInit, OnChanges{
           if (response.success !== undefined) {
             if (response.success == true) {
               if (response.data !== undefined && response.data.id !== undefined) {
+                alert('Дані успішно оновлено');
                 this.formService.redirectSuccess(response.data.id);
               }
             } else {

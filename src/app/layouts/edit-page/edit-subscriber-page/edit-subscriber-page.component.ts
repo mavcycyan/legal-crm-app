@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {Observable, Subscription, switchMap} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {ActivatedRoute, Params} from "@angular/router";
@@ -25,6 +25,7 @@ export class EditSubscriberPageComponent implements OnInit{
   subClient$: Subscription = {} as Subscription;
   form: FormGroup = {} as FormGroup;
   data: SubscribersCardInterface = {} as SubscribersCardInterface;
+  advocatesList: {label: string, value: string}[] = [];
   isEdit: boolean = false;
   fields: FormFieldsInterface[] = [
     {slug: 'name', name: 'Назва', required: false, class: 'w-100', type: 'text'},
@@ -51,47 +52,55 @@ export class EditSubscriberPageComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.subClient$ = this.route.params
-      .subscribe(
-        (params: Params) => {
-          if (params['id'] !== undefined) {
-            this.mainService.setPreloaderState(true);
-            this.subscribersService.getOne(params['id']).subscribe((subscriber: SubscribersCardInterfaceRequest) => {
-              this.data = subscriber.data;
-              this.isEdit = true;
-              this.fields = [
-                {slug: 'name', name: 'Назва', required: true, class: 'w-100', type: 'text'},
-                {slug: 'responsible_person_id', name: 'Відповідальний адвокат', required: false, class: 'w-100', type: 'select', choises: []},
-                {slug: 'edrpou', name: 'ЄДРПОУ', required: false, class: 'w-50', type: 'text'},
-                {slug: 'contract_date', name: 'Дата укладення угоди', required: false, class: 'w-50', type: 'date'},
-                {slug: 'contact_person_name', name: 'Ім\'я контактної особи', required: false, class: 'w-50', type: 'text'},
-                {slug: 'contact_person_phone', name: 'Телефон контактної особи', required: false, class: 'w-50', type: 'text'},
-                {slug: 'director_person_name', name: 'Ім\'я директор', required: false, class: 'w-50', type: 'text'},
-                {slug: 'director_person_phone', name: 'Телефон директора', required: false, class: 'w-50', type: 'text'},
-                {slug: 'accountant_person_name', name: 'Ім\'я бухгалтера', required: false, class: 'w-50', type: 'text'},
-                {slug: 'accountant_person_phone', name: 'Телефон бухгалтера', required: false, class: 'w-50', type: 'text'},
-                {slug: 'legal_address', name: 'Юр. адреса', required: false, class: 'w-100', type: 'text'},
-                {slug: 'actual_address', name: 'Фактична адреса', required: false, class: 'w-100', type: 'text'},
-                {slug: 'payments_edit', name: 'Виплати', required: true, class: 'w-50', type: 'paymodal'},
-                {slug: 'info', name: 'Інформація про абонента', required: false, class: 'w-100', type: 'textarea'},
-              ];
-              this.mainService.setPreloaderState(false);
+    this.subClient$ = this.subscribersService.getAdvocates().pipe(
+      switchMap(advocatesResponse  => {
+        const advocates = advocatesResponse.data;
 
-            });
-          }
+        this.advocatesList = advocates.map(advocate => ({
+          label: advocate.name.toString(),
+          value: advocate.id.toString()
+        }))
+
+        return this.route.params;
+      }),
+      switchMap((params: Params) => {
+        if (params['id']) {
+          this.mainService.setPreloaderState(true);
+
+          this.fields = [
+            {slug: 'name', name: 'Назва', required: true, class: 'w-100', type: 'text'},
+            {slug: 'responsible_person_id', name: 'Відповідальний адвокат', required: false, class: 'w-100', type: 'select', choises: this.advocatesList},
+            {slug: 'edrpou', name: 'ЄДРПОУ', required: false, class: 'w-50', type: 'text'},
+            {slug: 'contract_date', name: 'Дата укладення угоди', required: false, class: 'w-50', type: 'date'},
+            {slug: 'contact_person_name', name: 'Ім\'я контактної особи', required: false, class: 'w-50', type: 'text'},
+            {slug: 'contact_person_phone', name: 'Телефон контактної особи', required: false, class: 'w-50', type: 'text'},
+            {slug: 'director_person_name', name: 'Ім\'я директор', required: false, class: 'w-50', type: 'text'},
+            {slug: 'director_person_phone', name: 'Телефон директора', required: false, class: 'w-50', type: 'text'},
+            {slug: 'accountant_person_name', name: 'Ім\'я бухгалтера', required: false, class: 'w-50', type: 'text'},
+            {slug: 'accountant_person_phone', name: 'Телефон бухгалтера', required: false, class: 'w-50', type: 'text'},
+            {slug: 'legal_address', name: 'Юр. адреса', required: false, class: 'w-100', type: 'text'},
+            {slug: 'actual_address', name: 'Фактична адреса', required: false, class: 'w-100', type: 'text'},
+            {slug: 'payments_edit', name: 'Виплати', required: true, class: 'w-50', type: 'paymodal'},
+            {slug: 'info', name: 'Інформація про абонента', required: false, class: 'w-100', type: 'textarea'},
+          ];
+          return this.subscribersService.getOne(params['id']);
         }
-      )
-    this.subscribersService.getAdvocates().subscribe((data: AdvocatesListInterfaceRequest) => {
-      const advocates = data.data;
-      this.fields.map((field: FormFieldsInterface) => {
-        if (field.slug === 'responsible_person_id') {
-          advocates.forEach((advocate: AdvocatesListInterface, index: number) => {
-            if (field.choises !== undefined) {
-              field.choises[index] = {label: advocate.name.toString(), value: advocate.id.toString()};
-            }
-          });
+        let advocateField = this.fields.find(field => field.slug === 'responsible_person_id');
+        if (advocateField) {
+          advocateField.choises = this.advocatesList
         }
-      });
-    });
+        return new Observable();
+      })
+    ).subscribe(
+      (subscriber: any) => {
+        this.data = subscriber.data;
+        this.isEdit = true;
+        this.mainService.setPreloaderState(false);
+      },
+      (error) => {
+        console.error('Error:', error);
+        this.mainService.setPreloaderState(false);
+      }
+    )
   }
 }

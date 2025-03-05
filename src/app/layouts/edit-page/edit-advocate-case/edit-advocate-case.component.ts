@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Subscription} from "rxjs";
+import {Observable, Subscription, switchMap} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {ActivatedRoute, Params} from "@angular/router";
@@ -33,6 +33,9 @@ export class EditAdvocateCaseComponent {
   subClient$: Subscription = {} as Subscription;
   form: FormGroup = {} as FormGroup;
   data: AdvocateCasesInterface = {} as AdvocateCasesInterface;
+  advocatesList: {label: string, value: string}[] = [];
+  advocateCatsList: {label: string, value: string}[] = [];
+  clientsList: {label: string, value: string}[] = [];
   isEdit: boolean = false;
   fields: FormFieldsInterface[] = [
     {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'select', choises: []},
@@ -57,74 +60,83 @@ export class EditAdvocateCaseComponent {
   }
 
   ngOnInit(): void {
-    this.advocateService.getList().subscribe((data: AdvocatesListInterfaceRequest) => {
-      const advocates = data.data;
-      this.fields.map((field: FormFieldsInterface) => {
-        if (field.slug === 'advocate_id') {
-          advocates.forEach((advocate: AdvocatesListInterface, index: number) => {
-            if (field.choises !== undefined) {
-              field.choises[index] = {label: advocate.name.toString(), value: advocate.id.toString()};
-            }
-          });
+    this.subClient$ = this.advocateService.getList().pipe(
+      switchMap((advocatesResponse) => {
+        const advocates = advocatesResponse.data;
+
+        this.advocatesList = advocates.map(advocate => ({
+          label: advocate.name.toString(),
+          value: advocate.id.toString()
+        }));
+
+        return this.advocateService.getCategories()
+      }),
+      switchMap((data: AdvocateCategoriesInterfaceRequest) => {
+        const categories = data.data;
+
+        this.advocateCatsList = categories.map(category => ({
+          label: category.name.toString(),
+          value: category.id.toString()
+        }));
+
+        return this.advocateService.getClients();
+      }),
+      switchMap((data: ClientsListInterfaceRequest) => {
+        const clients = data.data;
+
+        this.clientsList = clients.map(client => ({
+          label: client.full_name.toString(),
+          value: client.id.toString()
+        }));
+
+        return this.route.params;
+      }),
+      switchMap((params: Params) => {
+        if (params['id'] !== undefined) {
+          this.mainService.setPreloaderState(true);
+          this.fields = [
+            {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'select', choises: this.advocatesList},
+            {slug: 'advocate_category_id', name: 'Категорія', required: true, class: 'w-50', type: 'select', choises: this.advocateCatsList},
+            {slug: 'client_id', name: 'Клієнт', required: true, class: 'w-50', type: 'select', choises: this.clientsList},
+            {slug: 'proc_num', name: 'Номер справи', required: true, class: 'w-50', type: 'text'},
+            {slug: 'visit_date', name: 'Дата заведення', required: true, class: 'w-50', type: 'date'},
+            {slug: 'visit_date_end', name: 'Дата завершення договору', required: false, class: 'w-50', type: 'date'},
+            {slug: 'advocates', name: 'Адвокати у справі (для вибору декількох затисніть Ctrl)', required: false, class: 'w-100', type: 'select_multy', choises: this.advocatesList},
+            {slug: 'plot', name: 'Фабула', required: true, class: 'w-100', type: 'text'},
+            {slug: 'payments_edit', name: 'Гонорар', required: true, class: 'w-50', type: 'paymodal'},
+            {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
+            {slug: 'plot_big', name: 'Фабула (повний опис)', required: false, class: 'w-100', type: 'textarea'},
+          ];
+          return this.advocateService.getAdvocateCase(params['id'])
         }
-        if (field.slug === 'advocates') {
-          advocates.forEach((advocate: AdvocatesListInterface, index: number) => {
-            if (field.choises !== undefined) {
-              field.choises[index] = {label: advocate.name.toString(), value: advocate.id.toString()};
-            }
-          });
+        const advocateField = this.fields.find(field => field.slug === 'advocate_id');
+        if (advocateField) {
+          advocateField.choises = this.advocatesList;
         }
-      });
-    });
-    this.advocateService.getCategories().subscribe((data: AdvocateCategoriesInterfaceRequest) => {
-      const categories = data.data;
-      this.fields.map((field: FormFieldsInterface) => {
-        if (field.slug === 'advocate_category_id') {
-          categories.forEach((category: AdvocateCategoriesInterface, index: number) => {
-            if (field.choises !== undefined) {
-              field.choises[index] = {label: category.name.toString(), value: category.id.toString()};
-            }
-          });
+        const advocateSecondField = this.fields.find(field => field.slug === 'advocates');
+        if (advocateSecondField) {
+          advocateSecondField.choises = this.advocatesList;
         }
-      });
-    });
-    this.advocateService.getClients().subscribe((data: ClientsListInterfaceRequest) => {
-      const clients = data.data;
-      this.fields.map((field: FormFieldsInterface) => {
-        if (field.slug === 'client_id') {
-          clients.forEach((client: ClientsListInterface, index: number) => {
-            if (field.choises !== undefined) {
-              field.choises[index] = {label: client.full_name.toString(), value: client.id.toString()};
-            }
-          });
+        const catField = this.fields.find(field => field.slug === 'advocate_category_id');
+        if (catField) {
+          catField.choises = this.advocateCatsList;
         }
-      });
-    });
-    this.subClient$ = this.route.params
-      .subscribe(
-        (params: Params) => {
-          if (params['id'] !== undefined) {
-            this.mainService.setPreloaderState(true);
-            this.advocateService.getAdvocateCase(params['id']).subscribe((advocate: AdvocateCaseInterfaceRequest) => {
-              this.data = advocate.data;
-              this.isEdit = true;
-              this.fields = [
-                {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'select', choises: []},
-                {slug: 'advocate_category_id', name: 'Категорія', required: true, class: 'w-50', type: 'select', choises: []},
-                {slug: 'client_id', name: 'Клієнт', required: true, class: 'w-50', type: 'select', choises: []},
-                {slug: 'proc_num', name: 'Номер справи', required: true, class: 'w-50', type: 'text'},
-                {slug: 'visit_date', name: 'Дата заведення', required: true, class: 'w-50', type: 'date'},
-                {slug: 'visit_date_end', name: 'Дата завершення договору', required: false, class: 'w-50', type: 'date'},
-                {slug: 'advocates', name: 'Адвокати у справі (для вибору декількох затисніть Ctrl)', required: false, class: 'w-100', type: 'select_multy', choises: []},
-                {slug: 'plot', name: 'Фабула', required: true, class: 'w-100', type: 'text'},
-                {slug: 'payments_edit', name: 'Гонорар', required: true, class: 'w-50', type: 'paymodal'},
-                {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
-                {slug: 'plot_big', name: 'Фабула (повний опис)', required: false, class: 'w-100', type: 'textarea'},
-              ];
-              this.mainService.setPreloaderState(false);
-            });
-          }
+        const clientField = this.fields.find(field => field.slug === 'client_id');
+        if (clientField) {
+          clientField.choises = this.clientsList;
         }
-      )
+        return new Observable();
+      })
+    ).subscribe(
+      (caseItem: any) => {
+        this.data = caseItem.data;
+        this.isEdit = true;
+        this.mainService.setPreloaderState(false);
+      },
+      (error) => {
+        console.error('Error:', error);
+        this.mainService.setPreloaderState(false);
+      }
+    )
   }
 }
