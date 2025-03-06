@@ -14,6 +14,7 @@ import {
   AdvocateCasesInterfaceRequest
 } from "../../../models/advocates/advocate-cases.interface";
 import {MainService} from "../../../services/main/main.service";
+import {AdvocateWorkFilesService} from "../../../services/advocate/advocate-work-files.service";
 
 @Component({
   selector: 'app-edit-advocate-work',
@@ -25,6 +26,7 @@ export class EditAdvocateWorkComponent {
   form: FormGroup = {} as FormGroup;
   data: AdvocateWorksInterface = {} as AdvocateWorksInterface;
   isEdit: boolean = false;
+  caseList: {label: string, value: string}[] = [];
   fields: FormFieldsInterface[] = [
     {slug: 'advocate_case_id', name: 'Справа', required: true, class: 'w-100', type: 'select', choises: []},
     {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
@@ -38,6 +40,7 @@ export class EditAdvocateWorkComponent {
   constructor(private route: ActivatedRoute,
               public advocateWorksService: AdvocateWorkService,
               public advocateCaseService: AdvocateCaseService,
+              public advocateWorkFilesService: AdvocateWorkFilesService,
               public mainService: MainService) {
   }
 
@@ -51,20 +54,31 @@ export class EditAdvocateWorkComponent {
       switchMap((casesResponse) => {
         const cases = casesResponse.data;
 
-        let caseField = this.fields.find(field => field.slug === 'advocate_case_id');
-        if (caseField) {
-          caseField.choises = cases.map(caseItem => ({
-            label: caseItem.proc_num.toString(),
-            value: caseItem.id.toString()
-          }))
-        }
+        this.caseList = cases.map(caseItem => ({
+          label: caseItem.proc_num.toString(),
+          value: caseItem.id.toString()
+        }))
 
         return this.route.params;
       }),
       switchMap((params: Params) => {
           if (params['id'] !== undefined) {
             this.mainService.setPreloaderState(true);
+            this.fields = [
+              {slug: 'advocate_case_id', name: 'Справа', required: true, class: 'w-100', type: 'select', choises: this.caseList},
+              {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
+              {slug: 'date_end', name: 'Дата завершення роботи', required: false, class: 'w-50', type: 'date'},
+              {slug: 'name', name: 'Назва роботи', required: false, class: 'w-50', type: 'text'},
+              {slug: 'worker', name: 'Виконавець', required: false, class: 'w-50', type: 'text'},
+              {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
+              {slug: 'files_upload', name: 'Прикріплені файли', required: true, class: 'w-50', type: 'filemodal' },
+              {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
+            ];
             return this.advocateWorksService.getOne(params['id']);
+          }
+          let caseField = this.fields.find(field => field.slug === 'advocate_case_id');
+          if (caseField) {
+            caseField.choises = this.caseList;
           }
           return new Observable();
       })

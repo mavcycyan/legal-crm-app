@@ -7,6 +7,7 @@ import {
 import {ActivatedRoute, Params} from "@angular/router";
 import {MainService} from "../../../../../services/main/main.service";
 import {SubscriberWorksService} from "../../../../../services/subscribers/subscriber-works.service";
+import {SubscriberWorkFilesService} from "../../../../../services/subscribers/subscriber-work-files.service";
 
 @Component({
   selector: 'app-subscriber-work-card',
@@ -23,13 +24,15 @@ export class SubscriberWorkCardComponent {
     {slug: 'worker', name: 'Хто займався'},
     {slug: 'what_done', name: 'Що зроблено'},
     {slug: 'result', name: 'Результат', type: 'result'},
-    {slug: 'fee', name: 'Гонорар'}
+    {slug: 'fee', name: 'Гонорар'},
+    {slug: 'files', name: 'Прикріплені файли', type: 'files'}
   ];
   work: SubscribersWorksCardInterface = {} as SubscribersWorksCardInterface;
 
 
   constructor(private route: ActivatedRoute,
               private subscriberWorksService: SubscriberWorksService,
+              public subscriberWorkFilesService: SubscriberWorkFilesService,
               private mainService: MainService) {
   }
 

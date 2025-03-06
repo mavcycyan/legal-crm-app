@@ -7,6 +7,7 @@ import {
   AdvocateWorksInterface,
   AdvocateWorksInterfaceRequest
 } from "../../../../models/advocates/advocate-works.interface";
+import {AdvocateWorkFilesService} from "../../../../services/advocate/advocate-work-files.service";
 
 @Component({
   selector: 'app-advocate-works-card',
@@ -22,13 +23,15 @@ export class AdvocateWorksCardComponent {
     {slug: 'name', name: 'Назва роботи'},
     {slug: 'worker', name: 'Виконавець'},
     {slug: 'what_done', name: 'Що зроблено'},
-    {slug: 'result', name: 'Результат', type: 'result'}
+    {slug: 'result', name: 'Результат', type: 'result'},
+    {slug: 'files', name: 'Прикріплені файли', type: 'files'}
   ];
   work: AdvocateWorksInterface = {} as AdvocateWorksInterface;
 
 
   constructor(private route: ActivatedRoute,
               private advocateWorksService: AdvocateWorkService,
+              public advocateWorkFilesService: AdvocateWorkFilesService,
               private mainService: MainService) {
   }
 

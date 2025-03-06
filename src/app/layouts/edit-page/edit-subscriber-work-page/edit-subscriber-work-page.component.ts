@@ -16,6 +16,7 @@ import {SubscriberWorksService} from "../../../services/subscribers/subscriber-w
 import {MainService} from "../../../services/main/main.service";
 import {SubscriberPaymentsService} from "../../../services/subscribers/subscriber-payments.service";
 import {SubscriberWorkPaymentsService} from "../../../services/subscribers/subscriber-work-payments.service";
+import {SubscriberWorkFilesService} from "../../../services/subscribers/subscriber-work-files.service";
 
 @Component({
   selector: 'app-edit-subscriber-work-page',
@@ -44,6 +45,7 @@ export class EditSubscriberWorkPageComponent implements OnInit{
               public subscriberWorksService: SubscriberWorksService,
               public subscribersService: SubscribersService,
               public subscriberWorkPaymentsService: SubscriberWorkPaymentsService,
+              public subscriberWorkFilesService: SubscriberWorkFilesService,
               public mainService: MainService) {
   }
 
@@ -68,8 +70,9 @@ export class EditSubscriberWorkPageComponent implements OnInit{
             {slug: 'date_end', name: 'Дата завершення роботи', required: false, class: 'w-50', type: 'date'},
             {slug: 'name', name: 'Назва роботи', required: true, class: 'w-50', type: 'text'},
             {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
-            {slug: 'payments_edit', name: 'Виплати', required: false, class: 'w-50', type: 'paymodal'},
             {slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'text'},
+            {slug: 'payments_edit', name: 'Виплати', required: false, class: 'w-50', type: 'paymodal'},
+            { slug: 'files_upload', name: 'Прикріплені файли', required: true, class: 'w-50', type: 'filemodal' },
             {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
           ];
           return this.subscriberWorksService.getOne(params['id']);
