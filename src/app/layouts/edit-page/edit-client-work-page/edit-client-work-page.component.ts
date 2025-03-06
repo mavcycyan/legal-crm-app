@@ -2,16 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {ClientsService} from "../../../services/clients/clients.service";
-import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../models/clients/clients-list.interface";
 import {ClientWorksService} from "../../../services/clients/client-works.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {
-  ClientWorksCardInterface,
-  ClientWorksCardInterfaceRequest
+  ClientWorksCardInterface
 } from "../../../models/clients/client-works-card.interface";
 import {Observable, Subscription, switchMap} from "rxjs";
 import {MainService} from "../../../services/main/main.service";
 import {ClientWorkPaymentsService} from "../../../services/clients/client-work-payments.service";
+import {ClientWorkFilesService} from "../../../services/clients/client-work-files.service";
 
 @Component({
   selector: 'app-edit-client-work-page',
@@ -40,6 +39,7 @@ export class EditClientWorkPageComponent implements OnInit{
               public clientWorksService: ClientWorksService,
               public clientService: ClientsService,
               public clientWorkPaymentsService: ClientWorkPaymentsService,
+              public clientWorkFilesService: ClientWorkFilesService,
               public mainService: MainService) {
   }
 
@@ -63,8 +63,9 @@ export class EditClientWorkPageComponent implements OnInit{
             { slug: 'visit_date', name: 'Дата звернення', required: true, class: 'w-50', type: 'date' },
             { slug: 'visit_date_end', name: 'Дата завершення', required: false, class: 'w-50', type: 'date' },
             { slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status' },
-            { slug: 'payments_edit', name: 'Виплати', required: true, class: 'w-50', type: 'paymodal' },
             { slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'text' },
+            { slug: 'payments_edit', name: 'Виплати', required: true, class: 'w-50', type: 'paymodal' },
+            { slug: 'files_upload', name: 'Прикріплені файли', required: true, class: 'w-50', type: 'filemodal' },
             { slug: 'visit_purpose', name: 'Мета звернення', required: true, class: 'w-100', type: 'text' },
             { slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done' }
           ];

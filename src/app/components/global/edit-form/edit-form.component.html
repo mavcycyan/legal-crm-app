@@ -98,6 +98,17 @@
             </div>
           </div>
           <div
+            *ngSwitchCase="'filemodal'"
+          >
+            <button type="button" (click)="fileModalOpen()" class="btn btn-primary">Прикріпити</button>
+            <div class="modal" *ngIf="filemodal" @fadeInOut>
+              <div class="modal-overlay" (click)="fileModalClose()"></div>
+              <div class="modal-wrap">
+                <app-edit-form-files [id]="id" [service]="formFilesService" (modalState)="fileModalAction($event)"></app-edit-form-files>
+              </div>
+            </div>
+          </div>
+          <div
             *ngSwitchCase="'password_reset'"
           >
             <div *ngIf="data.role_id !== undefined &&

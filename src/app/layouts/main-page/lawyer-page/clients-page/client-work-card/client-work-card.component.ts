@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
 import {Subscription} from "rxjs";
 import {
-  ClientCardWorksListInterface,
-  ClientCardWorksListInterfaceRequest
-} from "../../../../../models/clients/client-card-works-list.interface";
-import {
   ClientWorksCardInterface,
   ClientWorksCardInterfaceRequest
 } from "../../../../../models/clients/client-works-card.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {ClientWorksService} from "../../../../../services/clients/client-works.service";
 import {MainService} from "../../../../../services/main/main.service";
+import {ClientWorkFilesService} from "../../../../../services/clients/client-work-files.service";
 
 @Component({
   selector: 'app-client-work-card',
@@ -27,13 +24,15 @@ export class ClientWorkCardComponent {
     {slug: 'worker', name: 'Хто займався'},
     {slug: 'what_done', name: 'Що зроблено'},
     {slug: 'result', name: 'Результат', type: 'result'},
-    {slug: 'fee', name: 'Гонорар'}
+    {slug: 'fee', name: 'Гонорар'},
+    {slug: 'files', name: 'Прикріплені файли', type: 'files'}
   ];
   work: ClientWorksCardInterface = {} as ClientWorksCardInterface;
 
 
   constructor(private route: ActivatedRoute,
               private clientWorksService: ClientWorksService,
+              public clientWorkFilesService: ClientWorkFilesService,
               private mainService: MainService) {
   }
 

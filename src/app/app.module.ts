@@ -48,6 +48,8 @@ import { SubscriberWorksListComponent } from './layouts/main-page/lawyer-page/su
 import { AdvocateWorksListComponent } from './layouts/main-page/advocate-page/advocate-works-list/advocate-works-list.component';
 import { AdvocateWorksCardComponent } from './layouts/main-page/advocate-page/advocate-works-card/advocate-works-card.component';
 import { EditFormPasswordResetComponent } from './components/global/edit-form-password-reset/edit-form-password-reset.component';
+import { EditFormFilesComponent } from './components/global/edit-form-files/edit-form-files.component';
+import { TableCardFilesComponent } from './components/global/table-card-files/table-card-files.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +94,9 @@ import { EditFormPasswordResetComponent } from './components/global/edit-form-pa
     SubscriberWorksListComponent,
     AdvocateWorksListComponent,
     AdvocateWorksCardComponent,
-    EditFormPasswordResetComponent
+    EditFormPasswordResetComponent,
+    EditFormFilesComponent,
+    TableCardFilesComponent
   ],
   imports: [
     BrowserModule,

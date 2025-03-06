@@ -24,11 +24,13 @@ export class EditFormComponent implements OnInit, OnChanges{
   @Input() data: any;
   @Input() formService: any;
   @Input() formPaymentsService: any;
+  @Input() formFilesService: any;
   @Input() isEdit: boolean = false;
   @Input() type?: string = 'default';
   form: FormGroup = {} as FormGroup;
   id: number|null = null;
   paymodal: boolean = false;
+  filemodal: boolean = false;
   passresmodal: boolean = false;
 
   constructor(private fb: FormBuilder,
@@ -90,7 +92,6 @@ export class EditFormComponent implements OnInit, OnChanges{
   }
 
   payModalOpen(): void {
-    const id = this.id;
     this.paymodal = true;
   }
   payModalClose(): void {
@@ -98,6 +99,16 @@ export class EditFormComponent implements OnInit, OnChanges{
   }
   payModalAction(state: boolean = false) {
     this.paymodal = state;
+  }
+
+  fileModalOpen(): void {
+    this.filemodal = true;
+  }
+  fileModalClose(): void {
+    this.filemodal = false;
+  }
+  fileModalAction(state: boolean = false) {
+    this.filemodal = state;
   }
 
   passResModalOpen(): void {

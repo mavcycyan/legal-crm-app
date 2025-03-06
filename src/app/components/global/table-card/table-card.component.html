@@ -24,8 +24,17 @@
           <div *ngFor="let what of item[column.slug]; index as y" [ngClass]="{'pending' : what.pending}">{{y+1}}. {{what.data}}</div>
         </div>
         <div *ngIf="column.slug !== 'what_done'">
-          <span *ngIf="column.slug === 'result'">{{item[column.slug] | statuswork}}</span>
-          <span *ngIf="column.slug !== 'result'">{{item[column.slug]}}</span>
+          <span *ngIf="column.type === undefined || column.type === 'default'">{{item[column.slug]}}</span>
+          <span *ngIf="column.type === 'result'">{{item[column.slug] | statuswork}}</span>
+          <span *ngIf="column.type === 'files'">
+            <button type="button" (click)="fileModalOpen()" class="btn btn-primary">Переглянути</button>
+            <div class="modal" *ngIf="filemodal" @fadeInOut>
+              <div class="modal-overlay" (click)="fileModalClose()"></div>
+              <div class="modal-wrap">
+                <app-table-card-files [id]="id" [service]="filesService"></app-table-card-files>
+              </div>
+            </div>
+          </span>
         </div>
       </div>
     </div>
