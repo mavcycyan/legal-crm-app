@@ -8,7 +8,8 @@ export interface ClientsCardInterface{
   address: String,
   phone: String,
   email: String,
-  client_works: ClientWorksCardInterface[]
+  worker?: string,
+  client_works?: ClientWorksCardInterface[]
 }
 export interface ClientsCardInterfaceRequest{
   success: Boolean,

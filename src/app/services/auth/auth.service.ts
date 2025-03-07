@@ -80,6 +80,7 @@ export class AuthService {
       } else if (userType === 4) {
         if (
             (urlSegment.length > 1 && urlSegment[0].path === 'advocate' && urlSegment[1].path === 'personal') ||
+            (urlSegment.length > 1 && urlSegment[0].path === 'advocate' && urlSegment[1].path === 'clients') ||
             (urlSegment.length > 0 && urlSegment[0].path === 'advocate_category') ||
             (urlSegment.length > 0 && urlSegment[0].path === 'advocate_case') ||
             (urlSegment.length > 0 && urlSegment[0].path === 'advocate_work')

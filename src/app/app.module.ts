@@ -50,6 +50,9 @@ import { AdvocateWorksCardComponent } from './layouts/main-page/advocate-page/ad
 import { EditFormPasswordResetComponent } from './components/global/edit-form-password-reset/edit-form-password-reset.component';
 import { EditFormFilesComponent } from './components/global/edit-form-files/edit-form-files.component';
 import { TableCardFilesComponent } from './components/global/table-card-files/table-card-files.component';
+import { AdvocateClientsComponent } from './layouts/main-page/advocate-page/advocate-clients/advocate-clients.component';
+import { EditAdvocateClientComponent } from './layouts/edit-page/edit-advocate-client/edit-advocate-client.component';
+import { AdvocateClientCardComponent } from './layouts/main-page/advocate-page/advocate-clients/advocate-client-card/advocate-client-card.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +99,10 @@ import { TableCardFilesComponent } from './components/global/table-card-files/ta
     AdvocateWorksCardComponent,
     EditFormPasswordResetComponent,
     EditFormFilesComponent,
-    TableCardFilesComponent
+    TableCardFilesComponent,
+    AdvocateClientsComponent,
+    EditAdvocateClientComponent,
+    AdvocateClientCardComponent
   ],
   imports: [
     BrowserModule,

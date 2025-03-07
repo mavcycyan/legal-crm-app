@@ -26,18 +26,26 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       // @ts-ignore
       catchError((requestError: HttpErrorResponse) => {
-        if (requestError.status === 500) {
+        console.log(requestError); // "Unauthenticated."
+        if (requestError && requestError.status === 401) {
+          const message = (requestError.error.message === 'Invalid credentials') ? 'Некорректні логін або пароль' : requestError.error.message;
+          alert('Не авторизовано. ' + message);
+          sessionStorage.removeItem('currentUser');
+          sessionStorage.removeItem('userToken');
+          this.router.navigate(['/login']);
+          return throwError(() => new Error(requestError.message));
+        } else if (requestError && requestError.error.message === 'Unauthenticated.') {
+          alert('Проблеми з авторизацією. Пройдіть повторну авторизацію.');
+          sessionStorage.removeItem('currentUser');
+          sessionStorage.removeItem('userToken');
+          this.router.navigate(['/login']);
+          return throwError(() => new Error(requestError.message));
+        } else {
           console.error('Server error:', requestError);
-          alert('Помилка на сервері. ' + requestError.message);
+          const message = (requestError.error.message === 'Access Denied') ? 'Доступ до цих даних заборонено' : requestError.error.message;
+          alert('Помилка на сервері. ' + message);
           return throwError(() => new Error(requestError.message));
         }
-        else if (requestError && requestError.status === 401) {
-          alert(requestError.message);
-        }
-        sessionStorage.removeItem('currentUser');
-        sessionStorage.removeItem('userToken');
-        this.router.navigate(['/login']);
-        return throwError(() => new Error(requestError.message));
       })
     );
   }

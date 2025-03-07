@@ -1,0 +1,34 @@
+<div class="adv_client_wrap">
+  <div class="adv_client_card">
+    <div>
+      <div class="adv_client_card-row">
+        <div class="adv_client_card-col">Ім'я</div>
+        <div class="adv_client_card-col">{{client.full_name}}</div>
+      </div>
+      <div class="adv_client_card-row">
+        <div class="adv_client_card-col">Дата народження</div>
+        <div class="adv_client_card-col">{{client.birthday}}</div>
+      </div>
+      <div class="adv_client_card-row">
+        <div class="adv_client_card-col">Телефон</div>
+        <div class="adv_client_card-col">{{client.phone}}</div>
+      </div>
+      <div class="adv_client_card-row">
+        <div class="adv_client_card-col">Адреса</div>
+        <div class="adv_client_card-col">{{client.address}}</div>
+      </div>
+      <div class="adv_client_card-row">
+        <div class="adv_client_card-col">Звідки дізнались</div>
+        <div class="adv_client_card-col">{{client.where_knows}}</div>
+      </div>
+      <div class="adv_client_card-row">
+        <div class="adv_client_card-col">Хто займався</div>
+        <div class="adv_client_card-col">{{client.worker}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main-page-btn">
+  <a [routerLink]="['/', 'edit', 'advocate', 'clients', id]">Редагувати клієнта</a>
+</div>

@@ -19,10 +19,11 @@ export class EditClientPageComponent implements OnInit{
   isEdit: boolean = false;
   fields: FormFieldsInterface[] = [
     {slug: 'full_name', name: 'П.І.Б.', required: true, class: 'w-100', type: 'text'},
-    {slug: 'phone', name: 'Телефон', required: false, class: 'w-50', type: 'text'},
     {slug: 'address', name: 'Адреса', required: false, class: 'w-100', type: 'text'},
+    {slug: 'phone', name: 'Телефон', required: false, class: 'w-50', type: 'text'},
     {slug: 'where_knows', name: 'Звідки дізналися', required: false, class: 'w-50', type: 'text'},
     {slug: 'birthday', name: 'Дата народження', required: false, class: 'w-50', type: 'date'},
+    {slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'text'},
   ];
 
   constructor(private route: ActivatedRoute,
