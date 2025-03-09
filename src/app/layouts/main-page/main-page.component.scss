@@ -11,22 +11,27 @@
   flex-wrap: wrap;
   height: 100vh;
 }
-.main-page-menu {
-  background: $color_main;
-  color: #fff;
-  width: 250px;
-  padding: 20px;
-  height: 100%;
-  overflow: auto;
-}
 .main-page-wrap {
   flex: 1;
   height: 100vh;
   overflow: auto;
+  @media(max-width: 767.98px) {
+    padding-left: 60px;
+  }
 }
 
+.main-page-name {
+  @media(max-width: 767.98px) {
+    display: none;
+    width: 230px;
+  }
+}
 .main-page-url {
   padding: 20px 0;
+  @media(max-width: 767.98px) {
+    display: none;
+    width: 230px;
+  }
   a, button {
     font-family: "Nunito", sans-serif;
     text-align: left;
@@ -49,10 +54,85 @@
     border-bottom: 1px solid #fff;
   }
 }
+.main-page-menu {
+  background: $color_main;
+  color: #fff;
+  width: 250px;
+  padding: 20px;
+  height: 100%;
+  overflow: auto;
+  @media(max-width: 767.98px) {
+    width: 60px;
+    padding: 10px;
+    position: fixed;
+    z-index: 99;
+    transition: 0.3s;
+    &.active {
+      width: 250px;
+      transition: 0.3s;
+      .main-page-name {
+        display: block;
+      }
+      .main-page-url {
+        display: block;
+      }
+    }
+  }
+}
 
 .main-page {
   &-wrap {
     position: relative;
+  }
+  &-mob_btn {
+    display: none;
+    @media screen and (max-width: 767.98px) {
+      display: block;
+    }
+    button {
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: 0;
+      margin-left: auto;
+      position: relative;
+      display: block;
+      span {
+        display: block;
+        height: 4px;
+        width: 100%;
+        background: $color_white;
+        position: absolute;
+        left: 0;
+        border-radius: 4px;
+        transition: 0.3s;
+        &:first-child {
+          top: 5px;
+        }
+        &:nth-child(2) {
+          top: 50%;
+          margin-top: -2px;
+        }
+        &:last-child {
+          bottom: 5px;
+        }
+      }
+      &.active {
+        span {
+          transition: 0.3s;
+          &:first-child {
+            transform: rotate(45deg) translate(9px, 9px);
+          }
+          &:nth-child(2) {
+            margin-left: 50%;
+            width: 0;
+          }
+          &:last-child {
+            transform: rotate(-45deg) translate(9px, -9px);
+          }
+        }
+      }
+    }
   }
   &-preloader {
     position: absolute;
@@ -64,6 +144,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    @media screen and (max-width: 767.98px) {
+      right: 0;
+      left: auto;
+      width: calc(100% - 40px);
+    }
     svg {
       width: 200px;
     }

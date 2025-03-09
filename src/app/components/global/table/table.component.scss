@@ -38,6 +38,25 @@
         background: #a9fa96;
       }
     }
+
+    &.paused {
+      .tablecom-tbl-col {
+        background: #b6deff;
+      }
+      &:nth-child(2n) .tablecom-tbl-col {
+        background: #96c5fa;
+      }
+    }
+    &.head {
+      .tablecom-tbl-col {
+        background: $color_main;
+        color: #fff;
+      }
+      &:nth-child(2n) .tablecom-tbl-col {
+        background: $color_main;
+        color: #fff;
+      }
+    }
   }
   &-col {
     &-modal_btn {

@@ -5,24 +5,17 @@ import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {AdvocateService} from "../../../services/advocate/advocate.service";
 import {
-  AdvocateCaseInterfaceRequest,
   AdvocateCasesInterface
 } from "../../../models/advocates/advocate-cases.interface";
 import {MainService} from "../../../services/main/main.service";
 import {
-  AdvocatesListInterface,
-  AdvocatesListInterfaceRequest
-} from "../../../models/advocates/advocates-list.interface";
-import {
-  AdvocateCategoriesInterface,
   AdvocateCategoriesInterfaceRequest
 } from "../../../models/advocates/advocate-categories.interface";
 import {AdvocateCaseService} from "../../../services/advocate/advocate-case.service";
 import {
   AdvocateCasePaymentsService
 } from "../../../services/advocate/advocate-case-payments.service";
-import {ClientsService} from "../../../services/clients/clients.service";
-import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../models/clients/clients-list.interface";
+import {ClientsListInterfaceRequest} from "../../../models/clients/clients-list.interface";
 
 @Component({
   selector: 'app-edit-advocate-case',
@@ -60,6 +53,7 @@ export class EditAdvocateCaseComponent {
   }
 
   ngOnInit(): void {
+    this.mainService.setPreloaderState(true);
     this.subClient$ = this.advocateService.getList().pipe(
       switchMap((advocatesResponse) => {
         const advocates = advocatesResponse.data;
@@ -93,7 +87,6 @@ export class EditAdvocateCaseComponent {
       }),
       switchMap((params: Params) => {
         if (params['id'] !== undefined) {
-          this.mainService.setPreloaderState(true);
           this.fields = [
             {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'select', choises: this.advocatesList},
             {slug: 'advocate_category_id', name: 'Категорія', required: true, class: 'w-50', type: 'select', choises: this.advocateCatsList},
@@ -125,6 +118,7 @@ export class EditAdvocateCaseComponent {
         if (clientField) {
           clientField.choises = this.clientsList;
         }
+        this.mainService.setPreloaderState(false);
         return new Observable();
       })
     ).subscribe(

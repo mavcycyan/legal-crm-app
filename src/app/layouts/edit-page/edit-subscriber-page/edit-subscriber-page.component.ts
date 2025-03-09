@@ -5,15 +5,9 @@ import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {SubscribersService} from "../../../services/subscribers/subscribers.service";
 import {
-  SubscribersCardInterface,
-  SubscribersCardInterfaceRequest
+  SubscribersCardInterface
 } from "../../../models/subscribers/subscribers-card.interface";
 import {MainService} from "../../../services/main/main.service";
-import {AdvocateService} from "../../../services/advocate/advocate.service";
-import {
-  AdvocatesListInterface,
-  AdvocatesListInterfaceRequest
-} from "../../../models/advocates/advocates-list.interface";
 import {SubscriberPaymentsService} from "../../../services/subscribers/subscriber-payments.service";
 
 @Component({
@@ -52,6 +46,7 @@ export class EditSubscriberPageComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.mainService.setPreloaderState(true);
     this.subClient$ = this.subscribersService.getAdvocates().pipe(
       switchMap(advocatesResponse  => {
         const advocates = advocatesResponse.data;
@@ -65,7 +60,6 @@ export class EditSubscriberPageComponent implements OnInit{
       }),
       switchMap((params: Params) => {
         if (params['id']) {
-          this.mainService.setPreloaderState(true);
 
           this.fields = [
             {slug: 'name', name: 'Назва', required: true, class: 'w-100', type: 'text'},
@@ -89,6 +83,7 @@ export class EditSubscriberPageComponent implements OnInit{
         if (advocateField) {
           advocateField.choises = this.advocatesList
         }
+        this.mainService.setPreloaderState(false);
         return new Observable();
       })
     ).subscribe(

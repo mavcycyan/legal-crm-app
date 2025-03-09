@@ -4,15 +4,10 @@ import {FormGroup} from "@angular/forms";
 import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {
-  AdvocateWorksInterface,
-  AdvocateWorksInterfaceRequest
+  AdvocateWorksInterface
 } from "../../../models/advocates/advocate-works.interface";
 import {AdvocateWorkService} from "../../../services/advocate/advocate-work.service";
 import {AdvocateCaseService} from "../../../services/advocate/advocate-case.service";
-import {
-  AdvocateCasesInterface,
-  AdvocateCasesInterfaceRequest
-} from "../../../models/advocates/advocate-cases.interface";
 import {MainService} from "../../../services/main/main.service";
 import {AdvocateWorkFilesService} from "../../../services/advocate/advocate-work-files.service";
 
@@ -45,6 +40,7 @@ export class EditAdvocateWorkComponent {
   }
 
   ngOnInit(): void {
+    this.mainService.setPreloaderState(true);
     let qparams = {};
     const userType = sessionStorage.getItem('userType');
     if (userType === '4' && userType !== null) {
@@ -63,7 +59,6 @@ export class EditAdvocateWorkComponent {
       }),
       switchMap((params: Params) => {
           if (params['id'] !== undefined) {
-            this.mainService.setPreloaderState(true);
             this.fields = [
               {slug: 'advocate_case_id', name: 'Справа', required: true, class: 'w-100', type: 'select', choises: this.caseList},
               {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
@@ -80,6 +75,7 @@ export class EditAdvocateWorkComponent {
           if (caseField) {
             caseField.choises = this.caseList;
           }
+          this.mainService.setPreloaderState(false);
           return new Observable();
       })
     ).subscribe(

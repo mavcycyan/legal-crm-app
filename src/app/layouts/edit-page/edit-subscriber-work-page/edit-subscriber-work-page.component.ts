@@ -4,17 +4,11 @@ import {FormGroup} from "@angular/forms";
 import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {
-  SubscribersWorksCardInterface,
-  SubscribersWorksCardInterfaceRequest
+  SubscribersWorksCardInterface
 } from "../../../models/subscribers/subscribers-works-card.interface";
-import {
-  SubscribersListInterface,
-  SubscribersListInterfaceRequest
-} from "../../../models/subscribers/subscribers-list.interface";
 import {SubscribersService} from "../../../services/subscribers/subscribers.service";
 import {SubscriberWorksService} from "../../../services/subscribers/subscriber-works.service";
 import {MainService} from "../../../services/main/main.service";
-import {SubscriberPaymentsService} from "../../../services/subscribers/subscriber-payments.service";
 import {SubscriberWorkPaymentsService} from "../../../services/subscribers/subscriber-work-payments.service";
 import {SubscriberWorkFilesService} from "../../../services/subscribers/subscriber-work-files.service";
 
@@ -50,6 +44,7 @@ export class EditSubscriberWorkPageComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.mainService.setPreloaderState(true);
     this.subClient$ = this.subscribersService.getList().pipe(
       switchMap((subscribersResponse) => {
         const subscribers = subscribersResponse.data;
@@ -62,7 +57,6 @@ export class EditSubscriberWorkPageComponent implements OnInit{
       }),
       switchMap((params: Params) => {
         if (params['id'] !== undefined) {
-          this.mainService.setPreloaderState(true);
 
           this.fields = [
             {slug: 'subscriber_id', name: 'Абонент', required: true, class: 'w-100', type: 'select', choises: this.subscribersList},
@@ -82,6 +76,7 @@ export class EditSubscriberWorkPageComponent implements OnInit{
         if (subscriberField) {
           subscriberField.choises = this.subscribersList;
         }
+        this.mainService.setPreloaderState(false);
         return new Observable();
       })
     ).subscribe(

@@ -21,43 +21,9 @@ export class MainPageComponent implements OnInit, OnDestroy{
   name: String = '';
   userType: string|null = '';
   btn: boolean = false;
-  btnLink: EditBtnLink = {link: '', text: ''};
-  btnSecond: boolean = false;
-  btnSecondLink: EditBtnLink = {link: '', text: ''};
-  editBtnLinks: {[key: string]: EditBtnLink} = {
-    lawyer_clients: {
-      link: '/edit/lawyer/clients',
-      text: 'Додати клієнта'
-    },
-    lawyer_client_work: {
-      link: '/edit/lawyer/client_work',
-      text: 'Додати роботу'
-    },
-    lawyer_subscribers: {
-      link: '/edit/lawyer/subscribers',
-      text: 'Додати абонента'
-    },
-    lawyer_subscriber_work: {
-      link: '/edit/lawyer/subscriber_work',
-      text: 'Додати роботу'
-    },
-    advocate_category: {
-      link: '/edit/advocate_category',
-      text: 'Додати категорію'
-    },
-    advocate_case: {
-      link: '/edit/advocate_case',
-      text: 'Додати справу'
-    },
-    advocate_work: {
-      link: '/edit/advocate_work',
-      text: 'Додати роботу'
-    },
-    user: {
-      link: '/edit/user',
-      text: 'Додати користувача'
-    },
-  };
+
+  mobMenuState: boolean = false;
+
   private subscription!: Subscription;
   private subscription2!: Subscription;
   private subPreloader!: Subscription;
@@ -88,6 +54,10 @@ export class MainPageComponent implements OnInit, OnDestroy{
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  mobMenuAction(state: boolean = true): void {
+    this.mobMenuState = state;
   }
 
   ngOnDestroy(): void {

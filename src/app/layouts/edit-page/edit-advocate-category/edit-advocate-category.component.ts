@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import {Subscription} from "rxjs";
 import {FormGroup} from "@angular/forms";
-import {ClientsCardInterface, ClientsCardInterfaceRequest} from "../../../models/clients/clients-card.interface";
 import {FormFieldsInterface} from "../../../models/forms/form.fields.interface";
 import {
   AdvocateCategoriesInterface,
-  AdvocateCategoriesInterfaceRequest, AdvocateCategoryInterfaceRequest
+  AdvocateCategoryInterfaceRequest
 } from "../../../models/advocates/advocate-categories.interface";
 import {ActivatedRoute, Params} from "@angular/router";
-import {ClientsService} from "../../../services/clients/clients.service";
 import {AdvocateService} from "../../../services/advocate/advocate.service";
 import {AdvocateCategoryService} from "../../../services/advocate/advocate-category.service";
 import {MainService} from "../../../services/main/main.service";

@@ -22,10 +22,11 @@
               <select formControlName="status" class="form-control">
                 <option [ngValue]="''" selected>Ні</option>
                 <option [ngValue]="'payed'">Так</option>
+                <option [ngValue]="'partly'">Частково</option>
               </select>
             </div>
           </div>
-          <div [ngClass]="{'edit-form-payment-row-input': true, 'edit-form-payment-row-input-2col': (type === 'modified')}">
+          <div [ngClass]="{'edit-form-payment-row-input': true}">
             <input type="hidden" formControlName="id">
             <div>
               <label class="form-label">Гонорар</label>

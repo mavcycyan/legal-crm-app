@@ -145,12 +145,14 @@ export class EditFormPaymentComponent implements OnInit{
       date_end: any,
       name?: any,
       deadlines?: any,
+      status?: any,
       payments: any
     } = {
       id: [null],
       price: [null, [Validators.required, Validators.min(1)]],
       date: [null],
       date_end: [null],
+      status: [''],
       payments: this.fb.array([])
     };
     if (this.type === 'modified') {
@@ -158,10 +160,29 @@ export class EditFormPaymentComponent implements OnInit{
       controls.deadlines = this.fb.array([]);
     }
     this.prices.push(this.fb.group(controls));
+    let prListItem: PaymentFormInterface = {
+      date: '',
+      date_end: '',
+      price: '',
+      status: '',
+      client_work_id: 0
+    }
+    if (this.type === 'modified') {
+      prListItem.name = '';
+    }
+    if (this.id !== null) {
+      prListItem.client_work_id = this.id;
+    }
+    this.priceList.push(prListItem);
+    console.log(this.priceList);
   }
 
   removePrice(index: number) {
     this.prices.removeAt(index);
+    this.priceList = this.priceList.filter(function (letter, i) {
+      return i !== index;
+    });;
+    console.log(this.priceList);
   }
 
   addPayment(priceIndex: number) {

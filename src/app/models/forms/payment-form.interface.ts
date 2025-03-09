@@ -1,5 +1,5 @@
 export interface PaymentFormInterface {
-  id: number,
+  id?: number,
   date: string,
   date_end: string|null,
   price: string,

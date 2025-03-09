@@ -5,6 +5,9 @@
   }
   &-main {
     width: calc(100% - 400px);
+    @media (max-width: 767.98px) {
+      width: 100%;
+    }
   }
   &-sidebar {
     width: 400px;

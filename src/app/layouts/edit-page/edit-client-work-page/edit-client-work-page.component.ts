@@ -45,6 +45,7 @@ export class EditClientWorkPageComponent implements OnInit{
 
 
   ngOnInit(): void {
+    this.mainService.setPreloaderState(true);
     this.subClient$ = this.clientService.getClientsList().pipe(
       switchMap((clientsResponse) => {
         const clients = clientsResponse.data;
@@ -57,7 +58,6 @@ export class EditClientWorkPageComponent implements OnInit{
       }),
       switchMap((params: Params) => {
         if (params['id'] !== undefined) {
-          this.mainService.setPreloaderState(true);
           this.fields = [
             { slug: 'client_id', name: 'Клієнт', required: true, class: 'w-100', type: 'select', choises: this.clientsList },
             { slug: 'visit_date', name: 'Дата звернення', required: true, class: 'w-50', type: 'date' },
@@ -75,6 +75,7 @@ export class EditClientWorkPageComponent implements OnInit{
         if (clientField) {
           clientField.choises = this.clientsList;
         }
+        this.mainService.setPreloaderState(false);
         return new Observable();
       })
     ).subscribe(

@@ -63,6 +63,9 @@ img {
     &-in {
       height: calc(100vh - 54px);
       overflow: auto;
+      @media screen and (max-width: 767.98px) {
+        height: auto;
+      }
     }
   }
   &-btn {

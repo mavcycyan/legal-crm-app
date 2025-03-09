@@ -1,17 +1,16 @@
 <div *ngIf="data.length > 0" [class]="['tablecom-tbl', tableClass]">
-  <div class="tablecom-tbl-head">
-    <div class="tablecom-tbl-row">
+  <div class="tablecom-tbl-body">
+    <div class="tablecom-tbl-row head">
       <div class="tablecom-tbl-col num">№</div>
       <div [class]="['tablecom-tbl-col', col.slug]" *ngFor="let col of columns">{{col.name}}</div>
       <div class="tablecom-tbl-col more"></div>
     </div>
-  </div>
-  <div class="tablecom-tbl-body">
     <div [ngClass]="{
       'tablecom-tbl-row' : true,
       'done' : (item.result !== undefined && item.result === 'done'),
       'pending' : ((item.result !== undefined && item.result === 'pending') || (item.pending_works !== undefined && item.pending_works > 0)),
-      'canceled' : (item.result !== undefined && item.result === 'canceled')
+      'canceled' : (item.result !== undefined && item.result === 'canceled'),
+      'paused' : (item.result !== undefined && item.result === 'paused')
     }" *ngFor="let item of data; index as i">
       <div class="tablecom-tbl-col num">{{(i + 1)}}</div>
       <div [class]="['tablecom-tbl-col', col.slug]" *ngFor="let col of columns">
@@ -46,7 +45,12 @@
             <span>Гонорар</span>
             <span *ngIf="price.name !== undefined && price.name !== null && price.name !== ''"> ({{ price.name }})</span>
             <span> {{price.price}} грн</span>
-            <span> ({{price.date}}<span *ngIf="price.date_end !== undefined && price.date_end !== null && price.date !== ''"> - {{price.date_end}}</span><span *ngIf="price.status !== undefined && price.status !== null && price.status === 'payed'"> (завершений)</span>)</span>
+            <span> (
+              {{price.date}}
+              <span *ngIf="price.date_end !== undefined && price.date_end !== null && price.date !== ''"> - {{price.date_end}}</span>
+              <span *ngIf="price.status !== undefined && price.status !== null && price.status === 'payed'"> (завершений)</span>
+              <span *ngIf="price.status !== undefined && price.status !== null && price.status === 'partly'"> (частково сплачений)</span>
+              )</span>
           </div>
           <div class="modal-payment-list-deadlines" *ngIf="price.deadlines !== undefined && price.deadlines !== null && price.deadlines.length > 0">
             <div class="modal-payment-list-deadlines-ttl">Графік виплат</div>

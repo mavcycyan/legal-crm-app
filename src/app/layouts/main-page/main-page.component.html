@@ -1,15 +1,22 @@
 <div class="main-page">
   <div class="main-page-container">
-    <div class="main-page-menu">
+    <div [ngClass]="{'main-page-menu': true, 'active': mobMenuState}">
+      <div class="main-page-mob_btn">
+        <button [ngClass]="{'active': mobMenuState}" (click)="mobMenuAction(!mobMenuState)">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
       <div class="main-page-name">Вітаю, {{name}}</div>
       <div class="main-page-url">
-        <a [routerLink]="['']">Головна</a>
-        <a *ngIf="userType === '1' || userType === '2'" [routerLink]="['users']">Користувачі</a>
-        <a *ngIf="userType === '1' || userType === '2' || userType === '3'" [routerLink]="['lawyer', 'clients']">Клієнти</a>
-        <a *ngIf="userType === '4'" [routerLink]="['advocate', 'clients']">Клієнти</a>
-        <a *ngIf="userType === '1' || userType === '2' || userType === '3'" [routerLink]="['lawyer', 'subscribers']">Абоненти</a>
-        <a *ngIf="userType === '1' || userType === '2'" [routerLink]="['advocate']">Адвокат</a>
-        <a *ngIf="userType === '4'" [routerLink]="['advocate', 'personal']">Справи</a>
+        <a [routerLink]="['']" (click)="mobMenuAction(!mobMenuState)">Головна</a>
+        <a *ngIf="userType === '1' || userType === '2'" [routerLink]="['users']" (click)="mobMenuAction(!mobMenuState)">Користувачі</a>
+        <a *ngIf="userType === '1' || userType === '2' || userType === '3'" [routerLink]="['lawyer', 'clients']" (click)="mobMenuAction(!mobMenuState)">Клієнти</a>
+        <a *ngIf="userType === '4'" [routerLink]="['advocate', 'clients']" (click)="mobMenuAction(!mobMenuState)">Клієнти</a>
+        <a *ngIf="userType === '1' || userType === '2' || userType === '3'" [routerLink]="['lawyer', 'subscribers']" (click)="mobMenuAction(!mobMenuState)">Абоненти</a>
+        <a *ngIf="userType === '1' || userType === '2'" [routerLink]="['advocate']" (click)="mobMenuAction(!mobMenuState)">Адвокат</a>
+        <a *ngIf="userType === '4'" [routerLink]="['advocate', 'personal']" (click)="mobMenuAction(!mobMenuState)">Справи</a>
         <button type="button" (click)="logout()">Вийти з системи</button>
       </div>
     </div>
