@@ -63,6 +63,7 @@ import {EditAdvocateClientComponent} from "./layouts/edit-page/edit-advocate-cli
 import {
   AdvocateClientCardComponent
 } from "./layouts/main-page/advocate-page/advocate-clients/advocate-client-card/advocate-client-card.component";
+import {EditLawyerAdvcaseComponent} from "./layouts/edit-page/edit-lawyer-advcase/edit-lawyer-advcase.component";
 
 const routes: Routes = [
   {
@@ -101,6 +102,7 @@ const routes: Routes = [
           {path: 'lawyer/subscribers/:id', component: EditSubscriberPageComponent, canActivate: [PermissionsGuard]},
           {path: 'lawyer/subscriber_work', component: EditSubscriberWorkPageComponent, canActivate: [PermissionsGuard]},
           {path: 'lawyer/subscriber_work/:id', component: EditSubscriberWorkPageComponent, canActivate: [PermissionsGuard]},
+          {path: 'lawyer/advcase', component: EditLawyerAdvcaseComponent, canActivate: [PermissionsGuard]},
           {path: 'lawyer', redirectTo: 'lawyer/clients'},
 
           {path: 'advocate/clients', component: EditAdvocateClientComponent, canActivate: [PermissionsGuard]},

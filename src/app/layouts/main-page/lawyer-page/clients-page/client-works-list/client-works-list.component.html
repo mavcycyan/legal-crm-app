@@ -3,6 +3,7 @@
   <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
   <div class="main-page-btn">
     <a [routerLink]="['/', 'edit', 'lawyer', 'clients', id]">Редагувати клієнта</a>
+    <a [routerLink]="['/', 'edit', 'lawyer', 'advcase']" class="second">Додати справу адвоката</a>
     <a [routerLink]="['/', 'edit', 'lawyer', 'client_work']" class="second">Додати роботу</a>
   </div>
   <app-filter (updatePage)="getList($event)" [sort]="sortVars" [filter]="filterVars"></app-filter>

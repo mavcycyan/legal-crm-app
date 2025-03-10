@@ -53,6 +53,7 @@ import { TableCardFilesComponent } from './components/global/table-card-files/ta
 import { AdvocateClientsComponent } from './layouts/main-page/advocate-page/advocate-clients/advocate-clients.component';
 import { EditAdvocateClientComponent } from './layouts/edit-page/edit-advocate-client/edit-advocate-client.component';
 import { AdvocateClientCardComponent } from './layouts/main-page/advocate-page/advocate-clients/advocate-client-card/advocate-client-card.component';
+import { EditLawyerAdvcaseComponent } from './layouts/edit-page/edit-lawyer-advcase/edit-lawyer-advcase.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { AdvocateClientCardComponent } from './layouts/main-page/advocate-page/a
     TableCardFilesComponent,
     AdvocateClientsComponent,
     EditAdvocateClientComponent,
-    AdvocateClientCardComponent
+    AdvocateClientCardComponent,
+    EditLawyerAdvcaseComponent
   ],
   imports: [
     BrowserModule,
