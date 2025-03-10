@@ -12,6 +12,8 @@ export class StatusworkPipe implements PipeTransform {
       return 'У процессі';
     } else if (status === 'canceled') {
       return 'Завершена погано';
+    } else if (status === 'paused') {
+      return 'Зупинено';
     }
     return status;
   }
