@@ -38,6 +38,9 @@
   padding: 10px 10px;
   border-radius: 4px;
   border: 1px solid $color_main;
+  .ng-submitted &.ng-invalid {
+    border-color: #f00;
+  }
 }
 .btn {
   border: 0;
