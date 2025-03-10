@@ -17,6 +17,7 @@ import {AdvocateWorkFilesService} from "../../../../services/advocate/advocate-w
 export class AdvocateWorksCardComponent {
   subClient$: Subscription = {} as Subscription;
   id: number|null = null;
+  caseId: number|null = null;
   tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'date', name: 'Дата початку роботи'},
     {slug: 'date_end', name: 'Дата завершення роботи'},
@@ -41,6 +42,7 @@ export class AdvocateWorksCardComponent {
       .subscribe(
         (params: Params) => {
           this.id = params['advocate_work'];
+          this.caseId = params['case_id'];
           this.advocateWorksService.getOne(params['advocate_work']).subscribe((list: AdvocateWorksInterfaceRequest) => {
             this.work = list.data;
             this.mainService.setPreloaderState(false);

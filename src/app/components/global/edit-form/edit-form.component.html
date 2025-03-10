@@ -12,6 +12,13 @@
             class="form-control"
           />
           <input
+            *ngSwitchCase="'hidden'"
+            [id]="field.slug"
+            [formControlName]="field.slug"
+            [type]="field.type"
+            class="form-control"
+          />
+          <input
             *ngSwitchCase="'number'"
             [id]="field.slug"
             [formControlName]="field.slug"

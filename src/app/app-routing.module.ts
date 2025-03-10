@@ -113,8 +113,8 @@ const routes: Routes = [
           {path: 'advocate_category/:id', component: EditAdvocateCategoryComponent, canActivate: [PermissionsGuard]},
           {path: 'advocate_case', component: EditAdvocateCaseComponent, canActivate: [PermissionsGuard]},
           {path: 'advocate_case/:id', component: EditAdvocateCaseComponent, canActivate: [PermissionsGuard]},
-          {path: 'advocate_work', component: EditAdvocateWorkComponent, canActivate: [PermissionsGuard]},
-          {path: 'advocate_work/:id', component: EditAdvocateWorkComponent, canActivate: [PermissionsGuard]},
+          {path: 'advocate_work/:case_id', component: EditAdvocateWorkComponent, canActivate: [PermissionsGuard]},
+          {path: 'advocate_work/:case_id/:id', component: EditAdvocateWorkComponent, canActivate: [PermissionsGuard]},
 
           {path: 'user', component: EditUserPageComponent, canActivate: [PermissionsGuard]},
           {path: 'user/:id', component: EditUserPageComponent, canActivate: [PermissionsGuard]},

@@ -27,6 +27,8 @@ export class EditFormComponent implements OnInit, OnChanges{
   @Input() formFilesService: any;
   @Input() isEdit: boolean = false;
   @Input() type?: string = 'default';
+  @Input() singleItemExtra?: {}|null = null;
+  @Input() parentId?: number|null = null;
   form: FormGroup = {} as FormGroup;
   id: number|null = null;
   paymodal: boolean = false;
@@ -74,6 +76,18 @@ export class EditFormComponent implements OnInit, OnChanges{
       this.form.updateValueAndValidity();
       this.id = this.data.id;
       this.mainService.setPreloaderState(false);
+    } else {
+      if (this.singleItemExtra !== null && this.singleItemExtra !== undefined) {
+        Object.keys(this.singleItemExtra).forEach((extra: any, i: number) => {
+          this.fields.forEach((field: any) => {
+            if (field.slug === extra && this.singleItemExtra !== null && this.singleItemExtra !== undefined) {
+              let forPatching: any = {};
+              forPatching[extra] = Object.values(this.singleItemExtra)[i];
+              this.form.patchValue(forPatching);
+            }
+          });
+        })
+      }
     }
   }
 
@@ -132,7 +146,11 @@ export class EditFormComponent implements OnInit, OnChanges{
             if (response.success == true) {
               if (response.data !== undefined && response.data.id !== undefined) {
                 alert('Дані успішно оновлено');
-                this.formService.redirectSuccess(response.data.id);
+                if (this.parentId !== null && this.parentId !== undefined) {
+                  this.formService.redirectSuccess(response.data.id, this.parentId);
+                } else {
+                  this.formService.redirectSuccess(response.data.id);
+                }
               }
             } else {
               alert('Помилка');
@@ -147,7 +165,11 @@ export class EditFormComponent implements OnInit, OnChanges{
             if (response.success == true) {
               if (response.data !== undefined && response.data.id !== undefined) {
                 alert('Дані успішно додано');
-                this.formService.redirectSuccess(response.data.id);
+                if (this.parentId !== null && this.parentId !== undefined) {
+                  this.formService.redirectSuccess(response.data.id, this.parentId);
+                } else {
+                  this.formService.redirectSuccess(response.data.id);
+                }
               }
             } else {
               alert('Помилка');

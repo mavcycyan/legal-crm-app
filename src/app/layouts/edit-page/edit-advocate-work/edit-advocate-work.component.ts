@@ -21,9 +21,11 @@ export class EditAdvocateWorkComponent {
   form: FormGroup = {} as FormGroup;
   data: AdvocateWorksInterface = {} as AdvocateWorksInterface;
   isEdit: boolean = false;
+  caseId: number|null = null;
+  caseWorksExtra: {} = {};
   caseList: {label: string, value: string}[] = [];
   fields: FormFieldsInterface[] = [
-    {slug: 'advocate_case_id', name: 'Справа', required: true, class: 'w-100', type: 'select', choises: []},
+    {slug: 'advocate_case_id', name: 'Справа', required: true, class: 'hidden', type: 'hidden'},
     {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
     {slug: 'date_end', name: 'Дата завершення роботи', required: false, class: 'w-50', type: 'date'},
     {slug: 'name', name: 'Назва роботи', required: false, class: 'w-50', type: 'text'},
@@ -58,9 +60,11 @@ export class EditAdvocateWorkComponent {
         return this.route.params;
       }),
       switchMap((params: Params) => {
+          this.caseWorksExtra = {advocate_case_id: params['case_id']};
+          this.caseId = params['case_id'];
           if (params['id'] !== undefined) {
             this.fields = [
-              {slug: 'advocate_case_id', name: 'Справа', required: true, class: 'w-100', type: 'select', choises: this.caseList},
+              {slug: 'advocate_case_id', name: 'Справа', required: true, class: 'hidden', type: 'hidden'},
               {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
               {slug: 'date_end', name: 'Дата завершення роботи', required: false, class: 'w-50', type: 'date'},
               {slug: 'name', name: 'Назва роботи', required: false, class: 'w-50', type: 'text'},

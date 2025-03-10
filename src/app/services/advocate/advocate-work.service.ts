@@ -45,8 +45,12 @@ export class AdvocateWorkService {
     return this.httpClient.delete(`${globals.api_url}/api/advocates_works/${id}`);
   }
 
-  redirectSuccess(id: number|null = null) {
-    this.router.navigate(['/', 'edit', 'advocate_work', id]);
+  redirectSuccess(id: number|null = null, parentId: number|null = null) {
+    if (parentId !== null) {
+      this.router.navigate(['/', 'edit', 'advocate_work', parentId, id]);
+    } else {
+      this.router.navigate(['/', 'edit', 'advocate_work', id]);
+    }
   }
 
   redirectRemoveSuccess() {
