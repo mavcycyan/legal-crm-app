@@ -23,7 +23,6 @@ export class EditAdvocateWorkComponent {
   isEdit: boolean = false;
   caseId: number|null = null;
   caseWorksExtra: {} = {};
-  caseList: {label: string, value: string}[] = [];
   fields: FormFieldsInterface[] = [
     {slug: 'advocate_case_id', name: 'Справа', required: true, class: 'hidden', type: 'hidden'},
     {slug: 'date', name: 'Дата початку роботи', required: true, class: 'w-50', type: 'date'},
@@ -52,10 +51,6 @@ export class EditAdvocateWorkComponent {
       switchMap((casesResponse) => {
         const cases = casesResponse.data;
 
-        this.caseList = cases.map(caseItem => ({
-          label: caseItem.proc_num.toString(),
-          value: caseItem.id.toString()
-        }))
 
         return this.route.params;
       }),
@@ -74,10 +69,6 @@ export class EditAdvocateWorkComponent {
               {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
             ];
             return this.advocateWorksService.getOne(params['id']);
-          }
-          let caseField = this.fields.find(field => field.slug === 'advocate_case_id');
-          if (caseField) {
-            caseField.choises = this.caseList;
           }
           this.mainService.setPreloaderState(false);
           return new Observable();
