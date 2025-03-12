@@ -8,7 +8,10 @@ import {
 import {ActivatedRoute, Params} from "@angular/router";
 import {AdvocateService} from "../../../../services/advocate/advocate.service";
 import {MainService} from "../../../../services/main/main.service";
-import {AdvocateCategoryInterfaceRequest} from "../../../../models/advocates/advocate-categories.interface";
+import {
+  AdvocateCategoriesInterface, AdvocateCategoriesInterfaceRequest,
+  AdvocateCategoryInterfaceRequest
+} from "../../../../models/advocates/advocate-categories.interface";
 import {AdvocateCasePaymentsService} from "../../../../services/advocate/advocate-case-payments.service";
 import {AdvocateCaseTblService} from "../../../../services/advocate/advocate-case-tbl.service";
 
@@ -21,6 +24,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
   subAdvocate$: Subscription = {} as Subscription;
 
   cases: AdvocateCasesInterface[] = [];
+  subcategories: AdvocateCategoriesInterface[] = [];
   tblColumns: Array<{name: string, slug: string, type?: string}> = [
     {slug: 'visit_date', name: 'Дата укладання договору'},
     {slug: 'visit_date_end', name: 'Дата завершення договору'},
@@ -30,6 +34,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
     {slug: 'fee', name: 'Гонорар', type: 'payments'}
   ];
   id: number|null = null;
+  advId: number|null = null;
 
   //pagination
   allItems: number = 0;
@@ -50,6 +55,8 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
   ];
   filter: string = '';
 
+  responseType: string = '';
+
   constructor(private route: ActivatedRoute,
               private advocateService: AdvocateService,
               private mainService: MainService,
@@ -65,24 +72,32 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
         (params: Params) => {
           const id = params['id'];
           const advocateId: number = (id !== 'personal') ? id : sessionStorage.getItem('userId');
+          this.advId = id;
           let params_case = {
             pag_size: this.pageSize,
             sort_dir: this.sortDirection,
             sort_field: this.sortBy
           };
-          this.advocateService.getAdvocateCases(advocateId, params['category'], params_case).subscribe((list: AdvocateCasesInterfaceRequest) => {
+          this.advocateService.getAdvocateCases(advocateId, params['category'], params_case).subscribe((list: AdvocateCasesInterfaceRequest|AdvocateCategoriesInterfaceRequest) => {
             this.advocateService.getCategoryBySlug(params['category']).subscribe((data: AdvocateCategoryInterfaceRequest) => {
               let data_id: number|null = (data.data.id !== undefined) ? data.data.id.valueOf() : null;
               this.id = data_id;
               this.mainService.setPreloaderState(false);
             });
-            this.cases = list.data.map((item: AdvocateCasesInterface) => ({
-              ...item,
-              client_full: `${item.client_name}, справа: ${item.proc_num}, фабула: ${item.plot}`
-            }));
-            // this.cases = list.data;
-            if (list.all_items !== undefined) {
-              this.allItems = list.all_items;
+            if (list.response_extras !== undefined && list.response_extras.response !== undefined) {
+              this.responseType = list.response_extras.response;
+            }
+            if (this.isAdvocateCategoriesResponse(list)) {
+              this.subcategories = list.data;
+            } else if (this.isAdvocateCasesResponse(list)) {
+              this.cases = list.data.map((item: AdvocateCasesInterface) => ({
+                ...item,
+                client_full: `${item.client_name}, справа: ${item.proc_num}, фабула: ${item.plot}`
+              }));
+              // this.cases = list.data;
+              if (list.all_items !== undefined) {
+                this.allItems = list.all_items;
+              }
             }
           });
         }
@@ -100,6 +115,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
         (params: Params) => {
           const id = params['id'];
           const advocateId: number = (id !== 'personal') ? id : sessionStorage.getItem('userId');
+          this.advId = id;
           if (event !== null) {
             if (event.name === 'pageOffset') {
               this.pageOffset = this.pageSize * (parseInt(event.value)-1);
@@ -130,21 +146,36 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
           if (this.filter !== '') {
             params_case.filt_result = this.filter;
           }
-          this.advocateService.getAdvocateCases(advocateId, params['category'], params_case).subscribe((list: AdvocateCasesInterfaceRequest) => {
+          this.advocateService.getAdvocateCases(advocateId, params['category'], params_case).subscribe((list: AdvocateCasesInterfaceRequest|AdvocateCategoriesInterfaceRequest) => {
             this.advocateService.getCategoryBySlug(params['category']).subscribe((data: AdvocateCategoryInterfaceRequest) => {
               let data_id: number|null = (data.data.id !== undefined) ? data.data.id.valueOf() : null;
               this.id = data_id;
               this.mainService.setPreloaderState(false);
             });
-            this.cases = list.data.map((item: AdvocateCasesInterface) => ({
-              ...item,
-              client_full: `${item.client_name}, справа: ${item.proc_num}, фабула: ${item.plot}`
-            }));
-            if (list.all_items !== undefined) {
-              this.allItems = list.all_items;
+            if (list.response_extras !== undefined && list.response_extras.response !== undefined) {
+              this.responseType = list.response_extras.response;
+            }
+            if (this.isAdvocateCategoriesResponse(list)) {
+              this.subcategories = list.data;
+            } else if (this.isAdvocateCasesResponse(list)) {
+              this.cases = list.data.map((item: AdvocateCasesInterface) => ({
+                ...item,
+                client_full: `${item.client_name}, справа: ${item.proc_num}, фабула: ${item.plot}`
+              }));
+              // this.cases = list.data;
+              if (list.all_items !== undefined) {
+                this.allItems = list.all_items;
+              }
             }
           });
         }
       )
+  }
+
+  isAdvocateCasesResponse(data: any): data is AdvocateCasesInterfaceRequest {
+    return data && data.response_extras.response === 'cases';
+  }
+  isAdvocateCategoriesResponse(data: any): data is AdvocateCategoriesInterfaceRequest {
+    return data && data.response_extras.response === 'subcategories';
   }
 }

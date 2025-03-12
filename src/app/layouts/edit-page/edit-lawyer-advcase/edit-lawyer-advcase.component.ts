@@ -23,8 +23,8 @@ export class EditLawyerAdvcaseComponent {
   fields: FormFieldsInterface[] = [
     {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'select', choises: []},
     {slug: 'advocate_category_id', name: 'Категорія', required: true, class: 'w-50', type: 'select', choises: []},
-    {slug: 'client_id', name: 'Клієнт', required: true, class: 'w-100', type: 'select', choises: []},
-    {slug: 'proc_num', name: 'Номер справи', required: true, class: 'w-50', type: 'text'},
+    {slug: 'client_id', name: 'Клієнт', required: false, class: 'w-100', type: 'select', choises: []},
+    {slug: 'proc_num', name: 'Номер справи', required: false, class: 'w-50', type: 'text'},
     {slug: 'visit_date', name: 'Дата укладання договору', required: true, class: 'w-50', type: 'date'},
     {slug: 'visit_date_end', name: 'Дата завершення договору', required: false, class: 'w-50', type: 'date'},
     {slug: 'advocates', name: 'Адвокати у справі (для вибору декількох затисніть Ctrl)', required: false, class: 'w-100', type: 'select_multy', choises: []},
@@ -50,7 +50,7 @@ export class EditLawyerAdvcaseComponent {
           value: advocate.id.toString()
         }));
 
-        return this.lawyerAdvcaseService.getCategories()
+        return this.lawyerAdvcaseService.getCategories({'type': 'formlist'})
       }),
       switchMap((data: AdvocateCategoriesInterfaceRequest) => {
         const categories = data.data;

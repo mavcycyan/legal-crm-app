@@ -7,11 +7,17 @@ export interface AdvocateCategoriesInterface {
 export interface AdvocateCategoriesInterfaceRequest {
   success: Boolean,
   message: String,
-  data: AdvocateCategoriesInterface[]
+  data: AdvocateCategoriesInterface[],
+  response_extras?: {
+    response: string
+  }
 }
 
 export interface AdvocateCategoryInterfaceRequest {
   success: Boolean,
   message: String,
-  data: AdvocateCategoriesInterface
+  data: AdvocateCategoriesInterface,
+  response_extras?: {
+    response: string
+  }
 }

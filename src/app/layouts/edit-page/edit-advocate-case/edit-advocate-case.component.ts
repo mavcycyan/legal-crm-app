@@ -33,7 +33,7 @@ export class EditAdvocateCaseComponent {
   fields: FormFieldsInterface[] = [
     {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'select', choises: []},
     {slug: 'advocate_category_id', name: 'Категорія', required: true, class: 'w-50', type: 'select', choises: []},
-    {slug: 'client_id', name: 'Клієнт', required: true, class: 'w-100', type: 'select', choises: []},
+    {slug: 'client_id', name: 'Клієнт', required: false, class: 'w-100', type: 'select', choises: []},
     {slug: 'proc_num', name: 'Номер справи', required: false, class: 'w-50', type: 'text'},
     {slug: 'visit_date', name: 'Дата укладання договору', required: true, class: 'w-50', type: 'date'},
     {slug: 'visit_date_end', name: 'Дата завершення договору', required: false, class: 'w-50', type: 'date'},
@@ -63,7 +63,7 @@ export class EditAdvocateCaseComponent {
           value: advocate.id.toString()
         }));
 
-        return this.advocateService.getCategories()
+        return this.advocateService.getCategories({'type': 'formlist'})
       }),
       switchMap((data: AdvocateCategoriesInterfaceRequest) => {
         const categories = data.data;

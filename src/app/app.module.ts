@@ -54,6 +54,7 @@ import { AdvocateClientsComponent } from './layouts/main-page/advocate-page/advo
 import { EditAdvocateClientComponent } from './layouts/edit-page/edit-advocate-client/edit-advocate-client.component';
 import { AdvocateClientCardComponent } from './layouts/main-page/advocate-page/advocate-clients/advocate-client-card/advocate-client-card.component';
 import { EditLawyerAdvcaseComponent } from './layouts/edit-page/edit-lawyer-advcase/edit-lawyer-advcase.component';
+import { AdvocateSubcategoriesComponent } from './layouts/main-page/advocate-page/advocate-subcategories/advocate-subcategories.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { EditLawyerAdvcaseComponent } from './layouts/edit-page/edit-lawyer-advc
     AdvocateClientsComponent,
     EditAdvocateClientComponent,
     AdvocateClientCardComponent,
-    EditLawyerAdvcaseComponent
+    EditLawyerAdvcaseComponent,
+    AdvocateSubcategoriesComponent
   ],
   imports: [
     BrowserModule,

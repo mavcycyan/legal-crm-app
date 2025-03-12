@@ -38,8 +38,18 @@ export class LawyerAdvcaseService {
     return this.httpClient.get<AdvocatesListInterfaceRequest>(`${globals.api_url}/api/lawyer_advocates${params_str}`);
   }
 
-  getCategories(): Observable<AdvocateCategoriesInterfaceRequest> {
-    return this.httpClient.get<AdvocateCategoriesInterfaceRequest>(`${globals.api_url}/api/lawyer_advocates_categories`);
+  getCategories(params: {} = {}): Observable<AdvocateCategoriesInterfaceRequest> {
+    let params_str: string = '';
+    if (Object.keys(params).length > 0) {
+      params_str += '?';
+      Object.keys(params).forEach((item: string, index: number) => {
+        if (index > 0) {
+          params_str += '&';
+        }
+        params_str += item+'='+Object.values(params)[index];
+      });
+    }
+    return this.httpClient.get<AdvocateCategoriesInterfaceRequest>(`${globals.api_url}/api/lawyer_advocates_categories${params_str}`);
   }
 
   getAdvocateCases(advocate_id: number, category_slug: string, params: {} = {}): Observable<AdvocateCasesInterfaceRequest> {

@@ -21,7 +21,10 @@ export interface AdvocateCasesInterfaceRequest {
   success: Boolean,
   message: String,
   data: AdvocateCasesInterface[],
-  all_items?: number
+  all_items?: number,
+  response_extras?: {
+    response: string
+  }
 }
 
 export interface AdvocateCaseInterfaceRequest {

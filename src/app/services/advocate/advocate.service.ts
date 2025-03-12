@@ -41,8 +41,18 @@ export class AdvocateService {
     return this.httpClient.get<AdvocatesCardInterfaceRequest>(`${globals.api_url}/api/advocates/${id}`);
   }
 
-  getCategories(): Observable<AdvocateCategoriesInterfaceRequest> {
-    return this.httpClient.get<AdvocateCategoriesInterfaceRequest>(`${globals.api_url}/api/advocates_categories`);
+  getCategories(params: {} = {}): Observable<AdvocateCategoriesInterfaceRequest> {
+    let params_str: string = '';
+    if (Object.keys(params).length > 0) {
+      params_str += '?';
+      Object.keys(params).forEach((item: string, index: number) => {
+        if (index > 0) {
+          params_str += '&';
+        }
+        params_str += item+'='+Object.values(params)[index];
+      });
+    }
+    return this.httpClient.get<AdvocateCategoriesInterfaceRequest>(`${globals.api_url}/api/advocates_categories${params_str}`);
   }
 
   getCategory(id: number): Observable<AdvocateCategoryInterfaceRequest> {
@@ -53,7 +63,7 @@ export class AdvocateService {
     return this.httpClient.get<AdvocateCategoryInterfaceRequest>(`${globals.api_url}/api/advocates_categories_byslug?slug=${slug}`);
   }
 
-  getAdvocateCases(advocate_id: number, category_slug: string, params: {} = {}): Observable<AdvocateCasesInterfaceRequest> {
+  getAdvocateCases(advocate_id: number, category_slug: string, params: {} = {}): Observable<AdvocateCasesInterfaceRequest|AdvocateCategoriesInterfaceRequest> {
     let params_str: string = '';
     if (Object.keys(params).length > 0) {
       Object.keys(params).forEach((item: string, index: number) => {
@@ -61,7 +71,7 @@ export class AdvocateService {
         params_str += item+'='+Object.values(params)[index];
       });
     }
-    return this.httpClient.get<AdvocateCasesInterfaceRequest>(`${globals.api_url}/api/advocates_cases?advocate_id=${advocate_id}&advocate_category_slug=${category_slug}${params_str}`);
+    return this.httpClient.get<AdvocateCasesInterfaceRequest|AdvocateCategoriesInterfaceRequest>(`${globals.api_url}/api/advocates_cases?advocate_id=${advocate_id}&advocate_category_slug=${category_slug}${params_str}`);
   }
 
   getAdvocateCase(case_id: number): Observable<AdvocateCaseCardInterfaceRequest> {

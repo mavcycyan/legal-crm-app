@@ -1,0 +1,13 @@
+<div class="adv_categs">
+  <div class="adv_categs-row">
+    <div class="adv_categs-bl" *ngFor="let category of categories; index as i">
+      <a [routerLink]="['/', 'advocate', advocateId, category.slug]">{{category.name}}</a>
+    </div>
+  </div>
+</div>
+
+<div class="main-page-btn">
+  <a [routerLink]="['/', 'edit', 'advocate_category', id]">Редагувати батьківську категорію</a>
+  <a [routerLink]="['/', 'edit', 'advocate_category']" class="second">Додати категорію</a>
+</div>
+
