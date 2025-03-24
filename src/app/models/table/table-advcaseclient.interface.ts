@@ -12,14 +12,14 @@ export interface TableAdvcaseclientInterface {
     advocate_name?: string,
     advocates_names?: string,
   },
-  client: {
+  clients: {
     full_name: string,
     where_knows: string,
     birthday: string,
     address: string,
     phone: string,
     email: string,
-  }
+  }[]
 }
 
 export interface TableAdvcaseclientInterfaceRequest {

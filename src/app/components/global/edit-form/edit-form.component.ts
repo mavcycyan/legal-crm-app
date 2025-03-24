@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {MainService} from "../../../services/main/main.service";
@@ -35,8 +35,24 @@ export class EditFormComponent implements OnInit, OnChanges{
   filemodal: boolean = false;
   passresmodal: boolean = false;
 
+  configSelectDd = {
+    displayKey:"description",
+    search:true,
+    height: 'auto',
+    placeholder:'Обрати',
+    limitTo: 0,
+    moreText: '.',
+    noResultsFound: 'Нічого не знайдено!',
+    searchPlaceholder:'Пошук',
+    searchOnKey: 'description',
+    clearOnSelection: false,
+    inputDirection: 'ltr',
+    selectAllLabel: 'Обрати все',
+    enableSelectAll: false,
+  }
+
   constructor(private fb: FormBuilder,
-              private mainService: MainService) {
+              private mainService: MainService, private el: ElementRef) {
   }
 
   ngOnInit(): void {
@@ -69,7 +85,26 @@ export class EditFormComponent implements OnInit, OnChanges{
           this.form.setControl(item.slug, formArray);
         } else {
           let forPatching: any = {};
-          forPatching[item.slug] = this.data[item.slug];
+          if (item.type === 'select_dd_multy') {
+            console.log(this.data);
+            console.log(item.slug);
+            console.log(this.data[item.slug]);
+            if (this.data[item.slug] !== false) {
+              forPatching[item.slug] = this.data[item.slug].map((el:any) => {
+                let forRet:any = null;
+                item.choises_dd.forEach((choise:any) => {
+                  if (el == choise.id) {
+                    forRet = choise;
+                  }
+                });
+                if (forRet !== null) {
+                  return forRet;
+                }
+              });
+            }
+          } else {
+            forPatching[item.slug] = this.data[item.slug];
+          }
           this.form.patchValue(forPatching);
         }
       });
@@ -137,6 +172,7 @@ export class EditFormComponent implements OnInit, OnChanges{
   }
 
   submit():void {
+    console.log(this.form.value);
     if (this.form.status === 'VALID') {
       const valueObj: any = this.form.value;
       this.mainService.setPreloaderState(true);

@@ -78,8 +78,18 @@ export class AdvocateService {
     return this.httpClient.get<AdvocateCaseCardInterfaceRequest>(`${globals.api_url}/api/advocates_cases/${case_id}`);
   }
 
-  getClients(): Observable<ClientsListInterfaceRequest> {
-    return this.httpClient.get<ClientsListInterfaceRequest>(`${globals.api_url}/api/advocate_clients`);
+  getClients(params: {} = {}): Observable<ClientsListInterfaceRequest> {
+    let params_str: string = '';
+    if (Object.keys(params).length > 0) {
+      params_str += '?';
+      Object.keys(params).forEach((item: string, index: number) => {
+        if (index > 0) {
+          params_str += '&';
+        }
+        params_str += item+'='+Object.values(params)[index];
+      });
+    }
+    return this.httpClient.get<ClientsListInterfaceRequest>(`${globals.api_url}/api/advocate_clients${params_str}`);
   }
 
 

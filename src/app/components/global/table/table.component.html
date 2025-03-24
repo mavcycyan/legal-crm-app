@@ -82,27 +82,29 @@
   <div class="modal-wrap">
     <div class="modal-advcase">
       <div class="modal-advcase-ttl">Відомості про справу</div>
-      <div class="modal-advcase_card" *ngIf="advCaseModalList.client !== undefined">
-        <div>
-          <div class="modal-advcase_card-row">
-            <div class="modal-advcase_card-col">Ім'я клієнта</div>
-            <div class="modal-advcase_card-col">{{advCaseModalList.client.full_name}}</div>
-          </div>
-          <div class="modal-advcase_card-row">
-            <div class="modal-advcase_card-col">Звідки дізнався</div>
-            <div class="modal-advcase_card-col">{{advCaseModalList.client.where_knows}}</div>
-          </div>
-          <div class="modal-advcase_card-row">
-            <div class="modal-advcase_card-col">День народження</div>
-            <div class="modal-advcase_card-col">{{advCaseModalList.client.birthday}}</div>
-          </div>
-          <div class="modal-advcase_card-row">
-            <div class="modal-advcase_card-col">Адреса</div>
-            <div class="modal-advcase_card-col">{{advCaseModalList.client.address}}</div>
-          </div>
-          <div class="modal-advcase_card-row">
-            <div class="modal-advcase_card-col">Телефон</div>
-            <div class="modal-advcase_card-col">{{advCaseModalList.client.phone}}</div>
+      <div *ngIf="advCaseModalList.clients !== undefined" >
+        <div class="modal-advcase_card" *ngFor="let client of advCaseModalList.clients" >
+          <div>
+            <div class="modal-advcase_card-row">
+              <div class="modal-advcase_card-col">Ім'я клієнта</div>
+              <div class="modal-advcase_card-col">{{client.full_name}}</div>
+            </div>
+            <div class="modal-advcase_card-row">
+              <div class="modal-advcase_card-col">Звідки дізнався</div>
+              <div class="modal-advcase_card-col">{{client.where_knows}}</div>
+            </div>
+            <div class="modal-advcase_card-row">
+              <div class="modal-advcase_card-col">День народження</div>
+              <div class="modal-advcase_card-col">{{client.birthday}}</div>
+            </div>
+            <div class="modal-advcase_card-row">
+              <div class="modal-advcase_card-col">Адреса</div>
+              <div class="modal-advcase_card-col">{{client.address}}</div>
+            </div>
+            <div class="modal-advcase_card-row">
+              <div class="modal-advcase_card-col">Телефон</div>
+              <div class="modal-advcase_card-col">{{client.phone}}</div>
+            </div>
           </div>
         </div>
       </div>

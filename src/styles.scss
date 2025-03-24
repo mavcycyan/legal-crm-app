@@ -101,3 +101,9 @@ img {
     }
   }
 }
+
+.form-selectdd {
+  .ngx-dropdown-container .ngx-dropdown-list-container {
+    top: 100% !important;
+  }
+}

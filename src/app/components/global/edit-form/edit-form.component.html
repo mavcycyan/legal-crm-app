@@ -42,6 +42,13 @@
               {{ option.label }}
             </option>
           </select>
+          <div
+            *ngSwitchCase="'select_dd_multy'"
+            [id]="field.slug"
+            class="form-selectdd">
+            <ngx-select-dropdown [formControlName]="field.slug" [instanceId]="field.slug" [multiple]="true" [options]="field.choises_dd" [config]="configSelectDd"></ngx-select-dropdown>
+          </div>
+
           <select
             *ngSwitchCase="'select_multy'"
             [id]="field.slug"

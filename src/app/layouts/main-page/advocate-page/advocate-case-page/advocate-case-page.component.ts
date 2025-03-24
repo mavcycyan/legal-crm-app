@@ -90,11 +90,28 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
             if (this.isAdvocateCategoriesResponse(list)) {
               this.subcategories = list.data;
             } else if (this.isAdvocateCasesResponse(list)) {
-              this.cases = list.data.map((item: AdvocateCasesInterface) => ({
-                ...item,
-                client_full: `${item.client_name}, справа: ${item.proc_num}, фабула: ${item.plot}`
-              }));
-              // this.cases = list.data;
+              this.cases = list.data.map((item: AdvocateCasesInterface) => {
+                let cl_full: string = '';
+                if (item.clients_names !== null && item.clients_names !== '') {
+                  cl_full += item.clients_names;
+                }
+                if (cl_full !== '' && item.proc_num !== '' && item.proc_num !== null) {
+                  cl_full += '; ';
+                }
+                if (item.proc_num !== null && item.proc_num !== '') {
+                  cl_full += `справа: ${item.proc_num}`;
+                }
+                if (cl_full !== '' && item.plot !== '' && item.plot !== null) {
+                  cl_full += '; ';
+                }
+                if (item.plot !== null && item.plot !== '') {
+                  cl_full += `фабула: ${item.plot}`;
+                }
+                return ({
+                  ...item,
+                  client_full: cl_full
+                })
+              });
               if (list.all_items !== undefined) {
                 this.allItems = list.all_items;
               }
@@ -158,10 +175,28 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
             if (this.isAdvocateCategoriesResponse(list)) {
               this.subcategories = list.data;
             } else if (this.isAdvocateCasesResponse(list)) {
-              this.cases = list.data.map((item: AdvocateCasesInterface) => ({
-                ...item,
-                client_full: `${item.client_name}, справа: ${item.proc_num}, фабула: ${item.plot}`
-              }));
+              this.cases = list.data.map((item: AdvocateCasesInterface) => {
+                let cl_full: string = '';
+                if (item.clients_names !== null && item.clients_names !== '') {
+                  cl_full += item.clients_names;
+                }
+                if (cl_full !== '' && item.proc_num !== '' && item.proc_num !== null) {
+                  cl_full += '; ';
+                }
+                if (item.proc_num !== null && item.proc_num !== '') {
+                  cl_full += `справа: ${item.proc_num}`;
+                }
+                if (cl_full !== '' && item.plot !== '' && item.plot !== null) {
+                  cl_full += '; ';
+                }
+                if (item.plot !== null && item.plot !== '') {
+                  cl_full += `фабула: ${item.plot}`;
+                }
+                return ({
+                  ...item,
+                  client_full: cl_full
+                })
+              });
               // this.cases = list.data;
               if (list.all_items !== undefined) {
                 this.allItems = list.all_items;

@@ -14,7 +14,8 @@ export interface AdvocateCasesInterface {
   advocate_id: Number,
   advocate_name?: string,
   advocates_names?: string,
-  client_name?: string
+  client_name?: string,
+  clients_names?: string
 }
 
 export interface AdvocateCasesInterfaceRequest {

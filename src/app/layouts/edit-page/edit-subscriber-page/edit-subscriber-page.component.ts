@@ -22,7 +22,7 @@ export class EditSubscriberPageComponent implements OnInit{
   advocatesList: {label: string, value: string}[] = [];
   isEdit: boolean = false;
   fields: FormFieldsInterface[] = [
-    {slug: 'name', name: 'Назва', required: false, class: 'w-100', type: 'text'},
+    {slug: 'name', name: 'Назва', required: true, class: 'w-100', type: 'text'},
     {slug: 'responsible_person_id', name: 'Відповідальний адвокат', required: false, class: 'w-100', type: 'select', choises: []},
     {slug: 'edrpou', name: 'ЄДРПОУ', required: false, class: 'w-50', type: 'text'},
     {slug: 'contract_date', name: 'Дата укладення договору', required: false, class: 'w-50', type: 'date'},

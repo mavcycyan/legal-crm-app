@@ -8,6 +8,10 @@ export interface FormFieldsInterface {
     label: string,
     value: string
   }[],
+  choises_dd?: {
+    description: string,
+    id: string
+  }[],
   repdata?: {
     data: string,
     pending: boolean

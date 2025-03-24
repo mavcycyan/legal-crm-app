@@ -47,12 +47,36 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
       sort_field: this.sortBy
     };
     this.listSub$ = this.subscribersService.getList(params).subscribe((list: SubscribersListInterfaceRequest) => {
-      this.list = list.data.map((item: SubscribersListInterface) => ({
-        ...item,
-        director_person_full: `${item.director_person_name} (${item.director_person_phone})`,
-        contact_person_full: `${item.contact_person_name} (${item.contact_person_phone})`,
-        accountant_person_full: `${item.accountant_person_name} (${item.accountant_person_phone})`
-      }));
+      this.list = list.data.map((item: SubscribersListInterface) => {
+        let retVar = {
+          ...item,
+          director_person_full: '',
+          contact_person_full: '',
+          accountant_person_full: ''
+        };
+        if (item.director_person_name !== null && item.director_person_name !== '') {
+          retVar.director_person_full += item.director_person_name;
+        }
+        if (item.director_person_phone !== null && item.director_person_phone !== '') {
+          retVar.director_person_full += (retVar.director_person_full !== '') ? ' ' : '';
+          retVar.director_person_full += `(${item.director_person_phone})`;
+        }
+        if (item.contact_person_name !== null && item.contact_person_name !== '') {
+          retVar.contact_person_full += item.contact_person_name;
+        }
+        if (item.contact_person_phone !== null && item.contact_person_phone !== '') {
+          retVar.contact_person_full += (retVar.contact_person_full !== '') ? ' ' : '';
+          retVar.contact_person_full += `(${item.contact_person_phone})`;
+        }
+        if (item.accountant_person_name !== null && item.accountant_person_name !== '') {
+          retVar.accountant_person_full += item.accountant_person_name;
+        }
+        if (item.accountant_person_phone !== null && item.accountant_person_phone !== '') {
+          retVar.accountant_person_full += (retVar.accountant_person_full !== '') ? ' ' : '';
+          retVar.accountant_person_full += `(${item.accountant_person_phone})`;
+        }
+        return retVar;
+      });
       if (list.all_items !== undefined) {
         this.allItems = list.all_items;
       }
