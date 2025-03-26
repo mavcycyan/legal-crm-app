@@ -10,6 +10,7 @@ export interface ClientCardWorksListInterface {
   result: String,
   fee: String,
   fee_status: string,
+  workers_names?: string,
   edit_path?: String
 }
 

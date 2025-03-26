@@ -22,7 +22,7 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
     {slug: 'date', name: 'Дата початку роботи'},
     {slug: 'date_end', name: 'Дата завершення роботи'},
     {slug: 'name', name: 'Назва роботи'},
-    {slug: 'worker', name: 'Хто займався'},
+    {slug: 'workers_names', name: 'Хто займався'},
     {slug: 'fee', name: 'Гонорар', type: 'payments'}
   ];
   works: SubscribersWorksListInterface[] = [];

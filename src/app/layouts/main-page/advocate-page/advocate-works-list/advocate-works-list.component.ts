@@ -20,7 +20,7 @@ export class AdvocateWorksListComponent {
     {slug: 'date', name: 'Дата початку роботи'},
     {slug: 'date_end', name: 'Дата завершення роботи'},
     {slug: 'name', name: 'Назва роботи'},
-    {slug: 'worker', name: 'Виконавець'}
+    {slug: 'workers_names', name: 'Виконавці'}
   ];
   id: number|null = null;
 

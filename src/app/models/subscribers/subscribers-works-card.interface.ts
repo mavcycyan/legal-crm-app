@@ -9,6 +9,7 @@ export interface SubscribersWorksCardInterface {
   responsible_advocate?: Number
   result: String,
   fee: String,
+  workers_names?: string,
   edit_path?: String
 }
 

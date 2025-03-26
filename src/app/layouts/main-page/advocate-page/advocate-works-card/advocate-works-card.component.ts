@@ -22,7 +22,7 @@ export class AdvocateWorksCardComponent {
     {slug: 'date', name: 'Дата початку роботи'},
     {slug: 'date_end', name: 'Дата завершення роботи'},
     {slug: 'name', name: 'Назва роботи'},
-    {slug: 'worker', name: 'Виконавець'},
+    {slug: 'workers_names', name: 'Виконавець'},
     {slug: 'what_done', name: 'Що зроблено'},
     {slug: 'result', name: 'Результат', type: 'result'},
     {slug: 'files', name: 'Прикріплені файли', type: 'files'}

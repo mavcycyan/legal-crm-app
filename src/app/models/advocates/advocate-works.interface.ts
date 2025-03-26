@@ -8,6 +8,7 @@ export interface AdvocateWorksInterface {
     pending: Boolean
   }[],
   result: String,
+  workers_names?: string,
   edit_path?: String
 }
 

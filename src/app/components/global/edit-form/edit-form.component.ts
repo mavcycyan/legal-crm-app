@@ -86,10 +86,7 @@ export class EditFormComponent implements OnInit, OnChanges{
         } else {
           let forPatching: any = {};
           if (item.type === 'select_dd_multy') {
-            console.log(this.data);
-            console.log(item.slug);
-            console.log(this.data[item.slug]);
-            if (this.data[item.slug] !== false) {
+            if (this.data[item.slug] !== false && Array.isArray(this.data[item.slug])) {
               forPatching[item.slug] = this.data[item.slug].map((el:any) => {
                 let forRet:any = null;
                 item.choises_dd.forEach((choise:any) => {

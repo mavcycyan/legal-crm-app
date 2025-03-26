@@ -8,6 +8,7 @@ export interface SubscribersWorksListInterface {
   }[],
   responsible_advocate?: Number
   result: String,
+  workers_names?: string,
   fee: string
 }
 

@@ -22,6 +22,7 @@ export class EditSubscriberWorkPageComponent implements OnInit{
   form: FormGroup = {} as FormGroup;
   data: SubscribersWorksCardInterface = {} as SubscribersWorksCardInterface;
   subscribersList: {label: string, value: string}[] = [];
+  advocatesList: {description: string, id: string}[] = [];
   isEdit: boolean = false;
   fields: FormFieldsInterface[] = [
     {slug: 'subscriber_id', name: 'Абонент', required: true, class: 'w-100', type: 'select', choises: []},
@@ -29,7 +30,7 @@ export class EditSubscriberWorkPageComponent implements OnInit{
     {slug: 'date_end', name: 'Дата завершення роботи', required: false, class: 'w-50', type: 'date'},
     {slug: 'name', name: 'Назва роботи', required: true, class: 'w-50', type: 'text'},
     {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
-    {slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'text'},
+    {slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'select_dd_multy', choises_dd: []},
     {slug: 'fee', name: 'Гонорар', required: false, class: 'w-50', type: 'number'},
     {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'number'},
     {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
@@ -53,6 +54,15 @@ export class EditSubscriberWorkPageComponent implements OnInit{
           label: subscriber.name.toString(),
           value: subscriber.id.toString()
         }));
+        return this.subscribersService.getAdvocates();
+      }),
+      switchMap((advocatesResponse) => {
+        const advocates = advocatesResponse.data;
+
+        this.advocatesList = advocates.map(advocate => ({
+          description: advocate.name.toString(),
+          id: advocate.id.toString()
+        }));
         return this.route.params;
       }),
       switchMap((params: Params) => {
@@ -64,7 +74,7 @@ export class EditSubscriberWorkPageComponent implements OnInit{
             {slug: 'date_end', name: 'Дата завершення роботи', required: false, class: 'w-50', type: 'date'},
             {slug: 'name', name: 'Назва роботи', required: true, class: 'w-50', type: 'text'},
             {slug: 'result', name: 'Результат', required: false, class: 'w-50', type: 'select_status'},
-            {slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'text'},
+            { slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'select_dd_multy', choises_dd: this.advocatesList },
             {slug: 'payments_edit', name: 'Виплати', required: false, class: 'w-50', type: 'paymodal'},
             { slug: 'files_upload', name: 'Прикріплені файли', required: true, class: 'w-50', type: 'filemodal' },
             {slug: 'what_done', name: 'Що зроблено', required: false, class: 'w-100', type: 'what_done'},
@@ -75,6 +85,10 @@ export class EditSubscriberWorkPageComponent implements OnInit{
         const subscriberField = this.fields.find(field => field.slug === 'subscriber_id')
         if (subscriberField) {
           subscriberField.choises = this.subscribersList;
+        }
+        const advocateField = this.fields.find(field => field.slug === 'worker');
+        if (advocateField) {
+          advocateField.choises_dd = this.advocatesList;
         }
         this.mainService.setPreloaderState(false);
         return new Observable();

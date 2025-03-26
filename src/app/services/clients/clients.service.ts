@@ -8,6 +8,7 @@ import {ClientWorksListInterfaceRequest} from "../../models/clients/client-works
 import {ClientsListInterfaceRequest} from "../../models/clients/clients-list.interface";
 import {globals} from "../../../globals/globals";
 import {Router} from "@angular/router";
+import {AdvocatesListInterfaceRequest} from "../../models/advocates/advocates-list.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,10 @@ export class ClientsService {
   }
   getOne(id: number): Observable<ClientsCardInterfaceRequest> {
     return this.httpClient.get<ClientsCardInterfaceRequest>(`${globals.api_url}/api/clients/${id}`);
+  }
+
+  getAdvocates(): Observable<AdvocatesListInterfaceRequest> {
+    return this.httpClient.get<AdvocatesListInterfaceRequest>(`${globals.api_url}/api/lawyer_advocates`);
   }
 
   save(data: any): Observable<any> {

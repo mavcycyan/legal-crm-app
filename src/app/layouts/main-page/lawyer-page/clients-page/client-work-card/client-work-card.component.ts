@@ -21,7 +21,7 @@ export class ClientWorkCardComponent {
     {slug: 'visit_date', name: 'Дата звернення'},
     {slug: 'visit_date_end', name: 'Дата завершення'},
     {slug: 'visit_purpose', name: 'Причина звернення'},
-    {slug: 'worker', name: 'Хто займався'},
+    {slug: 'workers_names', name: 'Хто займався'},
     {slug: 'what_done', name: 'Що зроблено'},
     {slug: 'result', name: 'Результат', type: 'result'},
     {slug: 'fee', name: 'Гонорар'},
