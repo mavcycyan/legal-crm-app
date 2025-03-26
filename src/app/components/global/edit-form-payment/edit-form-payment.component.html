@@ -32,6 +32,14 @@
               <label class="form-label">Гонорар</label>
               <input type="number" formControlName="price" class="form-control" placeholder="сума" style="margin-bottom: 15px">
             </div>
+            <div>
+              <label class="form-label">Валюта</label>
+              <select formControlName="price_cur" class="form-control">
+                <option value="uah" selected>UAH</option>
+                <option value="eur">EUR</option>
+                <option value="usd">USD</option>
+              </select>
+            </div>
             <div *ngIf="type === 'modified'">
               <label class="form-label" *ngIf="type === 'modified'">Назва гонорара</label>
               <input type="text" formControlName="name" class="form-control" *ngIf="type === 'modified'">

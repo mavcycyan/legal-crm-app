@@ -51,6 +51,7 @@ export class EditFormPaymentComponent implements OnInit{
             let controls: {
               id: any,
               price: any,
+              price_cur: any,
               date: any,
               date_end: any,
               status: any,
@@ -60,6 +61,7 @@ export class EditFormPaymentComponent implements OnInit{
             } = {
               id: [price.id, Validators.required],
               price: [price.price, [Validators.required]],
+              price_cur: [price.price_cur, [Validators.required]],
               date: [price.date],
               date_end: [price.date_end],
               status: [price.status],
@@ -102,6 +104,7 @@ export class EditFormPaymentComponent implements OnInit{
             let controls: {
               id: any,
                 price: any,
+                price_cur: any,
                 date: any,
                 date_end: any,
                 status: any,
@@ -111,6 +114,7 @@ export class EditFormPaymentComponent implements OnInit{
             } = {
               id: [price.id, Validators.required],
               price: [price.price, [Validators.required]],
+              price_cur: [price.price_cur, [Validators.required]],
               date: [price.date],
               date_end: [price.date_end],
               status: [price.status],
@@ -141,6 +145,7 @@ export class EditFormPaymentComponent implements OnInit{
     let controls: {
       id: any,
       price: any,
+      price_cur: any,
       date: any,
       date_end: any,
       name?: any,
@@ -150,6 +155,7 @@ export class EditFormPaymentComponent implements OnInit{
     } = {
       id: [null],
       price: [null, [Validators.required, Validators.min(1)]],
+      price_cur: ['uah', [Validators.required, Validators.min(1)]],
       date: [null],
       date_end: [null],
       status: [''],
@@ -164,6 +170,7 @@ export class EditFormPaymentComponent implements OnInit{
       date: '',
       date_end: '',
       price: '',
+      price_cur: '',
       status: '',
       client_work_id: 0
     }
