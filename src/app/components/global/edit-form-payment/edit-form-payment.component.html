@@ -40,12 +40,12 @@
                 <option value="usd">USD</option>
               </select>
             </div>
-            <div *ngIf="type === 'modified'">
-              <label class="form-label" *ngIf="type === 'modified'">Назва гонорара</label>
-              <input type="text" formControlName="name" class="form-control" *ngIf="type === 'modified'">
+            <div>
+              <label class="form-label">Назва гонорара</label>
+              <input type="text" formControlName="name" class="form-control">
             </div>
           </div>
-          <div *ngIf="type === 'modified'" class="edit-form-payment-deadlines">
+          <div class="edit-form-payment-deadlines">
             <div class="edit-form-payment-deadlines-ttl">Терміни виплат</div>
             <div *ngIf="getDeadlines(i).controls && getDeadlines(i).controls.length > 0" class="edit-form-payment-deadlines-list" formArrayName="deadlines">
               <div class="edit-form-payment-deadlines-list-row">
@@ -69,13 +69,13 @@
             </div>
           </div>
           <div *ngIf="getPayments(i).controls && getPayments(i).controls.length > 0" class="edit-form-payment-sub" formArrayName="payments">
-            <div [ngClass]="{'edit-form-payment-sub-row': true, 'edit-form-payment-sub-row-3col': (type === 'modified')}">
-              <div *ngIf="type === 'modified'" class="edit-form-payment-sub-bl">Сума платежу у валюті</div>
+            <div [ngClass]="{'edit-form-payment-sub-row': true, 'edit-form-payment-sub-row-3col': true}">
+              <div class="edit-form-payment-sub-bl">Сума платежу у валюті</div>
               <div class="edit-form-payment-sub-bl">Сума платежу</div>
               <div class="edit-form-payment-sub-bl">Дата платежу</div>
             </div>
-            <div *ngFor="let pay of getPayments(i).controls; let j = index;" [ngClass]="{'edit-form-payment-sub-row': true, 'edit-form-payment-sub-row-3col': (type === 'modified')}" [formGroupName]="j">
-              <div *ngIf="type === 'modified'" class="edit-form-payment-sub-bl">
+            <div *ngFor="let pay of getPayments(i).controls; let j = index;" [ngClass]="{'edit-form-payment-sub-row': true, 'edit-form-payment-sub-row-3col': true}" [formGroupName]="j">
+              <div class="edit-form-payment-sub-bl">
                 <div class="form-control-am_cur">
                   <input type="number" formControlName="amount_currency" class="form-control" (input)="inputAmountCur(i, j, $event)">
                   <select formControlName="amount_currency_val" (change)="changeAmountCur(i, j, $event)">
@@ -90,8 +90,7 @@
                 <input type="number" formControlName="amount" class="form-control">
               </div>
               <div class="edit-form-payment-sub-bl">
-                <input *ngIf="type !== 'modified'" type="date" formControlName="date" class="form-control">
-                <input *ngIf="type === 'modified'" type="datetime-local" formControlName="date" class="form-control">
+                <input type="datetime-local" formControlName="date" class="form-control">
               </div>
               <div class="edit-form-payment-sub-row-del">
                 <button type="button" (click)="removePayment(i, j)">&times;</button>

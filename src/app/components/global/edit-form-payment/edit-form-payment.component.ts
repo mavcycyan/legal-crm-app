@@ -35,17 +35,15 @@ export class EditFormPaymentComponent implements OnInit{
 
         let prices = this.fb.array(this.priceList.map((price: PaymentFormInterface) => {
           let dlArray: any = this.fb.array([]);
-          if (this.type === 'modified') {
-            if (price.deadlines && price.deadlines.length > 0) {
-              dlArray = this.fb.array(
-                price.deadlines.map((obj: any) =>
-                  this.fb.group({
-                    date: [obj.date || ''],
-                    fee: [obj.fee || '']
-                  })
-                )
-              );
-            }
+          if (price.deadlines && price.deadlines.length > 0) {
+            dlArray = this.fb.array(
+              price.deadlines.map((obj: any) =>
+                this.fb.group({
+                  date: [obj.date || ''],
+                  fee: [obj.fee || '']
+                })
+              )
+            );
           }
           if (price.payments && price.payments.length > 0) {
             let controls: {
@@ -65,6 +63,8 @@ export class EditFormPaymentComponent implements OnInit{
               date: [price.date],
               date_end: [price.date_end],
               status: [price.status],
+              name: [price.name],
+              deadlines: dlArray,
               payments: this.fb.array(price.payments.map((payment: PaymentFormPayInterface) => {
                 let controls: {
                   id: any,
@@ -77,28 +77,22 @@ export class EditFormPaymentComponent implements OnInit{
                   amount: [payment.amount, [Validators.required]],
                   date: [payment.date]
                 };
-                if (this.type === 'modified') {
-                  const amount_currency: {value: string, disabled: boolean} = {value: '', disabled: false};
-                  let amount_currency_val: string = '';
-                  if (payment.amount_currency !== undefined && payment.amount_currency !== '') {
-                    if (payment.amount_currency !== '' && payment.amount_currency !== null) {
-                      const vals = payment.amount_currency.split(' ');
-                      amount_currency.value = vals[0];
-                      amount_currency.disabled = false;
-                      amount_currency_val = (vals.length > 1) ? vals[1] : '';
-                      controls.amount = [{value: payment.amount, disabled: false}, [Validators.required]];
-                    }
+                const amount_currency: {value: string, disabled: boolean} = {value: '', disabled: false};
+                let amount_currency_val: string = '';
+                if (payment.amount_currency !== undefined && payment.amount_currency !== '') {
+                  if (payment.amount_currency !== '' && payment.amount_currency !== null) {
+                    const vals = payment.amount_currency.split(' ');
+                    amount_currency.value = vals[0];
+                    amount_currency.disabled = false;
+                    amount_currency_val = (vals.length > 1) ? vals[1] : '';
+                    controls.amount = [{value: payment.amount, disabled: false}, [Validators.required]];
                   }
-                  controls.amount_currency = [amount_currency];
-                  controls.amount_currency_val = [amount_currency_val];
                 }
+                controls.amount_currency = [amount_currency];
+                controls.amount_currency_val = [amount_currency_val];
                 return this.fb.group(controls)
               }))
             };
-            if (this.type === 'modified') {
-              controls.name = [price.name];
-              controls.deadlines = dlArray;
-            }
             return this.fb.group(controls)
           } else {
             let controls: {
@@ -118,12 +112,10 @@ export class EditFormPaymentComponent implements OnInit{
               date: [price.date],
               date_end: [price.date_end],
               status: [price.status],
+              name: [price.name],
+              deadlines: dlArray,
               payments: this.fb.array([])
             };
-            if (this.type === 'modified') {
-              controls.name = [price.name];
-              controls.deadlines = dlArray;
-            }
             return this.fb.group(controls)
           }
         }))
@@ -159,23 +151,19 @@ export class EditFormPaymentComponent implements OnInit{
       date: [null],
       date_end: [null],
       status: [''],
+      name: [null],
+      deadlines: this.fb.array([]),
       payments: this.fb.array([])
     };
-    if (this.type === 'modified') {
-      controls.name = [null];
-      controls.deadlines = this.fb.array([]);
-    }
     this.prices.push(this.fb.group(controls));
     let prListItem: PaymentFormInterface = {
       date: '',
       date_end: '',
       price: '',
       price_cur: '',
+      name: '',
       status: '',
       client_work_id: 0
-    }
-    if (this.type === 'modified') {
-      prListItem.name = '';
     }
     if (this.id !== null) {
       prListItem.client_work_id = this.id;
@@ -188,12 +176,12 @@ export class EditFormPaymentComponent implements OnInit{
     this.prices.removeAt(index);
     this.priceList = this.priceList.filter(function (letter, i) {
       return i !== index;
-    });;
+    });
     console.log(this.priceList);
   }
 
   addPayment(priceIndex: number) {
-    const date = (this.type === 'modified') ? new Date().toISOString().slice(0, 16) : new Date().toISOString().split('T')[0];
+    const date = new Date().toISOString().slice(0, 16);
     let controls: {
       id: any,
       amount: any,
@@ -203,12 +191,10 @@ export class EditFormPaymentComponent implements OnInit{
     } = {
       id: [null],
       amount: [null, [Validators.required, Validators.min(1)]],
+      amount_currency: [null],
+      amount_currency_val: [null],
       date: [date]
     };
-    if (this.type === 'modified') {
-      controls.amount_currency = [null];
-      controls.amount_currency_val = [null];
-    }
     this.getPayments(priceIndex).push(this.fb.group(controls));
   }
 
