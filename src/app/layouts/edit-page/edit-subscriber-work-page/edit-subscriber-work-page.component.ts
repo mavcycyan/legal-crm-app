@@ -54,7 +54,7 @@ export class EditSubscriberWorkPageComponent implements OnInit{
           label: subscriber.name.toString(),
           value: subscriber.id.toString()
         }));
-        return this.subscribersService.getAdvocates();
+        return this.subscribersService.getWorkers();
       }),
       switchMap((advocatesResponse) => {
         const advocates = advocatesResponse.data;

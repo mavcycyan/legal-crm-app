@@ -52,6 +52,10 @@ export class ClientsService {
     return this.httpClient.get<AdvocatesListInterfaceRequest>(`${globals.api_url}/api/lawyer_advocates`);
   }
 
+  getWorkers(): Observable<AdvocatesListInterfaceRequest> {
+    return this.httpClient.get<AdvocatesListInterfaceRequest>(`${globals.api_url}/api/lawyer_workers`);
+  }
+
   save(data: any): Observable<any> {
     return this.httpClient.post(`${globals.api_url}/api/clients`, data);
   }

@@ -54,6 +54,10 @@ export class SubscribersService {
     return this.httpClient.get<AdvocatesListInterfaceRequest>(`${globals.api_url}/api/lawyer_advocates`);
   }
 
+  getWorkers(): Observable<AdvocatesListInterfaceRequest> {
+    return this.httpClient.get<AdvocatesListInterfaceRequest>(`${globals.api_url}/api/lawyer_workers`);
+  }
+
   redirectSuccess(id: number|null = null) {
     this.router.navigate(['/', 'edit', 'lawyer', 'subscribers', id]);
   }

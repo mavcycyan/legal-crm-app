@@ -55,7 +55,7 @@ export class EditClientWorkPageComponent implements OnInit{
             label: client.full_name.toString(),
             value: client.id.toString()
         }));
-        return this.clientService.getAdvocates();
+        return this.clientService.getWorkers();
       }),
       switchMap((advocatesResponse) => {
         const advocates = advocatesResponse.data;
