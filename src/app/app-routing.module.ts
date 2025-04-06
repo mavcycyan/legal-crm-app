@@ -64,6 +64,9 @@ import {
   AdvocateClientCardComponent
 } from "./layouts/main-page/advocate-page/advocate-clients/advocate-client-card/advocate-client-card.component";
 import {EditLawyerAdvcaseComponent} from "./layouts/edit-page/edit-lawyer-advcase/edit-lawyer-advcase.component";
+import {ClientsArchiveComponent} from "./layouts/archive/clients-archive/clients-archive.component";
+import {SubscribersArchiveComponent} from "./layouts/archive/subscribers-archive/subscribers-archive.component";
+import {AdvocateCasesArchiveComponent} from "./layouts/archive/advocate-cases-archive/advocate-cases-archive.component";
 
 const routes: Routes = [
   {
@@ -118,6 +121,13 @@ const routes: Routes = [
 
           {path: 'user', component: EditUserPageComponent, canActivate: [PermissionsGuard]},
           {path: 'user/:id', component: EditUserPageComponent, canActivate: [PermissionsGuard]},
+        ]
+      },
+      {
+        path: 'archive', canActivate: [AuthGuard], children: [
+          {path: 'clients', component: ClientsArchiveComponent, canActivate: [PermissionsGuard]},
+          {path: 'subscribers', component: SubscribersArchiveComponent, canActivate: [PermissionsGuard]},
+          {path: 'advocate_cases', component: AdvocateCasesArchiveComponent, canActivate: [PermissionsGuard]},
         ]
       },
     ]

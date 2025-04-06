@@ -146,8 +146,10 @@
         </ng-container>
       </div>
       <div class="edit-form-col w-100">
-        <button type="submit" class="btn btn-primary">{{(isEdit) ? 'Зберегти' : 'Створити'}}</button>
-        <button *ngIf="isEdit" type="button" class="btn btn-danger" (click)="delete()">Видалити</button>
+        <button *ngIf="!isInactive" type="submit" class="btn btn-primary">{{(isEdit) ? 'Зберегти' : 'Створити'}}</button>
+        <button *ngIf="isEdit && !isInactive" type="button" class="btn btn-danger" (click)="deactivate()">В архів</button>
+        <button *ngIf="isInactive" type="button" class="btn btn-primary" (click)="activate()">Відновити</button>
+        <button *ngIf="isInactive" type="button" class="btn btn-danger" (click)="delete()">Видалити</button>
       </div>
     </div>
   </form>

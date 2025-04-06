@@ -21,6 +21,7 @@ export class EditSubscriberPageComponent implements OnInit{
   data: SubscribersCardInterface = {} as SubscribersCardInterface;
   advocatesList: {label: string, value: string}[] = [];
   isEdit: boolean = false;
+  isInactive: boolean = false;
   fields: FormFieldsInterface[] = [
     {slug: 'name', name: 'Назва', required: true, class: 'w-100', type: 'text'},
     {slug: 'responsible_person_id', name: 'Відповідальний адвокат', required: false, class: 'w-100', type: 'select', choises: []},
@@ -90,6 +91,9 @@ export class EditSubscriberPageComponent implements OnInit{
       (subscriber: any) => {
         this.data = subscriber.data;
         this.isEdit = true;
+        if (subscriber.data.inactive === 1) {
+          this.isInactive = true;
+        }
         this.mainService.setPreloaderState(false);
       },
       (error) => {

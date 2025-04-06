@@ -38,6 +38,14 @@ export class UserService {
     return this.httpClient.put(`${globals.api_url}/api/users/${id}`, data);
   }
 
+  activate(id: number): Observable<any> {
+    return this.httpClient.put(`${globals.api_url}/api/users/activity/${id}`, {inactive: 0});
+  }
+
+  deactivate(id: number): Observable<any> {
+    return this.httpClient.put(`${globals.api_url}/api/users/activity/${id}`, {inactive: 1});
+  }
+
   remove(id: number): Observable<any> {
     return this.httpClient.delete(`${globals.api_url}/api/users/${id}`);
   }

@@ -1,0 +1,6 @@
+<div class="main-page-wrap-in">
+  <app-table [data]="cases" [columns]="tblColumns" [tableClass]="'advcase-works-list'" [tablePaymentService]="advocateCasePaymentsService" [advCaseService]="advocateCaseTblService"></app-table>
+  <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
+
+  <app-filter (updatePage)="getList($event)" [sort]="sortVars" [filter]="filterVars"></app-filter>
+</div>

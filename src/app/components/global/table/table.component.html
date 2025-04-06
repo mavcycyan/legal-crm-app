@@ -10,7 +10,8 @@
       'done' : (item.result !== undefined && item.result === 'done'),
       'pending' : ((item.result !== undefined && item.result === 'pending') || (item.pending_works !== undefined && item.pending_works > 0)),
       'canceled' : (item.result !== undefined && item.result === 'canceled'),
-      'paused' : (item.result !== undefined && item.result === 'paused')
+      'paused' : (item.result !== undefined && item.result === 'paused'),
+      'inactive' : (item.inactive !== undefined && item.inactive === 1)
     }" *ngFor="let item of data; index as i">
       <div class="tablecom-tbl-col num">{{(i + 1)}}</div>
       <div [class]="['tablecom-tbl-col', col.slug]" *ngFor="let col of columns">

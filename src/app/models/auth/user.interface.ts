@@ -8,7 +8,8 @@ export interface UserInterface {
   phone: string,
   role_id: number,
   certificate_num?: string,
-  certificate_place?: string
+  certificate_place?: string,
+  inactive?: number
 }
 
 export interface UserInterfaceRequest {

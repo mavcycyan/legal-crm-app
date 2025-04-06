@@ -17,6 +17,7 @@ export class EditClientPageComponent implements OnInit{
   form: FormGroup = {} as FormGroup;
   data: ClientsCardInterface = {} as ClientsCardInterface;
   isEdit: boolean = false;
+  isInactive: boolean = false;
   fields: FormFieldsInterface[] = [
     {slug: 'full_name', name: 'П.І.Б.', required: true, class: 'w-100', type: 'text'},
     {slug: 'address', name: 'Адреса', required: false, class: 'w-100', type: 'text'},
@@ -40,6 +41,9 @@ export class EditClientPageComponent implements OnInit{
             this.clientService.getOne(params['id']).subscribe((client: ClientsCardInterfaceRequest) => {
               this.data = client.data;
               this.isEdit = true;
+              if (client.data.inactive === 1) {
+                this.isInactive = true;
+              }
               this.mainService.setPreloaderState(false);
 
             });

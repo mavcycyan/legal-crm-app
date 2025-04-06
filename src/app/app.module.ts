@@ -56,6 +56,9 @@ import { AdvocateClientCardComponent } from './layouts/main-page/advocate-page/a
 import { EditLawyerAdvcaseComponent } from './layouts/edit-page/edit-lawyer-advcase/edit-lawyer-advcase.component';
 import { AdvocateSubcategoriesComponent } from './layouts/main-page/advocate-page/advocate-subcategories/advocate-subcategories.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { ClientsArchiveComponent } from './layouts/archive/clients-archive/clients-archive.component';
+import { SubscribersArchiveComponent } from './layouts/archive/subscribers-archive/subscribers-archive.component';
+import { AdvocateCasesArchiveComponent } from './layouts/archive/advocate-cases-archive/advocate-cases-archive.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +110,10 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
     EditAdvocateClientComponent,
     AdvocateClientCardComponent,
     EditLawyerAdvcaseComponent,
-    AdvocateSubcategoriesComponent
+    AdvocateSubcategoriesComponent,
+    ClientsArchiveComponent,
+    SubscribersArchiveComponent,
+    AdvocateCasesArchiveComponent
   ],
   imports: [
     BrowserModule,

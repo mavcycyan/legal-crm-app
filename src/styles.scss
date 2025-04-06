@@ -107,3 +107,19 @@ img {
     top: 100% !important;
   }
 }
+
+h1, .h1 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.ttl_inactive {
+  font-weight: 400;
+  font-size: 16px;
+  padding: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 4px;
+  background: #ffc3c3;
+  color: #f00;
+}

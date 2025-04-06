@@ -17,6 +17,9 @@
         <a *ngIf="userType === '1' || userType === '2' || userType === '3'" [routerLink]="['lawyer', 'subscribers']" (click)="mobMenuAction(!mobMenuState)">Абоненти</a>
         <a *ngIf="userType === '1' || userType === '2'" [routerLink]="['advocate']" (click)="mobMenuAction(!mobMenuState)">Адвокат</a>
         <a *ngIf="userType === '4'" [routerLink]="['advocate', 'personal']" (click)="mobMenuAction(!mobMenuState)">Справи</a>
+        <a *ngIf="userType === '1' || userType === '2'" [routerLink]="['archive', 'clients']" (click)="mobMenuAction(!mobMenuState)">Архів клієнтів</a>
+        <a *ngIf="userType === '1' || userType === '2'" [routerLink]="['archive', 'subscribers']" (click)="mobMenuAction(!mobMenuState)">Архів абонентів</a>
+        <a *ngIf="userType === '1' || userType === '2'" [routerLink]="['archive', 'advocate_cases']" (click)="mobMenuAction(!mobMenuState)">Архів справ адвокатів</a>
         <button type="button" (click)="logout()">Вийти з системи</button>
       </div>
     </div>

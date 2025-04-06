@@ -17,6 +17,7 @@ export class EditUserPageComponent {
   form: FormGroup = {} as FormGroup;
   data: UserInterface = {} as UserInterface;
   isEdit: boolean = false;
+  isInactive: boolean = false;
   fields: FormFieldsInterface[] = [
     {slug: 'name', name: 'Ім\'я', required: true, class: 'w-50', type: 'text'},
     {slug: 'email', name: 'Email', required: true, class: 'w-50', type: 'text'},
@@ -47,6 +48,9 @@ export class EditUserPageComponent {
             this.userService.getOne(params['id']).subscribe((user: UserInterfaceRequest) => {
               this.data = user.data;
               this.isEdit = true;
+              if (user.data.inactive === 1) {
+                this.isInactive = true;
+              }
               this.fields = [
                 {slug: 'name', name: 'Ім\'я', required: true, class: 'w-50', type: 'text'},
                 {slug: 'email', name: 'Email', required: true, class: 'w-50', type: 'text'},

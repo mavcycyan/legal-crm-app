@@ -30,6 +30,7 @@ export class EditAdvocateCaseComponent {
   advocateCatsList: {label: string, value: string}[] = [];
   clientsList: {id: string, description: string}[] = [];
   isEdit: boolean = false;
+  isInactive: boolean = false;
   fields: FormFieldsInterface[] = [
     {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'select', choises: []},
     {slug: 'advocate_category_id', name: 'Категорія', required: true, class: 'w-50', type: 'select', choises: []},
@@ -129,6 +130,9 @@ export class EditAdvocateCaseComponent {
       (caseItem: any) => {
         this.data = caseItem.data;
         this.isEdit = true;
+        if (caseItem.data.inactive === 1) {
+          this.isInactive = true;
+        }
         this.mainService.setPreloaderState(false);
       },
       (error) => {

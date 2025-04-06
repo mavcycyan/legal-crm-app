@@ -47,6 +47,19 @@
         background: #96c5fa;
       }
     }
+    &.inactive {
+      color: #a2a2a2;
+      .tablecom-tbl-col {
+        &.more {
+          border-color: #a2a2a2;
+          svg {
+            path {
+              fill: #a2a2a2;
+            }
+          }
+        }
+      }
+    }
     &.head {
       .tablecom-tbl-col {
         background: $color_main;
