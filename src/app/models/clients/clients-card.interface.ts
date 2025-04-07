@@ -9,6 +9,7 @@ export interface ClientsCardInterface{
   phone: String,
   email: String,
   worker?: string,
+  review?: string,
   client_works?: ClientWorksCardInterface[],
   inactive?: number
 }

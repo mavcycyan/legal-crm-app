@@ -18,7 +18,8 @@ export class ClientsCardPageComponent implements OnInit, OnDestroy{
     {slug: 'where_knows', name: 'Звідки дізнались'},
     {slug: 'birthday', name: 'Рік народження'},
     {slug: 'address', name: 'Адреса'},
-    {slug: 'phone', name: 'Телефон'}
+    {slug: 'phone', name: 'Телефон'},
+    {slug: 'review', name: 'Відгук'}
   ];
   id: number|null = null;
   isLoading: boolean = true;

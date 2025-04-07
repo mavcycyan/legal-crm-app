@@ -25,6 +25,7 @@ export class EditClientPageComponent implements OnInit{
     {slug: 'where_knows', name: 'Звідки дізналися', required: false, class: 'w-50', type: 'text'},
     {slug: 'birthday', name: 'Дата народження', required: false, class: 'w-50', type: 'date'},
     {slug: 'worker', name: 'Хто займався', required: false, class: 'w-50', type: 'text'},
+    {slug: 'review', name: 'Відгук', required: false, class: 'w-100', type: 'textarea'},
   ];
 
   constructor(private route: ActivatedRoute,
