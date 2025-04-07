@@ -44,7 +44,8 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
     let params = {
       pag_size: this.pageSize,
       sort_dir: this.sortDirection,
-      sort_field: this.sortBy
+      sort_field: this.sortBy,
+      with_pending: '1'
     };
     this.listSub$ = this.subscribersService.getList(params).subscribe((list: SubscribersListInterfaceRequest) => {
       this.list = list.data.map((item: SubscribersListInterface) => {
@@ -98,7 +99,8 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
       pag_size: this.pageSize,
       pag_offset: this.pageOffset,
       sort_dir: this.sortDirection,
-      sort_field: this.sortBy
+      sort_field: this.sortBy,
+      with_pending: '1'
     };
     this.listSub$ = this.subscribersService.getList(params).subscribe((list: SubscribersListInterfaceRequest) => {
       this.list = list.data;

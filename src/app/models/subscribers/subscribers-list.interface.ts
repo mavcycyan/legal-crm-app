@@ -17,7 +17,8 @@ export interface SubscribersListInterface {
   actual_address: String,
   last_pay_date: String,
   fee: Number,
-  info: String
+  info: String,
+  pending_works?: number
 }
 
 export interface SubscribersListInterfaceRequest {

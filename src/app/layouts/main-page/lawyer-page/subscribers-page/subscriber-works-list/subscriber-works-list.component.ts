@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {combineLatest, Subscription} from "rxjs";
 import {ActivatedRoute, Params} from "@angular/router";
 import {MainService} from "../../../../../services/main/main.service";
 import {
@@ -57,15 +57,27 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.mainService.setPreloaderState(true);
-    this.subClient$ = this.route.params
-      .subscribe(
-        (params: Params) => {
+    this.subClient$ = combineLatest([
+      this.route.params,
+      this.route.queryParams
+    ]).subscribe(
+        ([params, queryParams]: Params[]) => {
           this.id = params['id'];
           let params_client = {
             pag_size: this.pageSize,
             sort_dir: this.sortDirection,
             sort_field: this.sortBy
           };
+          if (Object.keys(queryParams).length > 0) {
+            Object.keys(queryParams).forEach((item: string, index: number) => {
+              if (this.filter === '' && item.indexOf('filt_') !== -1) {
+                let obj: Record<string, string> = {};
+                obj[item] = Object.values(queryParams)[index];
+                params_client = {...params_client, ...obj};
+                this.filter = obj[item];
+              }
+            });
+          }
           this.subscriberWorksService.getList(params['id'], params_client).subscribe((list: SubscribersWorksListInterfaceRequest) => {
             this.works = list.data.map((item: SubscribersWorksListInterface) => ({
               ...item,
