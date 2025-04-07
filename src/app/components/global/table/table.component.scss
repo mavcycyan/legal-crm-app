@@ -535,3 +535,14 @@
     }
   }
 }
+
+.scroll-clone {
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 16px;
+  background: #eee;
+}
+.scroll-inner {
+  width: max-content;
+  height: 16px;
+}

@@ -1,4 +1,7 @@
-<div *ngIf="data.length > 0" [class]="['tablecom-tbl', tableClass]">
+<div class="scroll-clone" #scrollClone (scroll)="syncScroll('clone')">
+  <div class="scroll-inner" #scrollInner></div>
+</div>
+<div *ngIf="data.length > 0" [class]="['tablecom-tbl', tableClass]" #scrollContent (scroll)="syncScroll('content')">
   <div class="tablecom-tbl-body">
     <div class="tablecom-tbl-row head">
       <div class="tablecom-tbl-col num">№</div>
