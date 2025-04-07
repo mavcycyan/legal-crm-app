@@ -54,6 +54,7 @@ export class EditFormPaymentComponent implements OnInit{
               date_end: any,
               status: any,
               name?: any,
+              info?: any,
               deadlines?: any,
               payments: any
             } = {
@@ -64,6 +65,7 @@ export class EditFormPaymentComponent implements OnInit{
               date_end: [price.date_end],
               status: [price.status],
               name: [price.name],
+              info: [price.info],
               deadlines: dlArray,
               payments: this.fb.array(price.payments.map((payment: PaymentFormPayInterface) => {
                 let controls: {
@@ -103,6 +105,7 @@ export class EditFormPaymentComponent implements OnInit{
                 date_end: any,
                 status: any,
                 name?: any,
+                info?: any,
                 deadlines?: any,
                 payments: any
             } = {
@@ -113,6 +116,7 @@ export class EditFormPaymentComponent implements OnInit{
               date_end: [price.date_end],
               status: [price.status],
               name: [price.name],
+              info: [price.info],
               deadlines: dlArray,
               payments: this.fb.array([])
             };
@@ -141,6 +145,7 @@ export class EditFormPaymentComponent implements OnInit{
       date: any,
       date_end: any,
       name?: any,
+      info?: any,
       deadlines?: any,
       status?: any,
       payments: any
@@ -152,6 +157,7 @@ export class EditFormPaymentComponent implements OnInit{
       date_end: [null],
       status: [''],
       name: [null],
+      info: [null],
       deadlines: this.fb.array([]),
       payments: this.fb.array([])
     };
@@ -162,6 +168,7 @@ export class EditFormPaymentComponent implements OnInit{
       price: '',
       price_cur: '',
       name: '',
+      info: '',
       status: '',
       client_work_id: 0
     }

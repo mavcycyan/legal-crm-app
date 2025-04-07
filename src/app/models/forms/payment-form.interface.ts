@@ -6,6 +6,7 @@ export interface PaymentFormInterface {
   status?: string,
   price_cur: string,
   name?: string,
+  info?: string,
   deadlines?: {
     date: string,
     fee: string

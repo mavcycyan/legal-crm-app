@@ -5,6 +5,7 @@ export interface TablePaymentInterface {
   price: string,
   status?: string,
   name?: string,
+  info?: string,
   deadlines?: {
     date: string,
     fee: string

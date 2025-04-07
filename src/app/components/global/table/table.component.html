@@ -72,6 +72,10 @@
               </div>
             </div>
           </div>
+          <div class="modal-payment-list-info" *ngIf="price.info !== undefined && price.info !== null && price.info !== ''">
+            <div class="modal-payment-list-info-ttl">Примітки</div>
+            <div class="modal-payment-list-info-wrap">{{price.info}}</div>
+          </div>
 
         </div>
       </div>
