@@ -19,11 +19,11 @@ export class EditLawyerAdvcaseComponent {
   data: AdvocateCasesInterface = {} as AdvocateCasesInterface;
   advocatesList: {label: string, value: string}[] = [];
   advocateCatsList: {label: string, value: string}[] = [];
-  clientsList: {label: string, value: string}[] = [];
+  clientsList: {id: string, description: string}[] = [];
   fields: FormFieldsInterface[] = [
     {slug: 'advocate_id', name: 'Відповідальний адвокат', required: true, class: 'w-50', type: 'select', choises: []},
     {slug: 'advocate_category_id', name: 'Категорія', required: true, class: 'w-50', type: 'select', choises: []},
-    {slug: 'client_id', name: 'Клієнт', required: false, class: 'w-100', type: 'select', choises: []},
+    {slug: 'clients', name: 'Клієнт', required: false, class: 'w-100', type: 'select_dd_multy', choises_dd: []},
     {slug: 'proc_num', name: 'Номер справи', required: false, class: 'w-50', type: 'text'},
     {slug: 'visit_date', name: 'Дата укладання договору', required: true, class: 'w-50', type: 'date'},
     {slug: 'visit_date_end', name: 'Дата завершення договору', required: false, class: 'w-50', type: 'date'},
@@ -60,14 +60,18 @@ export class EditLawyerAdvcaseComponent {
           value: category.id.toString()
         }));
 
-        return this.lawyerAdvcaseService.getClients();
+        let params = {
+          sort_dir: 'asc',
+          sort_field: 'full_name'
+        };
+        return this.lawyerAdvcaseService.getClients(params);
       }),
       switchMap((data: ClientsListInterfaceRequest) => {
         const clients = data.data;
 
         this.clientsList = clients.map(client => ({
-          label: client.full_name.toString(),
-          value: client.id.toString()
+          description: client.full_name.toString(),
+          id: client.id.toString()
         }));
 
         const advocateField = this.fields.find(field => field.slug === 'advocate_id');
@@ -82,9 +86,9 @@ export class EditLawyerAdvcaseComponent {
         if (catField) {
           catField.choises = this.advocateCatsList;
         }
-        const clientField = this.fields.find(field => field.slug === 'client_id');
+        const clientField = this.fields.find(field => field.slug === 'clients');
         if (clientField) {
-          clientField.choises = this.clientsList;
+          clientField.choises_dd = this.clientsList;
         }
         this.mainService.setPreloaderState(false);
         return new Observable();

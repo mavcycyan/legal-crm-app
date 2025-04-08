@@ -63,8 +63,18 @@ export class LawyerAdvcaseService {
     return this.httpClient.get<AdvocateCasesInterfaceRequest>(`${globals.api_url}/api/lawyer_advocates_cases?advocate_id=${advocate_id}&advocate_category_slug=${category_slug}${params_str}`);
   }
 
-  getClients(): Observable<ClientsListInterfaceRequest> {
-    return this.httpClient.get<ClientsListInterfaceRequest>(`${globals.api_url}/api/clients`);
+  getClients(params: {} = {}): Observable<ClientsListInterfaceRequest> {
+    let params_str: string = '';
+    if (Object.keys(params).length > 0) {
+      params_str += '?';
+      Object.keys(params).forEach((item: string, index: number) => {
+        if (index > 0) {
+          params_str += '&';
+        }
+        params_str += item+'='+Object.values(params)[index];
+      });
+    }
+    return this.httpClient.get<ClientsListInterfaceRequest>(`${globals.api_url}/api/clients${params_str}`);
   }
 
   redirectSuccess(id: number|null = null) {
