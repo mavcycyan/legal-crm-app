@@ -95,12 +95,17 @@ export class SubscribersArchiveComponent implements OnInit, OnDestroy{
         this.pageOffset = this.pageSize * (parseInt(event.value)-1);
       }
     }
-    let params = {
+    let params: any = {
       pag_size: this.pageSize,
       pag_offset: this.pageOffset,
       sort_dir: this.sortDirection,
       sort_field: this.sortBy
     };
+    if (event !== null) {
+      if (event.name.search('srch_') > -1) {
+        params[event.name] = event.value;
+      }
+    }
     this.listSub$ = this.subscribersService.getArchivesList(params).subscribe((list: SubscribersListInterfaceRequest) => {
       this.list = list.data.map((item: SubscribersListInterface) => {
         let retVar = {

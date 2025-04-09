@@ -148,13 +148,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
               this.pageOffset = 0;
             }
           }
-          let params_case: {
-            pag_size?: number,
-            pag_offset?: number,
-            sort_dir?: string,
-            sort_field?: string,
-            filt_result?: string,
-          } = {
+          let params_case: any = {
             pag_size: this.pageSize,
             pag_offset: this.pageOffset,
             sort_dir: this.sortDirection,
@@ -162,6 +156,11 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
           };
           if (this.filter !== '') {
             params_case.filt_result = this.filter;
+          }
+          if (event !== null) {
+            if (event.name.search('srch_') > -1) {
+              params_case[event.name] = event.value;
+            }
           }
           this.advocateService.getAdvocateCases(advocateId, params['category'], params_case).subscribe((list: AdvocateCasesInterfaceRequest|AdvocateCategoriesInterfaceRequest) => {
             this.advocateService.getCategoryBySlug(params['category']).subscribe((data: AdvocateCategoryInterfaceRequest) => {

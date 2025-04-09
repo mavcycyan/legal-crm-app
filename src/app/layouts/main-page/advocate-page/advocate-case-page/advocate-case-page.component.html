@@ -1,4 +1,5 @@
 <div *ngIf="responseType === 'cases'" class="main-page-wrap-in">
+  <app-search-form [field]="'plot'" [placeholder]="'Почніть вводити фабулу справи'" (updatePage)="getList($event)"></app-search-form>
   <app-table [data]="cases" [columns]="tblColumns" [tableClass]="'advcase-works-list'" [tablePaymentService]="advocateCasePaymentsService" [advCaseService]="advocateCaseTblService"></app-table>
   <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
 

@@ -59,6 +59,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { ClientsArchiveComponent } from './layouts/archive/clients-archive/clients-archive.component';
 import { SubscribersArchiveComponent } from './layouts/archive/subscribers-archive/subscribers-archive.component';
 import { AdvocateCasesArchiveComponent } from './layouts/archive/advocate-cases-archive/advocate-cases-archive.component';
+import { SearchFormComponent } from './components/global/search-form/search-form.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { AdvocateCasesArchiveComponent } from './layouts/archive/advocate-cases-
     AdvocateSubcategoriesComponent,
     ClientsArchiveComponent,
     SubscribersArchiveComponent,
-    AdvocateCasesArchiveComponent
+    AdvocateCasesArchiveComponent,
+    SearchFormComponent
   ],
   imports: [
     BrowserModule,

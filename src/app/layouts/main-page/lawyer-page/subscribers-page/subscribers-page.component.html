@@ -1,4 +1,5 @@
 <div class="main-page-wrap-in">
+  <app-search-form [field]="'name'" [placeholder]="'Почніть вводити назву підприємтсва'" (updatePage)="getList($event)"></app-search-form>
   <app-table [data]="list" [columns]="tblColumns" [tableClass]="'subscribers-page'" [tablePaymentService]="subscriberPaymentsService"></app-table>
   <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
 

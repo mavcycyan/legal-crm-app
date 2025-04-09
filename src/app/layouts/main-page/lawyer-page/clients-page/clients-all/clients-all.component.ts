@@ -63,13 +63,18 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
         this.pageOffset = this.pageSize * (parseInt(event.value)-1);
       }
     }
-    let params = {
+    let params:any = {
       pag_size: this.pageSize,
       pag_offset: this.pageOffset,
       sort_dir: this.sortDirection,
       sort_field: this.sortBy,
       with_pending: '1'
     };
+    if (event !== null) {
+      if (event.name.search('srch_') > -1) {
+        params[event.name] = event.value;
+      }
+    }
     this.listSub$ = this.clientsService.getClientsList(params).subscribe((list: ClientsListInterfaceRequest) => {
       this.list = list.data.map((item: ClientsListInterface) => ({
         ...item,

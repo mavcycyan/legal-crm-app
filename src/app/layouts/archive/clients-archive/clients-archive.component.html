@@ -1,4 +1,5 @@
 <div class="main-page-wrap-in">
+  <app-search-form [field]="'full_name'" [placeholder]="'Почніть вводити ім\'я клієнта'" (updatePage)="getList($event)"></app-search-form>
   <app-table [data]="list" [columns]="tblColumns" [tableClass]="'clients-all-page'"></app-table>
   <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
 
