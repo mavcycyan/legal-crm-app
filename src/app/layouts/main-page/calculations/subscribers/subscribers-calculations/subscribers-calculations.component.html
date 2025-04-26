@@ -1,0 +1,51 @@
+<div class="main-page-wrap-in">
+  <div class="calculations">
+    <div class="scroll-clone-wrap" >
+      <div class="scroll-clone" #scrollClone (scroll)="syncScroll('clone')">
+        <div class="scroll-inner" #scrollInner></div>
+      </div>
+    </div>
+    <div class="calculations-tbl"  #tableBlock>
+      <div class="calculations-tbl-left">
+        <div class="calculations-tbl-row ltop-row">
+          <div class="calculations-tbl-col ltop">
+            <div class="empty"></div>
+            <div class="num">№</div>
+            <div class="name">Назва</div>
+            <div class="fee">Абонплата</div>
+          </div>
+        </div>
+        <div class="calculations-tbl-row resize_row" *ngFor="let subscriber of subscribers; let i = index">
+          <div class="calculations-tbl-col resize_col num">{{ i + 1 }}</div>
+          <div class="calculations-tbl-col resize_col name">{{ subscriber.name }}</div>
+          <div class="calculations-tbl-col resize_col fee">{{ subscriber.fee }}</div>
+        </div>
+      </div>
+      <div class="calculations-tbl-right" #scrollContent (scroll)="syncScroll('content')">
+        <div class="calculations-tbl-row">
+          <div [ngClass]="{'calculations-tbl-col' : true, 'date' : true, 'current' : month === 3}" *ngFor="let item of [].constructor(12); let month = index">
+            <div class="top">{{month + 1}}.{{selectedYear}}</div>
+            <div class="chalk">Борг</div>
+            <div class="pays">Виплати</div>
+          </div>
+        </div>
+        <div class="calculations-tbl-row resize_row" *ngFor="let row of data; let i = index">
+          <div [ngClass]="{'calculations-tbl-col' : true, 'resize_col' : true, 'current' : col.state === 'current'}" *ngFor="let col of row; let y = index">
+            <ng-container *ngIf="col.state !== ''">
+              <div class="calculations-tbl-subcol chalk">{{col.chalk}}</div>
+              <div class="calculations-tbl-subcol pays">
+                <span *ngFor="let pay of col.payments">{{pay.date}} - {{pay.amount}}</span>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="col.state === ''">
+              <button class="calculations-tbl-subcol chalk">{{col.chalk}}</button>
+              <button class="calculations-tbl-subcol pays">
+                <span *ngFor="let pay of col.payments">{{pay.date}} - {{pay.amount}}</span>
+              </button>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

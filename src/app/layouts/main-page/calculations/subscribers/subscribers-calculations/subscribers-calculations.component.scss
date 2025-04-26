@@ -1,0 +1,200 @@
+@import 'src/variables.scss';
+
+.calculations-tbl {
+  display: flex;
+}
+
+.calculations-tbl-left {
+  width: 400px;
+  border-right: 2px solid $color_main;
+  border-bottom: 2px solid $color_main;
+}
+
+
+.calculations-tbl-right {
+  width: calc(100% - 300px);
+  overflow: auto;
+  border-right: 2px solid $color_main;
+  border-bottom: 2px solid $color_main;
+}
+
+.calculations-tbl-row {
+  display: flex;
+  flex-wrap: wrap;
+  width: max-content;
+  border-top: 2px solid $color_main;
+}
+
+.calculations-tbl-row:first-child {
+  height: 70px;
+}
+.calculations-tbl-row.ltop-row {
+  width: 100%;
+}
+
+.calculations-tbl-col {
+  width: 240px;
+  border-left: 2px solid $color_main;
+  display: flex;
+  justify-content: flex-start;
+}
+.calculations-tbl-col.current {
+  background: #eee;
+}
+
+
+.calculations-tbl-col.ltop {
+  flex-wrap: wrap;
+  padding: 0;
+  width: 100%;
+  border-left: 0;
+}
+
+.calculations-tbl-col.ltop .empty {
+  width: 100%;
+  text-align: center;
+  height: 35px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid $color_main;
+  border-left: 2px solid $color_main;
+}
+
+.calculations-tbl-col.ltop .num {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  width: 50px;
+  border-left: 2px solid $color_main;
+}
+
+.calculations-tbl-col.ltop .name {
+  padding: 5px 5px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  border-left: 2px solid $color_main;
+}
+
+.calculations-tbl-col.ltop .fee {
+  padding: 5px 5px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 300px);
+  border-left: 2px solid $color_main;
+}
+
+.calculations-tbl-col.num {
+  width: 50px;
+  justify-content: center;
+  padding: 10px 5px;
+  align-items: center;
+}
+
+.calculations-tbl-col.fee {
+  width: 100px;
+  justify-content: center;
+  padding: 10px 5px;
+  align-items: center;
+}
+
+.calculations-tbl-col.name {
+  width: 250px;
+  padding: 10px 5px;
+  align-items: center;
+}
+
+.calculations-tbl-subcol {
+  padding: 10px 5px;
+  border: 0;
+}
+
+button.calculations-tbl-subcol {
+  background: none;
+  border: 0;
+  font-size: 14px;
+  font-family: "Nunito";
+  cursor: pointer;
+  transition: 0.3s;
+}
+button.calculations-tbl-subcol:hover {
+  background: #eee;
+  transition: 0.3s;
+}
+
+.calculations-tbl-subcol.chalk {
+  width: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calculations-tbl-subcol.pays {
+  width: calc(100% - 90px);
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid $color_main;
+}
+
+.calculations-tbl-col.date {
+  flex-wrap: wrap;
+  padding: 0;
+  height: auto;
+}
+
+.calculations-tbl-col.date .top {
+  width: 100%;
+  text-align: center;
+  height: 35px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid $color_main;
+}
+
+.calculations-tbl-col.date .chalk {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  width: 90px;
+}
+
+.calculations-tbl-col.date .pays {
+  padding: 5px 5px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 90px);
+  border-left: 1px solid $color_main;
+}
+.calculations-tbl-col.date.current .chalk, .calculations-tbl-col.date.current .pays {
+  border-bottom: 2px solid $color_main;
+}
+
+.scroll-clone-wrap {
+  background: #eee;
+  padding-left: 400px;
+  width: 100%;
+}
+.scroll-clone {
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 16px;
+  background: #eee;
+}
+.scroll-inner {
+  width: max-content;
+  height: 16px;
+}

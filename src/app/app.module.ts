@@ -60,6 +60,7 @@ import { ClientsArchiveComponent } from './layouts/archive/clients-archive/clien
 import { SubscribersArchiveComponent } from './layouts/archive/subscribers-archive/subscribers-archive.component';
 import { AdvocateCasesArchiveComponent } from './layouts/archive/advocate-cases-archive/advocate-cases-archive.component';
 import { SearchFormComponent } from './components/global/search-form/search-form.component';
+import { SubscribersCalculationsComponent } from './layouts/main-page/calculations/subscribers/subscribers-calculations/subscribers-calculations.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,8 @@ import { SearchFormComponent } from './components/global/search-form/search-form
     ClientsArchiveComponent,
     SubscribersArchiveComponent,
     AdvocateCasesArchiveComponent,
-    SearchFormComponent
+    SearchFormComponent,
+    SubscribersCalculationsComponent
   ],
   imports: [
     BrowserModule,
