@@ -24,7 +24,7 @@
       <div class="calculations-tbl-right" #scrollContent (scroll)="syncScroll('content')">
         <div class="calculations-tbl-row">
           <div [ngClass]="{'calculations-tbl-col' : true, 'date' : true, 'current' : month === 3}" *ngFor="let item of [].constructor(12); let month = index">
-            <div class="top">{{month + 1}}.{{selectedYear}}</div>
+            <div class="top">{{months[month]}} {{selectedYear}}</div>
             <div class="chalk">Борг</div>
             <div class="pays">Виплати</div>
           </div>
@@ -34,13 +34,13 @@
             <ng-container *ngIf="col.state !== ''">
               <div class="calculations-tbl-subcol chalk">{{col.chalk}}</div>
               <div class="calculations-tbl-subcol pays">
-                <span *ngFor="let pay of col.payments">{{pay.date}} - {{pay.amount}}</span>
+                <span *ngFor="let pay of col.payments">{{pay.date | date:'dd/MM/yyyy'}} - {{pay.amount}}</span>
               </div>
             </ng-container>
             <ng-container *ngIf="col.state === ''">
               <button class="calculations-tbl-subcol chalk">{{col.chalk}}</button>
               <button class="calculations-tbl-subcol pays">
-                <span *ngFor="let pay of col.payments">{{pay.date}} - {{pay.amount}}</span>
+                <span *ngFor="let pay of col.payments">{{pay.date | date:'dd/MM/yyyy'}} - {{pay.amount}}</span>
               </button>
             </ng-container>
           </div>

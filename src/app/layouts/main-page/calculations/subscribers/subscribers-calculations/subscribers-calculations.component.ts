@@ -30,6 +30,7 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
   curMonthCalculations: SubscriberCalculationDataInterface[] = [];
   data: SubscriberCalculationResultInterface[][] = [];
   selectedYear: string = '2025';
+  months: string[] = ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень']
 
   private calcSub$: Subscription = new Subscription();
 
