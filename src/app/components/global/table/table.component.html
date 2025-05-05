@@ -16,7 +16,7 @@
       'paused' : (item.result !== undefined && item.result === 'paused'),
       'inactive' : (item.inactive !== undefined && item.inactive === 1)
     }" *ngFor="let item of data; index as i">
-      <div class="tablecom-tbl-col num">{{(i + 1)}}</div>
+      <div class="tablecom-tbl-col num">{{pageOffset + (i + 1)}}</div>
       <div [class]="['tablecom-tbl-col', col.slug]" *ngFor="let col of columns">
         <span *ngIf="col.type !== undefined && col.type === 'result'">{{item[col.slug] | statuswork}}</span>
         <span *ngIf="col.type !== undefined && col.type === 'role_id'">{{item[col.slug] | rolename}}</span>

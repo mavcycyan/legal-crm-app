@@ -1,2 +1,2 @@
-<app-table [data]="list" [columns]="tblColumns" [tableClass]="'advocates-list-page'"></app-table>
+<app-table [data]="list" [columns]="tblColumns" [tableClass]="'advocates-list-page'" [pageOffset]="pageOffset"></app-table>
 <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>

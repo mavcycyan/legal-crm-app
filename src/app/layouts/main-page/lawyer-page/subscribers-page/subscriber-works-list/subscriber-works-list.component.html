@@ -1,5 +1,5 @@
 <div class="main-page-wrap-in">
-  <app-table [data]="works" [columns]="tblColumns" [tableClass]="'subscribers-works-list'" [tablePaymentService]="subscriberWorkPaymentsService"></app-table>
+  <app-table [data]="works" [columns]="tblColumns" [tableClass]="'subscribers-works-list'" [tablePaymentService]="subscriberWorkPaymentsService" [pageOffset]="pageOffset"></app-table>
   <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
   <div class="main-page-btn">
     <a [routerLink]="['/', 'edit', 'lawyer', 'subscribers', id]">Редагувати абонента</a>

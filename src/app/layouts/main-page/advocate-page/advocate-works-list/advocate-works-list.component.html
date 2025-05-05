@@ -1,4 +1,4 @@
-<app-table [data]="works" [columns]="tblColumns" [tableClass]="'advcase-works-list2'"></app-table>
+<app-table [data]="works" [columns]="tblColumns" [tableClass]="'advcase-works-list2'" [pageOffset]="pageOffset"></app-table>
 <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
 <div class="main-page-btn">
   <a [routerLink]="['/', 'edit', 'advocate_case', id]">Редагувати справу</a>

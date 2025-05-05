@@ -30,6 +30,8 @@ export class TableComponent implements AfterViewInit{
   @Input() tablePaymentService: any = null;
   @Input() advCaseService: any = null;
 
+  @Input() pageOffset: number = 0;
+
 
   subMdl$: Subscription = new Subscription();
   paymodal: boolean = false;
