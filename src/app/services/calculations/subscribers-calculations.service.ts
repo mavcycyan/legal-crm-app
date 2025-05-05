@@ -24,4 +24,12 @@ export class SubscribersCalculationsService {
     }
     return this.httpClient.get<SubscriberCalculationInterfaceRequest>(`${globals.api_url}/api/calculations/subscribers${params_str}`);
   }
+
+  save(data: any): Observable<any> {
+    return this.httpClient.post(`${globals.api_url}/api/calculations/subscribers`, data);
+  }
+
+  update(id: number, data: any): Observable<any> {
+    return this.httpClient.put(`${globals.api_url}/api/calculations/subscribers/${id}`, data);
+  }
 }

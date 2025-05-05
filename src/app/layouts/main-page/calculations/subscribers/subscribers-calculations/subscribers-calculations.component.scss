@@ -198,3 +198,131 @@ button.calculations-tbl-subcol:hover {
   width: max-content;
   height: 16px;
 }
+
+
+
+
+.modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: rgba(0,0,0,0.6);
+  }
+  &-wrap {
+    max-height: calc(100vh - 200px);
+    min-height: 400px;
+    width: 100%;
+    max-width: 500px;
+    overflow: auto;
+    border-radius: 6px;
+    background: $color_white;
+    position: relative;
+    z-index: 2;
+  }
+  &-preloader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      width: 200px;
+    }
+  }
+
+  &-payment {
+    padding: 10px;
+    &-ttl {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.form-col {margin-bottom: 15px;}
+
+.form-label {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: #4c5d52;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 4px;
+  border: 1px solid #4c5d52;
+}
+.form-repeater {
+  border: 1px solid #4c5d52;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.form-repeater-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -5px 10px;
+}
+
+.form-repeater-bl {
+  width: calc(50% - 12px);
+  padding: 0 5px;
+}
+
+.form-repeater-bl.remove {
+  width: 24px;
+  padding-top: 19px;
+}
+
+.form-repeater-bl.remove button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 28px;
+  color: #f00;
+  cursor: pointer;
+}
+.btn {
+  border: 0;
+  padding: 14px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 1;
+  transition: 0.3s;
+  &.btn-primary {
+    background: $color_main;
+    color: #ffffff;
+  }
+  &.btn-add {
+    background: #658a74;
+    color: #ffffff;
+    padding: 4px 14px;
+  }
+  &:hover {
+    opacity: 0.7;
+    transition: 0.3s;
+  }
+}

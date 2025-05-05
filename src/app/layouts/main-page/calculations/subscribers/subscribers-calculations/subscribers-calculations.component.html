@@ -23,7 +23,7 @@
       </div>
       <div class="calculations-tbl-right" #scrollContent (scroll)="syncScroll('content')">
         <div class="calculations-tbl-row">
-          <div [ngClass]="{'calculations-tbl-col' : true, 'date' : true, 'current' : month === 3}" *ngFor="let item of [].constructor(12); let month = index">
+          <div [ngClass]="{'calculations-tbl-col' : true, 'date' : true, 'current' : (data[0] !== undefined && data[0][month].state) === 'current'}" *ngFor="let item of [].constructor(12); let month = index">
             <div class="top">{{months[month]}} {{selectedYear}}</div>
             <div class="chalk">Борг</div>
             <div class="pays">Виплати</div>
@@ -38,14 +38,62 @@
               </div>
             </ng-container>
             <ng-container *ngIf="col.state === ''">
-              <button class="calculations-tbl-subcol chalk">{{col.chalk}}</button>
-              <button class="calculations-tbl-subcol pays">
+              <button class="calculations-tbl-subcol chalk" (click)="dataModalOpen(col.id, col.subscriber_id, i, y)">{{col.chalk}}</button>
+              <button class="calculations-tbl-subcol pays" (click)="dataModalOpen(col.id, col.subscriber_id, i, y)">
                 <span *ngFor="let pay of col.payments">{{pay.date | date:'dd/MM/yyyy'}} - {{pay.amount}}</span>
               </button>
             </ng-container>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" *ngIf="datamodal" @fadeInOut>
+  <div class="modal-overlay" (click)="dataModalClose()"></div>
+  <div class="modal-wrap">
+    <div class="modal-payment">
+      <div class="modal-payment-ttl">Борг та виплати для {{ dataModalInfo.name }} за {{ dataModalInfo.month }}</div>
+      <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+        <input type="hidden" formControlName="id">
+        <input type="hidden" formControlName="date">
+        <input type="hidden" formControlName="subscriber_id">
+        <div class="form-col">
+          <label for="chalk" class="form-label">Борг</label>
+          <input id="chalk" class="form-control" type="text" formControlName="chalk">
+        </div>
+        <div class="form-col">
+          <label class="form-label">Виплати</label>
+          <div
+            formArrayName="payments"
+            class="form-repeater"
+          >
+            <div
+              *ngIf="payments_field !== null && payments_field !== undefined && payments_field.length > 0">
+              <div *ngFor="let item of payments_field.controls; let i = index" [formGroupName]="i" class="form-repeater-row">
+                <div class="form-repeater-bl txt">
+                  <div class="form-repeater-bl-lbl">Дата:</div>
+                  <input type="date" formControlName="date" class="form-control" />
+                </div>
+                <div class="form-repeater-bl txt">
+                  <div class="form-repeater-bl-lbl">Сума (грн):</div>
+                  <input type="number" formControlName="amount" class="form-control" />
+                </div>
+                <div class="form-repeater-bl remove">
+                  <button type="button" (click)="removeRepData(i)">&times;</button>
+                </div>
+              </div>
+            </div>
+            <button type="button" (click)="addRepData()" class="btn btn-add">Додати нову виплату</button>
+          </div>
+          <button type="submit" class="btn btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="pendingModal" class="modal-preloader">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#4C5D52"></stop><stop offset=".3" stop-color="#4C5D52" stop-opacity=".9"></stop><stop offset=".6" stop-color="#4C5D52" stop-opacity=".6"></stop><stop offset=".8" stop-color="#4C5D52" stop-opacity=".3"></stop><stop offset="1" stop-color="#4C5D52" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#4C5D52" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg>
     </div>
   </div>
 </div>

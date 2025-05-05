@@ -9,11 +9,25 @@ import {
 import {Subscription} from "rxjs";
 import {SubscribersCalculationsService} from "../../../../../services/calculations/subscribers-calculations.service";
 import {MainService} from "../../../../../services/main/main.service";
+import {TablePaymentInterfaceRequest} from "../../../../../models/table/table-payment.interface";
+import {animate, style, transition, trigger} from "@angular/animations";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-subscribers-calculations',
   templateUrl: './subscribers-calculations.component.html',
-  styleUrls: ['./subscribers-calculations.component.scss']
+  styleUrls: ['./subscribers-calculations.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms ease-out', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class SubscribersCalculationsComponent implements OnInit, OnDestroy, AfterViewInit{
 
@@ -32,13 +46,40 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
   selectedYear: string = '2025';
   months: string[] = ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень']
 
+  // modal edit
+  subMdl$: Subscription = new Subscription();
+  datamodal: boolean = false;
+  pendingModal: boolean = false;
+  dataModalInfo: {name: string, month: string, date: string, data: SubscriberCalculationResultInterface} = {
+    name: '',
+    month: '',
+    date: '',
+    data: {} as SubscriberCalculationResultInterface
+  };
+  isEditModal: boolean = false;
+  modalId: number|null = null;
+  modalDataSent: boolean = false;
+
+  form: FormGroup = new FormGroup({
+    id: new FormControl(''),
+    date: new FormControl(''),
+    subscriber_id: new FormControl(''),
+    chalk: new FormControl(''),
+    payments: new FormBuilder().array([]),
+  });
+
   private calcSub$: Subscription = new Subscription();
 
   constructor(private renderer: Renderer2,
+              private fb: FormBuilder,
               private mainService: MainService,
               private subCalcService: SubscribersCalculationsService) {}
 
   ngOnInit() {
+    this.dataLoad();
+  }
+
+  dataLoad(): void {
     this.mainService.setPreloaderState(true);
     this.calcSub$ = this.subCalcService.getList().subscribe((data: SubscriberCalculationInterfaceRequest) => {
       this.subscribers = data.data.subscribers;
@@ -53,7 +94,8 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
             this.data[i][m] = {
               chalk: '',
               payments: [],
-              state: ''
+              state: '',
+              subscriber_id: subscriber.id
             }
           } else {
             this.data[i][m] = {
@@ -84,6 +126,131 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
       });
       this.mainService.setPreloaderState(false);
     });
+  }
+
+  dataModalOpen(id: number|null = null, subscriber_id: number|null = null, subscr_num: number|null = null, data_num: number|null = null) {
+    if (id !== null) {
+      this.isEditModal = true;
+      this.modalId = id;
+    }
+    if (subscriber_id !== null) {
+      this.pendingModal = true;
+      this.datamodal = true;
+      if (subscr_num !== null && data_num !== null) {
+        this.dataModalInfo.name = this.subscribers[subscr_num].name;
+        this.dataModalInfo.month = this.months[data_num];
+        const dateMonthNum = (data_num + 1).toString().padStart(2, '0');
+        this.dataModalInfo.date = `${this.selectedYear}-${dateMonthNum}-01`;
+        this.dataModalInfo.data = this.data[subscr_num][data_num];
+        this.formUpdate();
+      }
+      this.pendingModal = false;
+    }
+  }
+  dataModalClose(): void {
+    if (this.modalDataSent) {
+      this.dataLoad();
+    }
+    this.datamodal = false;
+    this.isEditModal = false;
+    this.modalDataSent = false;
+    this.modalId = null;
+    this.subMdl$.unsubscribe();
+  }
+
+  get payments_field(): FormArray {
+    return (this.form.get('payments') as FormArray) || this.fb.array([]);
+  }
+  addRepData(): void {
+    const workListGroup = this.fb.group({
+      date: [''],
+      amount: [''],
+    });
+    this.payments_field.push(workListGroup);
+  }
+  removeRepData(id: number): void {
+    this.payments_field.removeAt(id);
+  }
+
+  formUpdate(): void {
+    const forPatching: {
+      id?: string,
+      chalk: string,
+      date: string,
+      subscriber_id: number|undefined,
+      payments?: FormArray<FormControl<any>>
+    } = {
+      id: '',
+      chalk: this.dataModalInfo.data.chalk,
+      date: this.dataModalInfo.date,
+      subscriber_id: this.dataModalInfo.data.subscriber_id
+    };
+    if (this.dataModalInfo.data.payments !== undefined && this.dataModalInfo.data.payments.length > 0) {
+      const formArray = this.fb.array(
+        this.dataModalInfo.data.payments.map((obj: any) => {
+            const date = new Date(obj.date);
+
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0'); // місяці від 0 до 11
+            const day = date.getDate().toString().padStart(2, '0');
+            return this.fb.group({
+              date: [`${year}-${month}-${day}`],
+              amount: [obj.amount]
+            })
+          }
+        )
+      );
+      this.form.setControl('payments', formArray);
+    } else {
+      this.form.setControl('payments', this.fb.array([]));
+    }
+    if (this.modalId !== null) {
+      forPatching.id = this.modalId.toString();
+    }
+    this.form.patchValue(forPatching);
+    this.form.updateValueAndValidity();
+  }
+
+  submit():void {
+    if (this.form.status === 'VALID') {
+      const valueObj: any = this.form.value;
+      this.mainService.setPreloaderState(true);
+      if(this.isEditModal) {
+        if(this.modalId !== null) {
+          this.pendingModal = true;
+          this.subCalcService.update(this.modalId, valueObj).subscribe((response: any) => {
+              if (response.success !== undefined) {
+                if (response.success == true) {
+                  this.modalDataSent = true;
+                  this.pendingModal = false;
+                  this.dataModalClose();
+                }
+              }
+            },
+            (error: any) => {
+              alert(error);
+              this.pendingModal = false;
+              this.dataModalClose();
+            })
+        }
+      } else {
+        this.pendingModal = true;
+        this.subCalcService.save(valueObj).subscribe((response: any) => {
+            if (response.success !== undefined) {
+              if (response.success == true) {
+                this.modalDataSent = true;
+                this.pendingModal = false;
+                this.dataModalClose();
+              }
+            }
+          },
+          (error: any) => {
+            alert(error);
+            this.pendingModal = false;
+            this.dataModalClose();
+          })
+      }
+    }
   }
   ngOnDestroy(): void {
     this.calcSub$.unsubscribe();
