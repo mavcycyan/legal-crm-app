@@ -16,12 +16,18 @@
       </div>
       <h2 class="filter-modal-ttl">Фільтри</h2>
       <div class="filter-modal-sort" *ngIf="filter.length > 0">
-        <div class="filter-modal-sort-item">
+        <div class="filter-modal-sort-item"*ngIf="filter[0].value === 'filt_result'">
           <select (change)="refreshData(filter[0].value, filtHtml.value)" #filtHtml>
             <option value="">{{filter[0].name}}</option>
             <option value="pending">У процесі</option>
             <option value="done">Завершена</option>
             <option value="canceled">Завершена погано</option>
+          </select>
+        </div>
+        <div class="filter-modal-sort-item"*ngIf="filter[0].value === 'filtcust_pending'">
+          <select (change)="refreshData(filter[0].value, filtHtml.value)" #filtHtml>
+            <option value="">{{filter[0].name}}</option>
+            <option value="pending">Роботи у процесі</option>
           </select>
         </div>
       </div>

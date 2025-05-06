@@ -28,6 +28,16 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
   // sorting
   sortDirection: string = 'asc';
   sortBy: string = 'full_name';
+  sortVars: {name: string, value: string}[] = [
+    {name: 'Ім\'я клієнта А-Я', value: 'full_name__asc'},
+    {name: 'Ім\'я клієнта Я-А', value: 'full_name__desc'},
+  ]
+
+  //filtering
+  filterVars: {name: string, value: string}[] = [
+    {name: 'Статус', value: 'filtcust_pending'}
+  ];
+  filter: string = '';
 
   constructor(private clientsService: ClientsService,
               private mainService: MainService) {
@@ -62,6 +72,16 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
       if (event.name === 'pageOffset') {
         this.pageOffset = this.pageSize * (parseInt(event.value)-1);
       }
+      if (event.name === 'sort') {
+        const sort = event.value.split('__');
+        this.sortBy = sort[0];
+        this.sortDirection = sort[1];
+        this.pageOffset = 0;
+      }
+      if (event.name.indexOf('filtcust_') !== -1) {
+        this.filter = event.value;
+        this.pageOffset = 0;
+      }
     }
     let params:any = {
       pag_size: this.pageSize,
@@ -70,6 +90,9 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
       sort_field: this.sortBy,
       with_pending: '1'
     };
+    if (this.filter !== '') {
+      params.filtcust_pending = this.filter;
+    }
     if (event !== null) {
       if (event.name.search('srch_') > -1) {
         params[event.name] = event.value;

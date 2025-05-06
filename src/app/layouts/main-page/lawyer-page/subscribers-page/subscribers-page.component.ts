@@ -34,6 +34,16 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
   // sorting
   sortDirection: string = 'desc';
   sortBy: string = 'contract_date';
+  sortVars: {name: string, value: string}[] = [
+    {name: 'Дата укладання договору ↓', value: 'contract_date__desc'},
+    {name: 'Дата укладання договору ↑', value: 'contract_date__asc'},
+  ]
+
+  //filtering
+  filterVars: {name: string, value: string}[] = [
+    {name: 'Статус', value: 'filtcust_pending'}
+  ];
+  filter: string = '';
 
   constructor(private subscribersService: SubscribersService,
               private mainService: MainService,
@@ -94,6 +104,16 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
       if (event.name === 'pageOffset') {
         this.pageOffset = this.pageSize * (parseInt(event.value)-1);
       }
+      if (event.name === 'sort') {
+        const sort = event.value.split('__');
+        this.sortBy = sort[0];
+        this.sortDirection = sort[1];
+        this.pageOffset = 0;
+      }
+      if (event.name.indexOf('filtcust_') !== -1) {
+        this.filter = event.value;
+        this.pageOffset = 0;
+      }
     }
     let params: any = {
       pag_size: this.pageSize,
@@ -102,6 +122,9 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
       sort_field: this.sortBy,
       with_pending: '1'
     };
+    if (this.filter !== '') {
+      params.filtcust_pending = this.filter;
+    }
     if (event !== null) {
       if (event.name.search('srch_') > -1) {
         params[event.name] = event.value;

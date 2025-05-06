@@ -6,4 +6,5 @@
   <div class="main-page-btn">
     <a [routerLink]="['/', 'edit', 'lawyer', 'subscribers']">Додати абонента</a>
   </div>
+  <app-filter (updatePage)="getList($event)" [sort]="sortVars" [filter]="filterVars"></app-filter>
 </div>
