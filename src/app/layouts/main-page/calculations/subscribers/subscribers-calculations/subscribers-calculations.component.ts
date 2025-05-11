@@ -124,7 +124,15 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
           }
         });
       });
+      let interval2 = setInterval(() => {
+        if (this.rightBlockRef !== undefined && this.data.length > 0) {
+          this.setEqualColHeights();
+          window.addEventListener('resize', () => this.setEqualColHeights());
+          clearInterval(interval2)
+        }
+      }, 500)
       this.mainService.setPreloaderState(false);
+
     });
   }
 
@@ -264,13 +272,6 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
         clearInterval(interval)
       }
     }, 500)
-    let interval2 = setInterval(() => {
-      if (this.rightBlockRef !== undefined) {
-        this.setEqualColHeights();
-        window.addEventListener('resize', () => this.setEqualColHeights());
-        clearInterval(interval)
-      }
-    }, 500)
   }
   syncScroll(source: 'clone' | 'content') {
     const clone = this.scrollClone.nativeElement;
@@ -285,7 +286,7 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
   setEqualColHeights(): void {
     const rightBlock = this.rightBlockRef.nativeElement as HTMLElement;
 
-    const cols = rightBlock.querySelectorAll('.resize_col');
+    const cols = document.querySelectorAll('.resize_col');
     let maxHeight = 0;
 
     cols.forEach(col => {
