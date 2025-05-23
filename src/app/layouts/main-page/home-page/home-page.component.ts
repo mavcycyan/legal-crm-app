@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {MainService} from "../../../services/main/main.service";
+import {PagiBackService} from "../../../services/helper/pagi.back.service";
 
 @Component({
   selector: 'app-home-page',
@@ -8,9 +9,11 @@ import {MainService} from "../../../services/main/main.service";
 })
 export class HomePageComponent {
 
-  constructor(private mainService: MainService) {
+  constructor(private mainService: MainService,
+              private pagiBackService: PagiBackService) {
     this.mainService.setEditBtnData({type: '', id: null});
     this.mainService.setEditBtnSecondaryData({type: '', id: null});
+    this.pagiBackService.linksDry();
   }
 
 }

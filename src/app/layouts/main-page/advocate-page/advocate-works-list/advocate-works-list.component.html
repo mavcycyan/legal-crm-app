@@ -1,5 +1,6 @@
+<app-breadcrumbs [maxCrumb]="1"></app-breadcrumbs>
 <app-table [data]="works" [columns]="tblColumns" [tableClass]="'advcase-works-list2'" [pageOffset]="pageOffset"></app-table>
-<app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
+<app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)" [startPage]="startPage"></app-pagination>
 <div class="main-page-btn">
   <a [routerLink]="['/', 'edit', 'advocate_case', id]">Редагувати справу</a>
   <a [routerLink]="['/', 'edit', 'advocate_work', id]" class="second">Додати роботу</a>

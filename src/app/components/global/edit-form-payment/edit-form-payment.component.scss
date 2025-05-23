@@ -252,4 +252,7 @@
     }
   }
 }
+.ng-submitted .form-control.ng-invalid {
+  border-color: #f00;
+}
 

@@ -8,6 +8,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {ClientWorksService} from "../../../../../services/clients/client-works.service";
 import {MainService} from "../../../../../services/main/main.service";
 import {ClientWorkFilesService} from "../../../../../services/clients/client-work-files.service";
+import {PagiBackService} from "../../../../../services/helper/pagi.back.service";
 
 @Component({
   selector: 'app-client-work-card',
@@ -33,10 +34,12 @@ export class ClientWorkCardComponent {
   constructor(private route: ActivatedRoute,
               private clientWorksService: ClientWorksService,
               public clientWorkFilesService: ClientWorkFilesService,
-              private mainService: MainService) {
+              private mainService: MainService,
+              private pagiBackService: PagiBackService) {
   }
 
   ngOnInit() {
+    this.pagiBackService.linksSet('backWorkSingle', window.location.pathname);
     this.mainService.setPreloaderState(true);
     this.subClient$ = this.route.params
       .subscribe(

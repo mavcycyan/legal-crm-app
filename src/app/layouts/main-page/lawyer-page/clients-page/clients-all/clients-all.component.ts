@@ -3,6 +3,8 @@ import {Subscription} from "rxjs";
 import {ClientsService} from "../../../../../services/clients/clients.service";
 import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../../../models/clients/clients-list.interface";
 import {MainService} from "../../../../../services/main/main.service";
+import {PagiBackService} from "../../../../../services/helper/pagi.back.service";
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'app-clients-all',
@@ -24,6 +26,7 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
   allItems: number = 0;
   pageSize: number = 10;
   pageOffset: number = 0;
+  startPage: number = 1;
 
   // sorting
   sortDirection: string = 'asc';
@@ -40,37 +43,55 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
   filter: string = '';
 
   constructor(private clientsService: ClientsService,
-              private mainService: MainService) {
+              private mainService: MainService,
+              private pagiBackService: PagiBackService,
+              private route: ActivatedRoute) {
   }
   ngOnInit(): void {
+    this.pagiBackService.linksDry();
+    this.pagiBackService.linksSet('backList', window.location.pathname);
     this.mainService.setPreloaderState(true);
-    let params = {
-      pag_size: this.pageSize,
-      sort_dir: this.sortDirection,
-      sort_field: this.sortBy,
-      with_pending: '1'
-    };
-
-    this.listSub$ = this.clientsService.getClientsList(params).subscribe((list: ClientsListInterfaceRequest) => {
-      this.list = list.data.map((item: ClientsListInterface) => ({
-        ...item,
-        custom_path: `${item.id}`
-      }));
-      if (list.all_items !== undefined) {
-        this.allItems = list.all_items;
+    this.route.queryParams.subscribe((queryParams: Params) => {
+      if (queryParams['pageOffset'] !== undefined && queryParams['pageOffset'] !== '' && queryParams['pageOffset'] != '1') {
+        this.pageOffset = this.pageSize * (parseInt(queryParams['pageOffset']) - 1);
+        this.startPage = parseInt(queryParams['pageOffset']);
       }
-      this.mainService.setPreloaderState(false);
-    });
+      let params:any = {
+        pag_size: this.pageSize,
+        sort_dir: this.sortDirection,
+        sort_field: this.sortBy,
+        with_pending: '1'
+      };
+      if (this.pageOffset > 0) {
+        params.pag_offset = this.pageOffset;
+        this.pagiBackService.linksSet('backList', window.location.pathname + '?pageOffset=' + (this.pageOffset + 1).toString());
+      }
+      this.listSub$ = this.clientsService.getClientsList(params).subscribe((list: ClientsListInterfaceRequest) => {
+        this.list = list.data.map((item: ClientsListInterface) => ({
+          ...item,
+          custom_path: `${item.id}`
+        }));
+        if (list.all_items !== undefined) {
+          this.allItems = list.all_items;
+        }
+        this.mainService.setPreloaderState(false);
+      });
+    })
   }
   ngOnDestroy(): void {
     this.listSub$.unsubscribe();
   }
 
   getList(event: {name: string, value: string} | null = null): void {
+    let backLinkPathname = '';
     this.mainService.setPreloaderState(true);
     if (event !== null) {
       if (event.name === 'pageOffset') {
         this.pageOffset = this.pageSize * (parseInt(event.value)-1);
+        if (this.pageOffset > 0) {
+          backLinkPathname += (backLinkPathname === '') ? '?' : '';
+          backLinkPathname = backLinkPathname + 'pageOffset=' + (this.pageOffset + 1).toString();
+        }
       }
       if (event.name === 'sort') {
         const sort = event.value.split('__');
@@ -98,6 +119,7 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
         params[event.name] = event.value;
       }
     }
+    this.pagiBackService.linksSet('backList', window.location.pathname + backLinkPathname);
     this.listSub$ = this.clientsService.getClientsList(params).subscribe((list: ClientsListInterfaceRequest) => {
       this.list = list.data.map((item: ClientsListInterface) => ({
         ...item,

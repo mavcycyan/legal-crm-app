@@ -12,6 +12,7 @@ import {MainService} from "../../../../../services/main/main.service";
 import {TablePaymentInterfaceRequest} from "../../../../../models/table/table-payment.interface";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {PagiBackService} from "../../../../../services/helper/pagi.back.service";
 
 @Component({
   selector: 'app-subscribers-calculations',
@@ -49,6 +50,7 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
   // modal edit
   subMdl$: Subscription = new Subscription();
   datamodal: boolean = false;
+  datamodalStpr: boolean = false;
   pendingModal: boolean = false;
   dataModalInfo: {name: string, month: string, date: string, data: SubscriberCalculationResultInterface} = {
     name: '',
@@ -56,9 +58,13 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
     date: '',
     data: {} as SubscriberCalculationResultInterface
   };
+  dataModalStprInfo: {name: string} = {
+    name: ''
+  }
   isEditModal: boolean = false;
   modalId: number|null = null;
   modalDataSent: boolean = false;
+  modalDataStprSent: boolean = false;
 
   form: FormGroup = new FormGroup({
     id: new FormControl(''),
@@ -68,14 +74,21 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
     payments: new FormBuilder().array([]),
   });
 
+  formStpr: FormGroup = new FormGroup({
+    id: new FormControl(''),
+    stop_reason: new FormControl(''),
+  });
+
   private calcSub$: Subscription = new Subscription();
 
   constructor(private renderer: Renderer2,
               private fb: FormBuilder,
               private mainService: MainService,
-              private subCalcService: SubscribersCalculationsService) {}
+              private subCalcService: SubscribersCalculationsService,
+              private pagiBackService: PagiBackService) {}
 
   ngOnInit() {
+    this.pagiBackService.linksDry();
     this.dataLoad();
   }
 
@@ -95,6 +108,7 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
               chalk: '',
               payments: [],
               state: '',
+              inactive: subscriber.inactive,
               subscriber_id: subscriber.id
             }
           } else {
@@ -110,6 +124,7 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
             const m = parseInt(calc.date.split('-')[1]) - 1;
             this.data[i][m].id = calc.id;
             this.data[i][m].subscriber_id = subscriber.id;
+            this.data[i][m].inactive = subscriber.inactive;
             this.data[i][m].chalk = calc.chalk;
             this.data[i][m].payments = calc.payments;
           }
@@ -118,6 +133,7 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
           if (subscriber.id === calc.subscriber_id) {
             const m = curMonthNum - 1;
             this.data[i][m].subscriber_id = subscriber.id;
+            this.data[i][m].inactive = subscriber.inactive;
             this.data[i][m].chalk = calc.chalk;
             this.data[i][m].payments = calc.payments;
             this.data[i][m].state = 'current';
@@ -163,7 +179,32 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
     this.isEditModal = false;
     this.modalDataSent = false;
     this.modalId = null;
-    this.subMdl$.unsubscribe();
+    // this.subMdl$.unsubscribe();
+  }
+  dataModalStprOpen(id: number|undefined, name: string, stop_reason: string|undefined) {
+    this.datamodalStpr = true;
+    this.pendingModal = true;
+    this.dataModalStprInfo = {
+      name: name
+    }
+    const forPatching = {
+      id: id,
+      stop_reason: stop_reason
+    };
+    this.formStpr.patchValue(forPatching);
+    this.formStpr.updateValueAndValidity();
+    this.pendingModal = false;
+  }
+  dataModalStprClose(): void {
+    if (this.modalDataStprSent) {
+      this.dataLoad();
+    }
+    this.datamodalStpr = false;
+    this.modalDataStprSent = false;
+    this.dataModalStprInfo = {
+      name: ''
+    }
+    // this.subMdl$.unsubscribe();
   }
 
   get payments_field(): FormArray {
@@ -258,6 +299,28 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
             this.dataModalClose();
           })
       }
+    }
+  }
+
+  submitStpr():void {
+    if (this.form.status === 'VALID') {
+      const valueObj: any = this.formStpr.value;
+      this.mainService.setPreloaderState(true);
+      this.pendingModal = true;
+      this.subCalcService.stopReasonUpdate(valueObj.id, valueObj).subscribe((response: any) => {
+          if (response.success !== undefined) {
+            if (response.success == true) {
+              this.modalDataStprSent = true;
+              this.pendingModal = false;
+              this.dataModalStprClose();
+            }
+          }
+        },
+        (error: any) => {
+          alert(error);
+          this.pendingModal = false;
+          this.dataModalStprClose();
+        })
     }
   }
   ngOnDestroy(): void {

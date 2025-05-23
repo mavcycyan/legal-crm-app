@@ -23,6 +23,9 @@
   flex-wrap: wrap;
   width: max-content;
   border-top: 2px solid $color_main;
+  &.inactive, &.inactive > * {
+    color: #666;
+  }
 }
 
 .calculations-tbl-row:first-child {
@@ -37,9 +40,25 @@
   border-left: 2px solid $color_main;
   display: flex;
   justify-content: flex-start;
+  &.current {
+    background: #eee;
+  }
 }
-.calculations-tbl-col.current {
-  background: #eee;
+button.calculations-tbl-col {
+  background: none;
+  border: 0;
+  border-left: 2px solid $color_main;
+  font-size: 14px;
+  font-family: "Nunito";
+  cursor: pointer;
+  transition: 0.3s;
+  span {
+    display: block;
+  }
+  &:hover {
+    background: #eee;
+    transition: 0.3s;
+  }
 }
 
 
@@ -181,6 +200,13 @@ button.calculations-tbl-subcol:hover {
 }
 .calculations-tbl-col.date.current .chalk, .calculations-tbl-col.date.current .pays {
   border-bottom: 2px solid $color_main;
+}
+
+button.calculations-tbl-col {
+  &.name {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .scroll-clone-wrap {

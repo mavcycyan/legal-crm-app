@@ -61,6 +61,7 @@ import { SubscribersArchiveComponent } from './layouts/archive/subscribers-archi
 import { AdvocateCasesArchiveComponent } from './layouts/archive/advocate-cases-archive/advocate-cases-archive.component';
 import { SearchFormComponent } from './components/global/search-form/search-form.component';
 import { SubscribersCalculationsComponent } from './layouts/main-page/calculations/subscribers/subscribers-calculations/subscribers-calculations.component';
+import { BreadcrumbsComponent } from './components/global/breadcrumbs/breadcrumbs.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import { SubscribersCalculationsComponent } from './layouts/main-page/calculatio
     SubscribersArchiveComponent,
     AdvocateCasesArchiveComponent,
     SearchFormComponent,
-    SubscribersCalculationsComponent
+    SubscribersCalculationsComponent,
+    BreadcrumbsComponent
   ],
   imports: [
     BrowserModule,

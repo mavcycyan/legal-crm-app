@@ -5,6 +5,8 @@ import {
 } from "../../../models/advocates/advocates-list.interface";
 import {AdvocateService} from "../../../services/advocate/advocate.service";
 import {MainService} from "../../../services/main/main.service";
+import {PagiBackService} from "../../../services/helper/pagi.back.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-advocate-page',
@@ -27,10 +29,12 @@ export class AdvocatePageComponent implements OnInit{
   sortBy: string = 'name';
 
   constructor(private advocateService: AdvocateService,
-              private mainService: MainService) {
+              private mainService: MainService,
+              private pagiBackService: PagiBackService) {
   }
 
   ngOnInit(): void {
+    this.pagiBackService.linksDry();
     this.mainService.setPreloaderState(true);
     let params = {
       pag_size: this.pageSize,

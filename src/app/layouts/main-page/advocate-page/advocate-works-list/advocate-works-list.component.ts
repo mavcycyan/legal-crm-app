@@ -5,8 +5,9 @@ import {
 } from "../../../../models/advocates/advocate-works.interface";
 import {ActivatedRoute, Params} from "@angular/router";
 import {MainService} from "../../../../services/main/main.service";
-import {Subscription} from "rxjs";
+import {combineLatest, Subscription} from "rxjs";
 import {AdvocateWorkService} from "../../../../services/advocate/advocate-work.service";
+import {PagiBackService} from "../../../../services/helper/pagi.back.service";
 
 @Component({
   selector: 'app-advocate-works-list',
@@ -28,21 +29,34 @@ export class AdvocateWorksListComponent {
   allItems: number = 0;
   pageSize: number = 10;
   pageOffset: number = 0;
+  startPage: number = 1;
 
   constructor(private route: ActivatedRoute,
               private advocateWorkService: AdvocateWorkService,
-              private mainService: MainService) {
+              private mainService: MainService,
+              private pagiBackService: PagiBackService) {
   }
 
 
   ngOnInit(): void {
+    this.pagiBackService.linksSet('backSingle', window.location.pathname);
     this.mainService.setPreloaderState(true);
-    this.subAdvocate$ = this.route.params
-      .subscribe(
-        (params: Params) => {
-          let params_client = {
+    this.subAdvocate$ = combineLatest([
+      this.route.params,
+      this.route.queryParams
+    ]).subscribe(
+        ([params, queryParams]: Params[]) => {
+          if (queryParams['pageOffset'] !== undefined && queryParams['pageOffset'] !== '' && queryParams['pageOffset'] != '1') {
+            this.pageOffset = this.pageSize * (parseInt(queryParams['pageOffset']) - 1);
+            this.startPage = parseInt(queryParams['pageOffset']);
+          }
+          let params_client:any = {
             pag_size: this.pageSize
           };
+          if (this.pageOffset > 0) {
+            params_client.pag_offset = this.pageOffset;
+            this.pagiBackService.linksSet('backSingle', window.location.pathname + '?pageOffset=' + (this.pageOffset + 1).toString());
+          }
           this.advocateWorkService.getList(params['case_id'], params_client).subscribe((data: AdvocateWorksListInterfaceRequest) => {
             this.id = params['case_id'];
             this.works = data.data;
@@ -59,16 +73,22 @@ export class AdvocateWorksListComponent {
     this.subAdvocate$.unsubscribe();
   }
   getList(event: {name: string, value: string} | null = null): void {
+    let backLinkPathname = '';
     if (this.id !== null) {
       this.mainService.setPreloaderState(true);
       if (event !== null) {
         if (event.name === 'pageOffset') {
           this.pageOffset = this.pageSize * (parseInt(event.value)-1);
+          if (this.pageOffset > 0) {
+            backLinkPathname += (backLinkPathname === '') ? '?' : '';
+            backLinkPathname = backLinkPathname + 'pageOffset=' + (this.pageOffset + 1).toString();
+          }
         }
       }
-      let params_client = {
+      let params_client: any = {
         pag_size: this.pageSize
       };
+      this.pagiBackService.linksSet('backSingle', window.location.pathname + backLinkPathname);
       this.advocateWorkService.getList(this.id, params_client).subscribe((data: AdvocateWorksListInterfaceRequest) => {
         this.works = data.data;
         if (data.all_items !== undefined) {

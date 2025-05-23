@@ -8,6 +8,7 @@ import {
   AdvocateCategoriesInterfaceRequest
 } from "../../../../models/advocates/advocate-categories.interface";
 import {MainService} from "../../../../services/main/main.service";
+import {PagiBackService} from "../../../../services/helper/pagi.back.service";
 
 @Component({
   selector: 'app-advocate-categories',
@@ -20,10 +21,12 @@ export class AdvocateCategoriesComponent  implements OnInit, OnDestroy {
   private categoriesSub$: Subscription = new Subscription();
 
   constructor(private advocateService: AdvocateService,
-              private mainService: MainService) {
+              private mainService: MainService,
+              private pagiBackService: PagiBackService) {
   }
 
   ngOnInit(): void {
+    this.pagiBackService.linksDry();
     this.mainService.setPreloaderState(true);
     this.categoriesSub$ = this.advocateService.getCategories().subscribe((categories: AdvocateCategoriesInterfaceRequest) => {
       this.categories = categories.data;

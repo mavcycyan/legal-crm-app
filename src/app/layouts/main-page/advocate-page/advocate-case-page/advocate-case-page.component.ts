@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {combineLatest, Subscription} from "rxjs";
 import {AdvocatesCardInterface} from "../../../../models/advocates/advocates-card.interface";
 import {
   AdvocateCasesInterface,
@@ -14,6 +14,7 @@ import {
 } from "../../../../models/advocates/advocate-categories.interface";
 import {AdvocateCasePaymentsService} from "../../../../services/advocate/advocate-case-payments.service";
 import {AdvocateCaseTblService} from "../../../../services/advocate/advocate-case-tbl.service";
+import {PagiBackService} from "../../../../services/helper/pagi.back.service";
 
 @Component({
   selector: 'app-advocate-case-page',
@@ -40,6 +41,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
   allItems: number = 0;
   pageSize: number = 10;
   pageOffset: number = 0;
+  startPage: number = 1;
 
   // sorting
   sortDirection: string = 'desc';
@@ -61,23 +63,37 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
               private advocateService: AdvocateService,
               private mainService: MainService,
               public advocateCasePaymentsService: AdvocateCasePaymentsService,
-              public advocateCaseTblService: AdvocateCaseTblService) {
+              public advocateCaseTblService: AdvocateCaseTblService,
+              private pagiBackService: PagiBackService) {
   }
 
 
   ngOnInit(): void {
+    this.pagiBackService.linksDry();
     this.mainService.setPreloaderState(true);
-    this.subAdvocate$ = this.route.params
+    this.subAdvocate$ = combineLatest([
+      this.route.params,
+      this.route.queryParams
+    ])
       .subscribe(
-        (params: Params) => {
+        ([params, queryParams]: Params[]) => {
+          if (queryParams['pageOffset'] !== undefined && queryParams['pageOffset'] !== '' && queryParams['pageOffset'] != '1') {
+            this.pageOffset = this.pageSize * (parseInt(queryParams['pageOffset']) - 1);
+            this.startPage = parseInt(queryParams['pageOffset']);
+          }
           const id = params['id'];
           const advocateId: number = (id !== 'personal') ? id : sessionStorage.getItem('userId');
           this.advId = id;
-          let params_case = {
+          let params_case:any = {
             pag_size: this.pageSize,
             sort_dir: this.sortDirection,
             sort_field: this.sortBy
           };
+          this.pagiBackService.linksSet('backList', window.location.pathname);
+          if (this.pageOffset > 0) {
+            params_case.pag_offset = this.pageOffset;
+            this.pagiBackService.linksSet('backList', window.location.pathname + '?pageOffset=' + (this.pageOffset + 1).toString());
+          }
           this.advocateService.getAdvocateCases(advocateId, params['category'], params_case).subscribe((list: AdvocateCasesInterfaceRequest|AdvocateCategoriesInterfaceRequest) => {
             this.advocateService.getCategoryBySlug(params['category']).subscribe((data: AdvocateCategoryInterfaceRequest) => {
               let data_id: number|null = (data.data.id !== undefined) ? data.data.id.valueOf() : null;
@@ -126,6 +142,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
   }
 
   getList(event: {name: string, value: string} | null = null): void {
+    let backLinkPathname = '';
     this.mainService.setPreloaderState(true);
     this.subAdvocate$ = this.route.params
       .subscribe(
@@ -136,6 +153,10 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
           if (event !== null) {
             if (event.name === 'pageOffset') {
               this.pageOffset = this.pageSize * (parseInt(event.value)-1);
+              if (this.pageOffset > 0) {
+                backLinkPathname += (backLinkPathname === '') ? '?' : '';
+                backLinkPathname = backLinkPathname + 'pageOffset=' + (this.pageOffset + 1).toString();
+              }
             }
             if (event.name === 'sort') {
               const sort = event.value.split('__');
@@ -162,6 +183,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
               params_case[event.name] = event.value;
             }
           }
+          this.pagiBackService.linksSet('backList', window.location.pathname + backLinkPathname);
           this.advocateService.getAdvocateCases(advocateId, params['category'], params_case).subscribe((list: AdvocateCasesInterfaceRequest|AdvocateCategoriesInterfaceRequest) => {
             this.advocateService.getCategoryBySlug(params['category']).subscribe((data: AdvocateCategoryInterfaceRequest) => {
               let data_id: number|null = (data.data.id !== undefined) ? data.data.id.valueOf() : null;

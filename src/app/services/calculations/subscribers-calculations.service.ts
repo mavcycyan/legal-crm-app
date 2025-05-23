@@ -32,4 +32,8 @@ export class SubscribersCalculationsService {
   update(id: number, data: any): Observable<any> {
     return this.httpClient.put(`${globals.api_url}/api/calculations/subscribers/${id}`, data);
   }
+
+  stopReasonUpdate(id: number, data: any): Observable<any> {
+    return this.httpClient.put(`${globals.api_url}/api/subscribers_stop_reason/${id}`, data);
+  }
 }

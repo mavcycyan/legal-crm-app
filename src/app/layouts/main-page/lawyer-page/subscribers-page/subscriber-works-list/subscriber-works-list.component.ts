@@ -9,6 +9,7 @@ import {
 import {SubscriberWorksService} from "../../../../../services/subscribers/subscriber-works.service";
 import {SubscriberPaymentsService} from "../../../../../services/subscribers/subscriber-payments.service";
 import {SubscriberWorkPaymentsService} from "../../../../../services/subscribers/subscriber-work-payments.service";
+import {PagiBackService} from "../../../../../services/helper/pagi.back.service";
 
 @Component({
   selector: 'app-subscriber-works-list',
@@ -31,6 +32,7 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
   allItems: number = 0;
   pageSize: number = 10;
   pageOffset: number = 0;
+  startPage: number = 1;
 
   // sorting
   sortDirection: string = 'desc';
@@ -52,18 +54,24 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private subscriberWorksService: SubscriberWorksService,
               private mainService: MainService,
-              public subscriberWorkPaymentsService: SubscriberWorkPaymentsService) {
+              public subscriberWorkPaymentsService: SubscriberWorkPaymentsService,
+              private pagiBackService: PagiBackService) {
   }
 
   ngOnInit() {
+    this.pagiBackService.linksSet('backSingle', window.location.pathname);
     this.mainService.setPreloaderState(true);
     this.subClient$ = combineLatest([
       this.route.params,
       this.route.queryParams
     ]).subscribe(
         ([params, queryParams]: Params[]) => {
+          if (queryParams['pageOffset'] !== undefined && queryParams['pageOffset'] !== '' && queryParams['pageOffset'] != '1') {
+            this.pageOffset = this.pageSize * (parseInt(queryParams['pageOffset']) - 1);
+            this.startPage = parseInt(queryParams['pageOffset']);
+          }
           this.id = params['id'];
-          let params_client = {
+          let params_client:any = {
             pag_size: this.pageSize,
             sort_dir: this.sortDirection,
             sort_field: this.sortBy
@@ -77,6 +85,10 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
                 this.filter = obj[item];
               }
             });
+          }
+          if (this.pageOffset > 0) {
+            params_client.pag_offset = this.pageOffset;
+            this.pagiBackService.linksSet('backSingle', window.location.pathname + '?pageOffset=' + (this.pageOffset + 1).toString());
           }
           this.subscriberWorksService.getList(params['id'], params_client).subscribe((list: SubscribersWorksListInterfaceRequest) => {
             this.works = list.data.map((item: SubscribersWorksListInterface) => ({
@@ -95,11 +107,16 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
     this.subClient$.unsubscribe();
   }
   getList(event: {name: string, value: string} | null = null): void {
+    let backLinkPathname = '';
     if (this.id !== null) {
       this.mainService.setPreloaderState(true);
       if (event !== null) {
         if (event.name === 'pageOffset') {
           this.pageOffset = this.pageSize * (parseInt(event.value)-1);
+          if (this.pageOffset > 0) {
+            backLinkPathname += (backLinkPathname === '') ? '?' : '';
+            backLinkPathname = backLinkPathname + 'pageOffset=' + (this.pageOffset + 1).toString();
+          }
         }
         if (event.name === 'sort') {
           const sort = event.value.split('__');
@@ -112,13 +129,7 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
           this.pageOffset = 0;
         }
       }
-      let params_client: {
-        pag_size?: number,
-        pag_offset?: number,
-        sort_dir?: string,
-        sort_field?: string,
-        filt_result?: string,
-      } = {
+      let params_client:any = {
         pag_size: this.pageSize,
         pag_offset: this.pageOffset,
         sort_dir: this.sortDirection,
@@ -127,6 +138,12 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
       if (this.filter !== '') {
         params_client.filt_result = this.filter;
       }
+      if (event !== null) {
+        if (event.name.search('srch_') > -1) {
+          params_client[event.name] = event.value;
+        }
+      }
+      this.pagiBackService.linksSet('backSingle', window.location.pathname + backLinkPathname);
       this.subscriberWorksService.getList(this.id, params_client).subscribe((list: SubscribersWorksListInterfaceRequest) => {
         this.works = list.data.map((item: SubscribersWorksListInterface) => ({
           ...item,

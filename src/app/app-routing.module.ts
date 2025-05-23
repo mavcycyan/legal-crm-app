@@ -77,11 +77,15 @@ const routes: Routes = [
       {path: '', component: HomePageComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer/client_works', component: ClientsPageComponent, canActivate: [PermissionsGuard]},
       {path: 'lawyer/clients', component: ClientsAllComponent, canActivate: [PermissionsGuard]},
+      {path: 'lawyer/clients/page/:page', component: ClientsAllComponent, canActivate: [PermissionsGuard]},
+      {path: 'lawyer/clients/page', redirectTo: 'lawyer/clients'},
       {path: 'lawyer/clients/:id', component: ClientsCardPageComponent, canActivate: [PermissionsGuard], children: [
           {path: '', component: ClientWorksListComponent},
           {path: ':client_work', component: ClientWorkCardComponent},
       ]},
       {path: 'lawyer/subscribers', component: SubscribersPageComponent, canActivate: [PermissionsGuard]},
+      {path: 'lawyer/subscribers/page/:page', component: SubscribersPageComponent, canActivate: [PermissionsGuard]},
+      {path: 'lawyer/subscribers/page', redirectTo: 'lawyer/subscribers'},
       {path: 'lawyer/subscribers/:id', component: SubscribersCardPageComponent, canActivate: [PermissionsGuard], children: [
           {path: '', component: SubscriberWorksListComponent},
           {path: ':subscriber_work', component: SubscriberWorkCardComponent},

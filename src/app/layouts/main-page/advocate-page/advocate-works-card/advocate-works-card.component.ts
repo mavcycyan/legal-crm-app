@@ -8,6 +8,7 @@ import {
   AdvocateWorksInterfaceRequest
 } from "../../../../models/advocates/advocate-works.interface";
 import {AdvocateWorkFilesService} from "../../../../services/advocate/advocate-work-files.service";
+import {PagiBackService} from "../../../../services/helper/pagi.back.service";
 
 @Component({
   selector: 'app-advocate-works-card',
@@ -33,10 +34,12 @@ export class AdvocateWorksCardComponent {
   constructor(private route: ActivatedRoute,
               private advocateWorksService: AdvocateWorkService,
               public advocateWorkFilesService: AdvocateWorkFilesService,
-              private mainService: MainService) {
+              private mainService: MainService,
+              private pagiBackService: PagiBackService) {
   }
 
   ngOnInit() {
+    this.pagiBackService.linksSet('backWorkSingle', window.location.pathname);
     this.mainService.setPreloaderState(true);
     this.subClient$ = this.route.params
       .subscribe(

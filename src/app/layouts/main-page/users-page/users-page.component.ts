@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserInterface, UsersInterfaceRequest} from "../../../models/auth/user.interface";
 import {UserService} from "../../../services/auth/user.service";
 import {MainService} from "../../../services/main/main.service";
+import {PagiBackService} from "../../../services/helper/pagi.back.service";
 
 @Component({
   selector: 'app-users-page',
@@ -25,10 +26,12 @@ export class UsersPageComponent implements OnInit {
   sortBy: string = 'name';
 
   constructor(private usersService: UserService,
-              private mainService: MainService) {
+              private mainService: MainService,
+              private pagiBackService: PagiBackService) {
   }
 
   ngOnInit(): void {
+    this.pagiBackService.linksDry();
     this.mainService.setPreloaderState(true);
     let params = {
       pag_size: this.pageSize,

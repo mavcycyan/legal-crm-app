@@ -1,6 +1,7 @@
 <div class="main-page-wrap-in">
+  <app-breadcrumbs [maxCrumb]="1"></app-breadcrumbs>
   <app-table [data]="works" [columns]="tblColumns" [tableClass]="'subscribers-works-list'" [tablePaymentService]="subscriberWorkPaymentsService" [pageOffset]="pageOffset"></app-table>
-  <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)"></app-pagination>
+  <app-pagination *ngIf="allItems > 0" [allItems]="allItems" [pageSize]="pageSize" (updatePage)="getList($event)" [startPage]="startPage"></app-pagination>
   <div class="main-page-btn">
     <a [routerLink]="['/', 'edit', 'lawyer', 'subscribers', id]">Редагувати абонента</a>
     <a [routerLink]="['/', 'edit', 'lawyer', 'subscriber_work']" class="second">Додати роботу</a>

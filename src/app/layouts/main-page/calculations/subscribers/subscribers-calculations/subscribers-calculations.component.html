@@ -15,9 +15,10 @@
             <div class="fee">Абонплата</div>
           </div>
         </div>
-        <div class="calculations-tbl-row resize_row" *ngFor="let subscriber of subscribers; let i = index">
+        <div [ngClass]="{'calculations-tbl-row': true, 'resize_row': true, 'inactive' : subscriber.inactive}" *ngFor="let subscriber of subscribers; let i = index">
           <div class="calculations-tbl-col resize_col num">{{ i + 1 }}</div>
-          <div class="calculations-tbl-col resize_col name">{{ subscriber.name }}</div>
+          <div *ngIf="subscriber.inactive === 0" class="calculations-tbl-col resize_col name">{{ subscriber.name }}</div>
+          <button *ngIf="subscriber.inactive === 1" class="calculations-tbl-col resize_col name" (click)="dataModalStprOpen(subscriber.id, subscriber.name, subscriber.stop_reason)">{{ subscriber.name }}<span *ngIf="subscriber.stop_reason !== null && subscriber.stop_reason !== ''">( {{subscriber.stop_reason}} )</span></button>
           <div class="calculations-tbl-col resize_col fee">{{ subscriber.fee }}</div>
         </div>
       </div>
@@ -29,7 +30,7 @@
             <div class="pays">Виплати</div>
           </div>
         </div>
-        <div class="calculations-tbl-row resize_row" *ngFor="let row of data; let i = index">
+        <div [ngClass]="{'calculations-tbl-row': true, 'resize_row': true, 'inactive' : row[0].inactive}" *ngFor="let row of data; let i = index">
           <div [ngClass]="{'calculations-tbl-col' : true, 'resize_col' : true, 'current' : col.state === 'current'}" *ngFor="let col of row; let y = index">
             <ng-container *ngIf="col.state !== ''">
               <div class="calculations-tbl-subcol chalk">{{col.chalk}}</div>
@@ -88,6 +89,29 @@
             </div>
             <button type="button" (click)="addRepData()" class="btn btn-add">Додати нову виплату</button>
           </div>
+          <button type="submit" class="btn btn-primary">Зберегти</button>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="pendingModal" class="modal-preloader">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#4C5D52"></stop><stop offset=".3" stop-color="#4C5D52" stop-opacity=".9"></stop><stop offset=".6" stop-color="#4C5D52" stop-opacity=".6"></stop><stop offset=".8" stop-color="#4C5D52" stop-opacity=".3"></stop><stop offset="1" stop-color="#4C5D52" stop-opacity="0"></stop></radialGradient><circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle><circle transform-origin="center" fill="none" opacity=".2" stroke="#4C5D52" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle></svg>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" *ngIf="datamodalStpr" @fadeInOut>
+  <div class="modal-overlay" (click)="dataModalStprClose()"></div>
+  <div class="modal-wrap">
+    <div class="modal-payment">
+      <div class="modal-payment-ttl">Нобслуговуємий абонент "{{dataModalStprInfo.name}}"</div>
+      <form [formGroup]="formStpr" (ngSubmit)="submitStpr()" class="form">
+        <input type="hidden" formControlName="id">
+        <div class="form-col">
+          <label for="stop_reason" class="form-label">Причина припинення обслуговування</label>
+          <input id="stop_reason" class="form-control" type="text" formControlName="stop_reason">
+        </div>
+        <div class="form-col">
           <button type="submit" class="btn btn-primary">Зберегти</button>
         </div>
       </form>
