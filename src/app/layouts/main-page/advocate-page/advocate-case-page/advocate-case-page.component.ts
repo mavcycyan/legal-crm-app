@@ -77,9 +77,9 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
     ])
       .subscribe(
         ([params, queryParams]: Params[]) => {
-          if (queryParams['pageOffset'] !== undefined && queryParams['pageOffset'] !== '' && queryParams['pageOffset'] != '1') {
-            this.pageOffset = this.pageSize * (parseInt(queryParams['pageOffset']) - 1);
-            this.startPage = parseInt(queryParams['pageOffset']);
+          if (queryParams['pageNum'] !== undefined && queryParams['pageNum'] !== '' && queryParams['pageNum'] != '1') {
+            this.pageOffset = this.pageSize * (parseInt(queryParams['pageNum']) - 1);
+            this.startPage = parseInt(queryParams['pageNum']);
           }
           const id = params['id'];
           const advocateId: number = (id !== 'personal') ? id : sessionStorage.getItem('userId');
@@ -92,7 +92,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
           this.pagiBackService.linksSet('backList', window.location.pathname);
           if (this.pageOffset > 0) {
             params_case.pag_offset = this.pageOffset;
-            this.pagiBackService.linksSet('backList', window.location.pathname + '?pageOffset=' + (this.pageOffset + 1).toString());
+            this.pagiBackService.linksSet('backList', window.location.pathname + '?pageNum=' + queryParams['pageNum']);
           }
           this.advocateService.getAdvocateCases(advocateId, params['category'], params_case).subscribe((list: AdvocateCasesInterfaceRequest|AdvocateCategoriesInterfaceRequest) => {
             this.advocateService.getCategoryBySlug(params['category']).subscribe((data: AdvocateCategoryInterfaceRequest) => {
@@ -155,7 +155,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
               this.pageOffset = this.pageSize * (parseInt(event.value)-1);
               if (this.pageOffset > 0) {
                 backLinkPathname += (backLinkPathname === '') ? '?' : '';
-                backLinkPathname = backLinkPathname + 'pageOffset=' + (this.pageOffset + 1).toString();
+                backLinkPathname = backLinkPathname + 'pageNum=' + event.value;
               }
             }
             if (event.name === 'sort') {

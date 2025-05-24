@@ -30,7 +30,5 @@ export class BreadcrumbsComponent implements OnInit {
         queryParams
       }
     });
-    // this.crumbs = this.pagiBackService.linksGet();
-    console.log(this.crumbs);
   }
 }

@@ -66,9 +66,9 @@ export class ClientWorksListComponent implements OnInit, OnDestroy {
       this.route.queryParams
     ]).subscribe(
         ([params, queryParams]: Params[]) => {
-          if (queryParams['pageOffset'] !== undefined && queryParams['pageOffset'] !== '' && queryParams['pageOffset'] != '1') {
-            this.pageOffset = this.pageSize * (parseInt(queryParams['pageOffset']) - 1);
-            this.startPage = parseInt(queryParams['pageOffset']);
+          if (queryParams['pageNum'] !== undefined && queryParams['pageNum'] !== '' && queryParams['pageNum'] != '1') {
+            this.pageOffset = this.pageSize * (parseInt(queryParams['pageNum']) - 1);
+            this.startPage = parseInt(queryParams['pageNum']);
           }
           this.id = params['id'];
           let params_client:any = {
@@ -88,7 +88,7 @@ export class ClientWorksListComponent implements OnInit, OnDestroy {
           }
           if (this.pageOffset > 0) {
             params_client.pag_offset = this.pageOffset;
-            this.pagiBackService.linksSet('backSingle', window.location.pathname + '?pageOffset=' + (this.pageOffset + 1).toString());
+            this.pagiBackService.linksSet('backSingle', window.location.pathname + '?pageNum=' + queryParams['pageNum']);
           }
           this.clientWorksService.getList(params['id'], params_client).subscribe((list: ClientCardWorksListInterfaceRequest) => {
             this.works = list.data.map((item: ClientCardWorksListInterface) => ({
@@ -115,7 +115,7 @@ export class ClientWorksListComponent implements OnInit, OnDestroy {
           this.pageOffset = this.pageSize * (parseInt(event.value)-1);
           if (this.pageOffset > 0) {
             backLinkPathname += (backLinkPathname === '') ? '?' : '';
-            backLinkPathname = backLinkPathname + 'pageOffset=' + (this.pageOffset + 1).toString();
+            backLinkPathname = backLinkPathname + 'pageNum=' + event.value;
           }
         }
         if (event.name === 'sort') {

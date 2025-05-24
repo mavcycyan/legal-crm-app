@@ -5,7 +5,7 @@
       <a [routerLink]="crumbs['backList'].link" [queryParams]="crumbs['backList'].queryParams">До списку</a>
     </div>
     <div class="breadcrumbs-crumb" *ngIf="(maxCrumb === undefined || maxCrumb > 1) && crumbs['backSingle'] !== undefined && crumbs['backSingle'].link !== ''">
-      <a [routerLink]="crumbs['backSingle'].link" [queryParams]="crumbs['backSingle'].queryParams">До запису</a>
+      <a [routerLink]="crumbs['backSingle'].link" [queryParams]="crumbs['backSingle'].queryParams">До списку робот</a>
     </div>
     <div class="breadcrumbs-crumb" *ngIf="(maxCrumb === undefined || maxCrumb > 2) && crumbs['backWorkSingle'] !== undefined && crumbs['backWorkSingle'].link !== ''">
       <a [routerLink]="crumbs['backWorkSingle'].link" [queryParams]="crumbs['backWorkSingle'].queryParams">До роботи</a>

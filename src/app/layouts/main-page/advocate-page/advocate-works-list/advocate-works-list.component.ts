@@ -46,16 +46,16 @@ export class AdvocateWorksListComponent {
       this.route.queryParams
     ]).subscribe(
         ([params, queryParams]: Params[]) => {
-          if (queryParams['pageOffset'] !== undefined && queryParams['pageOffset'] !== '' && queryParams['pageOffset'] != '1') {
-            this.pageOffset = this.pageSize * (parseInt(queryParams['pageOffset']) - 1);
-            this.startPage = parseInt(queryParams['pageOffset']);
+          if (queryParams['pageNum'] !== undefined && queryParams['pageNum'] !== '' && queryParams['pageNum'] != '1') {
+            this.pageOffset = this.pageSize * (parseInt(queryParams['pageNum']) - 1);
+            this.startPage = parseInt(queryParams['pageNum']);
           }
           let params_client:any = {
             pag_size: this.pageSize
           };
           if (this.pageOffset > 0) {
             params_client.pag_offset = this.pageOffset;
-            this.pagiBackService.linksSet('backSingle', window.location.pathname + '?pageOffset=' + (this.pageOffset + 1).toString());
+            this.pagiBackService.linksSet('backSingle', window.location.pathname + '?pageNum=' + queryParams['pageNum']);
           }
           this.advocateWorkService.getList(params['case_id'], params_client).subscribe((data: AdvocateWorksListInterfaceRequest) => {
             this.id = params['case_id'];
@@ -81,7 +81,7 @@ export class AdvocateWorksListComponent {
           this.pageOffset = this.pageSize * (parseInt(event.value)-1);
           if (this.pageOffset > 0) {
             backLinkPathname += (backLinkPathname === '') ? '?' : '';
-            backLinkPathname = backLinkPathname + 'pageOffset=' + (this.pageOffset + 1).toString();
+            backLinkPathname = backLinkPathname + 'pageNum=' + event.value;
           }
         }
       }

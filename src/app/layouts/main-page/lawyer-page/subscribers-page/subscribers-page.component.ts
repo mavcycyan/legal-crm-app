@@ -59,9 +59,9 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
     this.pagiBackService.linksSet('backList', window.location.pathname);
     this.mainService.setPreloaderState(true);
     this.route.queryParams.subscribe((queryParams: Params) => {
-      if (queryParams['pageOffset'] !== undefined && queryParams['pageOffset'] !== '' && queryParams['pageOffset'] != '1') {
-        this.pageOffset = this.pageSize * (parseInt(queryParams['pageOffset']) - 1);
-        this.startPage = parseInt(queryParams['pageOffset']);
+      if (queryParams['pageNum'] !== undefined && queryParams['pageNum'] !== '' && queryParams['pageNum'] != '1') {
+        this.pageOffset = this.pageSize * (parseInt(queryParams['pageNum']) - 1);
+        this.startPage = parseInt(queryParams['pageNum']);
       }
       let params:any = {
         pag_size: this.pageSize,
@@ -71,7 +71,7 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
       };
       if (this.pageOffset > 0) {
         params.pag_offset = this.pageOffset;
-        this.pagiBackService.linksSet('backList', window.location.pathname + '?pageOffset=' + (this.pageOffset + 1).toString());
+        this.pagiBackService.linksSet('backList', window.location.pathname + '?pageNum=' + queryParams['pageNum']);
       }
       this.listSub$ = this.subscribersService.getList(params).subscribe((list: SubscribersListInterfaceRequest) => {
         this.list = list.data.map((item: SubscribersListInterface) => {
@@ -123,7 +123,7 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
         this.pageOffset = this.pageSize * (parseInt(event.value)-1);
         if (this.pageOffset > 0) {
           backLinkPathname += (backLinkPathname === '') ? '?' : '';
-          backLinkPathname = backLinkPathname + 'pageOffset=' + (this.pageOffset + 1).toString();
+          backLinkPathname = backLinkPathname + 'pageNum=' + event.value;
         }
       }
       if (event.name === 'sort') {
