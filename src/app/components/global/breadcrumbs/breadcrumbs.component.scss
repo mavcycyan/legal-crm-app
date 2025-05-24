@@ -5,6 +5,7 @@
   margin: 0 -5px;
   display: flex;
   flex-wrap: wrap;
+  width: calc(100% - 10px);
   &-txt {
     padding: 0 5px 10px;
   }
@@ -13,7 +14,6 @@
     padding: 0 5px;
     display: flex;
     flex-wrap: wrap;
-    width: calc(100% - 10px);
   }
   &-crumb {
     padding: 0 5px;
