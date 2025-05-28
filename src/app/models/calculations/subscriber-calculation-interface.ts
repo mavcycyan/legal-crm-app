@@ -15,7 +15,7 @@ export interface SubscriberCalculationSubInterface {
   name: string,
   holder: string,
   fee: string,
-  inactive?: number,
+  inactive?: number|string,
   stop_reason?: string
 }
 
@@ -39,5 +39,5 @@ export interface SubscriberCalculationResultInterface {
   }[],
   state: string,
   subscriber_id?: number,
-  inactive?: number
+  inactive?: number|string
 }

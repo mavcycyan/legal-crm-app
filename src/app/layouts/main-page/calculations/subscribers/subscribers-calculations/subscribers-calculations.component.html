@@ -17,8 +17,8 @@
         </div>
         <div [ngClass]="{'calculations-tbl-row': true, 'resize_row': true, 'inactive' : subscriber.inactive}" *ngFor="let subscriber of subscribers; let i = index">
           <div class="calculations-tbl-col resize_col num">{{ i + 1 }}</div>
-          <div *ngIf="subscriber.inactive === 0" class="calculations-tbl-col resize_col name">{{ subscriber.name }}</div>
-          <button *ngIf="subscriber.inactive === 1" class="calculations-tbl-col resize_col name" (click)="dataModalStprOpen(subscriber.id, subscriber.name, subscriber.stop_reason)">{{ subscriber.name }}<span *ngIf="subscriber.stop_reason !== null && subscriber.stop_reason !== ''">( {{subscriber.stop_reason}} )</span></button>
+          <div *ngIf="subscriber.inactive !== undefined && (subscriber.inactive === 0 || subscriber.inactive === '0')" class="calculations-tbl-col resize_col name">{{ subscriber.name }}</div>
+          <button *ngIf="subscriber.inactive !== undefined && (subscriber.inactive === 1 || subscriber.inactive === '1')" class="calculations-tbl-col resize_col name" (click)="dataModalStprOpen(subscriber.id, subscriber.name, subscriber.stop_reason)">{{ subscriber.name }}<span *ngIf="subscriber.stop_reason !== null && subscriber.stop_reason !== ''">( {{subscriber.stop_reason}} )</span></button>
           <div class="calculations-tbl-col resize_col fee">{{ subscriber.fee }}</div>
         </div>
       </div>
@@ -104,7 +104,7 @@
   <div class="modal-overlay" (click)="dataModalStprClose()"></div>
   <div class="modal-wrap">
     <div class="modal-payment">
-      <div class="modal-payment-ttl">Нобслуговуємий абонент "{{dataModalStprInfo.name}}"</div>
+      <div class="modal-payment-ttl">Необслуговуємий абонент "{{dataModalStprInfo.name}}"</div>
       <form [formGroup]="formStpr" (ngSubmit)="submitStpr()" class="form">
         <input type="hidden" formControlName="id">
         <div class="form-col">
