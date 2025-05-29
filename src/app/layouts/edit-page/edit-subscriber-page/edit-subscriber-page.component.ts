@@ -35,8 +35,6 @@ export class EditSubscriberPageComponent implements OnInit{
     {slug: 'accountant_person_phone', name: 'Телефон бухгалтера', required: false, class: 'w-50', type: 'text'},
     {slug: 'legal_address', name: 'Юр. адреса', required: false, class: 'w-100', type: 'text'},
     {slug: 'actual_address', name: 'Фактична адреса', required: false, class: 'w-100', type: 'text'},
-    {slug: 'fee', name: 'Платежі', required: false, class: 'w-50', type: 'number'},
-    {slug: 'payment', name: 'Перший внесок', required: false, class: 'w-50', type: 'number'},
     {slug: 'info', name: 'Інформація про абонента', required: false, class: 'w-100', type: 'textarea'},
   ];
 
@@ -75,7 +73,6 @@ export class EditSubscriberPageComponent implements OnInit{
             {slug: 'accountant_person_phone', name: 'Телефон бухгалтера', required: false, class: 'w-50', type: 'text'},
             {slug: 'legal_address', name: 'Юр. адреса', required: false, class: 'w-100', type: 'text'},
             {slug: 'actual_address', name: 'Фактична адреса', required: false, class: 'w-100', type: 'text'},
-            {slug: 'payments_edit', name: 'Виплати', required: true, class: 'w-50', type: 'paymodal'},
             {slug: 'info', name: 'Інформація про абонента', required: false, class: 'w-100', type: 'textarea'},
           ];
           return this.subscribersService.getOne(params['id']);

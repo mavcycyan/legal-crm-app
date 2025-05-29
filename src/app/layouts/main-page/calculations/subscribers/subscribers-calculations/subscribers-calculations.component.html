@@ -32,13 +32,13 @@
         </div>
         <div [ngClass]="{'calculations-tbl-row': true, 'resize_row': true, 'inactive' : row[0].inactive}" *ngFor="let row of data; let i = index">
           <div [ngClass]="{'calculations-tbl-col' : true, 'resize_col' : true, 'current' : col.state === 'current'}" *ngFor="let col of row; let y = index">
-            <ng-container *ngIf="col.state !== ''">
+            <ng-container *ngIf="col.state === 'empty'">
               <div class="calculations-tbl-subcol chalk">{{col.chalk}}</div>
               <div class="calculations-tbl-subcol pays">
                 <span *ngFor="let pay of col.payments">{{pay.date | date:'dd/MM/yyyy'}} - {{pay.amount}}</span>
               </div>
             </ng-container>
-            <ng-container *ngIf="col.state === ''">
+            <ng-container *ngIf="col.state !== 'empty'">
               <button class="calculations-tbl-subcol chalk" (click)="dataModalOpen(col.id, col.subscriber_id, i, y)">{{col.chalk}}</button>
               <button class="calculations-tbl-subcol pays" (click)="dataModalOpen(col.id, col.subscriber_id, i, y)">
                 <span *ngFor="let pay of col.payments">{{pay.date | date:'dd/MM/yyyy'}} - {{pay.amount}}</span>

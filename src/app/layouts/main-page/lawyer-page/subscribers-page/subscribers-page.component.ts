@@ -23,8 +23,7 @@ export class SubscribersPageComponent implements OnInit, OnDestroy{
     {slug: 'contract_date', name: 'Дата укладення договору'},
     {slug: 'director_person_full', name: 'Директор (телефон)'},
     {slug: 'contact_person_full', name: 'Контактна особа (телефон)'},
-    {slug: 'accountant_person_full', name: 'Бухгалтер (телефон)'},
-    {slug: 'fee', name: 'Платежі', type: 'payments'}
+    {slug: 'accountant_person_full', name: 'Бухгалтер (телефон)'}
   ];
   private listSub$: Subscription = new Subscription();
 

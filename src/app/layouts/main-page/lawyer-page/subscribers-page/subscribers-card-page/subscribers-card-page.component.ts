@@ -32,7 +32,6 @@ export class SubscribersCardPageComponent implements OnInit, OnDestroy{
     {slug: 'accountant_person_phone', name: 'Телефон бухгалтера'},
     {slug: 'legal_address', name: 'Юридична адреса'},
     {slug: 'actual_address', name: 'Фізична адреса'},
-    {slug: 'fee', name: 'Гонорар'},
     {slug: 'info', name: 'Інфо'}
   ];
   id: number|null = null;

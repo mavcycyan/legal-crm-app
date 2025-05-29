@@ -42,7 +42,7 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
 
   subscribers: SubscriberCalculationSubInterface[] = [];
   calculations: SubscriberCalculationDataInterface[] = [];
-  curMonthCalculations: SubscriberCalculationDataInterface[] = [];
+  // curMonthCalculations: SubscriberCalculationDataInterface[] = [];
   data: SubscriberCalculationResultInterface[][] = [];
   selectedYear: string = '2025';
   months: string[] = ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень']
@@ -97,17 +97,17 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
     this.calcSub$ = this.subCalcService.getList().subscribe((data: SubscriberCalculationInterfaceRequest) => {
       this.subscribers = data.data.subscribers;
       this.calculations = data.data.calculations;
-      this.curMonthCalculations = data.data.current_month_data;
+      // this.curMonthCalculations = data.data.current_month_data;
       const curMonthNum = new Date().getMonth() + 1;
       this.subscribers.forEach((subscriber: SubscriberCalculationSubInterface, i: number) => {
         // twelve months - 0-11
         this.data[i] = [];
         for (let m = 0; m <= 11; m++) {
-          if (m+1 < curMonthNum) {
+          if (m+1 <= curMonthNum) {
             this.data[i][m] = {
               chalk: '',
               payments: [],
-              state: '',
+              state: (m+1 === curMonthNum) ? 'current' : '',
               inactive: subscriber.inactive,
               subscriber_id: subscriber.id
             }
@@ -129,22 +129,23 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
             this.data[i][m].payments = calc.payments;
           }
         });
-        this.curMonthCalculations.forEach((calc: SubscriberCalculationDataInterface) => {
-          if (subscriber.id === calc.subscriber_id) {
-            const m = curMonthNum - 1;
-            this.data[i][m].subscriber_id = subscriber.id;
-            this.data[i][m].inactive = subscriber.inactive;
-            this.data[i][m].chalk = calc.chalk;
-            this.data[i][m].payments = calc.payments;
-            this.data[i][m].state = 'current';
-          }
-        });
+        // this.curMonthCalculations.forEach((calc: SubscriberCalculationDataInterface) => {
+        //   if (subscriber.id === calc.subscriber_id) {
+        //     const m = curMonthNum - 1;
+        //     this.data[i][m].subscriber_id = subscriber.id;
+        //     this.data[i][m].inactive = subscriber.inactive;
+        //     this.data[i][m].chalk = calc.chalk;
+        //     this.data[i][m].payments = calc.payments;
+        //     this.data[i][m].state = 'current';
+        //   }
+        // });
       });
       let interval2 = setInterval(() => {
         if (this.rightBlockRef !== undefined && this.data.length > 0) {
           this.setEqualColHeights();
           window.addEventListener('resize', () => this.setEqualColHeights());
           clearInterval(interval2)
+          console.log(this.data);
         }
       }, 500)
       this.mainService.setPreloaderState(false);
