@@ -62,6 +62,7 @@ import { AdvocateCasesArchiveComponent } from './layouts/archive/advocate-cases-
 import { SearchFormComponent } from './components/global/search-form/search-form.component';
 import { SubscribersCalculationsComponent } from './layouts/main-page/calculations/subscribers/subscribers-calculations/subscribers-calculations.component';
 import { BreadcrumbsComponent } from './components/global/breadcrumbs/breadcrumbs.component';
+import { CurrencyConvertPipe } from './pipes/currency-convert/currency-convert.pipe';
 
 @NgModule({
   declarations: [
@@ -119,7 +120,8 @@ import { BreadcrumbsComponent } from './components/global/breadcrumbs/breadcrumb
     AdvocateCasesArchiveComponent,
     SearchFormComponent,
     SubscribersCalculationsComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    CurrencyConvertPipe
   ],
   imports: [
     BrowserModule,

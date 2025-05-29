@@ -20,7 +20,7 @@
       <div [class]="['tablecom-tbl-col', col.slug]" *ngFor="let col of columns">
         <span *ngIf="col.type !== undefined && col.type === 'result'">{{item[col.slug] | statuswork}}</span>
         <span *ngIf="col.type !== undefined && col.type === 'role_id'">{{item[col.slug] | rolename}}</span>
-        <span *ngIf="col.type !== undefined && col.type === 'payments'"><button class="tablecom-tbl-col-modal_btn" (click)="payModalOpen(item.id)">{{item[col.slug]}} <span *ngIf="item.fee_status === 'payed'">+</span><span *ngIf="item.fee_status !== 'payed'">-</span></button></span>
+        <span *ngIf="col.type !== undefined && col.type === 'payments'"><button class="tablecom-tbl-col-modal_btn" (click)="payModalOpen(item.id)">{{item[col.slug]}} <span>{{item.fee_currency | currencyConvert}}</span> <span *ngIf="item.fee_status === 'payed'">+</span><span *ngIf="item.fee_status !== 'payed'">-</span></button></span>
         <span *ngIf="col.type !== undefined && col.type === 'advcase_client'"><button class="tablecom-tbl-col-modal_btn" (click)="advcaseClientOpen(item.id)">{{item[col.slug]}}</button></span>
         <span *ngIf="col.type === undefined || col.type === 'default'">{{item[col.slug]}}</span>
       </div>
