@@ -5,6 +5,7 @@ import {globals} from "../../../globals/globals";
 import {AdvocatesListInterfaceRequest} from "../../models/advocates/advocates-list.interface";
 import {AdvocateCasesInterface, AdvocateCasesInterfaceRequest} from "../../models/advocates/advocate-cases.interface";
 import {Router} from "@angular/router";
+import {ApiResponseInterface, ApiSaveResponseInterface, FormPayloadInterface} from "../../models/api/api-response.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -41,24 +42,24 @@ export class AdvocateCaseService {
     return this.httpClient.get<AdvocateCasesInterfaceRequest>(`${globals.api_url}/api/archive/advocates_cases${params_str}`);
   }
 
-  save(data: any): Observable<any> {
-    return this.httpClient.post(`${globals.api_url}/api/advocates_cases`, data);
+  save(data: FormPayloadInterface): Observable<ApiSaveResponseInterface> {
+    return this.httpClient.post<ApiSaveResponseInterface>(`${globals.api_url}/api/advocates_cases`, data);
   }
 
-  update(id: number, data: any): Observable<any> {
-    return this.httpClient.put(`${globals.api_url}/api/advocates_cases/${id}`, data);
+  update(id: number, data: FormPayloadInterface): Observable<ApiSaveResponseInterface> {
+    return this.httpClient.put<ApiSaveResponseInterface>(`${globals.api_url}/api/advocates_cases/${id}`, data);
   }
 
-  activate(id: number): Observable<any> {
-    return this.httpClient.put(`${globals.api_url}/api/advocates_cases/activity/${id}`, {inactive: 0});
+  activate(id: number): Observable<ApiSaveResponseInterface> {
+    return this.httpClient.put<ApiSaveResponseInterface>(`${globals.api_url}/api/advocates_cases/activity/${id}`, {inactive: 0});
   }
 
-  deactivate(id: number): Observable<any> {
-    return this.httpClient.put(`${globals.api_url}/api/advocates_cases/activity/${id}`, {inactive: 1});
+  deactivate(id: number): Observable<ApiSaveResponseInterface> {
+    return this.httpClient.put<ApiSaveResponseInterface>(`${globals.api_url}/api/advocates_cases/activity/${id}`, {inactive: 1});
   }
 
-  remove(id: number): Observable<any> {
-    return this.httpClient.delete(`${globals.api_url}/api/advocates_cases/${id}`);
+  remove(id: number): Observable<ApiResponseInterface> {
+    return this.httpClient.delete<ApiResponseInterface>(`${globals.api_url}/api/advocates_cases/${id}`);
   }
 
   redirectSuccess(id: number|null = null) {

@@ -23,7 +23,7 @@ export interface PaymentFormPayInterface {
   fin_client_work_price_id: number
 }
 export interface PaymentFormInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: PaymentFormInterface[]
 }

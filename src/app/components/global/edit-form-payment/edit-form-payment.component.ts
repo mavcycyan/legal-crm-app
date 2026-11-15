@@ -4,7 +4,33 @@ import {
   PaymentFormInterfaceRequest,
   PaymentFormPayInterface
 } from "../../../models/forms/payment-form.interface";
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup, ValidatorFn, Validators} from "@angular/forms";
+import {PaymentsFormServiceInterface} from "../../../models/services/form-services.interface";
+import {FormPayloadInterface} from "../../../models/api/api-response.interface";
+
+// FormBuilder control config: [initial value, validators?]
+type ControlConfig = [unknown, (ValidatorFn|ValidatorFn[])?];
+
+interface PriceControlsInterface {
+  id: ControlConfig,
+  price: ControlConfig,
+  price_cur: ControlConfig,
+  date: ControlConfig,
+  date_end: ControlConfig,
+  status?: ControlConfig,
+  name?: ControlConfig,
+  info?: ControlConfig,
+  deadlines?: FormArray,
+  payments: FormArray
+}
+
+interface PaymentControlsInterface {
+  id: ControlConfig,
+  amount: ControlConfig,
+  amount_currency?: ControlConfig,
+  amount_currency_val?: ControlConfig,
+  date: ControlConfig
+}
 
 @Component({
   selector: 'app-edit-form-payment',
@@ -14,7 +40,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class EditFormPaymentComponent implements OnInit{
 
   @Input() id: number|null = null;
-  @Input() service: any;
+  @Input() service: PaymentsFormServiceInterface|null = null;
   @Input() type?: string = 'default';
   @Output() modalState: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -28,16 +54,16 @@ export class EditFormPaymentComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if (this.id !== null) {
+    if (this.id !== null && this.service !== null) {
       this.pendingModal = true;
       this.service.getList(this.id).subscribe((data:PaymentFormInterfaceRequest) => {
         this.priceList = data.data;
 
         let prices = this.fb.array(this.priceList.map((price: PaymentFormInterface) => {
-          let dlArray: any = this.fb.array([]);
+          let dlArray: FormArray = this.fb.array([]);
           if (price.deadlines && price.deadlines.length > 0) {
             dlArray = this.fb.array(
-              price.deadlines.map((obj: any) =>
+              price.deadlines.map((obj) =>
                 this.fb.group({
                   date: [obj.date || ''],
                   fee: [obj.fee || '']
@@ -46,18 +72,7 @@ export class EditFormPaymentComponent implements OnInit{
             );
           }
           if (price.payments && price.payments.length > 0) {
-            let controls: {
-              id: any,
-              price: any,
-              price_cur: any,
-              date: any,
-              date_end: any,
-              status: any,
-              name?: any,
-              info?: any,
-              deadlines?: any,
-              payments: any
-            } = {
+            let controls: PriceControlsInterface = {
               id: [price.id, Validators.required],
               price: [price.price, [Validators.required]],
               price_cur: [price.price_cur, [Validators.required]],
@@ -68,13 +83,7 @@ export class EditFormPaymentComponent implements OnInit{
               info: [price.info],
               deadlines: dlArray,
               payments: this.fb.array(price.payments.map((payment: PaymentFormPayInterface) => {
-                let controls: {
-                  id: any,
-                  amount: any,
-                  amount_currency?: any,
-                  amount_currency_val?: any,
-                  date: any
-                } = {
+                let controls: PaymentControlsInterface = {
                   id: [payment.id, Validators.required],
                   amount: [payment.amount, [Validators.required]],
                   date: [payment.date]
@@ -97,18 +106,7 @@ export class EditFormPaymentComponent implements OnInit{
             };
             return this.fb.group(controls)
           } else {
-            let controls: {
-              id: any,
-                price: any,
-                price_cur: any,
-                date: any,
-                date_end: any,
-                status: any,
-                name?: any,
-                info?: any,
-                deadlines?: any,
-                payments: any
-            } = {
+            let controls: PriceControlsInterface = {
               id: [price.id, Validators.required],
               price: [price.price, [Validators.required]],
               price_cur: [price.price_cur, [Validators.required]],
@@ -138,18 +136,7 @@ export class EditFormPaymentComponent implements OnInit{
   }
 
   addPrice() {
-    let controls: {
-      id: any,
-      price: any,
-      price_cur: any,
-      date: any,
-      date_end: any,
-      name?: any,
-      info?: any,
-      deadlines?: any,
-      status?: any,
-      payments: any
-    } = {
+    let controls: PriceControlsInterface = {
       id: [null],
       price: [null, [Validators.required, Validators.min(1)]],
       price_cur: ['uah', [Validators.required, Validators.min(1)]],
@@ -189,13 +176,7 @@ export class EditFormPaymentComponent implements OnInit{
 
   addPayment(priceIndex: number) {
     const date = new Date().toISOString().slice(0, 16);
-    let controls: {
-      id: any,
-      amount: any,
-      amount_currency?: any,
-      amount_currency_val?: any,
-      date: any
-    } = {
+    let controls: PaymentControlsInterface = {
       id: [null],
       amount: [null, [Validators.required, Validators.min(1)]],
       amount_currency: [null],
@@ -225,7 +206,7 @@ export class EditFormPaymentComponent implements OnInit{
     this.getDeadlines(priceIndex).removeAt(deadlineIndex);
   }
 
-  changeAmountCur(priceIndex: number, paymentIndex: number, event: any): void {
+  changeAmountCur(priceIndex: number, paymentIndex: number, event: Event): void {
     // if (event.target.value !== '') {
     //   this.getPayments(priceIndex).at(paymentIndex).get('amount_currency')?.enable();
     //   this.getPayments(priceIndex).at(paymentIndex).get('amount')?.disable();
@@ -237,7 +218,7 @@ export class EditFormPaymentComponent implements OnInit{
     this.getPayments(priceIndex).at(paymentIndex).get('amount_currency')?.setValue('');
   }
 
-  inputAmountCur(priceIndex: number, paymentIndex: number, event: any): void {
+  inputAmountCur(priceIndex: number, paymentIndex: number, event: Event): void {
     const currency_type = this.getPayments(priceIndex).at(paymentIndex).get('amount_currency_val')?.value;
     let course = 0;
     if (currency_type === 'EUR') {
@@ -247,14 +228,13 @@ export class EditFormPaymentComponent implements OnInit{
       course = 41.5;
     }
     if (course > 0) {
-      this.getPayments(priceIndex).at(paymentIndex).get('amount')?.setValue((event.target.value * course));
+      this.getPayments(priceIndex).at(paymentIndex).get('amount')?.setValue((Number((event.target as HTMLInputElement).value) * course));
     }
   }
 
   submit():void {
-    if (this.form.status === 'VALID') {
-      const valueObj: any = this.form.value;
-      valueObj.parent_id = this.id;
+    if (this.form.status === 'VALID' && this.service !== null) {
+      const valueObj: FormPayloadInterface = {...this.form.value, parent_id: this.id};
       this.pendingModal = true;
       this.service.update(valueObj).subscribe((data: PaymentFormInterfaceRequest) => {
         if (data.success !== undefined) {

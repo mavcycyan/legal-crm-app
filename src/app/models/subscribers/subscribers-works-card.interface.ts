@@ -1,20 +1,20 @@
 export interface SubscribersWorksCardInterface {
   id: number,
   subscriber_id: number,
-  date: String,
+  date: string,
   what_done: {
-    data: String,
-    pending: Boolean
+    data: string,
+    pending: boolean
   }[],
-  responsible_advocate?: Number
-  result: String,
-  fee: String,
+  responsible_advocate?: number
+  result: string,
+  fee: string,
   workers_names?: string,
-  edit_path?: String
+  edit_path?: string
 }
 
 export interface SubscribersWorksCardInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: SubscribersWorksCardInterface
 }

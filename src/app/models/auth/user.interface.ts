@@ -13,14 +13,14 @@ export interface UserInterface {
 }
 
 export interface UserInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: UserInterface
 }
 
 export interface UsersInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: UserInterface[],
   all_items?: number
 }

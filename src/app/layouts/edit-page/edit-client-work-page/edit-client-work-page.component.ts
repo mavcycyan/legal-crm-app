@@ -90,10 +90,10 @@ export class EditClientWorkPageComponent implements OnInit{
           advocateField.choises_dd = this.advocatesList;
         }
         this.mainService.setPreloaderState(false);
-        return new Observable();
+        return new Observable<never>();
       })
     ).subscribe(
-      (work: any) => {
+      (work) => {
         this.data = work.data;
         this.isEdit = true;
         this.mainService.setPreloaderState(false);

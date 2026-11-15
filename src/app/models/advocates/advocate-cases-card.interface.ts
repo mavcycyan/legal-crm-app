@@ -1,25 +1,26 @@
 import {AdvocateWorksInterface} from "./advocate-works.interface";
 
 export interface AdvocateCaseCardInterface {
-  id: Number,
-  visit_date: String,
-  advocates: any,
-  proc_num: String,
-  plot: String,
+  id: number,
+  inactive?: number,
+  visit_date: string,
+  advocates: unknown,
+  proc_num: string,
+  plot: string,
   plot_big: string,
-  fee: String,
+  fee: string,
   pays: {
-      date: String,
-      summ: Number
+      date: string,
+      summ: number
   }[],
   result: string,
-  category: String,
-  advocate_id: Number,
+  category: string,
+  advocate_id: number,
   advocate_works: AdvocateWorksInterface[]
 }
 
 export interface AdvocateCaseCardInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: AdvocateCaseCardInterface
 }

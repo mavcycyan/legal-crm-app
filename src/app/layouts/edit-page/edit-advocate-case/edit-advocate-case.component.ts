@@ -124,10 +124,10 @@ export class EditAdvocateCaseComponent {
           clientField.choises_dd = this.clientsList;
         }
         this.mainService.setPreloaderState(false);
-        return new Observable();
+        return new Observable<never>();
       })
     ).subscribe(
-      (caseItem: any) => {
+      (caseItem) => {
         this.data = caseItem.data;
         this.isEdit = true;
         if (caseItem.data.inactive === 1) {

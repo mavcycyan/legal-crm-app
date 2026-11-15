@@ -9,6 +9,7 @@ import {
 import {ClientWorksService} from "../../../../../services/clients/client-works.service";
 import {ClientWorkPaymentsService} from "../../../../../services/clients/client-work-payments.service";
 import {PagiBackService} from "../../../../../services/helper/pagi.back.service";
+import {QueryParamsInterface} from "../../../../../models/api/api-response.interface";
 
 @Component({
   selector: 'app-client-works-list',
@@ -71,7 +72,7 @@ export class ClientWorksListComponent implements OnInit, OnDestroy {
             this.startPage = parseInt(queryParams['pageNum']);
           }
           this.id = params['id'];
-          let params_client:any = {
+          let params_client: QueryParamsInterface = {
             pag_size: this.pageSize,
             sort_dir: this.sortDirection,
             sort_field: this.sortBy
@@ -129,7 +130,7 @@ export class ClientWorksListComponent implements OnInit, OnDestroy {
           this.pageOffset = 0;
         }
       }
-      let params_client: any = {
+      let params_client: QueryParamsInterface = {
         pag_size: this.pageSize,
         pag_offset: this.pageOffset,
         sort_dir: this.sortDirection,

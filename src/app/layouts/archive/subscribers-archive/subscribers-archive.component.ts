@@ -7,6 +7,7 @@ import {Subscription} from "rxjs";
 import {SubscribersService} from "../../../services/subscribers/subscribers.service";
 import {MainService} from "../../../services/main/main.service";
 import {SubscriberPaymentsService} from "../../../services/subscribers/subscriber-payments.service";
+import {QueryParamsInterface} from "../../../models/api/api-response.interface";
 
 @Component({
   selector: 'app-subscribers-archive',
@@ -95,7 +96,7 @@ export class SubscribersArchiveComponent implements OnInit, OnDestroy{
         this.pageOffset = this.pageSize * (parseInt(event.value)-1);
       }
     }
-    let params: any = {
+    let params: QueryParamsInterface = {
       pag_size: this.pageSize,
       pag_offset: this.pageOffset,
       sort_dir: this.sortDirection,

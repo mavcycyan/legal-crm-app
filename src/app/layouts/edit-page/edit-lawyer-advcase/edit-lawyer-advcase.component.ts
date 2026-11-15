@@ -91,10 +91,10 @@ export class EditLawyerAdvcaseComponent {
           clientField.choises_dd = this.clientsList;
         }
         this.mainService.setPreloaderState(false);
-        return new Observable();
+        return new Observable<never>();
       }),
     ).subscribe(
-      (clientItem: any) => {
+      (clientItem) => {
         this.mainService.setPreloaderState(false);
       },
       (error) => {

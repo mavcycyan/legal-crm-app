@@ -18,7 +18,7 @@ interface EditBtnLink {
 
 export class MainPageComponent implements OnInit, OnDestroy{
   preloader: boolean = false;
-  name: String = '';
+  name: string = '';
   userType: string|null = '';
   btn: boolean = false;
 

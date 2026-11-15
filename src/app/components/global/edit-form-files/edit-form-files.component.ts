@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {FilesFormInterface, FilesFormInterfaceRequest} from "../../../models/forms/files-form.interface";
 import {HttpErrorResponse} from "@angular/common/http";
+import {FilesFormServiceInterface} from "../../../models/services/form-services.interface";
 
 @Component({
   selector: 'app-edit-form-files',
@@ -12,7 +13,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 export class EditFormFilesComponent implements OnInit, OnDestroy {
 
   @Input() id: number|null = null;
-  @Input() service: any;
+  @Input() service: FilesFormServiceInterface|null = null;
   @Output() modalState: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -25,7 +26,7 @@ export class EditFormFilesComponent implements OnInit, OnDestroy {
   subDelFiles$: Subscription = new Subscription()
 
   ngOnInit():void {
-    if (this.id !== null) {
+    if (this.id !== null && this.service !== null) {
       this.pendingModal = true;
       this.subFiles$ = this.service.getList(this.id).subscribe((files: FilesFormInterfaceRequest) => {
         this.filesList = files.data;
@@ -34,8 +35,8 @@ export class EditFormFilesComponent implements OnInit, OnDestroy {
     }
   }
 
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
+  onFileSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
       this.selectedFile = file;
     }
@@ -44,6 +45,9 @@ export class EditFormFilesComponent implements OnInit, OnDestroy {
   submit(): void {
     if (!this.selectedFile) {
       alert('Будь ласка, виберіть файл');
+      return;
+    }
+    if (this.id === null || this.service === null) {
       return;
     }
     const formData = new FormData();
@@ -69,7 +73,7 @@ export class EditFormFilesComponent implements OnInit, OnDestroy {
   }
 
   delete(id: number|undefined): void {
-    if (id !== undefined) {
+    if (id !== undefined && this.id !== null && this.service !== null) {
       this.pendingModal = true;
       this.subDelFiles$ = this.service.delete(id, this.id).subscribe((files: FilesFormInterfaceRequest) => {
           if (files.success === true) {

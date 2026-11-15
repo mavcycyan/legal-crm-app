@@ -4,8 +4,8 @@ export interface SubscriberCalculationInterface {
   current_month_data: SubscriberCalculationDataInterface[]
 }
 export interface SubscriberCalculationInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: SubscriberCalculationInterface,
   all_items?: number
 }

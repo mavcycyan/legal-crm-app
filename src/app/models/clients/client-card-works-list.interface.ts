@@ -1,22 +1,22 @@
 export interface ClientCardWorksListInterface {
   id: number,
   client_id: number,
-  visit_date: String,
-  visit_purpose: String,
+  visit_date: string,
+  visit_purpose: string,
   what_done: {
-    data: String,
-    pending: Boolean
+    data: string,
+    pending: boolean
   }[],
-  result: String,
-  fee: String,
+  result: string,
+  fee: string,
   fee_status: string,
   workers_names?: string,
-  edit_path?: String
+  edit_path?: string
 }
 
 export interface ClientCardWorksListInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: ClientCardWorksListInterface[],
   all_items?: number
 }

@@ -2,7 +2,7 @@ export interface TableAdvcaseclientInterface {
   case: {
     id: number,
     visit_date: string,
-    advocates: any,
+    advocates: unknown,
     proc_num: string,
     plot: string,
     plot_big: string,
@@ -23,7 +23,7 @@ export interface TableAdvcaseclientInterface {
 }
 
 export interface TableAdvcaseclientInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: TableAdvcaseclientInterface
 }

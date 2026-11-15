@@ -82,10 +82,10 @@ export class EditSubscriberPageComponent implements OnInit{
           advocateField.choises = this.advocatesList
         }
         this.mainService.setPreloaderState(false);
-        return new Observable();
+        return new Observable<never>();
       })
     ).subscribe(
-      (subscriber: any) => {
+      (subscriber) => {
         this.data = subscriber.data;
         this.isEdit = true;
         if (subscriber.data.inactive === 1) {

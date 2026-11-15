@@ -1,16 +1,16 @@
 export interface ClientsListInterface {
-  id: Number,
-  full_name: String,
-  where_knows: String,
-  birthday: String,
-  address: String,
-  phone: String,
+  id: number,
+  full_name: string,
+  where_knows: string,
+  birthday: string,
+  address: string,
+  phone: string,
   pending_works?: number
 }
 
 export interface ClientsListInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: ClientsListInterface[],
   all_items?: number
 }

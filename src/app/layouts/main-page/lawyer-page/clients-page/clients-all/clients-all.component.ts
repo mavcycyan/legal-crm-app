@@ -5,6 +5,7 @@ import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../../../
 import {MainService} from "../../../../../services/main/main.service";
 import {PagiBackService} from "../../../../../services/helper/pagi.back.service";
 import {ActivatedRoute, Params} from "@angular/router";
+import {QueryParamsInterface} from "../../../../../models/api/api-response.interface";
 
 @Component({
   selector: 'app-clients-all',
@@ -56,7 +57,7 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
         this.pageOffset = this.pageSize * (parseInt(queryParams['pageNum']) - 1);
         this.startPage = parseInt(queryParams['pageNum']);
       }
-      let params:any = {
+      let params: QueryParamsInterface = {
         pag_size: this.pageSize,
         sort_dir: this.sortDirection,
         sort_field: this.sortBy,
@@ -104,7 +105,7 @@ export class ClientsAllComponent  implements OnInit, OnDestroy{
         this.pageOffset = 0;
       }
     }
-    let params:any = {
+    let params: QueryParamsInterface = {
       pag_size: this.pageSize,
       pag_offset: this.pageOffset,
       sort_dir: this.sortDirection,

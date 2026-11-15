@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {animate, style, transition, trigger} from "@angular/animations";
+import {PageEventInterface} from "../../../models/api/api-response.interface";
 
 @Component({
   selector: 'app-filter',
@@ -29,7 +30,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
 export class FilterComponent {
   @Input() sort: {name: string, value: string}[] = [];
   @Input() filter: {name: string, value: string}[] = [];
-  @Output() updatePage: EventEmitter<any> = new EventEmitter();
+  @Output() updatePage: EventEmitter<PageEventInterface> = new EventEmitter<PageEventInterface>();
   modal: boolean = false;
 
   refreshData(name: string = '', value: string = '') {

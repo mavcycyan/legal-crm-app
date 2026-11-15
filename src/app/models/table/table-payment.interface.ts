@@ -22,7 +22,7 @@ export interface TablePaymentPayInterface {
   fin_client_work_price_id: number
 }
 export interface TablePaymentInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: TablePaymentInterface[]
 }

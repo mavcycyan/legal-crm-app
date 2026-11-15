@@ -10,6 +10,7 @@ import {SubscriberWorksService} from "../../../../../services/subscribers/subscr
 import {SubscriberPaymentsService} from "../../../../../services/subscribers/subscriber-payments.service";
 import {SubscriberWorkPaymentsService} from "../../../../../services/subscribers/subscriber-work-payments.service";
 import {PagiBackService} from "../../../../../services/helper/pagi.back.service";
+import {QueryParamsInterface} from "../../../../../models/api/api-response.interface";
 
 @Component({
   selector: 'app-subscriber-works-list',
@@ -71,7 +72,7 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
             this.startPage = parseInt(queryParams['pageNum']);
           }
           this.id = params['id'];
-          let params_client:any = {
+          let params_client: QueryParamsInterface = {
             pag_size: this.pageSize,
             sort_dir: this.sortDirection,
             sort_field: this.sortBy
@@ -129,7 +130,7 @@ export class SubscriberWorksListComponent implements OnInit, OnDestroy {
           this.pageOffset = 0;
         }
       }
-      let params_client:any = {
+      let params_client: QueryParamsInterface = {
         pag_size: this.pageSize,
         pag_offset: this.pageOffset,
         sort_dir: this.sortDirection,
