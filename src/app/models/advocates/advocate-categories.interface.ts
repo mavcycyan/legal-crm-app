@@ -1,12 +1,12 @@
 export interface AdvocateCategoriesInterface {
-  id: Number,
-  name: String,
-  slug: String
+  id: number,
+  name: string,
+  slug: string
 }
 
 export interface AdvocateCategoriesInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: AdvocateCategoriesInterface[],
   response_extras?: {
     response: string
@@ -14,8 +14,8 @@ export interface AdvocateCategoriesInterfaceRequest {
 }
 
 export interface AdvocateCategoryInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: AdvocateCategoriesInterface,
   response_extras?: {
     response: string

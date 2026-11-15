@@ -14,6 +14,7 @@ import {MainService} from "../../../services/main/main.service";
 import {AdvocateCasePaymentsService} from "../../../services/advocate/advocate-case-payments.service";
 import {AdvocateCaseTblService} from "../../../services/advocate/advocate-case-tbl.service";
 import {AdvocateCaseService} from "../../../services/advocate/advocate-case.service";
+import {QueryParamsInterface} from "../../../models/api/api-response.interface";
 
 @Component({
   selector: 'app-advocate-cases-archive',
@@ -133,7 +134,7 @@ export class AdvocateCasesArchiveComponent implements OnInit, OnDestroy {
               this.pageOffset = 0;
             }
           }
-          let params_case: any = {
+          let params_case: QueryParamsInterface = {
             pag_size: this.pageSize,
             pag_offset: this.pageOffset,
             sort_dir: this.sortDirection,

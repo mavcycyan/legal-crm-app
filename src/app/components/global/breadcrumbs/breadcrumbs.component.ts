@@ -7,7 +7,7 @@ import {PagiBackService} from "../../../services/helper/pagi.back.service";
   styleUrls: ['./breadcrumbs.component.scss']
 })
 export class BreadcrumbsComponent implements OnInit {
-  crumbs: Record<string, {link: string, queryParams: Record<string, any>}> = {}
+  crumbs: Record<string, {link: string, queryParams: Record<string, string>}> = {}
   @Input() maxCrumb?: number;
   constructor(private pagiBackService: PagiBackService) {
   }
@@ -16,7 +16,7 @@ export class BreadcrumbsComponent implements OnInit {
     let sessionCrumbs: Record<string, string> = this.pagiBackService.linksGet();
     Object.keys(sessionCrumbs).forEach((item: string, i: number) => {
       let link = '';
-      let queryParams: Record<string, any> = {};
+      let queryParams: Record<string, string> = {};
       let objVal = Object.values(sessionCrumbs)[i];
       if (objVal.indexOf('?') !== -1) {
         let objValArr = objVal.split('?');

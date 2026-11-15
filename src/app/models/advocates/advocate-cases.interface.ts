@@ -1,17 +1,17 @@
 export interface AdvocateCasesInterface {
-  id: Number,
-  visit_date: String,
-  advocates: any,
-  proc_num: String,
-  plot: String,
-  fee: String,
+  id: number,
+  visit_date: string,
+  advocates: unknown,
+  proc_num: string,
+  plot: string,
+  fee: string,
   pays: {
-      date: String,
-      summ: Number
+      date: string,
+      summ: number
   }[],
-  result: String,
-  category: String,
-  advocate_id: Number,
+  result: string,
+  category: string,
+  advocate_id: number,
   advocate_name?: string,
   advocates_names?: string,
   client_name?: string,
@@ -19,8 +19,8 @@ export interface AdvocateCasesInterface {
 }
 
 export interface AdvocateCasesInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: AdvocateCasesInterface[],
   all_items?: number,
   response_extras?: {
@@ -29,7 +29,7 @@ export interface AdvocateCasesInterfaceRequest {
 }
 
 export interface AdvocateCaseInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: AdvocateCasesInterface
 }

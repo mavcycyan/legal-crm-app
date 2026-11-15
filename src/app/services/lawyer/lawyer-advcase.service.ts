@@ -11,6 +11,7 @@ import {AdvocateCasesInterfaceRequest} from "../../models/advocates/advocate-cas
 import {AdvocateCaseCardInterfaceRequest} from "../../models/advocates/advocate-cases-card.interface";
 import {ClientsListInterfaceRequest} from "../../models/clients/clients-list.interface";
 import {AdvocatesListInterfaceRequest} from "../../models/advocates/advocates-list.interface";
+import {ApiSaveResponseInterface, FormPayloadInterface} from "../../models/api/api-response.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class LawyerAdvcaseService {
   constructor(private httpClient: HttpClient,
               private router: Router) { }
 
-  save(data: any): Observable<any> {
-    return this.httpClient.post(`${globals.api_url}/api/lawyer_advocates_cases`, data);
+  save(data: FormPayloadInterface): Observable<ApiSaveResponseInterface> {
+    return this.httpClient.post<ApiSaveResponseInterface>(`${globals.api_url}/api/lawyer_advocates_cases`, data);
   }
 
   getAdvocatesList(params: {} = {}): Observable<AdvocatesListInterfaceRequest> {

@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {ClientsListInterfaceRequest} from "../../models/clients/clients-list.interface";
 import {globals} from "../../../globals/globals";
 import {ClientsCardInterfaceRequest} from "../../models/clients/clients-card.interface";
+import {ApiResponseInterface, ApiSaveResponseInterface, FormPayloadInterface} from "../../models/api/api-response.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -30,16 +31,16 @@ export class AdvocateClientsService {
     return this.httpClient.get<ClientsCardInterfaceRequest>(`${globals.api_url}/api/advocates_clients/${id}`);
   }
 
-  save(data: any): Observable<any> {
-    return this.httpClient.post(`${globals.api_url}/api/advocates_clients`, data);
+  save(data: FormPayloadInterface): Observable<ApiSaveResponseInterface> {
+    return this.httpClient.post<ApiSaveResponseInterface>(`${globals.api_url}/api/advocates_clients`, data);
   }
 
-  update(id: number, data: any): Observable<any> {
-    return this.httpClient.put(`${globals.api_url}/api/advocates_clients/${id}`, data);
+  update(id: number, data: FormPayloadInterface): Observable<ApiSaveResponseInterface> {
+    return this.httpClient.put<ApiSaveResponseInterface>(`${globals.api_url}/api/advocates_clients/${id}`, data);
   }
 
-  remove(id: number): Observable<any> {
-    return this.httpClient.delete(`${globals.api_url}/api/advocates_clients/${id}`);
+  remove(id: number): Observable<ApiResponseInterface> {
+    return this.httpClient.delete<ApiResponseInterface>(`${globals.api_url}/api/advocates_clients/${id}`);
   }
 
 

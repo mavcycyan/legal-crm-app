@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {animate, style, transition, trigger} from "@angular/animations";
+import {FilesFormServiceInterface} from "../../../models/services/form-services.interface";
 
 @Component({
   selector: 'app-table-card',
@@ -21,7 +22,7 @@ export class TableCardComponent {
   @Input() columns: Array<{name: string, slug: string, type?: string}> = [];
   @Input() data: any = [];
   @Input() hasMore: boolean = false;
-  @Input() filesService: any;
+  @Input() filesService: FilesFormServiceInterface|null = null;
   @Input() id: number|null = null;
 
   filemodal: boolean = false;

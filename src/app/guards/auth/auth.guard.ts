@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
     return false;
   }
 
-  checkAccess(): Boolean {
+  checkAccess(): boolean {
     return this.authService.checkUser();
   }
 

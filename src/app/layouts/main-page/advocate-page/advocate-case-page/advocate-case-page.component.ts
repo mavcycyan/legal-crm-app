@@ -15,6 +15,7 @@ import {
 import {AdvocateCasePaymentsService} from "../../../../services/advocate/advocate-case-payments.service";
 import {AdvocateCaseTblService} from "../../../../services/advocate/advocate-case-tbl.service";
 import {PagiBackService} from "../../../../services/helper/pagi.back.service";
+import {QueryParamsInterface} from "../../../../models/api/api-response.interface";
 
 @Component({
   selector: 'app-advocate-case-page',
@@ -84,7 +85,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
           const id = params['id'];
           const advocateId: number = (id !== 'personal') ? id : sessionStorage.getItem('userId');
           this.advId = id;
-          let params_case:any = {
+          let params_case: QueryParamsInterface = {
             pag_size: this.pageSize,
             sort_dir: this.sortDirection,
             sort_field: this.sortBy
@@ -169,7 +170,7 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
               this.pageOffset = 0;
             }
           }
-          let params_case: any = {
+          let params_case: QueryParamsInterface = {
             pag_size: this.pageSize,
             pag_offset: this.pageOffset,
             sort_dir: this.sortDirection,
@@ -228,10 +229,10 @@ export class AdvocateCasePageComponent  implements OnInit, OnDestroy {
       )
   }
 
-  isAdvocateCasesResponse(data: any): data is AdvocateCasesInterfaceRequest {
-    return data && data.response_extras.response === 'cases';
+  isAdvocateCasesResponse(data: AdvocateCasesInterfaceRequest|AdvocateCategoriesInterfaceRequest): data is AdvocateCasesInterfaceRequest {
+    return data.response_extras?.response === 'cases';
   }
-  isAdvocateCategoriesResponse(data: any): data is AdvocateCategoriesInterfaceRequest {
-    return data && data.response_extras.response === 'subcategories';
+  isAdvocateCategoriesResponse(data: AdvocateCasesInterfaceRequest|AdvocateCategoriesInterfaceRequest): data is AdvocateCategoriesInterfaceRequest {
+    return data.response_extras?.response === 'subcategories';
   }
 }

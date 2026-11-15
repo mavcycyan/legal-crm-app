@@ -1,28 +1,28 @@
 export interface AdvocateWorksInterface {
   id: number,
-  advocate_case_id: Number,
-  date: String,
+  advocate_case_id: number,
+  date: string,
   name: string,
   what_done: {
-    data: String,
-    pending: Boolean
+    data: string,
+    pending: boolean
   }[],
-  result: String,
+  result: string,
   workers_names?: string,
-  edit_path?: String
+  edit_path?: string
 }
 
 
 
 export interface AdvocateWorksInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: AdvocateWorksInterface
 }
 
 export interface AdvocateWorksListInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: AdvocateWorksInterface[],
   all_items?: number
 }

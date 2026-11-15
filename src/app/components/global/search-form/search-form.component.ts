@@ -1,4 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {PageEventInterface} from "../../../models/api/api-response.interface";
 
 @Component({
   selector: 'app-search-form',
@@ -9,7 +10,7 @@ export class SearchFormComponent {
 
   @Input() field: string = '';
   @Input() placeholder: string = '';
-  @Output() updatePage: EventEmitter<any> = new EventEmitter();
+  @Output() updatePage: EventEmitter<PageEventInterface> = new EventEmitter<PageEventInterface>();
   @ViewChild('searchForm') searchForm!: ElementRef;
 
 

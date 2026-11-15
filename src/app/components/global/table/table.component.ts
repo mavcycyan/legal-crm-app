@@ -1,6 +1,10 @@
 import {AfterViewInit, Component, ElementRef, Input, Output, ViewChild} from '@angular/core';
 import {animate, style, transition, trigger} from "@angular/animations";
-import {TablePaymentInterface, TablePaymentInterfaceRequest} from "../../../models/table/table-payment.interface";
+import {PaymentFormInterface, PaymentFormInterfaceRequest} from "../../../models/forms/payment-form.interface";
+import {
+  PaymentsFormServiceInterface,
+  TableAdvcaseServiceInterface
+} from "../../../models/services/form-services.interface";
 import {Subscription} from "rxjs";
 import {
   TableAdvcaseclientInterface,
@@ -27,15 +31,15 @@ export class TableComponent implements AfterViewInit{
   @Input() columns: Array<{name: string, slug: string, type?: string}> = [];
   @Input() data: any = [];
   @Input() tableClass: string = '';
-  @Input() tablePaymentService: any = null;
-  @Input() advCaseService: any = null;
+  @Input() tablePaymentService: Pick<PaymentsFormServiceInterface, 'getList'>|null = null;
+  @Input() advCaseService: TableAdvcaseServiceInterface|null = null;
 
   @Input() pageOffset: number = 0;
 
 
   subMdl$: Subscription = new Subscription();
   paymodal: boolean = false;
-  payModalList: TablePaymentInterface[] = [];
+  payModalList: PaymentFormInterface[] = [];
   advCaseModalList: TableAdvcaseclientInterface = {} as TableAdvcaseclientInterface;
   advcaseClient: boolean = false;
   pendingModal: boolean = false;
@@ -49,7 +53,7 @@ export class TableComponent implements AfterViewInit{
     if (id !== null && this.tablePaymentService !== null && this.tablePaymentService !== undefined) {
       this.pendingModal = true;
       this.paymodal = true;
-      this.subMdl$ = this.tablePaymentService.getList(id).subscribe((list: TablePaymentInterfaceRequest) => {
+      this.subMdl$ = this.tablePaymentService.getList(id).subscribe((list: PaymentFormInterfaceRequest) => {
         this.payModalList = list.data;
         this.pendingModal = false;
       })

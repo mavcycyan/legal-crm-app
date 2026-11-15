@@ -1,20 +1,20 @@
 export interface SubscribersWorksListInterface {
   id?: number,
   subscriber_id: number,
-  date: String,
+  date: string,
   what_done: {
-    data: String,
-    pending: Boolean
+    data: string,
+    pending: boolean
   }[],
-  responsible_advocate?: Number
-  result: String,
+  responsible_advocate?: number
+  result: string,
   workers_names?: string,
   fee: string
 }
 
 export interface SubscribersWorksListInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: SubscribersWorksListInterface[],
   all_items?: number
 }

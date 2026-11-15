@@ -8,6 +8,7 @@ import {MainService} from "../../../../services/main/main.service";
 import {combineLatest, Subscription} from "rxjs";
 import {AdvocateWorkService} from "../../../../services/advocate/advocate-work.service";
 import {PagiBackService} from "../../../../services/helper/pagi.back.service";
+import {QueryParamsInterface} from "../../../../models/api/api-response.interface";
 
 @Component({
   selector: 'app-advocate-works-list',
@@ -50,7 +51,7 @@ export class AdvocateWorksListComponent {
             this.pageOffset = this.pageSize * (parseInt(queryParams['pageNum']) - 1);
             this.startPage = parseInt(queryParams['pageNum']);
           }
-          let params_client:any = {
+          let params_client: QueryParamsInterface = {
             pag_size: this.pageSize
           };
           if (this.pageOffset > 0) {
@@ -85,7 +86,7 @@ export class AdvocateWorksListComponent {
           }
         }
       }
-      let params_client: any = {
+      let params_client: QueryParamsInterface = {
         pag_size: this.pageSize
       };
       this.pagiBackService.linksSet('backSingle', window.location.pathname + backLinkPathname);

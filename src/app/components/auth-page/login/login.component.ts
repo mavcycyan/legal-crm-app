@@ -40,7 +40,7 @@ export class LoginComponent implements OnDestroy{
             }
             this.updateLoadingState(false);
           },
-          (error: any) => {
+          (error: unknown) => {
             alert(error);
             this.updateLoadingState(false);
           })

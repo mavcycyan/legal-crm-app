@@ -13,6 +13,11 @@ import {TablePaymentInterfaceRequest} from "../../../../../models/table/table-pa
 import {animate, style, transition, trigger} from "@angular/animations";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {PagiBackService} from "../../../../../services/helper/pagi.back.service";
+import {
+  ApiResponseInterface,
+  ApiSaveResponseInterface,
+  FormPayloadInterface
+} from "../../../../../models/api/api-response.interface";
 
 @Component({
   selector: 'app-subscribers-calculations',
@@ -228,7 +233,7 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
       chalk: string,
       date: string,
       subscriber_id: number|undefined,
-      payments?: FormArray<FormControl<any>>
+      payments?: FormArray
     } = {
       id: '',
       chalk: this.dataModalInfo.data.chalk,
@@ -237,7 +242,7 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
     };
     if (this.dataModalInfo.data.payments !== undefined && this.dataModalInfo.data.payments.length > 0) {
       const formArray = this.fb.array(
-        this.dataModalInfo.data.payments.map((obj: any) => {
+        this.dataModalInfo.data.payments.map((obj) => {
             const date = new Date(obj.date);
 
             const year = date.getFullYear();
@@ -263,12 +268,12 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
 
   submit():void {
     if (this.form.status === 'VALID') {
-      const valueObj: any = this.form.value;
+      const valueObj: FormPayloadInterface = this.form.value;
       this.mainService.setPreloaderState(true);
       if(this.isEditModal) {
         if(this.modalId !== null) {
           this.pendingModal = true;
-          this.subCalcService.update(this.modalId, valueObj).subscribe((response: any) => {
+          this.subCalcService.update(this.modalId, valueObj).subscribe((response: ApiSaveResponseInterface) => {
               if (response.success !== undefined) {
                 if (response.success == true) {
                   this.modalDataSent = true;
@@ -277,7 +282,7 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
                 }
               }
             },
-            (error: any) => {
+            (error: unknown) => {
               alert(error);
               this.pendingModal = false;
               this.dataModalClose();
@@ -285,7 +290,7 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
         }
       } else {
         this.pendingModal = true;
-        this.subCalcService.save(valueObj).subscribe((response: any) => {
+        this.subCalcService.save(valueObj).subscribe((response: ApiSaveResponseInterface) => {
             if (response.success !== undefined) {
               if (response.success == true) {
                 this.modalDataSent = true;
@@ -294,7 +299,7 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
               }
             }
           },
-          (error: any) => {
+          (error: unknown) => {
             alert(error);
             this.pendingModal = false;
             this.dataModalClose();
@@ -305,10 +310,10 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
 
   submitStpr():void {
     if (this.form.status === 'VALID') {
-      const valueObj: any = this.formStpr.value;
+      const valueObj: {id: string, stop_reason: string} = this.formStpr.value;
       this.mainService.setPreloaderState(true);
       this.pendingModal = true;
-      this.subCalcService.stopReasonUpdate(valueObj.id, valueObj).subscribe((response: any) => {
+      this.subCalcService.stopReasonUpdate(valueObj.id, valueObj).subscribe((response: ApiResponseInterface) => {
           if (response.success !== undefined) {
             if (response.success == true) {
               this.modalDataStprSent = true;
@@ -317,7 +322,7 @@ export class SubscribersCalculationsComponent implements OnInit, OnDestroy, Afte
             }
           }
         },
-        (error: any) => {
+        (error: unknown) => {
           alert(error);
           this.pendingModal = false;
           this.dataModalStprClose();

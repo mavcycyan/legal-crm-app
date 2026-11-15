@@ -7,6 +7,7 @@ import {
 import {globals} from "../../../globals/globals";
 import {Router} from "@angular/router";
 import {ClientCardWorksListInterfaceRequest} from "../../models/clients/client-card-works-list.interface";
+import {ApiResponseInterface, ApiSaveResponseInterface, FormPayloadInterface} from "../../models/api/api-response.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -30,16 +31,16 @@ export class ClientWorksService {
     return this.httpClient.get<ClientWorksCardInterfaceRequest>(`${globals.api_url}/api/client_works/${id}`);
   }
 
-  save(data: any): Observable<any> {
-    return this.httpClient.post(`${globals.api_url}/api/client_works`, data);
+  save(data: FormPayloadInterface): Observable<ApiSaveResponseInterface> {
+    return this.httpClient.post<ApiSaveResponseInterface>(`${globals.api_url}/api/client_works`, data);
   }
 
-  update(id: number, data: any): Observable<any> {
-    return this.httpClient.put(`${globals.api_url}/api/client_works/${id}`, data);
+  update(id: number, data: FormPayloadInterface): Observable<ApiSaveResponseInterface> {
+    return this.httpClient.put<ApiSaveResponseInterface>(`${globals.api_url}/api/client_works/${id}`, data);
   }
 
-  remove(id: number): Observable<any> {
-    return this.httpClient.delete(`${globals.api_url}/api/client_works/${id}`);
+  remove(id: number): Observable<ApiResponseInterface> {
+    return this.httpClient.delete<ApiResponseInterface>(`${globals.api_url}/api/client_works/${id}`);
   }
 
   redirectSuccess(id: number|null = null) {

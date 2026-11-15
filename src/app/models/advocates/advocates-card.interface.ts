@@ -1,15 +1,15 @@
 export interface AdvocatesCardInterface {
-  id: Number,
-  email: String,
-  password: String,
-  full_name: String,
-  birthday: String,
-  address: String,
-  phone: String,
+  id: number,
+  email: string,
+  password: string,
+  full_name: string,
+  birthday: string,
+  address: string,
+  phone: string,
 }
 
 export interface AdvocatesCardInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: AdvocatesCardInterface
 }

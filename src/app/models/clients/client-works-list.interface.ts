@@ -1,21 +1,21 @@
 export interface ClientWorksListInterface {
-  id: Number,
-  visit_date: String,
-  visit_purpose: String,
-  full_name: String,
-  where_knows: String,
-  birthday: String,
-  phone: String,
-  result: String,
-  fee: String,
+  id: number,
+  visit_date: string,
+  visit_purpose: string,
+  full_name: string,
+  where_knows: string,
+  birthday: string,
+  phone: string,
+  result: string,
+  fee: string,
   fee_status: string,
-  client_id: Number,
-  custom_path?: String
+  client_id: number,
+  custom_path?: string
 }
 
 export interface ClientWorksListInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: ClientWorksListInterface[],
   all_items?: number
 }

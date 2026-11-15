@@ -1,16 +1,16 @@
 export interface AdvocatesListInterface {
-  id: Number,
-  email: String,
-  password: String,
-  name: String,
-  birthday: String,
-  address: String,
-  phone: String,
+  id: number,
+  email: string,
+  password: string,
+  name: string,
+  birthday: string,
+  address: string,
+  phone: string,
 }
 
 export interface AdvocatesListInterfaceRequest {
-  success: Boolean,
-  message: String,
+  success: boolean,
+  message: string,
   data: AdvocatesListInterface[],
   all_items?: number
 }

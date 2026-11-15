@@ -3,6 +3,7 @@ import {ClientsListInterface, ClientsListInterfaceRequest} from "../../../models
 import {Subscription} from "rxjs";
 import {ClientsService} from "../../../services/clients/clients.service";
 import {MainService} from "../../../services/main/main.service";
+import {QueryParamsInterface} from "../../../models/api/api-response.interface";
 
 @Component({
   selector: 'app-clients-archive',
@@ -63,7 +64,7 @@ export class ClientsArchiveComponent implements OnInit, OnDestroy{
         this.pageOffset = this.pageSize * (parseInt(event.value)-1);
       }
     }
-    let params: any = {
+    let params: QueryParamsInterface = {
       pag_size: this.pageSize,
       pag_offset: this.pageOffset,
       sort_dir: this.sortDirection,

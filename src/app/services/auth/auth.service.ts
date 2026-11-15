@@ -4,6 +4,7 @@ import {ResponseHttpLogin, ResponseHttpPasswordReset} from "../../models/auth/re
 import {catchError, map, Observable, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {globals} from "../../../globals/globals";
+import {FormPayloadInterface} from "../../models/api/api-response.interface";
 
 export interface UserInterface {
   email: string,
@@ -59,12 +60,12 @@ export class AuthService {
   }
 
 
-  getName(): String {
+  getName(): string {
     return sessionStorage.getItem('currentUser') ?? '';
   }
 
 
-  checkPermission(urlSegment: UrlSegment[]): {permission: boolean, redirect?: String[]} {
+  checkPermission(urlSegment: UrlSegment[]): {permission: boolean, redirect?: string[]} {
     const userType = this.getUserType();
     if (userType !== null) {
       if (urlSegment.length === 0) {
@@ -123,7 +124,7 @@ export class AuthService {
     }
     return null;
   }
-  passwordReset(id: number, data: any): Observable<ResponseHttpPasswordReset> {
+  passwordReset(id: number, data: FormPayloadInterface): Observable<ResponseHttpPasswordReset> {
     return this.httpClient.post<ResponseHttpPasswordReset>(`${globals.api_url}/api/password_reset/${id}`, data)
   }
 }

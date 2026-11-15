@@ -14,7 +14,7 @@ export class PermissionsGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const permission: {permission: boolean, redirect?: String[]} = this.checkPermission(route.url);
+    const permission: {permission: boolean, redirect?: string[]} = this.checkPermission(route.url);
     if (permission.permission) {
       return true;
     }
@@ -22,11 +22,11 @@ export class PermissionsGuard implements CanActivate {
     return false;
   }
 
-  checkPermission(urlSegment: UrlSegment[]): {permission: boolean, redirect?: String[]} {
+  checkPermission(urlSegment: UrlSegment[]): {permission: boolean, redirect?: string[]} {
     return this.authService.checkPermission(urlSegment);
   }
 
-  redirectTo(redirect: String[] = ['']): void {
+  redirectTo(redirect: string[] = ['']): void {
     this.router.navigate(redirect);
   }
 

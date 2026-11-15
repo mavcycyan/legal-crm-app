@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {PaymentFormInterfaceRequest} from "../../models/forms/payment-form.interface";
 import {globals} from "../../../globals/globals";
 import {SubscriberCalculationInterfaceRequest} from "../../models/calculations/subscriber-calculation-interface";
+import {ApiResponseInterface, ApiSaveResponseInterface, FormPayloadInterface} from "../../models/api/api-response.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +26,15 @@ export class SubscribersCalculationsService {
     return this.httpClient.get<SubscriberCalculationInterfaceRequest>(`${globals.api_url}/api/calculations/subscribers${params_str}`);
   }
 
-  save(data: any): Observable<any> {
-    return this.httpClient.post(`${globals.api_url}/api/calculations/subscribers`, data);
+  save(data: FormPayloadInterface): Observable<ApiSaveResponseInterface> {
+    return this.httpClient.post<ApiSaveResponseInterface>(`${globals.api_url}/api/calculations/subscribers`, data);
   }
 
-  update(id: number, data: any): Observable<any> {
-    return this.httpClient.put(`${globals.api_url}/api/calculations/subscribers/${id}`, data);
+  update(id: number, data: FormPayloadInterface): Observable<ApiSaveResponseInterface> {
+    return this.httpClient.put<ApiSaveResponseInterface>(`${globals.api_url}/api/calculations/subscribers/${id}`, data);
   }
 
-  stopReasonUpdate(id: number, data: any): Observable<any> {
-    return this.httpClient.put(`${globals.api_url}/api/subscribers_stop_reason/${id}`, data);
+  stopReasonUpdate(id: number|string, data: FormPayloadInterface): Observable<ApiResponseInterface> {
+    return this.httpClient.put<ApiResponseInterface>(`${globals.api_url}/api/subscribers_stop_reason/${id}`, data);
   }
 }

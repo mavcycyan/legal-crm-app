@@ -132,7 +132,7 @@
               (data.role_id !== 1 && data.role_id !== 2) ||
               (
                 (data.role_id === 1 || data.role_id === 2) &&
-                data.id == sessionStorage.getItem('userId')
+                data.id?.toString() === sessionStorage.getItem('userId')
               )
             )">
               <button type="button" (click)="passResModalOpen()" class="btn btn-primary">Скинути пароль</button>

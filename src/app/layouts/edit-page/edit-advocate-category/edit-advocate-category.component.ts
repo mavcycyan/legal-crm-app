@@ -60,9 +60,9 @@ export class EditAdvocateCategoryComponent {
           catField.choises = this.advocateCatsList;
         }
         this.mainService.setPreloaderState(false);
-        return new Observable();
+        return new Observable<never>();
       })
-    ).subscribe((advocate: any) => {
+    ).subscribe((advocate) => {
       this.data = advocate.data;
       this.isEdit = true;
       this.mainService.setPreloaderState(false);

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {PaymentFormInterfaceRequest} from "../../models/forms/payment-form.interface";
 import {globals} from "../../../globals/globals";
+import {FormPayloadInterface} from "../../models/api/api-response.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AdvocateCasePaymentsService {
     return this.httpClient.get<PaymentFormInterfaceRequest>(`${globals.api_url}/api/fin/advocatecases/prices?parent_id=${id}`);
   }
 
-  update(data: any): Observable<any> {
-    return this.httpClient.put(`${globals.api_url}/api/fin/advocatecases/prices_bulk_update`, data);
+  update(data: FormPayloadInterface): Observable<PaymentFormInterfaceRequest> {
+    return this.httpClient.put<PaymentFormInterfaceRequest>(`${globals.api_url}/api/fin/advocatecases/prices_bulk_update`, data);
   }
 }
